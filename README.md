@@ -131,8 +131,8 @@ What it shows, from top to bottom:
 - **Your say (pick and vote, no typing needed):**
   - *Council says vs you see.* Tick the situations you have run into, under three tabs: square, Chinatown and traffic. Each item pairs a team-written example (labelled as one, not a real resident report) with what Council says, cited to source and page. Where no source gives a figure, the item says "no official figure · evidence gap". You can add your own item by tapping a place and an issue.
   - *Pick one of two.* Eight quick rounds of "which use should get 100 m² more?" across the 10 uses, which give you a ranking.
-  - Free-text feedback is still there as an optional extra. Vote counts start at 0 and come only from demo submissions in that browser. Items you add appear only to people using the same browser. The demo has no server.
-- **Council backend tab:** tallies per option, each with its source and its D/P/A role, behind the 10-submission privacy threshold. A demo preview button shows them earlier.
+  - Free-text feedback is still there as an optional extra. Vote counts are **simulated** (source D1 in `docs/SOURCES.md`): 96 seeded synthetic respondents, labelled "Simulated" on every count, plus your own votes, marked "your vote". A toggle switches to "only my votes", which start at 0. "About this data" explains the method and how real data would be collected through Participate Parramatta, QR signs and library tablets. Items you add appear only to people using the same browser. The demo has no server.
+- **Council backend tab:** tallies by option and by role, and age-band counts, each with its source and its D/P/A role. The 10-person threshold applies to each group, so the 8 simulated visitors stay hidden. Every tally is labelled "Simulated".
 - **Other tabs:** a demo Council backend and the evidence ledger.
 
 The square's layout is indicative, not a design. Model values are ranges from team assumptions, and every Council fact opens to its source.

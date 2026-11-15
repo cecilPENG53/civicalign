@@ -256,6 +256,24 @@ svg.iso .plate{filter:drop-shadow(0 2px 3px rgba(0,0,0,.25))}
 .tl2{display:flex;align-items:center;gap:8px;margin-top:4px}
 .tbar{flex:1;height:8px;border-radius:4px;background:var(--surface-2);overflow:hidden}.tbar span{display:block;height:100%;background:var(--accent)}
 .tn{font-family:var(--f-mono);font-variant-numeric:tabular-nums;font-weight:600}.tn small{color:var(--muted);font-weight:400}
+/* simulated votes (D1) */
+.t-sim{background:transparent;border:1px dashed var(--infer);color:var(--infer);line-height:1.35}
+.t-mine{background:var(--accent);color:var(--on-accent)}
+.ob-n.sim{display:grid;justify-items:center;line-height:1.15;padding:3px 10px;border-style:dashed;border-color:var(--infer)}
+.ob-n i{font-style:normal;font-size:10px;color:var(--infer);font-family:var(--f-body);font-weight:500}
+.ob-mix{display:inline-flex;gap:6px;align-items:center;flex-wrap:wrap;margin-left:auto}
+.vsimrow .pill button{font-size:12.5px;padding:3px 10px}
+.vabout{border:1px dashed var(--infer);border-radius:12px;padding:8px 12px;font-size:13.5px;background:var(--infer-bg)}
+.vabout summary{cursor:pointer;font-weight:600;color:var(--infer)}
+.vabout p{margin:8px 0 0}
+.vlean{margin:8px 0 0;padding-left:18px;display:grid;gap:4px}
+.vlast{margin:8px 0 0;text-align:center}
+.thr .t-sim{flex:0 0 auto}
+.trole{display:flex;flex-wrap:wrap;gap:4px 12px;font-size:12.5px;margin-top:4px}
+.trole b{font-family:var(--f-mono)}
+.gh{color:var(--muted)}.gh small{font-size:11px}
+.vgroups{margin:0;padding-left:18px;display:grid;gap:4px;font-size:13.5px}
+.sendbtns{display:flex;gap:8px;flex-wrap:wrap}
 </style>
 
 <header class="top"><div class="wrap">
@@ -389,7 +407,7 @@ function resultsInner(){const r=resultsRows();
 function results(){return `<section class="wrap ch" id="c-res"><div class="card enter" id="resBox">${resultsInner()}</div></section>`;}
 function decide(){
   const adv=["tr6","tr7","ct6","ct7","sq10"];
-  return `<section class="wrap ch" id="c-say" style="padding-bottom:40px"><div class="ch-h"><div class="eyebrow">${L("第 4 章 · 你怎么看、谁负责","Chapter 4 · Your view and who decides")}</div><h2>${L("点一点、比一比，告诉 Council 你的看法","Tap and compare to tell Council what you think")}</h2><p>${L("不用打字：勾选你也遇到过的情况，再做几轮二选一。每条“Council 说”都能点开原文。","No typing needed: tick what you've run into, then do a few pick-one-of-two rounds. Every "Council says" line opens to the original.")}</p></div>
+  return `<section class="wrap ch" id="c-say" style="padding-bottom:40px"><div class="ch-h"><div class="eyebrow">${L("第 4 章 · 你怎么看、谁负责","Chapter 4 · Your view and who decides")}</div><h2>${L("点一点、比一比，告诉 Council 你的看法","Tap and compare to tell Council what you think")}</h2><p>${L("不用打字：勾选你也遇到过的情况，再做几轮二选一。每条“Council 说”都能点开原文。","No typing needed: tick what you've run into, then do a few pick-one-of-two rounds. Every \"Council says\" line opens to the original.")}</p></div>
    ${voteSection()}
    <div class="card" style="margin-top:14px"><div id="dpaBox">${dpaCards()}</div>
      <h3 style="font-size:15px;margin:14px 0 4px">${L("广场本身决定不了、要等别人的事","Outside the square's control")}</h3>${claimsById(adv)}</div></section>`;
@@ -403,11 +421,11 @@ function openQuest(id){const [t,ids]=QUESTS()[id];
 function councilTab(){
   return `<div class="wrap tabpage"><div class="banner"><b>${L("演示后台。","Demo backend.")}</b> ${TEAM_CHECKED()} ${L("居民端的分配会实时反映到下面的原则检查。","The resident's split feeds the principle check below live.")}</div>
    <div class="cgrid">
-    <div class="card vwide"><h2 style="font-size:18px">${L("居民投票汇总（演示）","Resident votes (demo)")}</h2><div id="tallyBox">${tallyPanel()}</div></div>
-    <div class="card"><h2 style="font-size:18px">${L("居民提交 · 隐私门槛","Submissions · privacy threshold")}</h2><div id="subsBox">${subsPanel()}</div></div>
+    <div class="card"><h2 style="font-size:18px">${L("居民提交 · 隐私门槛","Submissions · privacy threshold")}</h2>${subsPanel()}</div>
     <div class="card"><h2 style="font-size:18px">${L("总规原则检查 P1–P6","Plan principles P1–P6")}</h2>${pCheckList()}</div>
     <div class="card"><h2 style="font-size:18px">${L("证据空白","Evidence gaps")}</h2><p class="small muted">${L("这些数字在来源里找不到。原型不会用估算填上，而是列出来交给 Council。","No source gives these figures. The prototype lists them for Council instead of filling them with estimates.")}</p>${gapsList()}</div>
     <div class="card"><h2 style="font-size:18px">${L("当前分配的责任分工","Who delivers the current split")}</h2><div id="dpaBox">${dpaCards()}</div></div>
+    <div class="card vwide"><h2 style="font-size:18px">${L("居民投票汇总","Resident votes")}</h2><div id="tallyBox">${tallyPanel()}</div></div>
    </div></div>`;
 }
 function ledgerTab(){
