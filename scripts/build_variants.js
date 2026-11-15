@@ -31,7 +31,7 @@ const core = [
 
 const map = rd("data/precinct.json").trim();
 const baseCss = rd("variants/base.css");
-const shared = [rd("variants/shared.js"), rd("variants/iso.js")].join(String.fromCharCode(10, 10));
+const shared = [rd("variants/shared.js"), rd("variants/iso.js"), rd("variants/vote.js")].join(String.fromCharCode(10, 10));
 
 const BANNED = ["+43", "43 sec", "19% shade", "18,400", "n=142", "Verified Data Layers", "-0.0°C", "−0.0°C", "Monash", "parramatta-logo", "City of Parramatta logo"];
 
