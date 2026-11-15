@@ -378,8 +378,7 @@ function decide(){
   return `<section class="wrap ch" id="c-say" style="padding-bottom:40px"><div class="ch-h"><div class="eyebrow">${L("第 4 章 · 你怎么看、谁负责","Chapter 4 · Your view and who decides")}</div><h2>${L("这块广场由谁来做？你想告诉 Council 什么？","Who delivers this square, and what do you want Council to hear?")}</h2></div>
    <div class="two"><div class="card"><div id="dpaBox">${dpaCards()}</div>
      <h3 style="font-size:15px;margin:14px 0 4px">${L("广场本身决定不了、要等别人的事","Outside the square's control")}</h3>${claimsById(adv)}</div>
-    <div class="card"><h3 style="font-size:16px;margin-bottom:8px">${L("你的意见","Your feedback")}</h3>${feedbackHTML()}
-     ${(store.get("cav_subs")||[]).length?`<button class="btn" data-tab="council" id="toCouncil" style="margin-top:10px">${L("看 Council 会收到什么 →","See what Council would receive →")}</button>`:""}</div></div></section>`;
+    <div class="card"><h3 style="font-size:16px;margin-bottom:8px">${L("你的意见","Your feedback")}</h3>${feedbackHTML()}</div></div></section>`;
 }
 const QUESTS=()=>({square:[L("广场","The square"),["sq1","sq2","sq3","sq4","sq9","sq12"]],street:["Wentworth St",["tr1","tr2","tr6"]],north:[L("周边建筑","Surrounding buildings"),["sq5","sq10","sq11"]],below:[L("广场下面","Below the square"),["tr3","tr8"]]});
 function openQuest(id){const [t,ids]=QUESTS()[id];
