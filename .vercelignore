@@ -1,0 +1,9 @@
+# Upload only the latest resident demo. Older prototypes and design
+# options stay in the repo but are not published.
+/*
+!/vercel.json
+!/dist
+/dist/*
+!/dist/variants
+/dist/variants/*
+!/dist/variants/a-studio.html

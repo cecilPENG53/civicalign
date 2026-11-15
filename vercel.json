@@ -3,12 +3,9 @@
   "buildCommand": "",
   "installCommand": "",
   "framework": null,
-  "outputDirectory": "dist",
+  "outputDirectory": "dist/variants",
   "cleanUrls": true,
-  "redirects": [
-    { "source": "/", "destination": "/variants/a-studio", "permanent": false }
-  ],
   "rewrites": [
-    { "source": "/v1", "destination": "/" }
+    { "source": "/", "destination": "/a-studio" }
   ]
 }
