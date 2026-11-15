@@ -6,6 +6,13 @@ A decision storyboard for CBD South Parramatta. Built for Challenge 4, "Smarter 
 
 CivicAlign helps a resident or a decision-maker understand **one growth trade-off in one place**: what each choice would change, what evidence supports it, how uncertain it is, and who is responsible for acting on it.
 
+Council has already done the professional work. It is in the draft master plan, the Council report and the Smart City Strategy, but each of these PDFs runs to dozens of pages, and most residents will not read them. CivicAlign does three things:
+1. It turns these documents into visual explanations, organised by dimension.
+2. It lets residents try alternatives to the plan and see the trade-offs.
+3. It collects their feedback for Council.
+
+Every statement links back to its source document and page. The sources are listed in the [source register](docs/SOURCES.md).
+
 ## The decision
 
 The Draft CBD South Parramatta Precinct Master Plan (Phase 1, exhibited 11 May to 23 June 2026) proposes **Woodhouse Square**. It is a new 1,200 m² urban plaza on Council-owned land facing Wentworth Street, near Parramatta Station (plan p.23; the exhibition web page says 1,300 m², so this still needs checking against the final plan).

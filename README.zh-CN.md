@@ -6,6 +6,13 @@ CBD South Parramatta 的决策故事板。参赛项目：City of Parramatta "Par
 
 CivicAlign 帮居民或决策者看懂**一个地点的一个增长取舍**：每种选择会改变什么，依据是什么，有多不确定，以及该由谁负责。
 
+Council 已经做了专业工作，内容在总规草案、Council 报告和智慧城市战略里，但这些 PDF 每份都有几十页，普通居民读不动。CivicAlign 做三件事：
+1. 把这些文件按多个维度做成可视化讲解；
+2. 让居民试着调整方案、看到取舍；
+3. 收集他们的反馈，汇总给 Council。
+
+每一条内容都能追溯到原文和页码，来源见[来源登记表](docs/SOURCES.md)。
+
 ## 决策是什么
 
 Draft CBD South Parramatta Precinct Master Plan（第一期，2026 年 5 月 11 日至 6 月 23 日公示）提出新建 **Woodhouse Square**：位于 Council 自有土地上、临 Wentworth Street、靠近 Parramatta Station 的 1,200 m² 城市广场（总规第 23 页；公示网页写 1,300 m²，还要用最终版总规核实）。
