@@ -74,9 +74,8 @@ const allObs=()=>OBS.concat(addedObs());
 const obsText=o=>o.added?o.label:T(o);
 const roleTag=r=>`<span class="tag vrole" title="${esc(roleName(r))}">${r}</span>`;
 function roleName(r){return {D:L("Council 直接负责","Council delivers"),"D+P":L("Council 牵头，与伙伴合作","Council leads with partners"),P:L("主要靠伙伴","Mainly partners"),A:L("Council 向州政府等争取","Council advocates to others such as the State")}[r];}
-function saysLine(o){const cl=o.says.map(id=>CLAIMS.find(c=>c.id===id)).filter(c=>c&&cbShown(c.id)); // claims held back in the ledger are not quoted
-  const parts=cl.map(c=>`${T(c)} ${chip(c.src,c.pg,c.id)}`);
-  if(o.says.some(id=>!cbShown(id))) parts.push(`<span class="tag t-gap">${L("依据的条目未通过核对，暂不显示","The claim behind this did not pass review and is hidden")}</span>`);
+function saysLine(o){const cl=o.says.map(id=>CLAIMS.find(c=>c.id===id)).filter(Boolean);
+  const parts=cl.map(c=>isRejected(c.id)?`<span class="rej-ph">${L("此条未通过核对，暂不向居民显示。","This line did not pass review and is hidden from residents.")}</span>`:`${claimTxt(c)} ${chip(c.src,c.pg,c.id)}`);
   const gap=o.gap?`<div class="ob-g">${T(o.gap)}${L("：",": ")}<span class="tag t-gap">${L("没有官方数字 · 证据空白","No official figure · evidence gap")}</span></div>`:"";
   if(!parts.length&&!gap) parts.push(`<span class="tag t-gap">${L("我们整理的 Council 条目里没有对应内容 · 证据空白","No matching Council claim in our ledger · evidence gap")}</span>`);
   return `<div class="ob-s"><b>${L("Council 说","Council says")}</b> ${parts.join(`<span class="sep"> · </span>`)}${gap}</div>`;}

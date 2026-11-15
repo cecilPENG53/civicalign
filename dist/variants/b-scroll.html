@@ -138,7 +138,10 @@ th,td{text-align:left;padding:7px 8px;border-bottom:1px solid var(--line);vertic
 th{color:var(--muted);font-weight:500;background:var(--surface-2);white-space:nowrap}
 td.n{font-family:var(--f-mono);font-variant-numeric:tabular-nums;white-space:nowrap}
 .status{font-size:12px;border-radius:4px;padding:0 6px;white-space:nowrap}
-.st-ok{background:var(--fact-bg);color:var(--fact)} .st-gap{background:var(--gap-bg);color:var(--gap)}
+.st-ok{background:var(--fact-bg);color:var(--fact)} .st-gap{background:var(--infer-bg);color:var(--infer)}
+.st-rej{background:var(--gap-bg);color:var(--gap)} .st-edit{background:var(--design-bg);color:var(--design)}
+.strike{text-decoration:line-through;opacity:.7}
+.rej-ph{color:var(--muted);font-style:italic}
 ul.claims{list-style:none;margin:0;padding:0}
 ul.claims li{padding:6px 0;border-bottom:1px dashed var(--line);font-size:14px}
 ul.claims li:last-child{border-bottom:0}
@@ -158,45 +161,18 @@ footer.foot .wrap{padding-block:16px 28px}
 .disc b{color:var(--infer)}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 
-/* Council backend and evidence ledger (variants/council.js), plus the shared P1–P6 check and gap list.
+/* Styles for the Council backend extras in variants/council.js.
    Appended to base.css at build time, so it uses the same tokens. */
-.cb h2{font-size:18px}
-.cb h3{font-size:15px}
-.cb [id^="cb-"]{scroll-margin-top:14px}
+[id^="cb-"],#ledger,[id^="blk-"]{scroll-margin-top:14px}
 .cb-mono{font-family:var(--f-mono);font-size:12.5px;font-variant-numeric:tabular-nums}
 .cb-neutral{background:var(--surface-2);color:var(--muted)}
 .cb-sm{padding:5px 12px;font-size:13px;white-space:nowrap;flex:none}
-.cb-link{border:0;background:none;padding:0;color:var(--accent);font-size:12.5px;text-decoration:underline}
-.cb-acts{display:flex;gap:8px;flex-wrap:wrap;align-items:center;justify-content:space-between}
-.cb-ghost{border:1px dashed var(--line);border-radius:10px;padding:10px 12px;color:var(--muted);font-size:13px}
+.cb-link{border:0;background:none;padding:0;color:var(--accent);font-size:13px;text-decoration:underline}
+.cb-acts{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.cb-ghost{border:1px dashed var(--line);border-radius:10px;padding:10px 12px;color:var(--muted);font-size:13px;margin:8px 0 0}
 .cb-ghost ul{margin:6px 0 8px;padding-left:18px}
 .cb-blk{margin-top:14px}
-.cb-blk h3{margin-bottom:4px}
-ul.claims li.cb-held,li.cb-held{color:var(--muted);font-size:13px}
-
-/* decision card */
-.cb-dec{border-left:4px solid var(--accent)}
-.cb-dcs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin-top:4px}
-@media (max-width:980px){.cb-dcs{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media (max-width:560px){.cb-dcs{grid-template-columns:1fr}}
-.cb-dc{border-top:2px solid var(--line);padding-top:8px;min-width:0}
-.cb-dc h3{font-size:15.5px;margin:2px 0 6px;line-height:1.35}
-.cb-dc p,.cb-dc li{font-size:13.5px}
-.cb-dc ul{margin:0 0 8px;padding-left:18px}
-.cb-dc li{margin-bottom:3px}
-
-/* status tiles */
-.cb-tiles{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}
-@media (max-width:900px){.cb-tiles{grid-template-columns:repeat(3,minmax(0,1fr))}}
-@media (max-width:520px){.cb-tiles{grid-template-columns:repeat(2,minmax(0,1fr))}}
-.cb-tile{text-align:left;border:1px solid var(--line);background:var(--surface);border-radius:12px;padding:10px 12px;display:grid;gap:2px;align-content:start;min-width:0}
-.cb-tile:hover,.cb-step:hover{border-color:var(--accent)}
-.cb-tn{font-family:var(--f-display);font-size:28px;font-weight:700;line-height:1.1;font-variant-numeric:tabular-nums}
-.cb-tn i{font-style:normal;font-size:15px;color:var(--muted);font-weight:500}
-.cb-tt{font-size:13.5px;font-weight:600}
-.cb-tile small{font-size:12px;color:var(--muted);line-height:1.35}
-.cb-tile.warn .cb-tn{color:var(--infer)}
-.cb-tile.bad .cb-tn{color:var(--gap)}
+.cb-blk h3{font-size:15px;margin-bottom:4px}
 
 /* to-do list */
 .cb-todo{list-style:none;margin:8px 0 0;padding:0}
@@ -204,71 +180,19 @@ ul.claims li.cb-held,li.cb-held{color:var(--muted);font-size:13px}
 .cb-todo li:last-child{border-bottom:0}
 @media (max-width:520px){.cb-todo li{flex-direction:column;align-items:flex-start}}
 
-/* P1–P6 check (shared.js pCheckList) */
-.pc{display:grid;gap:8px;margin-top:8px}
-.pc-r{border:1px solid var(--line);border-left:4px solid var(--fact);border-radius:10px;padding:8px 12px;background:var(--surface);min-width:0}
-.pc-weak{border-left-color:var(--infer)}
-.pc-fail{border-left-color:var(--gap)}
-.pc-na{border-left-color:var(--base)}
-.pc-h{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;font-size:14px}
-.pc-h .status{flex:none;margin-top:2px}
-.pc-m{display:grid;grid-template-columns:96px minmax(0,1fr) auto;gap:2px 10px;font-size:13px;margin-top:4px;align-items:baseline}
-@media (max-width:520px){.pc-m{grid-template-columns:1fr}}
-.pc-k{color:var(--muted)}
-.pc-v{font-family:var(--f-mono);font-variant-numeric:tabular-nums;font-size:12.5px}
-.pc-t{color:var(--muted);font-size:12px;font-family:var(--f-mono)}
-.pcv-keep{color:var(--fact)} .pcv-weak{color:var(--infer)} .pcv-fail{color:var(--gap)}
-.pc-n{font-size:12.5px;color:var(--muted);margin-top:4px}
-.pcs-keep{background:var(--fact-bg);color:var(--fact)}
-.pcs-weak{background:var(--infer-bg);color:var(--infer)}
-.pcs-fail{background:var(--gap-bg);color:var(--gap)}
-.pcs-na{background:var(--surface-2);color:var(--muted)}
-
-/* evidence gaps (shared.js gapsList) */
-.gaps{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:10px;margin-top:8px}
-.gap{border:1px solid var(--line);border-radius:10px;padding:10px 12px;min-width:0;background:var(--surface)}
-.gap-t{font-size:14.5px;margin-bottom:6px}
-.gap dl{margin:0;display:grid;gap:4px}
-.gap dl div{display:grid;grid-template-columns:78px minmax(0,1fr);gap:8px;font-size:13px}
-.gap dt{color:var(--muted)}
-.gap dd{margin:0}
-.rtag{display:inline-block;font-family:var(--f-mono);font-size:11.5px;font-weight:600;border:1px solid var(--accent);color:var(--accent);border-radius:4px;padding:0 5px;line-height:1.5}
-
-/* ledger */
+/* ledger filter */
 .cb-filter{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 10px}
 .cb-filter button{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:4px 12px;font-size:13px}
 .cb-filter button i{font-style:normal;font-family:var(--f-mono);font-size:11.5px;color:var(--muted)}
 .cb-filter button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
 .cb-filter button[aria-pressed="true"] i{color:inherit}
-.cb-grp{border-top:1px solid var(--line);padding-top:6px;margin-top:8px}
-.cb-grp summary{cursor:pointer;font-weight:600;font-family:var(--f-display);font-size:15px;padding:4px 0}
-.cb-row{display:grid;grid-template-columns:150px minmax(0,1fr) minmax(0,1.1fr) 236px;gap:6px 14px;padding:10px 0;border-bottom:1px dashed var(--line);align-items:start}
-.cb-row:last-child{border-bottom:0}
-@media (max-width:900px){.cb-row{grid-template-columns:1fr;gap:4px}}
-.cb-rh{display:flex;flex-wrap:wrap;gap:5px;align-items:center}
-.cb-n{font-family:var(--f-mono);font-size:12px;color:var(--muted);min-width:18px}
-.cb-rt{font-size:14px}
-.cb-rq{font-size:12.5px;color:var(--muted)}
-.cbs-rej .cb-rt{text-decoration:line-through;color:var(--muted)}
-.cbs-edit .cb-rt{color:var(--muted)}
-.cbt-ok{background:var(--fact-bg);color:var(--fact)}
-.cbt-edit{background:var(--infer-bg);color:var(--infer)}
-.cbt-rej{background:var(--gap-bg);color:var(--gap)}
-.cbt-gap{color:var(--gap);box-shadow:inset 0 0 0 1px var(--gap)}
-.cb-btns{display:flex;gap:4px;flex-wrap:wrap}
-.cb-b{border:1px solid var(--line);background:var(--surface);border-radius:6px;padding:3px 10px;font-size:12.5px}
-.cb-b-ok[aria-pressed="true"]{background:var(--fact-bg);color:var(--fact);border-color:var(--fact)}
-.cb-b-edit[aria-pressed="true"]{background:var(--infer-bg);color:var(--infer);border-color:var(--infer)}
-.cb-b-rej[aria-pressed="true"]{background:var(--gap-bg);color:var(--gap);border-color:var(--gap)}
-.cb-why{display:flex;flex-wrap:wrap;gap:4px;align-items:center;margin-top:6px;padding:6px 8px;background:var(--surface-2);border-radius:8px}
-.cb-why button{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:2px 10px;font-size:12.5px}
-.cb-who{margin-top:4px;font-size:12px;line-height:1.4;color:var(--muted)}
 
 /* pipeline */
 .cb-pipe{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px}
 @media (max-width:980px){.cb-pipe{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media (max-width:560px){.cb-pipe{grid-template-columns:repeat(2,minmax(0,1fr))}}
-.cb-step{text-align:left;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px;font-size:13.5px;display:grid;gap:5px;align-content:start;min-width:0}
+.cb-step{text-align:left;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px;font-size:13.5px;display:grid;gap:5px;align-content:start;min-width:0;color:var(--fg)}
+button.cb-step:hover{border-color:var(--accent)}
 .cb-step b{font-family:var(--f-display);font-size:15px}
 .cb-step .tag{white-space:normal}
 
@@ -298,19 +222,7 @@ ul.claims li.cb-held,li.cb-held{color:var(--muted);font-size:13px}
 .cb-tri label{display:flex;gap:8px;align-items:center;font-size:12.5px;color:var(--muted)}
 .cb-tri select{width:auto;flex:1;min-width:0;padding:4px 8px}
 
-/* roles and advocacy brief */
-.cb-roles{display:grid;grid-template-columns:repeat(3,minmax(0,.7fr)) minmax(0,1.6fr);gap:8px;margin-top:8px}
-@media (max-width:980px){.cb-roles{grid-template-columns:repeat(3,minmax(0,1fr))}.cb-role.a{grid-column:1/-1}}
-@media (max-width:520px){.cb-roles{grid-template-columns:1fr}}
-.cb-role{background:var(--surface-2);border-radius:10px;padding:10px;min-width:0}
-.cb-role b{font-family:var(--f-mono);color:var(--accent)}
-.cb-role .t{display:block;font-size:12.5px;font-weight:500}
-.cb-role .big{font-family:var(--f-display);font-size:22px;font-weight:700;font-variant-numeric:tabular-nums}
-.cb-role small{display:block;color:var(--muted);font-size:11.5px;line-height:1.35}
-.cb-role.a{background:var(--design-bg)}
-.cb-role ul{margin:4px 0 0;padding-left:16px;font-size:12.5px}
-.cb-role li{margin-bottom:3px}
-.cb-briefbox{margin-top:16px;border-top:1px solid var(--line);padding-top:12px}
+/* advocacy brief */
 .cb-doc{border:1px solid var(--line);border-radius:10px;padding:14px 16px;background:var(--surface-2);margin:8px 0 10px;font-size:14px}
 .cb-doc h4{font-family:var(--f-display);font-size:16px;margin:0 0 4px}
 .cb-doc h5{font-size:12.5px;margin:12px 0 4px;color:var(--muted);font-weight:600;font-family:var(--f-mono);letter-spacing:.04em}
@@ -320,9 +232,6 @@ ul.claims li.cb-held,li.cb-held{color:var(--muted);font-size:13px}
 /* band at the end of the resident story */
 .cb-hand{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;border-left:4px solid var(--accent)}
 .cb-hand>div{flex:1 1 280px;min-width:0}
-
-/* on a phone, the status tiles come before the long decision card */
-@media (max-width:560px){.cb>.banner{order:-2}.cb-tiles{order:-1}}
 
 /* Layout (B · Scrollytelling): one narrative for a 3-minute pitch. A sticky base map on the left
    reframes and highlights places as the steps scroll past; then deliverables, Council's decision path,
@@ -892,12 +801,21 @@ function mapSVG2(o={}){
 }
 
 /* ---------- deliverable cards (screen 2 content) ---------- */
-/* Claims a reviewer has sent back or rejected are held back from residents (cbShown, variants/council.js). */
+/* ---------- review gate (demo): the team approves, edits or rejects each claim; rejected claims never reach residents.
+   Reviewer is always "team member (demo)". This is never Council approval. Stored in this browser only. ---------- */
+S.review=store.get("cav_review")||{};
+const REVIEWER=()=>L("团队成员（演示）","Team member (demo)");
+const REJ_WHY=()=>[["quote",L("原文不符","Does not match the source")],["context",L("断章取义","Out of context")],["page",L("页码错","Wrong page")],["stale",L("过时","Out of date")]];
+const rv=id=>S.review[id]||null;
+const isRejected=id=>(rv(id)||{}).st==="rej";
+function setReview(id,o){if(o)S.review[id]={...o,by:"demo",at:new Date().toLocaleDateString("en-CA")};else delete S.review[id];store.set("cav_review",S.review);}
+function claimTxt(x){const r=rv(x.id);return r&&r.st==="edit"&&r.txt&&r.txt[S.lang]?esc(r.txt[S.lang])+` <span class="tag t-design">${L("团队已修改","Edited by team")}</span>`:T(x);}
+const HIDDEN_PH=()=>`<li class="rej-ph">${L("此条未通过核对，暂不向居民显示。","This line did not pass review and is hidden from residents.")}</li>`;
 function claimList(cid,kinds=["planned","ruled","open","gap"]){
   const cl=CLAIMS.filter(x=>x.card===cid);
-  return kinds.map(k=>{const xs=cl.filter(x=>x.kind===k);if(!xs.length)return"";return `<div class="kind">${kindLabel(k)}</div><ul class="claims">${xs.map(x=>!cbShown(x.id)?cbHeldLi():`<li>${T(x)} ${x.src?chip(x.src,x.pg,x.id):`<span class="tag t-gap">${L("来源里没有","No source has this")}</span>`}</li>`).join("")}</ul>`;}).join("");
+  return kinds.map(k=>{const xs=cl.filter(x=>x.kind===k);if(!xs.length)return"";return `<div class="kind">${kindLabel(k)}</div><ul class="claims">${xs.map(x=>isRejected(x.id)?HIDDEN_PH():`<li>${claimTxt(x)} ${x.src?chip(x.src,x.pg,x.id):`<span class="tag t-gap">${L("来源里没有","No source has this")}</span>`}</li>`).join("")}</ul>`;}).join("");
 }
-function claimsById(ids){return `<ul class="claims">${ids.map(id=>CLAIMS.find(c=>c.id===id)).map(x=>!cbShown(x.id)?cbHeldLi():`<li><span class="tag ${x.kind==="open"?"t-infer":x.kind==="gap"?"t-gap":"t-fact"}">${kindLabel(x.kind)}</span> ${T(x)} ${x.src?chip(x.src,x.pg,x.id):""}${x.id==="tr6"?" "+TRAFFIC_WAIT():""}</li>`).join("")}</ul>`;}
+function claimsById(ids){return `<ul class="claims">${ids.map(id=>CLAIMS.find(c=>c.id===id)).map(x=>isRejected(x.id)?HIDDEN_PH():`<li><span class="tag ${x.kind==="open"?"t-infer":x.kind==="gap"?"t-gap":"t-fact"}">${kindLabel(x.kind)}</span> ${claimTxt(x)} ${x.src?chip(x.src,x.pg,x.id):""}${x.id==="tr6"?" "+TRAFFIC_WAIT():""}</li>`).join("")}</ul>`;}
 function reactRow(cid){const r=S.react[cid];return `<div class="pill" role="group" aria-label="${L("你觉得呢","What do you think")}" style="margin-top:8px;align-items:center"><b class="small">${L("你觉得呢？","Your view?")}</b>${[["yes",L("支持","Support")],["unsure",L("不确定","Not sure")],["no",L("有顾虑","Concerned")]].map(([k,t])=>`<button data-react="${cid}" data-v="${k}" aria-pressed="${r===k}">${t}</button>`).join("")}</div>`;}
 const TIMELINE=()=>[
   ["2025-06",L("决议编制总规","Decides to prepare a master plan"),chip("S4","")],
@@ -909,9 +827,17 @@ const TIMELINE=()=>[
   ["2026-05–06",L("公示，意见在审阅中","Exhibition; submissions under review"),chip("S3","")]];
 
 /* ---------- who decides, feedback, Council demo ---------- */
-function dpaCards(){const by={D:0,"D+P":0,P:0};MODULES.forEach(m=>by[m.role]+=S.a[m.id]);
+function dpaCards(withA){const by={D:0,"D+P":0,P:0};MODULES.forEach(m=>by[m.role]+=S.a[m.id]);
   return `<div class="dpa">${[["D",L("Council 直接负责","Council delivers"),L("树冠、雨水花园、座椅、步行、路缘、照明","Canopy, rain gardens, seating, walking, kerb, lighting")],["D+P",L("Council 牵头，与伙伴合作","Council leads with partners"),L("活动和夜市、自行车、回收","Events and markets, bikes, recycling")],["P",L("主要靠伙伴","Mainly partners"),L("文化表达：艺术家、华人社团、First Nations 团体","Cultural expression: artists, Chinese community groups, First Nations groups")]].map(([k,t,d])=>`<div class="dpac"><b>${k}</b><span>${t}</span><div class="big" id="dpa_${k.replace("+","")}">${fmt(by[k])} m²</div><small>${d}</small></div>`).join("")}</div>
+  ${withA?advCard():""}
   <p class="small muted" style="margin-top:6px">${L("D = Council 自己做，P = 和伙伴一起做，A = 向州政府等争取","D = Council delivers, P = partners, A = advocates to others such as the State")} ${chip("S5","p.33")}</p>`;}
+/* A tier: no square metres, a list of what Council has to win from others */
+function advCard(){const items=[
+   [L("交通研究：第二期总规之后与 TfNSW 一起做","Traffic study: with TfNSW, after the Phase 2 master plan"),chip("S2","p.54")+" "+chip("S4","","tr6"),"tr6"],
+   [L("车站和 Argyle St 公交换乘站留到第二期","Station and Argyle St bus interchange wait for Phase 2"),chip("S4","","tr7"),"tr7"],
+   [L("建设资金可能包括州和联邦拨款","Funding may include State and Federal grants"),chip("S2","p.54","sq10"),"sq10"]];
+  return `<div class="dpac dpa-a"><b>A</b><span>${L("需向他方争取","Advocate to others")}</span><small>${L("不对应广场面积，列的是要向州政府等争取的事","No floor area; these are things Council must win from others such as the State")}</small>
+   <ul class="claims">${items.map(([t,c,id])=>isRejected(id)?HIDDEN_PH():`<li>${t} ${c}</li>`).join("")}</ul></div>`;}
 function syncDpa(){const by={D:0,"D+P":0,P:0};MODULES.forEach(m=>by[m.role]+=S.a[m.id]);for(const k in by){const e=document.getElementById("dpa_"+k.replace("+",""));if(e)e.textContent=fmt(by[k])+" m²";}}
 function feedbackHTML(){const subs=store.get("cav_subs")||[];
   return `<label class="f" for="exp">${L("你现在在这一带的体验是什么？比如晚上走、等车、带孩子、做生意。","What is it like around here now? Walking at night, waiting for a bus, with kids, running a shop.")}</label><textarea id="exp">${esc(S.exp)}</textarea>
@@ -920,78 +846,103 @@ function feedbackHTML(){const subs=store.get("cav_subs")||[];
   <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap"><button class="btn primary" id="submit">${L("提交（演示）","Submit (demo)")}</button><span class="small muted" id="subMsg">${subs.length?L(`本浏览器已保存 ${subs.length} 份演示提交，没有发送给 Council。`,`${subs.length} demo submission(s) saved in this browser only. Nothing was sent to Council.`):L("演示版只保存在你的浏览器里，不会发送给任何人。","In this demo your answers stay in your browser and are not sent anywhere.")}</span></div>`;}
 function submitDemo(){const subs=store.get("cav_subs")||[];subs.push({t:Date.now(),role:S.role,pri:S.pri,react:S.react,a:S.a,exp:S.exp,wish:S.wish,seen:(S.seen||[]).slice(),duel:S.duel?S.duel.res.slice():[]});store.set("cav_subs",subs);}
 const TEAM_CHECKED=()=>L("本演示里的条目由团队人工整理和核对，<b>不是 Council 批准的</b>。","In this demo the team extracted and checked every entry by hand; <b>Council has not approved them</b>.");
-function ledgerTable(){return `<div class="scroll"><table><thead><tr><th>#</th><th>${L("条目","Claim")}</th><th>${L("来源","Source")}</th><th>${L("原文","Original wording")}</th><th>${L("状态","Status")}</th></tr></thead><tbody>
-  ${CLAIMS.map((c,i)=>`<tr><td class="n">${i+1}</td><td>${T(c)}</td><td>${c.src?chip(c.src,c.pg,c.id):"—"}</td><td class="small">${c.q?"“"+esc(c.q)+"”":"—"}</td><td>${c.src?`<span class="status st-ok">${L("团队已核对","Team-checked")}</span>`:`<span class="status st-gap">${L("证据空白","Gap")}</span>`}</td></tr>`).join("")}</tbody></table></div>`;}
-/* Evidence gaps: figures no source gives. "who" is the team's reading of the D / P / A roles (S5 p.33);
-   "when" repeats only what a source states, otherwise it stays empty. */
+let RV_EDIT=null;
+function statusCell(c){
+  if(!c.src) return `<span class="status st-gap">${L("证据空白","Gap")}</span>`;
+  const r=rv(c.id), w=r&&r.st==="rej"?(REJ_WHY().find(x=>x[0]===r.why)||[,""])[1]:"";
+  const s=!r?`<span class="status st-ok">${L("团队已核对","Team-checked")}</span>`
+    :r.st==="ok"?`<span class="status st-ok">${L("已批准（演示）","Approved (demo)")}</span>`
+    :r.st==="edit"?`<span class="status st-edit">${L("已修改","Edited")}</span>`
+    :`<span class="status st-rej">${L("已驳回","Rejected")}${w?" · "+w:""}</span>`;
+  return s+(r?`<div class="rvmeta">${REVIEWER()} · ${r.at}</div>`:"");
+}
+function reviewActions(c){
+  if(!c.src) return "";
+  if(isRejected(c.id)) return `<div class="rvact"><button class="rvb" data-rv="undo" data-id="${c.id}">${L("撤销驳回","Undo reject")}</button></div>`;
+  return `<div class="rvact"><button class="rvb ok" data-rv="ok" data-id="${c.id}">${L("批准","Approve")}</button><button class="rvb" data-rv="edit" data-id="${c.id}">${L("修改","Edit")}</button>
+   <select class="rvb no" data-rej="${c.id}" aria-label="${L("驳回理由","Reason to reject")}"><option value="">${L("驳回…","Reject…")}</option>${REJ_WHY().map(([k,t])=>`<option value="${k}">${t}</option>`).join("")}</select></div>`;
+}
+function ledgerTable(o={}){return `<div class="scroll"><table class="ledger"><thead><tr><th>#</th><th>${L("状态","Status")}</th><th>${L("条目","Claim")}</th><th>${L("来源","Source")}</th><th>${L("原文","Original wording")}</th></tr></thead><tbody>
+  ${CLAIMS.map((c,i)=>{if(o.only&&!o.only(c))return "";const rej=isRejected(c.id), ed=o.review&&RV_EDIT===c.id;
+    const txt=ed?`<textarea id="rvTxt" rows="3" aria-label="${L("修改条目","Edit claim")}">${esc((rv(c.id)&&rv(c.id).txt&&rv(c.id).txt[S.lang])||T(c))}</textarea><div class="rvact"><button class="rvb ok" data-rv="save" data-id="${c.id}">${L("保存","Save")}</button><button class="rvb" data-rv="cancel">${L("取消","Cancel")}</button></div>`
+      :`<span class="${rej?"strike":""}">${claimTxt(c)}</span>`;
+    return `<tr class="${rej?"row-rej":""}"><td class="n">${i+1}</td><td>${statusCell(c)}${o.review&&!ed?reviewActions(c):""}</td><td>${txt}</td><td>${c.src?chip(c.src,c.pg,c.id):"—"}</td><td class="small">${c.q?"“"+esc(c.q)+"”":"—"}</td></tr>`;}).join("")}</tbody></table></div>`;}
+/* click handling for the review buttons; returns true when it handled the click */
+function reviewClick(b,render){const d=b.dataset;
+  if(d.jump){const t=document.getElementById(d.jump);if(t)t.scrollIntoView({behavior:"smooth",block:"start"});return true;}
+  if(!d.rv)return false;
+  if(d.rv==="ok") setReview(d.id,{st:"ok"});
+  else if(d.rv==="undo") setReview(d.id,null);
+  else if(d.rv==="edit") RV_EDIT=d.id;
+  else if(d.rv==="cancel") RV_EDIT=null;
+  else if(d.rv==="save"){const t=(document.getElementById("rvTxt")||{}).value||"",old=rv(d.id),txt={...((old&&old.txt)||{})};txt[S.lang]=t.trim();
+    if(txt[S.lang])setReview(d.id,{st:"edit",txt});RV_EDIT=null;}
+  else if(d.rv==="reset"){S.review={};store.set("cav_review",{});RV_EDIT=null;}
+  render();return true;}
+function bindReview(render){document.addEventListener("change",e=>{const t=e.target;if(t.dataset&&t.dataset.rej&&t.value){setReview(t.dataset.rej,{st:"rej",why:t.value});render();}});}
+
+/* evidence gaps: one list, same pages as app/template.html council(); who can fill each gap and when */
 const GAPS=()=>[
- {id:"g-traffic",t:L("交通影响：还没有交通模型","Traffic effects: no traffic model yet"),chips:[["S4","","tr6"]],
-  hit:L("畅通步行、路缘接驳，以及对周边街道的所有影响","Clear walking, kerbside access and every effect on nearby streets"),
-  who:"A",whoT:L("Council 与 TfNSW 一起做交通研究","Council runs the traffic study with TfNSW"),whoC:[["S2","p.54"]],
-  when:L("研究范围和预算先报 Council 批准，FY27/28 聘顾问","Scope and budget go to Council first; consultants in FY27/28"),whenC:[["S4","","tr6"]],
-  res:L("交通相关的结果都标“等待 Council 交通研究”","Traffic-related results carry “Awaits Council traffic study”")},
- {id:"g-size",t:L("广场面积：1,200 m² 还是 1,300 m²","Square size: 1,200 m² or 1,300 m²"),chips:[["S2","p.23","sq1"],["S3","","sq9"]],
-  hit:L("所有面积，以及按面积算出的结果","Every area, and every result worked out from area"),
-  who:"D",whoT:L("Council 在最终版总规里确认","Council confirms it in the final master plan"),whoC:[["S3",""]],
-  when:L("最终版总规（是否已通过，待核实）","The final master plan (whether it has been adopted is still to be checked)"),whenC:[["S3",""]],
-  res:L("暂用总规正文的 1,200 m²，并注明两处说法不同","Uses the plan's 1,200 m² for now and notes that the two figures differ")},
- {id:"g-soil",t:L("广场下方是否有停车场、能否深土种树","Whether the car park sits under the square, and whether deep soil is possible"),chips:[["S2","p.49","tr8"],["S2","p.45","sq3"]],
-  hit:L("树冠和遮荫面积","Canopy and shaded area"),
-  who:"D",whoT:L("Council 对停车场的可行性研究和设计","Council's feasibility and design work on the car park"),whoC:[["S2","p.49","tr8"]],
-  res:L("居民可以在“抬高种植池”和“深土种植”两种假设之间切换","Residents can switch between two assumptions: raised planters or deep soil")},
- {id:"g-areas",t:L("各项功能的面积比例","Area for each use"),chips:[],
-  hit:L("方案 0 的全部比例","Every share in Scenario 0"),
-  who:"D",whoT:L("Council 的广场设计","Council's design of the square"),whoC:[],
-  res:L("方案 0 标为“假设：我们对总规的解读”","Scenario 0 is marked “Assumption: our reading”")},
- {id:"g-fund",t:L("建设资金来源","Funding sources"),chips:[["S2","p.54","sq10"]],
-  hit:L("各项用途能不能建成","Whether each use gets built"),
-  who:"D · A",whoT:L("Council 预算和开发贡献由 Council 决定；州和联邦拨款要去争取","Council decides its own budget and contributions; State and Federal grants have to be sought"),whoC:[["S2","p.54","sq10"]],
-  res:L("居民端标为“还没定”","Shown to residents as “Still open”")},
- {id:"g-exh",t:L("公示意见汇总（尚未公开）","Exhibition feedback summary (not yet published)"),chips:[["S3",""]],
-  hit:L("生活经验：居民和商户在公示期已经说过什么","Lived experience: what residents and businesses already said during exhibition"),
-  who:"D",whoT:L("Council 正在审阅公示意见","Council is reviewing the submissions"),whoC:[["S3",""]],
-  res:L("本工具的演示提交不代替公示意见","Demo submissions in this tool do not stand in for exhibition feedback")},
- {id:"g-coef",t:L("系数矩阵的文献出处","Literature for each coefficient"),chips:[],
-  hit:L("9 个维度的全部结果","Every result across the nine dimensions"),
-  who:L("团队","Team"),whoT:L("核实文献后替换假设值","Replace the assumed values once checked against literature"),whoC:[],
-  res:L("所有系数标“假设”，结果显示为区间，不是预测","Every coefficient is marked “Assumption”; results show as ranges, not forecasts")}];
-function gapsList(){const cs=a=>(a||[]).map(c=>chip(c[0],c[1],c[2])).join(" ");
-  return `<div class="gaps">${GAPS().map(g=>`<article class="gap" id="${g.id}">
-    <div class="gap-t"><b>${g.t}</b> ${g.chips.length?cs(g.chips):`<span class="tag t-gap">${L("来源里没有","No source")}</span>`}</div>
-    <dl><div><dt>${L("影响","Affects")}</dt><dd>${g.hit}</dd></div>
-     <div><dt>${L("谁能补","Who can fill it")}</dt><dd><span class="rtag">${g.who}</span> ${g.whoT} ${cs(g.whoC)}</dd></div>
-     <div><dt>${L("什么时候","When")}</dt><dd>${g.when?g.when+" "+cs(g.whenC):`<span class="muted">${L("来源没有给出时间","No source gives a date")}</span>`}</dd></div>
-     <div><dt>${L("居民端现在","Shown to residents as")}</dt><dd>${g.res}</dd></div></dl></article>`).join("")}</div>
-   <p class="small muted" style="margin:8px 0 0">${L("“谁能补”是团队按 D / P / A 分工做的判断","“Who can fill it” is the team's reading of the D / P / A roles")} ${chip("S5","p.33")} <span class="tag t-design">${L("假设","Assumption")}</span></p>`;}
-/* P1–P6 check. Each measure is compared with a threshold (team assumption) and with Scenario 0:
-   below the threshold = not met; above it but below Scenario 0 = weakened; otherwise kept.
-   P1 and P3 share one row because this model can only measure both by clear walking area.
-   P6 is not scored: the tool fixes the total at 1,200 m², so it could never fail. */
-function pCheckData(a){const b=PRESETS.base.a;
-  const m=(zh,en,f,min)=>{const v=f(a),v0=f(b);return {t:L(zh,en),v,v0,min,st:v<min?"fail":v<v0?"weak":"keep"};};
-  const walk=()=>m("畅通步行","Clear walking",x=>x.walk,180);
-  const rows=[
-   {ids:["P1","P3"],t:L("连接更新片区与 CBD 和交通枢纽；改善街道与公共空间的连接","Connect renewal areas to the CBD and transport; better links between streets and public space"),ms:[walk()],
-    note:L("本模型只能用畅通步行面积来衡量这两条，所以合成一行。","This model can only measure both by clear walking area, so they share a row.")},
-   {ids:["P2"],t:L("新建社区聚会空间","New spaces for community gathering"),ms:[m("活动 + 休憩","Events + rest",x=>x.events+x.rest,480)]},
-   {ids:["P4"],t:L("让步行和骑行更容易、更安全、更舒适","Easier, safer, more comfortable walking and cycling"),ms:[walk(),m("树冠","Canopy",x=>x.canopy,120)]},
-   {ids:["P5"],t:L("唐人街成为文化目的地","Chinatown as a cultural destination"),ms:[m("文化表达","Culture",x=>x.culture,36),m("活动和夜市","Events and markets",x=>x.events,200)]}];
-  rows.forEach(r=>r.st=r.ms.some(x=>x.st==="fail")?"fail":r.ms.some(x=>x.st==="weak")?"weak":"keep");
-  return rows;}
-function pCheckSummary(a){const c={keep:0,weak:0,fail:0};pCheckData(a).forEach(r=>c[r.st]+=r.ids.length);return c;}
-const pcLabel=st=>({keep:L("保持","Kept"),weak:L("削弱","Weakened"),fail:L("不满足","Not met")}[st]);
-function pCheckList(){
-  return `<p class="small muted">${L("检查当前分配是否仍符合总规的 6 条城市设计原则","Checks whether the current split still meets the plan's six urban design principles")} ${chip("S2","p.22")} <span class="tag t-design">${L("门槛和方案 0 都是我们的假设","Thresholds and Scenario 0 are our assumptions")}</span></p>
-  <div class="pc">${pCheckData(S.a).map(r=>`<div class="pc-r pc-${r.st}"><div class="pc-h"><span><b>${r.ids.join(" · ")}</b> ${r.t}</span><span class="status pcs-${r.st}">${pcLabel(r.st)}</span></div>
-    ${r.ms.map(x=>`<div class="pc-m"><span class="pc-k">${x.t}</span><span class="pc-v">${L("方案 0","Scenario 0")} ${fmt(x.v0)} m² → <b class="pcv-${x.st}">${L("当前","now")} ${fmt(x.v)} m²</b></span><span class="pc-t">${L("门槛","Threshold")} ≥ ${fmt(x.min)} m²</span></div>`).join("")}
-    ${r.note?`<div class="pc-n">${r.note}</div>`:""}</div>`).join("")}
-   <div class="pc-r pc-na"><div class="pc-h"><span><b>P6</b> ${L("用 Council 用地提供公共便利","Council land delivering public amenity")}</span><span class="status pcs-na">${L("不评分","Not scored")}</span></div>
-    <div class="pc-n">${L("本工具把总面积固定在 1,200 m²，全部是公共空间，所以这条不会变。真正没定的是资金和停车场，见证据空白。","The tool fixes the total at 1,200 m², all of it public space, so this cannot change. What is still open is funding and the car park: see the evidence gaps.")} ${chip("S2","p.23","sq1")}</div></div></div>
-  <p class="small muted" style="margin:8px 0 0">${L("保持 = 不低于方案 0；削弱 = 低于方案 0，但仍在门槛以上；不满足 = 低于门槛。","Kept = no lower than Scenario 0. Weakened = lower than Scenario 0 but still above the threshold. Not met = below the threshold.")}</p>`;}
-function subsPanel(){const subs=store.get("cav_subs")||[];
-  return `<p class="small muted">${L("正式版只在同一群体达到 10 人以上时显示汇总，并对比 ABS 人口结构检查代表性。演示版没有真实提交，只显示本浏览器里的演示数据。","The full version shows a summary only once a group reaches 10 or more people, and checks representativeness against the ABS Census. The demo has no real submissions, only demo data from this browser.")}</p>
-  <div class="thr"><div class="thrn">${subs.length}<small>/10</small></div><div class="thrbar"><span style="width:${Math.min(100,subs.length*10)}%"></span></div></div>
-  <p>${subs.length<10?L("少于 10 份，不显示汇总（隐私门槛）。","Fewer than 10, so no summary is shown (privacy threshold)."):L("已达到 10 份，可以显示汇总。","10 or more, so a summary can be shown.")}</p>${subs.length?`<button class="btn" id="clearSubs">${L("清除本浏览器的演示提交","Clear demo submissions in this browser")}</button>`:""}`;}
+  {t:L("交通影响：还没有交通模型","Traffic effects: no traffic model yet"),c:chip("S4","","tr6")+" "+chip("S2","p.54"),who:"D + A",when:L("FY27/28 聘顾问；与 TfNSW 一起做","Consultants FY27/28; with TfNSW"),res:L("标“等待 Council 交通研究”","“Awaits Council traffic study”")},
+  {t:L("广场面积：1,200 m² 还是 1,300 m²","Square size: 1,200 m² or 1,300 m²"),c:chip("S2","p.23","sq1")+" "+chip("S3","","sq9"),who:"D",when:L("最终版总规","Final master plan"),res:L("用 1,200 m²，并注明两处说法不同","1,200 m², with the difference noted")},
+  {t:L("广场下方是否有停车场、能否深土种树","Whether a car park sits under the square, and whether deep soil is possible"),c:chip("S2","p.49","tr8"),who:"D",when:L("停车场可行性研究；来源未给时间","Car park feasibility work; no date in the sources"),res:L("深土种植标“待核实”","Deep soil marked “unconfirmed”")},
+  {t:L("各项功能的面积比例","Area for each use"),c:chip("S2","p.45","sq2")+` <span class="tag t-gap">${L("来源里没有面积","No areas in the sources")}</span>`,who:"D",when:L("广场设计阶段；来源未给时间","Square design stage; no date in the sources"),res:L("方案 0 标“我们的解读”","Scenario 0 labelled “our reading”")},
+  {t:L("建设资金来源","Funding sources"),c:chip("S2","p.54","sq10"),who:"D + A",when:L("来源未给时间","No date in the sources"),res:L("成本卡注明“资金来源未定”","Cost card says “funding not settled”")},
+  {t:L("公示意见汇总（尚未公开）","Exhibition feedback summary (not yet published)"),c:chip("S3",""),who:"D",when:L("最终版总规","Final master plan"),res:L("不引用公示意见","No exhibition feedback shown")},
+  {t:L("系数矩阵的文献出处","Literature for each coefficient"),c:`<span class="tag t-design">${L("我们的设计","Our design")}</span>`,who:L("本团队","This team"),when:L("提交后","After submission"),res:L("所有结果标“假设”","Every result labelled “assumption”")}];
+function gapsList(){return `<ul class="gaps">${GAPS().map(g=>`<li><div>${g.t} ${g.c}</div><div class="gmeta"><span><b>${L("谁能补","Who")}</b> ${g.who}</span><span><b>${L("何时","When")}</b> ${g.when}</span><span><b>${L("居民端","Residents")}</b> ${g.res}</span></div></li>`).join("")}</ul>`;}
+
+/* P1–P6 (S2 p.22). Each principle has its own test; thresholds and the 10% "weakened" margin are our assumptions. */
+const PSUM=(a,ids)=>ids.reduce((s,k)=>s+a[k],0);
+const PDEF=()=>[
+  {id:"P1",t:L("连接更新片区与 CBD 和交通枢纽","Connect renewal areas to the CBD and transport"),parts:[[L("畅通步行","Clear walking"),["walk"],180]]},
+  {id:"P2",t:L("新建社区聚会空间","New spaces for community gathering"),parts:[[L("活动 + 休憩","Events + rest"),["events","rest"],480]]},
+  {id:"P3",t:L("改善街道与公共空间的连接","Better links between streets and public space"),parts:[[L("街道界面：步行 + 路缘 + 自行车","Street edge: walking + kerb + bikes"),["walk","kerb","bike"],240]]},
+  {id:"P4",t:L("让步行和骑行更容易、更安全、更舒适","Easier, safer, more comfortable walking and cycling"),parts:[[L("畅通步行","Clear walking"),["walk"],180],[L("遮荫树冠","Shade canopy"),["canopy"],120]]},
+  {id:"P5",t:L("唐人街成为文化目的地","Chinatown as a cultural destination"),parts:[[L("文化表达","Culture"),["culture"],36],[L("活动和夜市","Events and markets"),["events"],200]]},
+  {id:"P6",t:L("用 Council 用地提供公共便利","Council land delivering public amenity"),na:true,parts:[]}];
+function pEval(a){const a0=PRESETS.base.a;return PDEF().map(p=>{
+  const parts=p.parts.map(([lab,ids,min])=>({lab,v:PSUM(a,ids),v0:PSUM(a0,ids),min}));
+  const fail=parts.some(x=>x.v<x.min), weak=!fail&&parts.some(x=>x.v<x.v0*0.9);
+  return {...p,parts,lvl:p.na?"na":fail?"fail":weak?"weak":"keep"};});}
+const LV=()=>({keep:L("保持","Kept"),weak:L("削弱","Weakened"),fail:L("不满足","Not met"),na:L("不评分","Not scored")});
+function pCheckList(){const sh=v=>Math.round(100*v/TOTAL), R=pEval(S.a), n=k=>R.filter(r=>r.lvl===k).length;
+  return `<p class="small muted">${L("检查对象：居民故事板的<b>当前分配</b>，对比方案 0（总规原样，我们的解读）。原则来自","Checked: the resident storyboard's <b>current split</b>, against Scenario 0 (plan as drawn, our reading). Principles from")} ${chip("S2","p.22")} <span class="tag t-design" style="white-space:normal">${L("门槛和“削弱”（比方案 0 少 10% 以上）是我们的假设","Thresholds and “weakened” (over 10% below Scenario 0) are our assumptions")}</span></p>
+  <div class="pcsum"><span class="lv lv-keep">${LV().keep} ${n("keep")}</span><span class="lv lv-weak">${LV().weak} ${n("weak")}</span><span class="lv lv-fail">${LV().fail} ${n("fail")}</span></div>
+  <ul class="pcl">${R.map(r=>`<li><div class="pch"><b>${r.id}</b><span>${r.t}</span><span class="lv lv-${r.lvl}">${LV()[r.lvl]}</span></div>
+   ${r.na?`<div class="small muted">${L("本工具把总面积固定在 1,200 m²，所以这条恒满足，不打分。真正的风险在资金和停车场，见证据空白。","This tool fixes the total at 1,200 m², so this always holds and is not scored. The real risks are funding and the car park; see evidence gaps.")} ${chip("S2","p.54","sq10")} ${chip("S2","p.49","tr8")}</div>`
+     :r.parts.map(x=>{const d=sh(x.v)-sh(x.v0);return `<div class="pcrow small"><span>${x.lab}</span><span class="muted">${L("方案 0","Scen. 0")} ${sh(x.v0)}%</span><span>${L("当前","Now")} <b>${sh(x.v)}%</b></span><span class="${d>0?"delta-up":d<0?"delta-down":"muted"}">${d>0?"▲":d<0?"▼":"="}${Math.abs(d)}</span><span class="muted">${L("门槛","Min")} ≥${sh(x.min)}%</span></div>`;}).join("")}</li>`).join("")}</ul>
+  <p class="small muted">${L("系统只标出哪条被削弱，不替 Council 做决定。","The tool flags which principle is weakened; it does not decide for Council.")}</p>`;}
+
+/* privacy threshold: counted per group (role), never per person; groups under 10 show no number */
+function subsGroups(){const subs=store.get("cav_subs")||[],by={};subs.forEach(s=>{by[s.role||"?"]=(by[s.role||"?"]||0)+1;});return {subs,by,ok:Object.keys(by).filter(k=>by[k]>=10)};}
+function subsPanel(){const {subs,by,ok}=subsGroups(), rn=id=>{const r=(typeof ROLES!=="undefined"?ROLES:[]).find(x=>x.id===id);return r?T(r):id;};
+  return `<p class="small muted">${L("只有同一群体达到 10 人以上才显示汇总，并对比 ABS 人口结构检查代表性。演示版没有真实提交，只读本浏览器里的演示数据。","A summary appears only once a group reaches 10 or more people, with an ABS Census check for representativeness. The demo has no real submissions, only demo data from this browser.")}</p>
+  ${Object.keys(by).length?`<ul class="grp">${Object.keys(by).map(k=>`<li><span>${esc(rn(k))}</span><span class="lv ${by[k]>=10?"lv-keep":"lv-na"}">${by[k]>=10?L("已达到 10 人","Reached 10"):L("少于 10，已隐藏","Under 10, hidden")}</span></li>`).join("")}</ul>`:""}
+  ${ok.length?`<p>${L(`${ok.length} 个群体达到门槛。正式版会在这里显示该群体的汇总；演示版尚未实现汇总视图。`,`${ok.length} group(s) reached the threshold. The full version shows that group's summary here; the demo does not build it yet.`)}</p>`
+   :`<div class="empty"><p>${L("还没有群体达到 10 人。达到后这里会显示：各卡片的支持度、方案面积中位数、代表性对比。","No group has reached 10 people yet. Once one does, this shows: support for each card, the median split, and a representativeness check.")}</p><div class="skel" aria-hidden="true"><i></i><i></i><i></i></div></div>`}
+  ${subs.length?`<button class="btn" id="clearSubs">${L("清除本浏览器的演示提交","Clear demo submissions in this browser")}</button>`:""}`;}
+
+/* F1 decision card: decision, owner, refresh, action (S1 p.13) */
+function decisionCard(){const cell=(k,h,b)=>`<div class="dcell"><div class="dk">${k}</div><b>${h}</b><div class="small">${b}</div></div>`;
+  return `<section class="card dcard"><div class="sec-h"><h2 class="ch2">${L("这个工具服务的决策","The decision this tool serves")}</h2><span class="small muted">${L("赛题要求讲清决策、负责人、更新和行动","The brief asks for decision, owner, refresh and action")} ${chip("S1","p.13")}</span></div>
+   <div class="dgrid">
+   ${cell(L("决策","Decision"),L("广场里面怎么分","How the square is shared"),`${L("Woodhouse Square（暂定名","Woodhouse Square (provisional name")} ${chip("S2","p.54","sq11")}${L("）这 1,200 m²","): how its 1,200 m²")} ${chip("S2","p.23","sq1")} ${L("在各类用途之间怎么分。总规没给各项面积。","is shared between uses. The plan gives no area for each use.")}`)}
+   ${cell(L("负责人","Owner"),L("Council","Council"),`${L("总规是 Council 的文件","The master plan is Council's document")} ${chip("S4","")}${L("。工具内由哪个团队负责：",". Which team runs this tool:")} <span class="tag t-design">${L("待 Council 指定","For Council to name")}</span>`)}
+   ${cell(L("何时更新","Refresh"),L("三个节点","Three milestones"),`${L("最终版总规提交 Council","Final master plan to Council")} ${chip("S3","")}；${L("交通研究顾问 FY27/28","traffic study consultants in FY27/28")} ${chip("S4","","tr6")}；${L("第二期 2027 年公示","Phase 2 exhibited in 2027")} ${chip("S3","")}。${L("每到一个节点，重跑证据核对和原则检查","At each one, re-run the evidence review and principle check")} <span class="tag t-design">${L("我们的设计","Our design")}</span>`)}
+   ${cell(L("能促成的行动","Actions"),L("三项后续工作 + 倡导","Three follow-on pieces + advocacy"),`${L("修订 DCP 2023 Part 9；编制公共艺术总体规划；Council 用地可行性研究","Amend DCP 2023 Part 9; prepare a Public Art Master Plan; feasibility study for Council land")} ${chip("S2","p.54")} ${chip("S4","")}。${L("另有向州政府等争取的事，见下方 A 层。","Plus what Council must win from others; see tier A below.")}`)}
+   </div></section>`;}
+
+/* status strip: every number is counted on this page, none comes from outside */
+function statusStrip(){const R=pEval(S.a), chk=CLAIMS.filter(c=>c.src&&!isRejected(c.id)).length, rej=CLAIMS.filter(c=>isRejected(c.id)).length, g=subsGroups();
+  const t=(href,n,lab,cls="")=>href[0]==="#"?`<button class="stile ${cls}" data-jump="${href.slice(1)}"><b>${n}</b><span>${lab}</span></button>`:`<button class="stile ${cls}" data-tab="${href}"><b>${n}</b><span>${lab}</span></button>`;
+  return `<nav class="sstrip" aria-label="${L("状态","Status")}">
+   ${t("ledger",`${chk}/${CLAIMS.length}`,L("条目已核对","Claims checked"))}
+   ${t("ledger",rej,L("已驳回，居民端已隐藏","Rejected, hidden from residents"),rej?"warn":"")}
+   ${t("#blk-gaps",GAPS().length,L("证据空白","Evidence gaps"))}
+   ${t("#blk-pc",`${R.filter(r=>r.lvl==="keep").length} / ${R.filter(r=>r.lvl==="weak"||r.lvl==="fail").length}`,L("原则 保持 / 削弱或不满足","Principles kept / weakened or not met"),R.some(r=>r.lvl==="weak"||r.lvl==="fail")?"warn":"")}
+   ${t("#blk-subs",g.ok.length,L("达到 10 人门槛的群体","Groups at the 10-person threshold"))}
+  </nav>`;}
 
 /* ---------- shared events. ctx = {render(), live()} ---------- */
 function bindCommon(ctx,extra){
@@ -1267,9 +1218,8 @@ const allObs=()=>OBS.concat(addedObs());
 const obsText=o=>o.added?o.label:T(o);
 const roleTag=r=>`<span class="tag vrole" title="${esc(roleName(r))}">${r}</span>`;
 function roleName(r){return {D:L("Council 直接负责","Council delivers"),"D+P":L("Council 牵头，与伙伴合作","Council leads with partners"),P:L("主要靠伙伴","Mainly partners"),A:L("Council 向州政府等争取","Council advocates to others such as the State")}[r];}
-function saysLine(o){const cl=o.says.map(id=>CLAIMS.find(c=>c.id===id)).filter(c=>c&&cbShown(c.id)); // claims held back in the ledger are not quoted
-  const parts=cl.map(c=>`${T(c)} ${chip(c.src,c.pg,c.id)}`);
-  if(o.says.some(id=>!cbShown(id))) parts.push(`<span class="tag t-gap">${L("依据的条目未通过核对，暂不显示","The claim behind this did not pass review and is hidden")}</span>`);
+function saysLine(o){const cl=o.says.map(id=>CLAIMS.find(c=>c.id===id)).filter(Boolean);
+  const parts=cl.map(c=>isRejected(c.id)?`<span class="rej-ph">${L("此条未通过核对，暂不向居民显示。","This line did not pass review and is hidden from residents.")}</span>`:`${claimTxt(c)} ${chip(c.src,c.pg,c.id)}`);
   const gap=o.gap?`<div class="ob-g">${T(o.gap)}${L("：",": ")}<span class="tag t-gap">${L("没有官方数字 · 证据空白","No official figure · evidence gap")}</span></div>`:"";
   if(!parts.length&&!gap) parts.push(`<span class="tag t-gap">${L("我们整理的 Council 条目里没有对应内容 · 证据空白","No matching Council claim in our ledger · evidence gap")}</span>`);
   return `<div class="ob-s"><b>${L("Council 说","Council says")}</b> ${parts.join(`<span class="sep"> · </span>`)}${gap}</div>`;}
@@ -1422,134 +1372,87 @@ function tallyPanel(){const P=pool(),n=P.length,mine=mineAll().length,show=n>=PR
    ${mine?`<button class="btn" id="clearVotes">${L("清除本浏览器的演示票和添加项","Clear demo votes and added items in this browser")}</button>`:""}`;}
 
 
-/* ===== variants/council.js: Council backend and evidence ledger (demo) =====
-   Everything here is demo state saved in this browser. A review decision is recorded as made by a
-   team member, never as Council approval. No figure comes from outside S1–S5: every count on these
-   pages is counted from this page's own data or from demo submissions in this browser.
-   Names start with cb / CB so they stay clear of the other shared files. */
+/* ===== variants/council.js: Council backend extras (demo) =====
+   Builds on what shared.js already has: the review gate (rv, isRejected, claimTxt), the decision card,
+   the status strip, the P1–P6 check (pEval) and the gap list (GAPS).
+   Adds: a to-do list, a feedback summary with a per-group threshold, a representativeness check,
+   written-comment triage, an advocacy brief, strategy indicators, ledger filters, a five-step pipeline
+   and an evidence-standard self-check.
+   Everything is demo state saved in this browser. No figure comes from outside S1–S5: every count here is
+   counted by the page or comes from demo submissions in this browser. The simulated votes (D1, vote.js)
+   stay in their own card and are never used here. Names start with cb / CB. */
 const CB_MIN=10;                       // privacy threshold: a group is shown only at 10 or more
-const CB={filter:"all",pick:null,preview:false};
+const CB={filter:"all",preview:false};
 const cbSubs=()=>store.get("cav_subs")||[];
 const cbWhen=t=>new Date(t).toLocaleString(S.lang==="zh"?"zh-CN":"en-AU",{year:"numeric",month:"short",day:"numeric",hour:"2-digit",minute:"2-digit"});
 const cbClaim=id=>CLAIMS.find(c=>c.id===id);
-const cbPreview=()=>CB.preview;
 const cbMedian=xs=>{const s=xs.slice().sort((a,b)=>a-b),n=s.length;return n?(n%2?s[(n-1)/2]:(s[n/2-1]+s[n/2])/2):0;};
+const cbHid=()=>`<span class="muted">${L(`不足 ${CB_MIN} 份，不显示`,`Fewer than ${CB_MIN}: not shown`)}</span>`;
+const cbPrevTag=()=>`<span class="tag t-gap">${L("预览：正式版不会显示","Preview: the full version would hide this")}</span>`;
 
-/* ---------- review state: ok | edit | rej, plus gap for claims that have no source ---------- */
-function cbRev(){return store.get("cav_review")||{};}
-function cbState(c){return !c.src?"gap":(cbRev()[c.id]||{}).st||"ok";}
-function cbShown(id){const c=cbClaim(id);return !c||cbState(c)==="ok"||cbState(c)==="gap";}
-function cbHeldLi(){return `<li class="cb-held"><span class="tag t-gap">${L("未通过核对","Held back")}</span> ${L("这一条在后台被退回或驳回，暂不向居民显示。（演示里保留这行占位，正式版直接不显示。）","A reviewer sent this claim back or rejected it, so residents do not see it. (The demo keeps this placeholder; the full version shows nothing.)")}</li>`;}
-function cbSet(id,st,why){const r=cbRev();r[id]={st,why:why||"",at:Date.now()};store.set("cav_review",r);}
+/* ---------- claim state, read from the review gate in shared.js ---------- */
+const cbState=c=>!c.src?"gap":isRejected(c.id)?"rej":(rv(c.id)||{}).st==="edit"?"edit":"ok";
 const cbNoPage=c=>!!c.src&&!c.pg&&c.src!=="S3";      // S3 is a web page, so it has no page numbers
-function cbCounts(){const k={total:CLAIMS.length,sourced:0,ok:0,edit:0,rej:0,gap:0,nopage:0};
-  CLAIMS.forEach(c=>{const s=cbState(c);k[s]++;if(c.src)k.sourced++;if(cbNoPage(c))k.nopage++;});return k;}
-const CB_WHY=()=>({
-  rej:[["quote",L("原文不符","Does not match the original")],["context",L("断章取义","Out of context")],["page",L("页码错","Wrong page")],["old",L("已过时","Out of date")]],
-  edit:[["word",L("措辞要改","Wording needs work")],["page",L("要补页码","Needs a page number")],["lang",L("中英文不一致","Chinese and English differ")],["quote",L("要补原文","Needs the original wording")]]});
-const cbStateT=st=>({ok:L("团队已核对","Team-checked"),edit:L("需修改","Needs edit"),rej:L("已驳回","Rejected"),gap:L("证据空白","Evidence gap")}[st]);
-
-/* ---------- ledger: filters, groups, one row per claim ---------- */
-const CB_FILTERS=()=>[["all",L("全部","All")],["ok",cbStateT("ok")],["edit",cbStateT("edit")],["rej",cbStateT("rej")],["gap",cbStateT("gap")],["nopage",L("缺页码","No page")]];
+function cbCounts(){const k={sourced:0,ok:0,edit:0,rej:0,gap:0,nopage:0};
+  CLAIMS.forEach(c=>{k[cbState(c)]++;if(c.src)k.sourced++;if(cbNoPage(c))k.nopage++;});return k;}
+const CB_FILTERS=()=>[["all",L("全部","All")],["ok",L("团队已核对","Team-checked")],["edit",L("已修改","Edited")],["rej",L("已驳回","Rejected")],["gap",L("证据空白","Evidence gap")],["nopage",L("缺页码","No page")]];
 const cbMatch=(c,f)=>f==="all"||(f==="nopage"?cbNoPage(c):cbState(c)===f);
-function cbRow(c){const st=cbState(c),r=cbRev()[c.id],pick=CB.pick&&CB.pick.id===c.id?CB.pick.st:null,card=CARDS.find(x=>x.id===c.card);
-  const why=r&&r.why?(CB_WHY()[st]||[]).find(x=>x[0]===r.why):null;
-  const who=st==="gap"?L("来源里没有这个数字，所以没有可核对的原文","No source gives this figure, so there is no wording to check")
-    :r?`${L("核对人：团队成员（演示）","Checked by: a team member (demo)")} · ${cbWhen(r.at)}${why?" · "+why[1]:""}`
-    :L("核对人：团队（整理原型时）","Checked by: the team, when the prototype was compiled");
-  const use=st==="ok"?L("居民端：显示","Residents: shown"):st==="gap"?L("居民端：标为证据空白","Residents: shown as an evidence gap"):L("居民端：不显示","Residents: hidden");
-  return `<article class="cb-row cbs-${st}" id="lr-${c.id}">
-   <div class="cb-rh"><span class="cb-n">${CLAIMS.indexOf(c)+1}</span><span class="status cbt-${st}">${cbStateT(st)}</span>${c.src?chip(c.src,c.pg,c.id):""}${cbNoPage(c)?`<span class="tag t-infer">${L("缺页码","No page")}</span>`:c.src==="S3"?`<span class="tag cb-neutral">${L("网页，无页码","Web page, no pages")}</span>`:""}</div>
-   <div class="cb-rt">${T(c)}</div>
-   <div class="cb-rq">${c.q?`<span lang="en">“${esc(c.q)}”</span>`:`${L("没有原文可引","No original wording to quote")}`}</div>
-   <div class="cb-ra">${st==="gap"?"":`<div class="cb-btns" role="group" aria-label="${L("核对决定","Review decision")}">${[["ok",L("批准","Approve")],["edit",L("退回修改","Send back")],["rej",L("驳回","Reject")]].map(([k,t])=>`<button class="cb-b cb-b-${k}" data-cb="rev" data-cid="${c.id}" data-val="${k}" aria-pressed="${st===k}">${t}</button>`).join("")}</div>`}
-    ${pick?`<div class="cb-why"><span class="small">${pick==="rej"?L("驳回理由：","Reason to reject:"):L("要改什么：","What needs changing:")}</span>${CB_WHY()[pick].map(([k,t])=>`<button data-cb="why" data-val="${k}">${t}</button>`).join("")}<button data-cb="cancel">${L("取消","Cancel")}</button></div>`:""}
-    <div class="cb-who">${who}</div><div class="cb-who">${use} · ${T(card)}</div></div></article>`;}
-function cbLedger(){const k=cbCounts(),n=f=>CLAIMS.filter(c=>cbMatch(c,f)).length,list=CLAIMS.filter(c=>cbMatch(c,CB.filter));
+/* filter bar above the ledger table; ledgerTable({only}) in shared.js does the filtering */
+function cbLedgerFilter(){const n=f=>CLAIMS.filter(c=>cbMatch(c,f)).length;
   return `<div class="cb-filter" role="group" aria-label="${L("筛选","Filter")}">${CB_FILTERS().map(([f,t])=>`<button data-cb="filter" data-val="${f}" aria-pressed="${CB.filter===f}">${t} <i>${n(f)}</i></button>`).join("")}</div>
-   ${CB.filter==="nopage"?`<p class="small muted">${L("S4 是 PDF，但我们整理这些条目时没有记页码。证据标准要求来源能定位，所以这里把它们列出来，等补上页码。","S4 is a PDF, but we did not record page numbers when compiling these claims. The evidence standard asks for a source that can be located, so they are listed here until the pages are added.")} ${chip("S1","p.13")}</p>`:""}
-   ${list.length?CARDS.map(cd=>{const xs=list.filter(c=>c.card===cd.id);return xs.length?`<details class="cb-grp" open><summary>${T(cd)} <span class="small muted">(${xs.length})</span></summary>${xs.map(cbRow).join("")}</details>`:"";}).join("")
-     :`<p class="cb-ghost">${L("这个筛选下没有条目。","No claims match this filter.")}</p>`}
-   <div class="cb-acts" style="margin-top:12px"><span class="small muted">${L(`${k.ok} 条显示给居民，${k.edit+k.rej} 条不显示，${k.gap} 条标为证据空白。核对记录只保存在本浏览器。`,`${k.ok} shown to residents, ${k.edit+k.rej} hidden, ${k.gap} marked as an evidence gap. Review records are saved in this browser only.`)}</span>
-    ${Object.keys(cbRev()).length?`<button class="btn cb-sm" data-cb="resetrev">${L("恢复演示默认","Reset to demo default")}</button>`:""}</div>`;}
+   ${CB.filter==="nopage"?`<p class="small muted">${L("S4 是 PDF，但我们整理这些条目时没有记页码。证据标准要求来源能定位，所以把它们列出来，等补上页码。","S4 is a PDF, but we did not record page numbers when compiling these claims. The evidence standard asks for a source that can be located, so they are listed here until the pages are added.")} ${chip("S1","p.13")}</p>`:""}
+   ${n(CB.filter)?"":`<p class="cb-ghost">${L("这个筛选下没有条目。","No claims match this filter.")}</p>`}`;}
+const cbOnly=()=>c=>cbMatch(c,CB.filter);
+
+/* ---------- ledger tab: five-step pipeline and the evidence-standard self-check ---------- */
 function cbPipe(){const k=cbCounts();
-  const st=(attr,n,h,b,tag)=>`<button class="cb-step" ${attr}><b>${n} · ${h}</b><span>${b}</span><span>${tag}</span></button>`;
+  const st=(attr,n,h,b,tag)=>`<${attr?"button":"div"} class="cb-step" ${attr}><b>${n} · ${h}</b><span>${b}</span><span>${tag}</span></${attr?"button":"div"}>`;
   return `<div class="cb-pipe">
-   ${st(`data-cb="go" data-val="ledger#cb-src"`,1,"PDF",L("规划师上传总规、Council 报告和战略","A planner uploads the plan, the report and the strategy"),`<span class="tag t-fact">S2 · S4 · S5</span>`)}
-   ${st(`data-cb="go" data-val="ledger#cb-std"`,2,L("AI 提取","AI extracts"),L("逐条提取，附页码和原文；没有引用的不收录","Each claim with page and quote; no quote, no entry"),`<span class="tag t-infer">${L("演示：团队人工完成","Demo: done by hand")}</span>`)}
-   ${st(`data-cb="go" data-val="ledger#cb-ledger"`,3,L("规划师核对","Planner reviews"),L("批准、退回修改或驳回，记下核对人和时间","Approve, send back or reject; reviewer and time are recorded"),`<span class="tag t-gap">${L("演示：核对人是团队成员","Demo: the reviewer is a team member")}</span>`)}
-   ${st(`data-tab="res"`,4,L("居民端","Residents"),L("只显示通过核对的条目","Only claims that passed review are shown"),`<span class="tag t-design">${L(`${k.ok} 条显示 · ${k.edit+k.rej} 条不显示`,`${k.ok} shown · ${k.edit+k.rej} hidden`)}</span>`)}
-   ${st(`data-cb="go" data-val="council#cb-gaps"`,5,L("证据空白清单","Evidence-gap list"),L("来源里没有的数字，列出来交给 Council","Figures no source gives are listed for Council"),`<span class="tag t-gap">${L(`${GAPS().length} 条`,`${GAPS().length} gaps`)}</span>`)}</div>`;}
+   ${st("",1,"PDF",L("规划师上传总规、Council 报告和战略","A planner uploads the plan, the report and the strategy"),`<span class="tag t-fact">S2 · S4 · S5</span>`)}
+   ${st(`data-jump="cb-std"`,2,L("AI 提取","AI extracts"),L("逐条提取，附页码和原文；没有引用的不收录","Each claim with page and quote; no quote, no entry"),`<span class="tag t-infer">${L("演示：团队人工完成","Demo: done by hand")}</span>`)}
+   ${st(`data-jump="ledger"`,3,L("规划师核对","Planner reviews"),L("批准、修改或驳回，记下核对人和日期","Approve, edit or reject; reviewer and date are recorded"),`<span class="tag t-gap">${L("演示：核对人是团队成员","Demo: the reviewer is a team member")}</span>`)}
+   ${st(`data-tab="res"`,4,L("居民端","Residents"),L("只显示没被驳回的条目","Only claims that were not rejected are shown"),`<span class="tag t-design">${L(`${k.ok+k.edit} 条显示 · ${k.rej} 条不显示`,`${k.ok+k.edit} shown · ${k.rej} hidden`)}</span>`)}
+   ${st(`data-cb="go" data-val="council#blk-gaps"`,5,L("证据空白清单","Evidence-gap list"),L("来源里没有的数字，列出来交给 Council","Figures no source gives are listed for Council"),`<span class="tag t-gap">${L(`${GAPS().length} 条`,`${GAPS().length} gaps`)}</span>`)}</div>`;}
 function cbStandard(){const k=cbCounts(),tag=(c,t)=>`<span class="tag ${c}">${t}</span>`,done=tag("t-fact",L("已做","Done")),part=tag("t-infer",L("部分","Partly")),todo=tag("t-gap",L("还没做","Not yet"));
   const rows=[
-   [L("来源和日期","Source and date"),L("5 份来源都列了发布方和日期，见下方“来源”","All five sources list publisher and date: see Sources below"),done],
+   [L("来源和日期","Source and date"),L("5 份来源都列了发布方和日期，见上方“来源”","All five sources list publisher and date: see Sources above"),done],
    [L("分析单元和覆盖范围","Unit of analysis and coverage"),L("一个地点、一个决策：第一期范围里的一块 1,200 m² 广场","One place, one decision: a 1,200 m² square inside the Phase 1 area")+" "+chip("S2","p.23","sq1"),done],
    [L("清洗过程","Cleaning"),L(`条目是人工摘录的，没有自动清洗；${k.nopage} 条 S4 条目还缺页码`,`Claims were extracted by hand with no automated cleaning; ${k.nopage} S4 claims still lack a page number`),part],
    [L("缺失或有偏的群体","Missing or biased groups"),L("演示没有真实提交；投票汇总用的是标明的模拟数据。代表性检查的版式在 Council 后台，ABS 数据还没读","The demo has no real submissions; the vote tally uses simulated data, labelled as such. The representativeness check is laid out in the Council backend; the ABS data is not read yet"),todo],
-   [L("至少一个人工验证步骤","At least one human check"),L(`本清单逐条核对：${k.ok} / ${k.sourced} 条通过。核对人是团队成员，不是 Council`,`This ledger, claim by claim: ${k.ok} of ${k.sourced} passed. The reviewer is a team member, not Council`),done],
+   [L("至少一个人工验证步骤","At least one human check"),L(`本清单逐条核对：${k.ok+k.edit} / ${k.sourced} 条通过。核对人是团队成员，不是 Council`,`This ledger, claim by claim: ${k.ok+k.edit} of ${k.sourced} passed. The reviewer is a team member, not Council`),done],
    [L("AI 使用情况","Use of AI"),L("演示页面运行时不调用 AI：条目来自来源原文，数字由透明公式算出。正式版由 AI 提取和起草，规划师批准","The demo page calls no AI when it runs: claims come from the source wording and figures from an open formula. In the full version AI extracts and drafts, and a planner approves"),done],
-   [L("区分事实、假设和生成内容","Facts, assumptions and generated content kept apart"),L("四种标签：来源原文、我们的设计、假设、证据空白","Four tags: source wording, our design, assumption, evidence gap"),done]];
+   [L("区分事实、假设和生成内容","Facts, assumptions and generated content kept apart"),L("标签分开：来源原文、我们的设计、假设、证据空白、模拟数据","Separate tags: source wording, our design, assumption, evidence gap, simulated data"),done]];
   return `<p class="small muted">${L("赛题对每份数据的要求，和本演示做到哪一步。","What the brief asks of each dataset, and how far this demo gets.")} ${chip("S1","p.13")}</p>
    <div class="cb-kv h"><span>${L("要求","Requirement")}</span><span>${L("本演示","This demo")}</span><span>${L("状态","Status")}</span></div>
    ${rows.map(r=>`<div class="cb-kv"><b>${r[0]}</b><span>${r[1]}</span><span>${r[2]}</span></div>`).join("")}`;}
-function cbLedgerPage(){
-  return `<div class="wrap tabpage cb"><div class="banner"><b>${L("证据规则。","Evidence rule.")}</b> ${L("每条 Council 事实都有来源、页码和原文；没有来源的只能标成假设或证据空白。","Every Council fact has a source, page and quote; anything without one is marked as an assumption or a gap.")} ${TEAM_CHECKED()}</div>
-   <section><div class="sec-h"><h2>${L("正式版流程","How the full version works")}</h2><span class="small muted">${L("点一步，跳到对应的地方","Tap a step to go there")}</span></div>${cbPipe()}</section>
-   <section class="card" id="cb-ledger"><div class="sec-h"><h2>${L("证据核对清单","Evidence ledger")} (${CLAIMS.length})</h2><span class="small muted">${L("驳回或退回一条，再回居民故事板看：那一条不再显示。","Reject or send back a claim, then look at the resident storyboard: it is no longer shown.")}</span></div>${cbLedger()}</section>
-   <section class="card" id="cb-std"><h2>${L("证据标准自查","Evidence standard self-check")}</h2>${cbStandard()}</section>
-   <section class="card" id="cb-src"><h2>${L("来源","Sources")}</h2><ul class="srcs">${Object.entries(SOURCES).map(([k,s])=>`<li><b class="src" style="cursor:default">${k}</b> ${esc(T(s))} ${s.url?`<a href="${s.url}" target="_blank" rel="noopener">${L("原文","Open")} ↗</a>`:`<span class="small muted">${L("团队持有","held by the team")}</span>`}</li>`).join("")}</ul></section>
-   <section class="card"><div class="sec-h"><h2>${L("模型系数","Model coefficients")}</h2>${ASSUME()}</div>${coefTable()}</section></div>`;}
 
-/* ---------- decision card: decision, owner, refresh, action enabled (S1 p.13) ---------- */
-function cbDecision(){const our=`<span class="tag t-design">${L("我们的设计","Our design")}</span>`;
-  const cell=(k,h,b)=>`<div class="cb-dc"><div class="eyebrow">${k}</div><h3>${h}</h3>${b}</div>`;
-  return `<section class="card cb-dec" id="cb-dec"><div class="sec-h"><h2>${L("这个后台为哪个决策服务","The decision this backend serves")}</h2><span class="small muted">${L("赛题要求讲清决策、负责人、更新机制和能促成的行动","The brief asks for the decision, the owner, the refresh process and the action enabled")} ${chip("S1","p.13")}</span></div>
-   <div class="cb-dcs">
-   ${cell(L("决策","Decision"),L("1,200 m² 的广场，各类用途各占多少","How the 1,200 m² square is shared between uses"),
-     `<p>${L("Woodhouse Square（暂定名）。总规列了用途，没给各占多少面积。","Woodhouse Square (provisional name). The plan lists the uses but gives no area for each.")} ${chip("S2","p.23","sq1")} ${chip("S2","p.54","sq11")}</p><p class="small muted">${L("分成 10 类用途来比较","Comparing it as 10 uses")} ${our}</p>`)}
-   ${cell(L("负责人","Owner"),L("Council：地和总规都是它的","Council: both the land and the plan are its own"),
-     `<p>${L("广场在 Council 自有土地上；总规草案由 Council 表决后公示。","The square is on Council-owned land, and Council voted to exhibit the draft plan.")} ${chip("S2","p.23","sq1")} ${chip("S4","")}</p><p class="small muted">${L("在工具里核对条目、回应意见的团队：待 Council 指定","The team that reviews claims and responds in this tool: for Council to name")} ${our}</p>`)}
-   ${cell(L("何时更新","Refresh"),L("跟着总规的三个节点走","At three points in the plan's own timeline"),
-     `<ul><li>${L("最终版总规提交 Council（是否已通过，待核实）","The final master plan goes to Council (whether it has been adopted is still to be checked)")} ${chip("S3","")}</li><li>${L("交通研究：FY27/28 聘顾问","The traffic study: consultants in FY27/28")} ${chip("S4","","tr6")}</li><li>${L("第二期总规 2027 年公示","Phase 2 goes on exhibition in 2027")} ${chip("S3","")}</li></ul><p class="small muted">${L("每到一个节点，重新核对条目、重跑原则检查","At each point, review the claims again and rerun the principle check")} ${our}</p>`)}
-   ${cell(L("能促成的行动","Action enabled"),L("给总规列出的后续工作提供输入","Input to the follow-up work the plan already lists"),
-     `<ul><li>${L("修订 DCP 2023 Part 9","Amending DCP 2023 Part 9")} ${chip("S2","p.54")}</li><li>${L("公共艺术总体规划","The Public Art Master Plan")} ${chip("S4","","ct6")}</li><li>${L("Council 用地的可行性研究和商业论证","Feasibility and business case for Council's land")} ${chip("S2","p.54")}</li><li>${L("向州政府倡导","Advocacy to the State")} ${chip("S5","p.44")} <button class="cb-link" data-cb="go" data-val="council#cb-brief">${L("看简报","See the brief")} ↓</button></li></ul>`)}
-   </div></section>`;}
-
-/* ---------- status tiles and the to-do list ---------- */
-function cbGroups(){const subs=cbSubs(),rows=ROLES.map(r=>({r,n:subs.filter(s=>s.role===r.id).length}));return {rows,ok:rows.filter(x=>x.n>=CB_MIN).length};}
-function cbTiles(){const k=cbCounts(),p=pCheckSummary(S.a),n=cbSubs().length,g=cbGroups(),held=k.edit+k.rej;
-  const tile=(attr,num,t,s,cls)=>`<button class="cb-tile ${cls||""}" ${attr}><span class="cb-tn">${num}</span><span class="cb-tt">${t}</span><small>${s}</small></button>`;
-  return `<div class="cb-tiles" role="group" aria-label="${L("现在的状态","Status now")}">
-   ${tile(`data-cb="filter" data-val="all"`,`${k.ok}<i>/${k.sourced}</i>`,L("条目通过核对","Claims passed review"),L("团队核对，不是 Council 批准","By the team, not Council"))}
-   ${tile(`data-cb="filter" data-val="${k.rej&&!k.edit?"rej":"edit"}"`,held,L("条目被退回或驳回","Sent back or rejected"),L("居民端不显示","Hidden from residents"),held?"warn":"")}
-   ${tile(`data-cb="go" data-val="council#cb-p"`,`${p.keep}<i>/5</i>`,L("原则保持","Principles kept"),p.weak+p.fail?L(`削弱 ${p.weak} · 不满足 ${p.fail}`,`${p.weak} weakened · ${p.fail} not met`):L("当前分配没有削弱任何一条","The current split weakens none"),p.fail?"bad":p.weak?"warn":"")}
-   ${tile(`data-cb="go" data-val="council#cb-fb"`,n,L("演示提交","Demo submissions"),g.ok?L(`${g.ok} 个群体达到 ${CB_MIN} 份`,`${g.ok} group(s) reached ${CB_MIN}`):L(`还没有群体达到 ${CB_MIN} 份`,`No group has reached ${CB_MIN} yet`))}
-   ${tile(`data-cb="go" data-val="council#cb-gaps"`,GAPS().length,L("证据空白","Evidence gaps"),L("列出来，不用估算填上","Listed, not filled with estimates"))}</div>`;}
-function cbTodo(){const k=cbCounts(),items=[],go=v=>`data-cb="go" data-val="council#${v}"`;
-  if(k.edit) items.push([L(`${k.edit} 条条目被退回修改，改好后要重新批准`,`${k.edit} claim(s) were sent back; they need approving again once fixed`),`data-cb="filter" data-val="edit"`,L("去台账","Open the ledger")]);
+/* ---------- to-do list for the planner ---------- */
+function cbTodo(){const k=cbCounts(),items=[],jump=v=>`data-jump="${v}"`;
   if(k.nopage) items.push([L(`${k.nopage} 条 S4 条目还缺页码`,`${k.nopage} S4 claims have no page number`),`data-cb="filter" data-val="nopage"`,L("去台账","Open the ledger")]);
-  pCheckData(S.a).filter(r=>r.st!=="keep").forEach(r=>items.push([L(`居民当前的分配${r.st==="fail"?"不满足":"削弱了"} ${r.ids.join(" · ")}`,`The resident's current split ${r.st==="fail"?"does not meet":"weakens"} ${r.ids.join(" · ")}`),go("cb-p"),L("看检查","See the check")]));
+  if(k.rej) items.push([L(`${k.rej} 条条目被驳回，居民端已隐藏`,`${k.rej} claim(s) are rejected and hidden from residents`),`data-cb="filter" data-val="rej"`,L("去台账","Open the ledger")]);
+  pEval(S.a).filter(r=>r.lvl==="weak"||r.lvl==="fail").forEach(r=>items.push([L(`居民当前的分配${r.lvl==="fail"?"不满足":"削弱了"} ${r.id}：${r.t}`,`The resident's current split ${r.lvl==="fail"?"does not meet":"weakens"} ${r.id}: ${r.t}`),jump("blk-pc"),L("看检查","See the check")]));
   const un=cbTexts().filter(x=>!cbRoutes()[x.k]).length;
-  if(un) items.push([L(`${un} 条居民文字意见还没有去向`,`${un} written comment(s) have no next step yet`),go("cb-triage"),L("去分拣","Sort them")]);
+  if(un) items.push([L(`${un} 条居民文字意见还没有去向`,`${un} written comment(s) have no next step yet`),jump("cb-triage"),L("去分拣","Sort them")]);
   const b=cbBriefState();
-  if(b!=="ok") items.push([{none:L("倡导简报还没有草稿","The advocacy brief has no draft yet"),draft:L("倡导简报草稿在等人工批准","The advocacy brief draft is waiting for a person to approve it"),stale:L("倡导简报批准之后内容变了，要重新批准","The advocacy brief changed after approval and needs approving again")}[b],go("cb-brief"),L("去简报","Open the brief")]);
+  if(b!=="ok") items.push([{none:L("倡导简报还没有草稿","The advocacy brief has no draft yet"),draft:L("倡导简报草稿在等人工批准","The advocacy brief draft is waiting for a person to approve it"),stale:L("倡导简报批准之后内容变了，要重新批准","The advocacy brief changed after approval and needs approving again")}[b],jump("cb-brief"),L("去简报","Open the brief")]);
   return items.length?`<ul class="cb-todo">${items.map(i=>`<li><span>${i[0]}</span><button class="btn cb-sm" ${i[1]}>${i[2]} →</button></li>`).join("")}</ul>`
-    :`<p class="cb-ghost" style="margin-top:8px">${L("现在没有要处理的事。","Nothing needs attention right now.")}</p>`;}
+    :`<p class="cb-ghost">${L("现在没有要处理的事。","Nothing needs attention right now.")}</p>`;}
 
 /* ---------- resident feedback: per-group threshold, summary, representativeness ---------- */
+function cbGroups(){const subs=cbSubs(),rows=ROLES.map(r=>({r,n:subs.filter(s=>s.role===r.id).length}));return {rows,ok:rows.filter(x=>x.n>=CB_MIN).length};}
 function cbReact(subs,cid){const c={yes:0,unsure:0,no:0};subs.forEach(s=>{const v=(s.react||{})[cid];if(v in c)c[v]++;});return c;}
 function cbReactRow(subs,cd){const c=cbReact(subs,cd.id),n=subs.length,said=c.yes+c.unsure+c.no,w=v=>n?100*v/n:0;
   return `<div class="cb-line"><b>${T(cd)}</b><div class="cb-bar" aria-hidden="true"><span class="cb-y" style="width:${w(c.yes)}%"></span><span class="cb-u" style="width:${w(c.unsure)}%"></span><span class="cb-no" style="width:${w(c.no)}%"></span></div>
    <small>${L(`支持 ${c.yes} · 不确定 ${c.unsure} · 有顾虑 ${c.no} · 没表态 ${n-said}`,`Support ${c.yes} · Not sure ${c.unsure} · Concerned ${c.no} · No view ${n-said}`)}</small></div>`;}
 function cbSummary(subs){const n=subs.length,gsumOf=(a,g)=>MODULES.filter(m=>m.g===g).reduce((s,m)=>s+(+a[m.id]||0),0);
-  const pr=pCheckData(PRESETS.base.a).map((r,i)=>{const sts=subs.map(s=>pCheckData(s.a)[i].st);return {ids:r.ids,weak:sts.filter(x=>x==="weak").length,fail:sts.filter(x=>x==="fail").length};});
+  const lv=subs.map(s=>pEval(s.a)),pr=pEval(PRESETS.base.a).map((r,i)=>({r,weak:lv.filter(x=>x[i].lvl==="weak").length,fail:lv.filter(x=>x[i].lvl==="fail").length})).filter(x=>!x.r.na);
   const pri=DIMS.map(d=>({d,k:subs.filter(s=>(s.pri||[]).includes(d.id)).length})).filter(x=>x.k).sort((x,y)=>y.k-x.k);
   return `<div class="cb-blk"><h3>${L("对总规三件事的态度","Views on the plan's three items")}</h3>${CARDS.map(cd=>cbReactRow(subs,cd)).join("")}</div>
    <div class="cb-blk"><h3>${L("提交的分法：四大类面积的中位数","Submitted splits: median area by group")}</h3>
     ${Object.keys(GROUPS).map(g=>{const md=cbMedian(subs.map(s=>gsumOf(s.a,g))),b0=gsumOf(PRESETS.base.a,g);
       return `<div class="cb-line"><b style="color:${GROUPS[g].c}">${T(GROUPS[g])}</b> <span class="cb-mono">${L("方案 0","Scenario 0")} ${fmt(b0)} m² → ${L("中位数","median")} ${fmt(md)} m²</span></div>`;}).join("")}</div>
    <div class="cb-blk"><h3>${L("这些分法对总规原则的影响","What these splits do to the plan's principles")}</h3>
-    ${pr.map(r=>`<div class="cb-line"><b>${r.ids.join(" · ")}</b> <span class="cb-mono">${L(`${n} 份里：削弱 ${r.weak} 份 · 不满足 ${r.fail} 份`,`Of ${n}: weakened in ${r.weak} · not met in ${r.fail}`)}</span></div>`).join("")}</div>
+    ${pr.map(x=>`<div class="cb-line"><b>${x.r.id}</b> <span class="cb-mono">${L(`${n} 份里：削弱 ${x.weak} 份 · 不满足 ${x.fail} 份`,`Of ${n}: weakened in ${x.weak} · not met in ${x.fail}`)}</span></div>`).join("")}</div>
    <div class="cb-blk"><h3>${L("最在乎的维度","Dimensions people care about most")}</h3><p class="small">${pri.length?pri.map(x=>`${T(x.d)} ${x.k}`).join(" · "):"—"}</p></div>`;}
 function cbRep(subs,show){const known=subs.filter(s=>s.lang),zh=known.filter(s=>s.lang==="zh").length;
   const no=`<span class="muted">${L("不能比较","Cannot be compared")}</span>`,gap=`<span class="tag t-gap">${L("证据空白","Evidence gap")}</span>`;
@@ -1564,7 +1467,7 @@ function cbRep(subs,show){const known=subs.filter(s=>s.lang),zh=known.filter(s=>
    <p class="small muted">${L("正式版对比 ABS Census 的人口结构。ABS 数据我们还没读，所以这里只用手上来源里的两个数字做基准，不写任何没有来源的人口数字。","The full version compares against ABS Census profiles. We have not read the ABS data yet, so only two figures from sources we hold serve as benchmarks, and no unsourced population figure is stated.")}</p>
    <div class="cb-kv h"><span>${L("基准","Benchmark")}</span><span>${L("我们手上能比的","What we can set against it")}</span><span>${L("现在","Now")}</span></div>
    ${rows.map(r=>`<div class="cb-kv"><span>${r[0]}</span><span>${r[1]}</span><span>${r[2]}</span></div>`).join("")}</div>`;}
-function cbFeedback(){const subs=cbSubs(),n=subs.length,g=cbGroups(),pv=cbPreview(),show=n>=CB_MIN||(pv&&n>0);
+function cbFeedback(){const subs=cbSubs(),n=subs.length,g=cbGroups(),pv=CB.preview,show=n>=CB_MIN||(pv&&n>0);
   const head=`<p class="small muted">${L(`同一群体达到 ${CB_MIN} 份才显示汇总，免得从汇总里认出个人。这一栏只算本浏览器里的演示提交（分法、态度、最在乎的维度），不含模拟票，也没有发送给任何人。`,`A group's summary shows only once it reaches ${CB_MIN}, so no one can be picked out. This card counts only demo submissions saved in this browser (splits, views, top concerns). It leaves out the simulated votes, and nothing is sent anywhere.`)}</p>
    <div class="cb-thr"><b>${n}</b><span>${L("份演示提交","demo submission(s)")}</span></div>
    <ul class="cb-grps">${g.rows.map(x=>`<li><span>${T(x.r)}</span><span class="${x.n>=CB_MIN?"ok":"muted"}">${x.n>=CB_MIN?L(`≥ ${CB_MIN} · 可单独显示`,`≥ ${CB_MIN} · shown on its own`):L(`< ${CB_MIN} · 已隐藏`,`< ${CB_MIN} · hidden`)}</span></li>`).join("")}</ul>`;
@@ -1573,7 +1476,7 @@ function cbFeedback(){const subs=cbSubs(),n=subs.length,g=cbGroups(),pv=cbPrevie
      <ul><li>${L("居民对总规三件事的态度：支持、不确定、有顾虑","Views on the plan's three items: support, not sure, concerned")}</li><li>${L("提交的分法里，四大类面积的中位数","Median area by group across the submitted splits")}</li><li>${L("这些分法削弱了哪条总规原则","Which plan principles those splits weaken")}</li></ul>
      <button class="btn cb-sm" data-cb="go" data-val="res#c-say">${L("去居民故事板提交一份","Go and submit one as a resident")} →</button></div>`;
   else body=`${n<CB_MIN?`<div class="cb-gate"><span><b>${L(`不足 ${CB_MIN} 份。`,`Fewer than ${CB_MIN}.`)}</b> ${L("正式版在这之前不显示任何汇总。","The full version shows no summary before this.")}</span><button class="btn cb-sm" data-cb="preview">${pv?L("收起演示预览","Hide the demo preview"):L("看演示预览","Show a demo preview")}</button></div>`:""}
-    ${show?`${n<CB_MIN?`<p class="small" style="margin-top:8px"><span class="tag t-gap">${L("预览：正式版不会显示","Preview: the full version would hide this")}</span></p>`:""}${cbSummary(subs)}
+    ${show?`${n<CB_MIN?`<p class="small" style="margin-top:8px">${cbPrevTag()}</p>`:""}${cbSummary(subs)}
       ${g.rows.filter(x=>x.n>=CB_MIN).map(x=>`<div class="cb-blk"><h3>${T(x.r)} (${x.n})</h3>${CARDS.map(cd=>cbReactRow(subs.filter(s=>s.role===x.r.id),cd)).join("")}</div>`).join("")}`:""}
     <button class="btn cb-sm" id="clearSubs" style="margin-top:12px">${L("清除本浏览器的演示提交","Clear demo submissions in this browser")}</button>`;
   return head+body+cbRep(subs,show);}
@@ -1586,11 +1489,11 @@ function cbTexts(){const out=[];cbSubs().forEach(s=>{
   if(s.wish&&s.wish.trim())out.push({k:s.t+"w",q:L("广场怎样才有用","What would make the square work"),txt:s.wish.trim()});});return out;}
 function cbTriage(){const xs=cbTexts(),rt=cbRoutes(),cnt=k=>xs.filter(x=>(rt[x.k]||"")===k).length;
   const note=`<p class="small muted">${L("每条文字意见由规划师选一个去向。这里不显示身份等信息，免得从一条意见认出个人。正式版由 AI 建议主题，规划师确认；演示版不用 AI。","A planner picks one next step for each written comment. Role and other details are left out so a single comment cannot identify a person. In the full version AI suggests themes and a planner confirms; the demo uses no AI.")}</p>`;
-  if(!xs.length) return note+`<div class="cb-ghost">${L("还没有文字意见。居民在故事板第 4 章写的两段话会出现在这里。","No written comments yet. The two answers residents write in chapter 4 of the storyboard appear here.")}</div>`;
+  if(!xs.length) return note+`<div class="cb-ghost">${L("还没有文字意见。居民在故事板第 4 章“还想补充”里写的话会出现在这里。","No written comments yet. What residents write under “Anything else” in chapter 4 of the storyboard appears here.")}</div>`;
   return note+`<p class="small">${CB_ROUTES().map(([k,t])=>`${t} ${cnt(k)}`).join(" · ")}</p>
    <ul class="cb-tri">${xs.map(x=>`<li><div class="small muted">${x.q}</div><p>“${esc(x.txt)}”</p><label>${L("去向","Next step")} <select data-cbroute="${x.k}">${CB_ROUTES().map(([k,t])=>`<option value="${k}"${(rt[x.k]||"")===k?" selected":""}>${t}</option>`).join("")}</select></label></li>`).join("")}</ul>`;}
 
-/* ---------- who delivers: D / D+P / P from the current split, A as a list of asks ---------- */
+/* ---------- advocacy brief: a template draft from claims that passed review, approved by a person ---------- */
 const CB_ASKS=()=>[
  {id:"tr6",to:L("TfNSW：交通研究的合作方","TfNSW, Council's partner in the traffic study"),toC:[["S2","p.54"]],
   ask:L("把广场周边的步行过街和路缘接驳，写进交通研究的范围。","Put walking crossings and kerbside access around the square into the scope of the traffic study.")},
@@ -1598,65 +1501,40 @@ const CB_ASKS=()=>[
   ask:L("第二期总规研究车站和 Argyle St 公交换乘站时，把走到广场的这一段一起考虑。","When Phase 2 looks at the station and the Argyle St bus interchange, include the walk to the square.")},
  {id:"sq10",to:L("州和联邦政府：拨款","State and Federal governments: grants"),toC:[["S2","p.54","sq10"]],
   ask:L("为广场建设申请州和联邦拨款。","Seek State and Federal grants towards building the square.")}];
-function cbRoles(){const by={D:0,"D+P":0,P:0};MODULES.forEach(m=>by[m.role]+=S.a[m.id]);
-  const tiers=[["D",L("Council 直接负责","Council delivers"),L("树冠、雨水花园、座椅、步行、路缘、照明","Canopy, rain gardens, seating, walking, kerb, lighting")],["D+P",L("Council 牵头，与伙伴合作","Council leads with partners"),L("活动和夜市、自行车、回收","Events and markets, bikes, recycling")],["P",L("主要靠伙伴","Mainly partners"),L("文化表达：艺术家、华人社团、First Nations 团体","Cultural expression: artists, Chinese community groups, First Nations groups")]];
-  return `<p class="small muted">${L("D = Council 自己做，P = 和伙伴一起做，A = 向州政府等争取。前三格是居民当前分配里的面积；A 不是面积，是要去争取的事。","D = Council delivers, P = partners, A = advocates to others such as the State. The first three show area in the resident's current split; A is not an area but a list of things to ask for.")} ${chip("S5","p.33")} <span class="tag t-design">${L("分工是我们的判断","The roles are our reading")}</span></p>
-   <div class="cb-roles">${tiers.map(([k,t,d])=>`<div class="cb-role"><b>${k}</b><span class="t">${t}</span><div class="big">${fmt(by[k])} m²</div><small>${d}</small></div>`).join("")}
-    <div class="cb-role a"><b>A</b><span class="t">${L("向州政府等争取","Advocate to others")}</span><div class="big">${L(`${CB_ASKS().length} 件事`,`${CB_ASKS().length} asks`)}</div>
-     <ul>${CB_ASKS().map(a=>{const c=cbClaim(a.id);return cbShown(a.id)?`<li>${T(c)} ${chip(c.src,c.pg,c.id)}</li>`:`<li class="cb-held">${L("依据的条目未通过核对，先不列入。","The claim behind this did not pass review, so it is left out for now.")} <button class="cb-link" data-cb="filter" data-val="${cbState(c)}">${L("去台账","Open the ledger")}</button></li>`;}).join("")}</ul></div></div>
-   <p class="small" style="margin:10px 0 2px"><b>${L("另外两件事不在广场里面，要等 Council 的其他工作和社区伙伴：","Two more things sit outside the square and wait on other Council work and community partners:")}</b></p>${claimsById(["ct6","ct7"])}`;}
-
-/* ---------- advocacy brief: a template draft from approved claims, approved by a person ---------- */
-function cbBriefSig(){return JSON.stringify([["sq1"].concat(CB_ASKS().map(a=>a.id)).map(id=>id+cbState(cbClaim(id))),cbSubs().length,Object.values(cbRoutes()).filter(v=>v==="A").length]);}
+function cbBriefSig(){return JSON.stringify([["sq1"].concat(CB_ASKS().map(a=>a.id)).map(id=>[id,rv(id)]),cbSubs().length,Object.values(cbRoutes()).filter(v=>v==="A").length]);}
 function cbBriefState(){const b=store.get("cav_brief");return !b?"none":b.st==="ok"&&b.sig!==cbBriefSig()?"stale":b.st;}
 function cbBriefDoc(){const subs=cbSubs(),n=subs.length,c=cbReact(subs,"traffic"),routed=Object.values(cbRoutes()).filter(v=>v==="A").length,our=`<span class="tag t-design">${L("我们的设计","Our design")}</span>`;
-  const fact=id=>{const x=cbClaim(id);return `${T(x)} ${chip(x.src,x.pg,x.id)}`;};
+  const fact=id=>{const x=cbClaim(id);return `${claimTxt(x)} ${chip(x.src,x.pg,x.id)}`;},gp=GAPS();
   return `<div class="cb-doc"><h4>${L("倡导简报草稿：Woodhouse Square 需要其他方配合的事","Advocacy brief, draft: what Woodhouse Square needs from others")}</h4>
    <p class="small muted">${L("演示草稿，不是 Council 文件。发不发、发给谁，由 Council 决定。依据的战略行动：3.1.2 用数据向 NSW 政府倡导改善出行","A demo draft, not a Council document. Whether it is sent, and to whom, is for Council. Strategy action behind it: 3.1.2, use data to advocate to the NSW Government for better mobility")} ${chip("S5","p.44")}</p>
-   <h5>1 · ${L("背景","Background")}</h5><p>${cbShown("sq1")?fact("sq1"):L("（背景条目未通过核对，不能引用。）","(The background claim did not pass review and cannot be quoted.)")}</p>
-   <h5>2 · ${L("请求","Asks")}</h5><ol>${CB_ASKS().map(a=>cbShown(a.id)?`<li><b>${L("事实：","Fact:")}</b> ${fact(a.id)}<br><b>${L("请求：","Ask:")}</b> ${a.ask} ${our}<br><span class="small muted">${L("对象：","To:")} ${a.to} ${a.toC.map(x=>chip(x[0],x[1],x[2])).join(" ")}</span></li>`
-     :`<li class="cb-held">${L("这一项依据的条目未通过核对，已从简报里拿掉。","The claim behind this ask did not pass review, so the ask is left out.")}</li>`).join("")}</ol>
-   <h5>3 · ${L("居民意见","What residents said")}</h5><p>${n>=CB_MIN?L(`对“为行人改造交通”：支持 ${c.yes} · 不确定 ${c.unsure} · 有顾虑 ${c.no}（共 ${n} 份，是本浏览器里的演示提交，不是真实居民数据）。`,`On “Traffic changes for pedestrians”: support ${c.yes} · not sure ${c.unsure} · concerned ${c.no} (${n} in all; demo submissions in this browser, not real resident data).`):L(`演示提交不足 ${CB_MIN} 份，简报不引用居民数据。`,`Fewer than ${CB_MIN} demo submissions, so the brief quotes no resident data.`)}${routed?" "+L(`另有 ${routed} 条文字意见被分到倡导事项。`,`${routed} written comment(s) were also routed to advocacy.`):""}</p>
-   <h5>4 · ${L("还缺的证据","Evidence still missing")}</h5><ul>${GAPS().filter(g=>g.id==="g-traffic"||g.id==="g-fund").map(g=>`<li>${g.t} ${g.chips.map(x=>chip(x[0],x[1],x[2])).join(" ")}</li>`).join("")}</ul></div>`;}
+   <h5>1 · ${L("背景","Background")}</h5><p>${isRejected("sq1")?L("（背景条目被驳回，不能引用。）","(The background claim was rejected and cannot be quoted.)"):fact("sq1")}</p>
+   <h5>2 · ${L("请求","Asks")}</h5><ol>${CB_ASKS().map(a=>isRejected(a.id)?`<li class="rej-ph">${L("这一项依据的条目被驳回，已从简报里拿掉。","The claim behind this ask was rejected, so the ask is left out.")}</li>`
+     :`<li><b>${L("事实：","Fact:")}</b> ${fact(a.id)}<br><b>${L("请求：","Ask:")}</b> ${a.ask} ${our}<br><span class="small muted">${L("对象：","To:")} ${a.to} ${a.toC.map(x=>chip(x[0],x[1],x[2])).join(" ")}</span></li>`).join("")}</ol>
+   <h5>3 · ${L("居民意见","What residents said")}</h5><p>${n>=CB_MIN?L(`对“为行人改造交通”：支持 ${c.yes} · 不确定 ${c.unsure} · 有顾虑 ${c.no}（共 ${n} 份，是本浏览器里的演示提交，不是真实居民数据）。`,`On “Traffic changes for pedestrians”: support ${c.yes} · not sure ${c.unsure} · concerned ${c.no} (${n} in all; demo submissions in this browser, not real resident data).`):L(`演示提交不足 ${CB_MIN} 份，简报不引用居民数据，也不引用模拟票。`,`Fewer than ${CB_MIN} demo submissions, so the brief quotes no resident data, and no simulated votes.`)}${routed?" "+L(`另有 ${routed} 条文字意见被分到倡导事项。`,`${routed} written comment(s) were also routed to advocacy.`):""}</p>
+   <h5>4 · ${L("还缺的证据","Evidence still missing")}</h5><ul>${[gp[0],gp[4]].filter(Boolean).map(g=>`<li>${g.t} ${g.c}</li>`).join("")}</ul></div>`;}
 function cbBrief(){const st=cbBriefState(),b=store.get("cav_brief"),btn=(v,t,p)=>`<button class="btn cb-sm${p?" primary":""}" data-cb="brief" data-val="${v}">${t}</button>`;
   const stT={none:[L("还没有草稿","No draft yet"),"cb-neutral"],draft:[L("草稿 · 等人工批准","Draft · waiting for a person to approve"),"t-infer"],ok:[L("已批准","Approved"),"t-fact"],stale:[L("批准后内容变了 · 要重新批准","Changed since approval · approve again"),"t-gap"]}[st];
-  return `<div class="cb-briefbox"><div class="sec-h"><h3>${L("倡导简报","Advocacy brief")}</h3><span class="tag ${stT[1]}">${stT[0]}</span></div>
-   <p class="small muted">${L("正式版由 AI 起草，规划师批准后才能发出。演示版按模板把通过核对的条目拼成草稿，页面没有调用 AI；每句事实都带来源。","In the full version AI drafts it and a planner must approve before it goes out. The demo fills a template with claims that passed review and calls no AI; every fact keeps its source.")}</p>
+  return `<div class="sec-h"><h2 class="ch2">${L("倡导简报（A 层）","Advocacy brief (tier A)")}</h2><span class="tag ${stT[1]}">${stT[0]}</span></div>
+   <p class="small muted">${L("正式版由 AI 起草，规划师批准后才能发出。演示版按模板把没被驳回的条目拼成草稿，页面没有调用 AI；每句事实都带来源。","In the full version AI drafts it and a planner must approve before it goes out. The demo fills a template with claims that were not rejected and calls no AI; every fact keeps its source.")}</p>
    ${st==="none"?`<div class="cb-ghost">${L(`草稿会包含：背景、${CB_ASKS().length} 条请求（每条配一条有来源的事实）、居民意见、还缺的证据。`,`The draft will hold: background, ${CB_ASKS().length} asks (each with a sourced fact), what residents said, and the evidence still missing.`)}</div><div class="cb-acts" style="margin-top:8px">${btn("make",L("生成草稿","Make the draft"),1)}</div>`
-    :`${cbBriefDoc()}<div class="cb-acts">${st==="ok"?`<span class="small">${L("批准人：团队成员（演示）","Approved by: a team member (demo)")} · ${cbWhen(b.at)}</span>${btn("make",L("撤回批准","Withdraw approval"))}`:`${btn("approve",st==="stale"?L("重新批准（团队成员，演示）","Approve again (team member, demo)"):L("批准（团队成员，演示）","Approve (team member, demo)"),1)}${btn("drop",L("丢弃草稿","Discard the draft"))}`}</div>`}</div>`;}
+    :`${cbBriefDoc()}<div class="cb-acts">${st==="ok"?`<span class="small">${L("批准人：","Approved by: ")}${REVIEWER()} · ${cbWhen(b.at)}</span>${btn("make",L("撤回批准","Withdraw approval"))}`:`${btn("approve",(st==="stale"?L("重新批准","Approve again"):L("批准","Approve"))+" · "+REVIEWER(),1)}${btn("drop",L("丢弃草稿","Discard the draft"))}`}</div>`}`;}
 
 /* ---------- strategy indicators with "Baseline TBC" (S5) ---------- */
-function cbIndicators(){const subs=cbSubs(),n=subs.length,show=n>=CB_MIN||(cbPreview()&&n>0),c=cbReact(subs,"traffic");
-  const hid=`<span class="muted">${L(`不足 ${CB_MIN} 份，不显示`,`Fewer than ${CB_MIN}: not shown`)}</span>`,none=`<span class="tag t-gap">${L("还没有对应的问题","No matching question yet")}</span>`;
+function cbIndicators(){const subs=cbSubs(),n=subs.length,show=n>=CB_MIN||(CB.preview&&n>0),c=cbReact(subs,"traffic"),hot=subs.filter(s=>(s.pri||[]).some(p=>p==="shade"||p==="storm")).length;
+  const none=`<span class="tag t-gap">${L("还没有对应的问题","No matching question yet")}</span>`;
   const rows=[
-   [L("社区对气候适应措施的满意度","Community satisfaction with climate adaptation measures"),"p.39",L("把“遮荫面积”或“雨水滞留”选为最在乎的份数。只说明在乎，不等于满意","Submissions that pick shaded area or stormwater as a top concern. This shows concern, not satisfaction"),
-    show?L(`${subs.filter(s=>(s.pri||[]).some(p=>p==="shade"||p==="storm")).length} / ${n} 份`,`${subs.filter(s=>(s.pri||[]).some(p=>p==="shade"||p==="storm")).length} of ${n}`):hid],
-   [L("居民对公共交通和主动出行是否够用的感受","Residents' sense of whether public and active transport is adequate"),"p.45",L("对“为行人改造交通”这张卡片的态度","Views on the card “Traffic changes for pedestrians”"),
-    show?L(`支持 ${c.yes} · 不确定 ${c.unsure} · 有顾虑 ${c.no}`,`Support ${c.yes} · Not sure ${c.unsure} · Concerned ${c.no}`):hid],
+   [L("社区对气候适应措施的满意度","Community satisfaction with climate adaptation measures"),"p.39",L("把“遮荫面积”或“雨水滞留”选为最在乎的份数。只说明在乎，不等于满意","Submissions that pick shaded area or stormwater as a top concern. This shows concern, not satisfaction"),show?L(`${hot} / ${n} 份`,`${hot} of ${n}`):cbHid()],
+   [L("居民对公共交通和主动出行是否够用的感受","Residents' sense of whether public and active transport is adequate"),"p.45",L("对“为行人改造交通”这张卡片的态度","Views on the card “Traffic changes for pedestrians”"),show?L(`支持 ${c.yes} · 不确定 ${c.unsure} · 有顾虑 ${c.no}`,`Support ${c.yes} · Not sure ${c.unsure} · Concerned ${c.no}`):cbHid()],
    [L("包含智慧基础设施的公共领域项目占比","Share of public domain projects that include smart infrastructure"),"p.51",L("不靠居民输入。广场如果保留智慧照明与传感器，可以算作一个项目","Not from resident input. If the square keeps smart lighting and sensors it can count as one project"),`<span class="muted">${L("由 Council 统计","For Council to count")}</span>`],
    [L("社区和访客对寻路的满意度","Community and visitor satisfaction with wayfinding"),"p.63",L("可以在提交前加一题","A question could be added before submitting"),none],
    [L("社区对 Council 数字体验的满意度","Community satisfaction with Council's digital experience"),"p.63",L("可以在提交后加一题，问这个工具好不好用","A question could be added after submitting, asking how the tool worked for them"),none]];
-  return `<p class="small muted">${L("战略里这些指标的基线都写“待定”。居民的回答可以当基线的候选，但要带上样本量和代表性说明。","The strategy lists these indicators with the baseline still to be confirmed. Resident answers can be candidates for a baseline, but only with the sample size and a representativeness note.")} <span class="tag t-design">${L("对应关系是我们的设计","The mapping is our design")}</span>${show&&n<CB_MIN?` <span class="tag t-gap">${L("预览：正式版不会显示","Preview: the full version would hide this")}</span>`:""}</p>
+  return `<p class="small muted">${L("战略里这些指标的基线都写“待定”。居民的回答可以当基线的候选，但要带上样本量和代表性说明。这里只算本浏览器里的演示提交。","The strategy lists these indicators with the baseline still to be confirmed. Resident answers can be candidates for a baseline, but only with the sample size and a representativeness note. Only demo submissions in this browser are counted here.")} <span class="tag t-design">${L("对应关系是我们的设计","The mapping is our design")}</span>${show&&n<CB_MIN?" "+cbPrevTag():""}</p>
    <div class="cb-kv h"><span>${L("战略指标（基线待定）","Strategy indicator (baseline TBC)")}</span><span>${L("可用的居民输入","Resident input that could feed it")}</span><span>${L("现在","Now")}</span></div>
    ${rows.map(r=>`<div class="cb-kv"><span>${r[0]} ${chip("S5",r[1])}</span><span>${r[2]}</span><span>${r[3]}</span></div>`).join("")}`;}
 
-/* ---------- the Council page ---------- */
-function cbCouncilPage(){
-  return `<div class="wrap tabpage cb"><div class="banner"><b>${L("演示后台。","Demo backend.")}</b> ${TEAM_CHECKED()} ${L("页面上的数字要么是这个页面自己数出来的，要么来自本浏览器里的演示提交。","Every count here is either counted by this page or comes from demo submissions in this browser.")}</div>
-   ${cbDecision()}
-   ${cbTiles()}
-   <section class="card" id="cb-todo"><h2>${L("需要处理","Needs attention")}</h2>${cbTodo()}</section>
-   <section class="card" id="cb-p"><div class="sec-h"><h2>${L("总规原则检查 P1–P6","Plan principles P1–P6")}</h2><button class="btn cb-sm" data-cb="go" data-val="res#c-try">${L("回居民端改分配","Change the split as a resident")} →</button></div>
-    <p class="small"><b>${L("检查对象：","What is checked:")}</b> ${L("居民故事板里当前的分配。在那边拖滑杆，这里跟着变。","The current split in the resident storyboard. Move the sliders there and this follows.")}</p>${allocBar()}<div style="height:8px"></div>${pCheckList()}</section>
-   <div class="cgrid">
-    <section class="card" id="cb-fb"><h2>${L("居民意见 · 隐私门槛","Resident feedback · privacy threshold")}</h2>${cbFeedback()}</section>
-    <section class="card" id="cb-triage"><h2>${L("文字意见 · 每条一个去向","Written comments · one next step each")}</h2>${cbTriage()}</section></div>
-   ${typeof tallyPanel==="function"?`<section class="card" id="cb-votes"><h2>${L("居民投票汇总","Resident votes")}</h2><div id="tallyBox">${tallyPanel()}</div></section>`:""}
-   <section class="card" id="cb-roles"><h2>${L("谁来做：控制、合作、倡导","Who delivers: control, partner, advocate")}</h2>${cbRoles()}<div id="cb-brief">${cbBrief()}</div></section>
-   <section class="card" id="cb-gaps"><h2>${L("证据空白清单","Evidence-gap list")} (${GAPS().length})</h2><p class="small muted">${L("这些数字在来源里找不到。原型不用估算填上，而是列出来交给 Council：缺什么、影响什么、谁能补、什么时候。","No source gives these figures. The prototype does not fill them with estimates; it lists them for Council: what is missing, what it affects, who can fill it, and when.")}</p>${gapsList()}</section>
-   <section class="card" id="cb-ind"><h2>${L("战略指标基线","Strategy indicator baselines")}</h2>${cbIndicators()}</section></div>`;}
-/* a band at the end of the resident story that leads into the backend */
-function cbHandoff(){if(typeof V!=="undefined"&&V.sent)return "";return `<section class="wrap" style="padding-bottom:40px"><div class="card cb-hand"><div><b>${L("你的意见到了 Council 那边，会变成什么？","What becomes of your feedback on Council's side?")}</b>
+/* a band at the end of the resident story that leads into the backend; the send bar offers the same link after a submission */
+function cbHandoff(){if(typeof V!=="undefined"&&V.sent)return "";
+  return `<section class="wrap" style="padding-bottom:40px"><div class="card cb-hand"><div><b>${L("你的意见到了 Council 那边，会变成什么？","What becomes of your feedback on Council's side?")}</b>
    <p class="small muted" style="margin:2px 0 0">${L(`后台会检查你的分法是否还符合总规的 6 条原则，按群体汇总意见（不足 ${CB_MIN} 份不显示），并列出证据空白。`,`The backend checks your split against the plan's six principles, sums up feedback by group (hidden below ${CB_MIN}), and lists the evidence gaps.`)}</p></div>
    <button class="btn primary" data-tab="council">${L("看 Council 后台会收到什么","See what Council would receive")} →</button></div></section>`;}
 
@@ -1666,12 +1544,8 @@ function cbGo(v){const [tab,anchor]=v.split("#");
   if(typeof goTab==="function")goTab(tab,anchor);else{const el=document.getElementById(anchor);if(el)el.scrollIntoView();}}
 function cbClick(b){const d=b.dataset;
   if(d.cb==="go"){cbGo(d.val);return;}
-  if(d.cb==="filter"){CB.filter=d.val;CB.pick=null;
-    if(typeof goTab==="function"&&!document.getElementById("cb-ledger"))goTab("ledger","cb-ledger");else cbRedraw();return;}
-  if(d.cb==="rev"){if(d.val==="ok"){cbSet(d.cid,"ok");CB.pick=null;}else CB.pick={id:d.cid,st:d.val};cbRedraw();return;}
-  if(d.cb==="why"){if(CB.pick)cbSet(CB.pick.id,CB.pick.st,d.val);CB.pick=null;cbRedraw();return;}
-  if(d.cb==="cancel"){CB.pick=null;cbRedraw();return;}
-  if(d.cb==="resetrev"){store.set("cav_review",{});CB.pick=null;cbRedraw();return;}
+  if(d.cb==="filter"){CB.filter=d.val;
+    if(typeof goTab==="function"&&!document.getElementById("ledger"))goTab("ledger","ledger");else cbRedraw();return;}
   if(d.cb==="preview"){CB.preview=!CB.preview;cbRedraw();return;}
   if(d.cb==="brief"){
     if(d.val==="make")store.set("cav_brief",{st:"draft",at:Date.now()});
@@ -1683,7 +1557,7 @@ function cbClick(b){const d=b.dataset;
 function cbAfterSubmit(){const subs=cbSubs(),last=subs[subs.length-1];if(last&&!last.lang){last.lang=S.lang;store.set("cav_subs",subs);}}
 document.addEventListener("click",e=>{
   if(e.target.closest("#submit"))setTimeout(cbAfterSubmit,0);
-  if(e.target.closest("#clearVotes")&&document.getElementById("cb-fb"))setTimeout(cbRedraw,0);
+  if(e.target.closest("#clearVotes")&&document.getElementById("cb-triage"))setTimeout(cbRedraw,0); // the other cards count the same submissions
   const b=e.target.closest("[data-cb]");if(b)cbClick(b);});
 document.addEventListener("change",e=>{const t=e.target;if(t&&t.dataset&&t.dataset.cbroute!==undefined){const r=cbRoutes();if(t.value)r[t.dataset.cbroute]=t.value;else delete r[t.dataset.cbroute];store.set("cav_triage",r);cbRedraw();}});
 

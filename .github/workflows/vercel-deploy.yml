@@ -1,6 +1,6 @@
 name: Vercel Deploy
 # Every push to main publishes the latest resident demo
-# (dist/variants/a-studio.html) to https://civicalign.vercel.app.
+# (dist/variants/a-studio.html) to https://civicalign.vvailabs.com.
 # Same approach as the Hume repo: the Vercel CLI with a VERCEL_TOKEN secret,
 # not Vercel's GitHub integration. What gets uploaded is set by
 # .vercelignore and vercel.json.

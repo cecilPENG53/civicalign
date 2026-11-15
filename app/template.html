@@ -724,13 +724,13 @@ function council(){
   } else if(S.ctab==="gaps"){
     const gaps=[
       [L("交通影响：还没有交通模型，FY27/28 才聘顾问","Traffic effects: no model yet; consultants in FY27/28"),"S4",""],
-      [L("广场面积：1,200 m² 还是 1,300 m²","Square size: 1,200 m² or 1,300 m²"),"S2","p.23","sq1",["S3","","sq9"]],
-      [L("广场下方是否有停车场、能否深土种树","Whether the car park sits under the square, and whether deep soil is possible"),"S2","p.49","tr8",["S2","p.45","sq3"]],
+      [L("广场面积：1,200 m² 还是 1,300 m²","Square size: 1,200 m² or 1,300 m²"),"S2","p.23"],
+      [L("广场下方是否有停车场、能否深土种树","Whether the car park sits under the square, and whether deep soil is possible"),"S2","p.49"],
       [L("各项功能的面积比例","Area for each use"),null,""],
       [L("建设资金来源","Funding sources"),"S2","p.54"],
       [L("公示意见汇总（尚未公开）","Exhibition feedback summary (not yet published)"),"S3",""],
       [L("系数矩阵的文献出处","Literature for each coefficient"),null,""]];
-    body=`<p class="lede">${L("这些数字在来源里找不到。原型不会用估算填上，而是列出来交给 Council。","No source gives these figures. The prototype does not fill them with estimates; it lists them for Council.")}</p><div class="card"><ul class="claims">${gaps.map(g=>`<li>${g[0]} ${g[1]?chip(g[1],g[2],g[3])+(g[4]?" "+chip(g[4][0],g[4][1],g[4][2]):""):`<span class="tag t-gap">${L("来源里没有","No source")}</span>`}</li>`).join("")}</ul></div>`;
+    body=`<p class="lede">${L("这些数字在来源里找不到。原型不会用估算填上，而是列出来交给 Council。","No source gives these figures. The prototype does not fill them with estimates; it lists them for Council.")}</p><div class="card"><ul class="claims">${gaps.map(g=>`<li>${g[0]} ${g[1]?chip(g[1],g[2]):`<span class="tag t-gap">${L("来源里没有","No source")}</span>`}</li>`).join("")}</ul></div>`;
   } else if(S.ctab==="check"){
     const a=S.a, sh=a=>Math.round(100*a/TOTAL);
     const P=[

@@ -186,6 +186,59 @@ svg.iso .plate{filter:drop-shadow(0 2px 3px rgba(0,0,0,.25))}
 .pipe div{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px;font-size:13.5px}
 .pipe b{display:block;font-family:var(--f-display);font-size:15px}
 .pipe .st{margin-top:6px}
+.ch2{font-size:18px;margin-bottom:6px}
+.dcard{border-left:4px solid var(--accent)}
+.dgrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:8px}
+@media (max-width:980px){.dgrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:520px){.dgrid{grid-template-columns:1fr}}
+.dcell{background:var(--surface-2);border-radius:10px;padding:10px 12px;min-width:0}
+.dcell .dk{font-size:11.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--accent)}
+.dcell>b{display:block;font-family:var(--f-display);font-size:16px;margin:2px 0 4px}
+.dcell .small{line-height:1.5}
+.sstrip{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px}
+@media (max-width:820px){.sstrip{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.stile{display:block;text-align:left;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:10px 12px;color:var(--fg);text-decoration:none;font:inherit;cursor:pointer;min-width:0}
+.stile:hover{border-color:var(--accent)}
+.stile b{display:block;font-family:var(--f-display);font-size:24px;line-height:1.1;font-variant-numeric:tabular-nums}
+.stile span{display:block;font-size:12.5px;color:var(--muted);line-height:1.3}
+.stile.warn b{color:var(--gap)}
+.lv{display:inline-block;font-size:12px;font-weight:600;border-radius:4px;padding:0 7px;white-space:nowrap}
+.lv-keep{background:var(--fact-bg);color:var(--fact)} .lv-weak{background:var(--infer-bg);color:var(--infer)}
+.lv-fail{background:var(--gap-bg);color:var(--gap)} .lv-na{background:var(--surface-2);color:var(--muted)}
+.pcsum{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0 8px}
+.pcl{list-style:none;padding:0;margin:0;display:grid;gap:8px}
+.pcl li{border-top:1px solid var(--line);padding-top:8px}
+.pch{display:flex;gap:8px;align-items:baseline;flex-wrap:wrap}
+.pch span:nth-child(2){flex:1 1 160px}
+.pcrow{display:flex;gap:4px 12px;flex-wrap:wrap;margin-top:3px;font-variant-numeric:tabular-nums}
+.pcrow span:first-child{flex:1 1 140px}
+.dpa-a{margin-top:8px}
+.dpa-a .claims{margin:6px 0 0}
+.gaps{list-style:none;padding:0;margin:0;display:grid;gap:10px}
+.gaps li{border-top:1px solid var(--line);padding-top:8px;font-size:14px}
+.gmeta{display:flex;flex-wrap:wrap;gap:2px 14px;font-size:12.5px;color:var(--muted);margin-top:3px}
+.gmeta b{color:var(--fg);font-weight:600}
+.grp{list-style:none;padding:0;margin:8px 0;display:grid;gap:6px}
+.grp li{display:flex;justify-content:space-between;gap:8px}
+.empty{border:1px dashed var(--line);border-radius:10px;padding:10px 12px;margin:8px 0}
+.empty p{margin:0 0 8px;font-size:14px}
+.skel{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.skel i{height:38px;border-radius:6px;background:var(--surface-2)}
+.rvnote{background:var(--design-bg);border-radius:8px;padding:8px 10px}
+.rvact{display:flex;gap:4px;flex-wrap:wrap;margin-top:6px}
+.rvb{font:inherit;font-size:12.5px;border:1px solid var(--line);background:var(--surface);color:var(--fg);border-radius:6px;padding:3px 8px;cursor:pointer}
+select.rvb{width:auto}
+.rvb.ok{border-color:var(--fact);color:var(--fact)} .rvb.no{color:var(--gap)}
+.rvmeta{font-size:11.5px;color:var(--muted);margin-top:2px;white-space:nowrap}
+.row-rej td{background:color-mix(in srgb,var(--gap-bg) 45%,transparent)}
+#rvTxt{width:100%;min-width:180px;font:inherit;font-size:14px;border:1px solid var(--line);border-radius:6px;padding:6px;background:var(--surface);color:var(--fg)}
+@media (max-width:640px){
+  table.ledger thead{display:none}
+  table.ledger,table.ledger tbody,table.ledger tr,table.ledger td{display:block;width:100%}
+  table.ledger tr{border-top:1px solid var(--line);padding:8px 0}
+  table.ledger td{border:0;padding:2px 0}
+  table.ledger td.n{display:none}
+}
 .srcs{display:grid;gap:6px;padding-left:18px}
 .srcs li{font-size:14px}
 .srcs a{color:var(--accent)}
@@ -296,7 +349,7 @@ svg.iso .plate{filter:drop-shadow(0 2px 3px rgba(0,0,0,.25))}
 /* ===== A+B · Studio story ===== */
 let TAB="res", curStep="phase", io=null, RESVIEW="bars";
 const TABS=()=>[["res","1",L("居民故事板","Resident storyboard"),L("往下滑：看懂总规，再分广场","Scroll: understand the plan, then share the square")],
-  ["council","2",L("Council 后台（演示）","Council backend (demo)"),L("决策卡、原则检查、居民意见、倡导简报","Decision card, principle check, feedback, advocacy brief")],
+  ["council","2",L("Council 后台（演示）","Council backend (demo)"),L("决策卡、原则检查、证据空白","Decision card, principle check, evidence gaps")],
   ["ledger","3",L("证据与 AI 台账","Evidence & AI ledger"),L("每条事实的来源、原文和核对状态","Source, quote and check status for every fact")]];
 const CHAPS=()=>[["c-map",L("地图","Map")],["c-plan",L("总规说了什么","The plan")],["c-path",L("决策经过","Decisions")],["c-try",L("你来分","Your split")],["c-res",L("9 项结果","Results")],["c-say",L("你的意见","Your say")]];
 const VB={phase:[-185,-200,440,530],council:[-140,-40,250,250],square:[-110,-20,220,200],china:[-215,-110,270,320],traffic:[-160,-110,290,300]};
@@ -351,10 +404,10 @@ function persona(){
 function plan(){
   return `<section class="wrap ch" id="c-plan"><div class="ch-h"><div class="eyebrow">${L("第 1 章 · 总规说了什么","Chapter 1 · What the plan says")}</div><h2>${L("三件事，每一条都能点开看原文","Three items, every line opens to the original")}</h2></div>
    ${persona()}
-   <div class="deliv">${CARDS.map((c,i)=>{const cl=CLAIMS.filter(x=>x.card===c.id),n=k=>cl.filter(x=>x.kind===k).length;const top=cl.filter(x=>x.kind==="planned").slice(0,2);
+   <div class="deliv">${CARDS.map((c,i)=>{const cl=CLAIMS.filter(x=>x.card===c.id),n=k=>cl.filter(x=>x.kind===k).length;const top=cl.filter(x=>x.kind==="planned"&&!isRejected(x.id)).slice(0,2);
      return `<article class="card dv"><h3><span class="num">${i+1}</span>${T(c)} ${chip(c.src,"")}</h3>
       <div class="counts"><span class="tag t-fact">${kindLabel("planned")} ${n("planned")}</span>${n("ruled")?`<span class="tag t-design">${kindLabel("ruled")} ${n("ruled")}</span>`:""}<span class="tag t-infer">${kindLabel("open")} ${n("open")}</span>${n("gap")?`<span class="tag t-gap">${kindLabel("gap")} ${n("gap")}</span>`:""}</div>
-      <ul class="claims">${top.map(x=>`<li>${T(x)} ${chip(x.src,x.pg,x.id)}</li>`).join("")}</ul>
+      <ul class="claims">${top.map(x=>`<li>${claimTxt(x)} ${chip(x.src,x.pg,x.id)}</li>`).join("")}</ul>
       <details><summary>${L("看全部条目","See every line")} (${cl.length})</summary>${claimList(c.id)}</details>${reactRow(c.id)}</article>`;}).join("")}</div></section>`;
 }
 function path(){const tl=TIMELINE();return `<section class="wrap ch" id="c-path"><div class="ch-h"><div class="eyebrow">${L("第 2 章 · Council 怎么走到这一步","Chapter 2 · How Council got here")}</div><h2>${L("大方向已经定了，留给你的是广场里面","The big choices are made. What is left for you is inside the square.")}</h2></div>
@@ -418,10 +471,33 @@ function openQuest(id){const [t,ids]=QUESTS()[id];
   document.querySelector(".drawer .x").focus();}
 
 /* ---------- Council and ledger tabs ---------- */
-/* both pages are built in variants/council.js */
-function councilTab(){return cbCouncilPage();}
-function ledgerTab(){return cbLedgerPage();}
-/* switch tab and, if given, scroll to a section. Used by the tabs and by council.js */
+function councilTab(){
+  return `<div class="wrap tabpage"><div class="banner"><b>${L("演示后台。","Demo backend.")}</b> ${TEAM_CHECKED()} ${L("居民端的分配会实时反映到下面的原则检查。","The resident's split feeds the principle check below live.")}</div>
+   ${decisionCard()}
+   ${statusStrip()}
+   <section class="card" id="cb-todo"><h2 class="ch2">${L("需要处理","Needs attention")}</h2>${cbTodo()}</section>
+   <div class="cgrid">
+    <div class="card" id="blk-pc"><h2 class="ch2">${L("总规原则检查 P1–P6","Plan principles P1–P6")}</h2>${pCheckList()}</div>
+    <div class="card" id="blk-dpa"><h2 class="ch2">${L("谁来做：D / P / A","Who delivers: D / P / A")}</h2><div id="dpaBox">${dpaCards(true)}</div><p class="small" style="margin:8px 0 0"><button class="cb-link" data-jump="cb-brief">${L("看倡导简报草稿","See the advocacy brief draft")} ↓</button></p></div>
+    <div class="card" id="blk-gaps"><h2 class="ch2">${L("证据空白","Evidence gaps")}</h2><p class="small muted">${L("这些数字在来源里找不到。原型不会用估算填上，而是列出来交给 Council，并写明谁能补、什么时候。","No source gives these figures. The prototype lists them for Council instead of filling them with estimates, with who can fill each and when.")}</p>${gapsList()}</div>
+    <div class="card" id="blk-subs"><h2 class="ch2">${L("居民意见 · 隐私门槛","Resident feedback · privacy threshold")}</h2>${cbFeedback()}</div>
+    <div class="card vwide"><h2 class="ch2">${L("居民投票汇总","Resident votes")}</h2><div id="tallyBox">${tallyPanel()}</div></div>
+    <div class="card vwide" id="cb-triage"><h2 class="ch2">${L("文字意见 · 每条一个去向","Written comments · one next step each")}</h2>${cbTriage()}</div>
+    <div class="card vwide" id="cb-brief">${cbBrief()}</div>
+    <div class="card vwide" id="cb-ind"><h2 class="ch2">${L("战略指标基线","Strategy indicator baselines")}</h2>${cbIndicators()}</div>
+   </div></div>`;
+}
+function ledgerTab(){
+  return `<div class="wrap tabpage"><div class="banner"><b>${L("证据规则。","Evidence rule.")}</b> ${L("每条 Council 事实都有来源、页码和原文；没有来源的只能标成假设或证据空白。","Every Council fact has a source, page and quote; anything without one is marked as an assumption or a gap.")}</div>
+   <section><div class="sec-h"><h2>${L("正式版流程","How the full version works")}</h2><span class="small muted">${L("点一步，跳到对应的地方","Tap a step to go there")}</span></div>${cbPipe()}</section>
+   <section class="card"><h2 style="font-size:18px;margin-bottom:8px">${L("来源","Sources")}</h2><ul class="srcs">${Object.entries(SOURCES).map(([k,s])=>`<li><b class="src" style="cursor:default">${k}</b> ${esc(T(s))} ${s.url?`<a href="${s.url}" target="_blank" rel="noopener">${L("原文","Open")} ↗</a>`:`<span class="small muted">${L("团队持有","held by the team")}</span>`}</li>`).join("")}</ul></section>
+   <section class="card" id="ledger"><div class="sec-h"><h2 class="ch2">${L("证据核对清单","Evidence ledger")} (${CLAIMS.length})</h2>${Object.keys(S.review).length?`<button class="btn" data-rv="reset">${L("重置演示核对","Reset demo review")}</button>`:""}</div>
+    <p class="small rvnote">${L(`<b>人工问责点（演示）。</b>每条可以批准、修改或驳回；驳回的条目立刻从居民端消失。核对人记为“${REVIEWER()}”，<b>不是 Council 批准</b>。只保存在本浏览器。`,`<b>Human checkpoint (demo).</b> Approve, edit or reject each line; a rejected line disappears from the resident side at once. The reviewer is recorded as “${REVIEWER()}”; <b>this is not Council approval</b>. Saved in this browser only.`)}</p>${cbLedgerFilter()}${ledgerTable({review:true,only:cbOnly()})}</section>
+   <section class="card" id="cb-std"><h2 class="ch2">${L("证据标准自查","Evidence standard self-check")}</h2>${cbStandard()}</section>
+   <section class="card"><div class="sec-h"><h2 style="font-size:18px">${L("模型系数","Model coefficients")}</h2>${ASSUME()}</div><div class="scroll">${coefTable()}</div></section></div>`;
+}
+
+/* switch tab and, if given, scroll to a section. Used by variants/council.js */
 function goTab(k,anchor){TAB=k;render();const el=anchor&&document.getElementById(anchor);if(el)el.scrollIntoView({block:"start"});else window.scrollTo(0,0);}
 
 /* ---------- render, live updates, scroll ---------- */
@@ -456,9 +532,11 @@ window.addEventListener("scroll",()=>{
   let on=null; document.querySelectorAll("section[id^=c-]").forEach(s=>{if(s.getBoundingClientRect().top<innerHeight*.4)on=s.id;});
   document.querySelectorAll("[data-chap]").forEach(a=>a.classList.toggle("on",a.dataset.chap===on));
 },{passive:true});
+bindReview(render);
 bindCommon({render,live},b=>{
   const d=b.dataset;
-  if(d.tab){goTab(d.tab);return true;}
+  if(reviewClick(b,render)) return true;
+  if(d.tab){TAB=d.tab;render();window.scrollTo(0,0);return true;}
   if(b.id==="submit"){submitDemo();voteAfterSubmit();render();return true;}
   if(voteClick(b)) return true;
   if(d.night){setNight(d.night==="1");return true;}
