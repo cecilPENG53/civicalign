@@ -10,7 +10,7 @@
 const CB_MIN=10;                       // privacy threshold: a group is shown only at 10 or more
 const CB={filter:"all",preview:false};
 const cbSubs=()=>store.get("cav_subs")||[];
-const cbWhen=t=>new Date(t).toLocaleString(S.lang==="zh"?"zh-CN":"en-AU",{year:"numeric",month:"short",day:"numeric",hour:"2-digit",minute:"2-digit"});
+const cbWhen=t=>new Date(t).toLocaleString(langInfo(S.lang)[1],{year:"numeric",month:"short",day:"numeric",hour:"2-digit",minute:"2-digit"});
 const cbClaim=id=>CLAIMS.find(c=>c.id===id);
 const cbMedian=xs=>{const s=xs.slice().sort((a,b)=>a-b),n=s.length;return n?(n%2?s[(n-1)/2]:(s[n/2-1]+s[n/2])/2):0;};
 const cbHid=()=>`<span class="muted">${L(`不足 ${CB_MIN} 份，不显示`,`Fewer than ${CB_MIN}: not shown`)}</span>`;

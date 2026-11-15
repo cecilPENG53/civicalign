@@ -363,7 +363,7 @@ const STEPS=()=>[
 ];
 
 function chromeA(){
-  document.documentElement.lang=S.lang==="zh"?"zh-CN":"en";
+  applyLang();
   document.getElementById("sub").textContent=L("Woodhouse Square 决策工作台 · CBD South Parramatta","Woodhouse Square decision studio · CBD South Parramatta");
   document.getElementById("toggles").innerHTML=langToggle()+themeBtn();
   document.getElementById("tabs").innerHTML=TABS().map(([k,n,t,s])=>`<button class="tab" role="tab" data-tab="${k}" aria-selected="${TAB===k}"><span class="tn">${n}</span><span><b>${t}</b><small>${s}</small></span></button>`).join("");

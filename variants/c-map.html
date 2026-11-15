@@ -117,7 +117,7 @@ const HL={square:"square",china:"china",went:"traffic",fitz:"traffic",park:"coun
 const CARD_OF={square:"square",china:"china",went:"traffic",fitz:"traffic",park:"traffic"};
 
 function chromeC(){
-  document.documentElement.lang=S.lang==="zh"?"zh-CN":"en";
+  applyLang();
   document.getElementById("sub").textContent=L("Woodhouse Square · CBD South Parramatta · 点地图上的数字","Woodhouse Square · CBD South Parramatta · tap a number on the map");
   document.getElementById("toggles").innerHTML=langToggle()+themeBtn();
   document.getElementById("councilBtn").textContent=L("Council 后台（演示）","Council backend (demo)");

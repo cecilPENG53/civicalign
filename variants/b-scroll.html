@@ -132,7 +132,7 @@ const STEPS=()=>[
 let curStep="phase";
 
 function chromeB(){
-  document.documentElement.lang=S.lang==="zh"?"zh-CN":"en";
+  applyLang();
   document.getElementById("sub").textContent=L("Woodhouse Square 的故事","The Woodhouse Square story");
   document.getElementById("toggles").innerHTML=langToggle()+themeBtn();
   document.getElementById("chap").innerHTML=[["c-map",L("地图","Map")],["c-three",L("三件事","Three items")],["c-path",L("决策经过","Decisions")],["c-try",L("你来分","Your split")],["c-say",L("你的意见","Your say")]].map(([id,t])=>`<a href="#${id}" data-chap="${id}">${t}</a>`).join("");
