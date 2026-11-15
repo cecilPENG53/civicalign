@@ -1,45 +1,73 @@
-# CBD South Growth Sandbox / CBD South 增长权衡沙盘
+# CivicAlign
 
-Parramatta Possibilities（Build with AI Innovation Challenge）挑战 4 的原型草稿。
+**English** | [中文](README.zh-CN.md)
 
-一个 three.js 大屏：在 CBD South Parramatta 片区的 3D 模型上，把十个地块改建成两种方案，对比住房、温度、公园、出行和商铺的变化区间，并看清每项后果由谁负责。支持中英文切换。
+A decision storyboard for CBD South Parramatta. Built for Challenge 4, "Smarter decisions for a growing city", of the City of Parramatta's Parramatta Possibilities (Build with AI) innovation challenge, 2026.
 
-## 现状
+CivicAlign helps a resident or a decision-maker understand **one growth trade-off in one place**: what each choice would change, what evidence supports it, how uncertain it is, and who is responsible for acting on it.
 
-这是草稿，不是成品。
+## The decision
 
-| 部分 | 状态 |
+The Draft CBD South Parramatta Precinct Master Plan (Phase 1, exhibited 11 May to 23 June 2026) proposes a new civic plaza off Wentworth Street, next to Parramatta Station. The exhibition page gives it as 1,300 m². The plan's p.22 scheme gives 1,200 m². This still needs checking against the final plan.
+
+CivicAlign asks: **how should that plaza's space and budget be shared between competing uses?** The uses include tree canopy and cooling, markets and events, cultural expression, play, walking and cycling, kerb access and smart infrastructure.
+
+## What is in this repository
+
+This repository holds two things:
+
+1. **Prototype v1** (`src/`, `dist/`). A three.js big-screen view of the precinct in 3D. It compares two illustrative options on ten parcels across housing, heat, open space, car trips and jobs. Each result is tagged with who is responsible: Council controls, Shared, or Council advocates. It has English and Chinese text.
+2. **The v2 design** (`docs/CHAT_HANDOFF_2026-11-15.md`). This is the agreed framework for the plaza decision:
+   - 10 uses in 4 groups: green, active, movement and smart.
+   - 9 impact dimensions, shown as low–high ranges.
+   - A transparent 10 × 9 coefficient matrix. AI does not produce numbers.
+   - Resident weights, low, medium and high growth scenarios, and a 2026, 2036 and 2050 timeline.
+   - A 5-screen resident flow of about 3 minutes, and a Council backend.
+   - A mapping to all 18 characteristics in the City's Smart City & Innovation Strategy 2024–2033.
+
+v1 does not implement the v2 design yet.
+
+### Status of v1 data
+
+| Part | Status |
 |---|---|
-| 建筑、道路、铁路 | 观测数据，OpenStreetMap 2026-11-10 快照 |
-| 片区边界 | 按 Council 文字描述手描，未与规划文件核对 |
-| 十个可改建地块 | 按规则挑选（片区内 5 层及以下、占地 300 m² 以上），不是 master plan 点名的地块 |
-| 住房、温度、出行、商铺面积 | 假费率推算，不是 Council 数据 |
-| 方案 A / B | 示意性假设，不是 Council 的提案 |
-| 居民观察 | 三条示例，团队自拟 |
-| 用户测试 | 未做 |
+| Buildings, roads, rail | Observed: OpenStreetMap snapshot, 2026-11-10 |
+| Precinct boundary | Traced by hand from the Council's description; within about 5 m of the street and rail centrelines |
+| Ten parcels | Picked by a rule (inside the precinct, 5 storeys or fewer, footprint over 300 m²). The master plan does not name them. |
+| Housing, heat, trips, jobs | Estimated from assumed rates. **This is not Council data.** |
+| Options A and B | Illustrative assumptions. **These are not Council proposals.** |
+| Community observations | Three sample entries written by the team |
+| User testing | Not done yet |
 
-## 运行
+## Responsible use
 
-直接用浏览器打开 `dist/index.html`。需要联网加载 three.js 和字体。
+- Placeholder data is labelled as such. Nothing is shown as observed Council data unless it is.
+- Model output is a range under stated assumptions, not a forecast.
+- AI only drafts plain-language explanations. People make every decision, and a person approves anything Council would act on.
+- No names, emails or exact addresses are collected. Group results are shown only for groups of 10 or more.
 
-AI 通俗解读只在作为 Claude artifact 发布时可用（依赖 artifact 运行时的 `sample` 能力，花的是查看者自己的 Claude 用量）。本地打开时这一块会显示"不可用"，其余功能正常。
+## Run
 
-## 修改与构建
+Open `dist/index.html` in a browser. It needs an internet connection to load three.js and the fonts.
 
-需要 Python 3，无第三方依赖。
+The AI plain-language summary works only when the page is published as a Claude artifact. It uses the artifact runtime's `sample` capability and the viewer's own Claude usage. Opened locally, that panel shows "not available" and everything else still works.
+
+## Edit and build
+
+You need Python 3. There are no third-party packages.
 
 ```bash
 python scripts/build.py
 ```
 
-- `src/template.html`：页面全部源码（样式、中英文文案、后果模型、three.js 场景、AI 解读）。数据位置是 `__DATA__` 占位符。
-- `data/precinct.json`：处理后的片区几何，坐标为以片区为原点的本地米制。
-- `dist/index.html`：独立页面。
-- `dist/artifact.html`：发布为 Claude artifact 用的片段（发布时声明 `capabilities: {sample: {}}`）。
+- `src/template.html` holds the full page source: styles, English and Chinese text, the consequence model, the three.js scene and the AI summary. The data goes where the `__DATA__` placeholder is.
+- `data/precinct.json` holds the processed precinct geometry, in local metres with the precinct as the origin.
+- `dist/index.html` is the standalone page.
+- `dist/artifact.html` is the version for publishing as a Claude artifact. Declare `capabilities: {sample: {}}` when you publish it.
 
-## 重新生成片区数据
+## Regenerate precinct data
 
-`scripts/build_data.py` 把 Overpass 的原始 JSON 转成 `data/precinct.json`。
+`scripts/build_data.py` turns raw Overpass JSON into `data/precinct.json`.
 
 ```bash
 curl -s -A "precinct-prototype/0.1" --data-urlencode 'data=[out:json][timeout:60];(way["building"](-33.8220,151.0000,-33.8150,151.0100);way["highway"](-33.8220,151.0000,-33.8150,151.0100);way["railway"="rail"](-33.8220,151.0000,-33.8150,151.0100);way["leisure"~"park|garden|playground"](-33.8220,151.0000,-33.8150,151.0100);way["landuse"~"grass|recreation_ground"](-33.8220,151.0000,-33.8150,151.0100);relation["building"](-33.8220,151.0000,-33.8150,151.0100););out body geom;' https://overpass-api.de/api/interpreter -o data/raw.json
@@ -49,8 +77,16 @@ curl -s -A "precinct-prototype/0.1" --data-urlencode 'data=[out:json][timeout:60
 python scripts/build_data.py data/raw.json data/precinct.json
 ```
 
-片区边界多边形写在 `build_data.py` 的 `P` 里。
+The precinct boundary polygon is `P` in `build_data.py`.
 
-## 数据许可
+## Sources
 
-`data/precinct.json` 派生自 OpenStreetMap，© OpenStreetMap contributors，按 [ODbL](https://opendatacommons.org/licenses/odbl/) 许可使用。
+- Draft CBD South Parramatta Precinct Master Plan: https://participate.cityofparramatta.nsw.gov.au/cbd-south-master-plan
+- City of Parramatta, Smart City & Innovation Strategy 2024–2033
+- Parramatta Possibilities challenge brief, Challenge 4
+
+## Licence
+
+The code is under the [MIT](LICENSE) licence.
+
+`data/precinct.json` is derived from OpenStreetMap, © OpenStreetMap contributors. It is used under the [ODbL](https://opendatacommons.org/licenses/odbl/).
