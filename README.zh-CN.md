@@ -8,7 +8,13 @@ CivicAlign 帮居民或决策者看懂**一个地点的一个增长取舍**：�
 
 ## 决策是什么
 
-Draft CBD South Parramatta Precinct Master Plan（第一期，2026 年 5 月 11 日至 6 月 23 日公示）提出在 Parramatta Station 旁、Wentworth Street 一侧新建一个市民广场。公示页面写的是 1,300 m²，总规第 22 页的方案写的是 1,200 m²，还要用最终版总规核实。
+Draft CBD South Parramatta Precinct Master Plan（第一期，2026 年 5 月 11 日至 6 月 23 日公示）提出新建 **Woodhouse Square**：位于 Council 自有土地上、临 Wentworth Street、靠近 Parramatta Station 的 1,200 m² 城市广场（总规第 23 页；公示网页写 1,300 m²，还要用最终版总规核实）。
+
+总规把它描述为一个灵活的硬地广场，包括：
+- 遮荫树、公共艺术和照明；
+- 边缘是户外餐饮；
+- 抬高的种植池，配座椅；
+- 可以办夜市和文化活动。
 
 CivicAlign 要回答的问题是：**这块广场的空间和预算，怎么在相互竞争的用途之间分配？** 这些用途包括树冠与降温、市集与活动、文化表达、儿童游戏、步行与骑行、路缘接驳和智慧基础设施。
 
@@ -80,7 +86,7 @@ python scripts/build_data.py data/raw.json data/precinct.json
 ## 资料来源
 
 - Draft CBD South Parramatta Precinct Master Plan：https://participate.cityofparramatta.nsw.gov.au/cbd-south-master-plan
-- City of Parramatta，Smart City & Innovation Strategy 2024–2033
+- City of Parramatta，Smart City & Innovation Strategy 2024–2033：https://www.cityofparramatta.nsw.gov.au/files/assets/public/v/1/publications/smart-city-and-innovation-strategy.pdf
 - Parramatta Possibilities 挑战简报，挑战 4
 
 ## 许可

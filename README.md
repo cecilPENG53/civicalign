@@ -8,7 +8,13 @@ CivicAlign helps a resident or a decision-maker understand **one growth trade-of
 
 ## The decision
 
-The Draft CBD South Parramatta Precinct Master Plan (Phase 1, exhibited 11 May to 23 June 2026) proposes a new civic plaza off Wentworth Street, next to Parramatta Station. The exhibition page gives it as 1,300 m². The plan's p.22 scheme gives 1,200 m². This still needs checking against the final plan.
+The Draft CBD South Parramatta Precinct Master Plan (Phase 1, exhibited 11 May to 23 June 2026) proposes **Woodhouse Square**. It is a new 1,200 m² urban plaza on Council-owned land facing Wentworth Street, near Parramatta Station (plan p.23; the exhibition web page says 1,300 m², so this still needs checking against the final plan).
+
+The plan describes it as a flexible paved square with:
+- shade trees, public art and lighting;
+- outdoor dining at its edges;
+- raised planters with seating;
+- room for night markets and cultural events.
 
 CivicAlign asks: **how should that plaza's space and budget be shared between competing uses?** The uses include tree canopy and cooling, markets and events, cultural expression, play, walking and cycling, kerb access and smart infrastructure.
 
@@ -82,7 +88,7 @@ The precinct boundary polygon is `P` in `build_data.py`.
 ## Sources
 
 - Draft CBD South Parramatta Precinct Master Plan: https://participate.cityofparramatta.nsw.gov.au/cbd-south-master-plan
-- City of Parramatta, Smart City & Innovation Strategy 2024–2033
+- City of Parramatta, Smart City & Innovation Strategy 2024–2033: https://www.cityofparramatta.nsw.gov.au/files/assets/public/v/1/publications/smart-city-and-innovation-strategy.pdf
 - Parramatta Possibilities challenge brief, Challenge 4
 
 ## Licence
