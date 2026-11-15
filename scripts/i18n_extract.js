@@ -74,6 +74,9 @@ add("Language", "语言", 0);
 // built by an expression the scan above cannot read: L("票", n===1?"vote":"votes") in variants/vote.js
 add("vote", "票", 0);
 add("votes", "票", 0);
+// Acknowledgement of Country band (PR #6, ACK() and ACK_LABEL() in shared.js): translated ahead of that merge
+add("We acknowledge the Dharug people, the Traditional Custodians of the land of Parramatta, and pay our respects to Elders past and present. We extend that respect to all Aboriginal and Torres Strait Islander people using this site.", "我们承认 Dharug 人是 Parramatta 这片土地的传统守护者，并向过去和现在的长者致敬。我们也向所有使用本网站的原住民和托雷斯海峡岛民致以同样的敬意。", 0);
+add("Acknowledgement of Country", "致谢原住民土地", 0);
 add("English shown where a translation is missing. Council quotes stay in their original English.", "缺翻译的地方显示英文。Council 原文保持英文。", 0);
 const out = [...keys].map(([en, v]) => ({ en, zh: v.zh }));
 fs.mkdirSync(path.join(root, "variants/i18n"), { recursive: true });
