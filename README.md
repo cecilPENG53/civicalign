@@ -8,6 +8,8 @@ CivicAlign helps a resident or a decision-maker understand **one growth trade-of
 
 > **The full framework, as one page:** [`docs/framework.html`](docs/framework.html). Download it and open it in a browser; GitHub shows only its source code. The detailed working notes, in Chinese, are in [`docs/CHAT_HANDOFF_2026-11-15.md`](docs/CHAT_HANDOFF_2026-11-15.md).
 
+> **Try the demo:** download [`dist/variants/a-studio.html`](dist/variants/a-studio.html) and double-click it. There is nothing to install. See [Open the demo](#open-the-demo) below.
+
 ## 1. Why
 
 | Problem | Approach | Result |
@@ -110,6 +112,27 @@ Several of the strategy's indicators have the baseline "TBC" [S5 p.39–63], and
 - **Submissions:** stay in the viewer's browser and are not sent anywhere.
 - **Council view:** its ledger entries were checked by the team. Council has not approved them.
 
+## Open the demo
+
+The demo for the submission is **`dist/variants/a-studio.html`**. It is a single HTML file with everything inside it, so there is nothing to install.
+
+1. Open [`dist/variants/a-studio.html`](dist/variants/a-studio.html) on GitHub and click **Download raw file** (the download icon above the code). Or use **Code → Download ZIP** for the whole repository and unzip it.
+2. Double-click the downloaded file. It opens in your web browser.
+
+It works offline. With an internet connection it also loads the web fonts; without one it falls back to system fonts. Feedback typed into it stays in that browser.
+
+What it shows, from top to bottom:
+
+- **Story:** the map reframes and highlights places as you scroll, then the three deliverables and Council's decision path.
+- **2.5D studio:** a game-style isometric Woodhouse Square. Its 48 tiles of about 25 m² change into trees, market stalls, benches and paths as you drag the linked sliders. Tree crowns grow by year. There is a night-market view.
+- **Results:** all nine dimensions against Scenario 0, as comparison bars or pictograms.
+- **Feedback:** who delivers each part (D/P/A), plus a feedback form.
+- **Other tabs:** a demo Council backend and the evidence ledger.
+
+The square's layout is indicative, not a design. Model values are ranges from team assumptions, and every Council fact opens to its source.
+
+Two other design directions sit beside it: `b-scroll.html` (scroll story only) and `c-map.html` (map-first). `index.html` compares them. All four are built with `node scripts/build_variants.js` from the sources in `variants/`. That script takes the content and model straight from `app/template.html`, so they always match prototype v2.
+
 ## What is in this repository
 
 | Path | What it is |
@@ -117,6 +140,8 @@ Several of the strategy's indicators have the baseline "TBC" [S5 p.39–63], and
 | `docs/framework.html` | The full framework as one page |
 | `docs/CHAT_HANDOFF_2026-11-15.md` | Detailed design notes with sources, in Chinese |
 | `docs/SOURCES.md` | Source register |
+| `dist/variants/a-studio.html` | **The demo:** scroll story and 2.5D studio |
+| `variants/`, `dist/variants/`, `scripts/build_variants.js` | Three design directions and their comparison page |
 | `app/`, `dist/civicalign.html`, `scripts/build_app.js` | Prototype v2 |
 | `src/`, `dist/index.html`, `data/`, `scripts/` | Prototype v1 |
 

@@ -8,6 +8,8 @@ CivicAlign 帮居民或决策者看懂**一个地点的一个增长取舍**：�
 
 > **完整思路框架（单页）：** [`docs/framework.html`](docs/framework.html)。下载后用浏览器打开，GitHub 上只显示源码。详细的设计记录见 [`docs/CHAT_HANDOFF_2026-11-15.md`](docs/CHAT_HANDOFF_2026-11-15.md)。
 
+> **试用演示：** 下载 [`dist/variants/a-studio.html`](dist/variants/a-studio.html)，双击打开即可，不用安装。详见下文[打开演示](#打开演示)。
+
 ## 1. 为什么做
 
 | 问题 | 做法 | 产出 |
@@ -108,6 +110,27 @@ Council 向居民介绍总规时用了三项交付内容〔S3〕：
 - **提交：** 演示提交只保存在浏览器里，不发送给任何人。
 - **后台：** 核对清单由团队核对，不是 Council 批准的。
 
+## 打开演示
+
+参赛演示是 **`dist/variants/a-studio.html`**。它是一个单独的 HTML 文件，所有内容都在里面，不用安装任何东西。
+
+1. 在 GitHub 上打开 [`dist/variants/a-studio.html`](dist/variants/a-studio.html)，点代码上方的下载图标 **Download raw file**。也可以点 **Code → Download ZIP** 下载整个仓库再解压。
+2. 双击下载好的文件，它会在浏览器里打开。
+
+断网也能用：联网时会加载网页字体，断网时改用系统字体。在里面填写的意见只保存在这台浏览器里。
+
+从上往下依次是：
+
+- **故事：** 地图随滚动缩放和高亮，接着是三件事和 Council 的决策经过。
+- **2.5D 工作台：** 游戏风格的等距视角 Woodhouse Square。拖动联动滑杆时，48 块约 25 m² 的地砖会变成树、夜市摊、座椅或步行道。树冠随年份长大，还可以切到夜市夜景。
+- **结果：** 9 项结果和方案 0 对比，可以切换对比条和图示两种显示。
+- **意见：** 谁负责（D/P/A）和反馈表。
+- **另外两个标签：** Council 后台演示和证据台账。
+
+广场布局只是示意，不是设计方案。模型数值是按团队假设算出的区间；每条 Council 事实都能点开看原文出处。
+
+同一目录下还有另外两个设计方向：`b-scroll.html`（纯故事卷轴）和 `c-map.html`（地图优先），`index.html` 是三者的对比页。这四个文件都由 `node scripts/build_variants.js` 根据 `variants/` 里的源文件生成。这个脚本直接从 `app/template.html` 取内容和模型，所以和原型 v2 始终一致。
+
 ## 仓库里有什么
 
 | 路径 | 内容 |
@@ -115,6 +138,8 @@ Council 向居民介绍总规时用了三项交付内容〔S3〕：
 | `docs/framework.html` | 完整思路框架（单页） |
 | `docs/CHAT_HANDOFF_2026-11-15.md` | 详细设计记录，每条附来源 |
 | `docs/SOURCES.md` | 来源登记表 |
+| `dist/variants/a-studio.html` | **演示：** 故事卷轴 + 2.5D 工作台 |
+| `variants/`、`dist/variants/`、`scripts/build_variants.js` | 三个设计方向和对比页 |
 | `app/`、`dist/civicalign.html`、`scripts/build_app.js` | 原型 v2 |
 | `src/`、`dist/index.html`、`data/`、`scripts/` | 原型 v1 |
 
