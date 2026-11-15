@@ -211,7 +211,7 @@ svg.iso .plate{filter:drop-shadow(0 2px 3px rgba(0,0,0,.25))}
 /* ===== A+B · Studio story ===== */
 let TAB="res", curStep="phase", io=null, RESVIEW="bars";
 const TABS=()=>[["res","1",L("居民故事板","Resident storyboard"),L("往下滑：看懂总规，再分广场","Scroll: understand the plan, then share the square")],
-  ["council","2",L("Council 后台（演示）","Council backend (demo)"),L("意见汇总、原则检查、证据空白","Feedback, principle check, evidence gaps")],
+  ["council","2",L("Council 后台（演示）","Council backend (demo)"),L("决策卡、原则检查、居民意见、倡导简报","Decision card, principle check, feedback, advocacy brief")],
   ["ledger","3",L("证据与 AI 台账","Evidence & AI ledger"),L("每条事实的来源、原文和核对状态","Source, quote and check status for every fact")]];
 const CHAPS=()=>[["c-map",L("地图","Map")],["c-plan",L("总规说了什么","The plan")],["c-path",L("决策经过","Decisions")],["c-try",L("你来分","Your split")],["c-res",L("9 项结果","Results")],["c-say",L("你的意见","Your say")]];
 const VB={phase:[-185,-200,440,530],council:[-140,-40,250,250],square:[-110,-20,220,200],china:[-215,-110,270,320],traffic:[-160,-110,290,300]};
@@ -333,34 +333,17 @@ function openQuest(id){const [t,ids]=QUESTS()[id];
   document.querySelector(".drawer .x").focus();}
 
 /* ---------- Council and ledger tabs ---------- */
-function councilTab(){
-  return `<div class="wrap tabpage"><div class="banner"><b>${L("演示后台。","Demo backend.")}</b> ${TEAM_CHECKED()} ${L("居民端的分配会实时反映到下面的原则检查。","The resident's split feeds the principle check below live.")}</div>
-   <div class="cgrid">
-    <div class="card"><h2 style="font-size:18px">${L("居民提交 · 隐私门槛","Submissions · privacy threshold")}</h2>${subsPanel()}</div>
-    <div class="card"><h2 style="font-size:18px">${L("总规原则检查 P1–P6","Plan principles P1–P6")}</h2>${pCheckList()}</div>
-    <div class="card"><h2 style="font-size:18px">${L("证据空白","Evidence gaps")}</h2><p class="small muted">${L("这些数字在来源里找不到。原型不会用估算填上，而是列出来交给 Council。","No source gives these figures. The prototype lists them for Council instead of filling them with estimates.")}</p>${gapsList()}</div>
-    <div class="card"><h2 style="font-size:18px">${L("当前分配的责任分工","Who delivers the current split")}</h2><div id="dpaBox">${dpaCards()}</div></div>
-   </div></div>`;
-}
-function ledgerTab(){
-  return `<div class="wrap tabpage"><div class="banner"><b>${L("证据规则。","Evidence rule.")}</b> ${L("每条 Council 事实都有来源、页码和原文；没有来源的只能标成假设或证据空白。","Every Council fact has a source, page and quote; anything without one is marked as an assumption or a gap.")}</div>
-   <section><div class="sec-h"><h2>${L("正式版流程","How the full version works")}</h2></div>
-   <div class="pipe">
-    <div><b>1 · PDF</b>${L("规划师上传总规、Council 报告和战略","A planner uploads the plan, report and strategy")}<div class="st"><span class="tag t-fact">S2 · S4 · S5</span></div></div>
-    <div><b>2 · ${L("AI 提取","AI extracts")}</b>${L("逐条提取，附页码和原文","Each claim with page and quote")}<div class="st"><span class="tag t-infer">${L("演示：团队人工完成","Demo: done by hand")}</span></div></div>
-    <div><b>3 · ${L("规划师批准","Planner approves")}</b>${L("批准后才进入居民端","Only approved claims reach residents")}<div class="st"><span class="tag t-gap">${L("演示：未经 Council 批准","Demo: not Council-approved")}</span></div></div>
-    <div><b>4 · ${L("居民端","Residents")}</b>${L("按身份讲解，带来源标签","Explained per role, with source chips")}<div class="st"><span class="tag t-design">${L("本原型","This prototype")}</span></div></div>
-   </div></section>
-   <section class="card"><h2 style="font-size:18px;margin-bottom:8px">${L("来源","Sources")}</h2><ul class="srcs">${Object.entries(SOURCES).map(([k,s])=>`<li><b class="src" style="cursor:default">${k}</b> ${esc(T(s))} ${s.url?`<a href="${s.url}" target="_blank" rel="noopener">${L("原文","Open")} ↗</a>`:`<span class="small muted">${L("团队持有","held by the team")}</span>`}</li>`).join("")}</ul></section>
-   <section class="card"><div class="sec-h"><h2 style="font-size:18px">${L("证据核对清单","Evidence ledger")} (${CLAIMS.length})</h2><span class="small muted">${TEAM_CHECKED()}</span></div>${ledgerTable()}</section>
-   <section class="card"><div class="sec-h"><h2 style="font-size:18px">${L("模型系数","Model coefficients")}</h2>${ASSUME()}</div>${coefTable()}</section></div>`;
-}
+/* both pages are built in variants/council.js */
+function councilTab(){return cbCouncilPage();}
+function ledgerTab(){return cbLedgerPage();}
+/* switch tab and, if given, scroll to a section. Used by the tabs and by council.js */
+function goTab(k,anchor){TAB=k;render();const el=anchor&&document.getElementById(anchor);if(el)el.scrollIntoView({block:"start"});else window.scrollTo(0,0);}
 
 /* ---------- render, live updates, scroll ---------- */
 function render(){
   chromeA();
   const y=window.scrollY, m=document.getElementById("main");
-  m.innerHTML = TAB==="res" ? hero()+scrolly()+plan()+path()+studio()+results()+decide() : TAB==="council" ? councilTab() : ledgerTab();
+  m.innerHTML = TAB==="res" ? hero()+scrolly()+plan()+path()+studio()+results()+decide()+cbHandoff() : TAB==="council" ? councilTab() : ledgerTab();
   window.scrollTo(0,y);
   if(TAB==="res"){observe();isoNight();setTimeout(()=>{const r=document.getElementById("resBox");if(r)r.classList.remove("enter");},1400);}
 }
@@ -390,7 +373,7 @@ window.addEventListener("scroll",()=>{
 },{passive:true});
 bindCommon({render,live},b=>{
   const d=b.dataset;
-  if(d.tab){TAB=d.tab;render();window.scrollTo(0,0);return true;}
+  if(d.tab){goTab(d.tab);return true;}
   if(d.night){setNight(d.night==="1");return true;}
   if(d.quest){openQuest(d.quest);return true;}
   if(d.resview){RESVIEW=d.resview;const r=document.getElementById("resBox");if(r){r.classList.add("enter");r.innerHTML=resultsInner();setTimeout(()=>r.classList.remove("enter"),1200);}return true;}

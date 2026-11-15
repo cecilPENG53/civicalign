@@ -188,11 +188,12 @@ function mapSVG2(o={}){
 }
 
 /* ---------- deliverable cards (screen 2 content) ---------- */
+/* Claims a reviewer has sent back or rejected are held back from residents (cbShown, variants/council.js). */
 function claimList(cid,kinds=["planned","ruled","open","gap"]){
   const cl=CLAIMS.filter(x=>x.card===cid);
-  return kinds.map(k=>{const xs=cl.filter(x=>x.kind===k);if(!xs.length)return"";return `<div class="kind">${kindLabel(k)}</div><ul class="claims">${xs.map(x=>`<li>${T(x)} ${x.src?chip(x.src,x.pg,x.id):`<span class="tag t-gap">${L("来源里没有","No source has this")}</span>`}</li>`).join("")}</ul>`;}).join("");
+  return kinds.map(k=>{const xs=cl.filter(x=>x.kind===k);if(!xs.length)return"";return `<div class="kind">${kindLabel(k)}</div><ul class="claims">${xs.map(x=>!cbShown(x.id)?cbHeldLi():`<li>${T(x)} ${x.src?chip(x.src,x.pg,x.id):`<span class="tag t-gap">${L("来源里没有","No source has this")}</span>`}</li>`).join("")}</ul>`;}).join("");
 }
-function claimsById(ids){return `<ul class="claims">${ids.map(id=>CLAIMS.find(c=>c.id===id)).map(x=>`<li><span class="tag ${x.kind==="open"?"t-infer":x.kind==="gap"?"t-gap":"t-fact"}">${kindLabel(x.kind)}</span> ${T(x)} ${x.src?chip(x.src,x.pg,x.id):""}${x.id==="tr6"?" "+TRAFFIC_WAIT():""}</li>`).join("")}</ul>`;}
+function claimsById(ids){return `<ul class="claims">${ids.map(id=>CLAIMS.find(c=>c.id===id)).map(x=>!cbShown(x.id)?cbHeldLi():`<li><span class="tag ${x.kind==="open"?"t-infer":x.kind==="gap"?"t-gap":"t-fact"}">${kindLabel(x.kind)}</span> ${T(x)} ${x.src?chip(x.src,x.pg,x.id):""}${x.id==="tr6"?" "+TRAFFIC_WAIT():""}</li>`).join("")}</ul>`;}
 function reactRow(cid){const r=S.react[cid];return `<div class="pill" role="group" aria-label="${L("你觉得呢","What do you think")}" style="margin-top:8px;align-items:center"><b class="small">${L("你觉得呢？","Your view?")}</b>${[["yes",L("支持","Support")],["unsure",L("不确定","Not sure")],["no",L("有顾虑","Concerned")]].map(([k,t])=>`<button data-react="${cid}" data-v="${k}" aria-pressed="${r===k}">${t}</button>`).join("")}</div>`;}
 const TIMELINE=()=>[
   ["2025-06",L("决议编制总规","Decides to prepare a master plan"),chip("S4","")],
@@ -217,24 +218,72 @@ function submitDemo(){const subs=store.get("cav_subs")||[];subs.push({t:Date.now
 const TEAM_CHECKED=()=>L("本演示里的条目由团队人工整理和核对，<b>不是 Council 批准的</b>。","In this demo the team extracted and checked every entry by hand; <b>Council has not approved them</b>.");
 function ledgerTable(){return `<div class="scroll"><table><thead><tr><th>#</th><th>${L("条目","Claim")}</th><th>${L("来源","Source")}</th><th>${L("原文","Original wording")}</th><th>${L("状态","Status")}</th></tr></thead><tbody>
   ${CLAIMS.map((c,i)=>`<tr><td class="n">${i+1}</td><td>${T(c)}</td><td>${c.src?chip(c.src,c.pg,c.id):"—"}</td><td class="small">${c.q?"“"+esc(c.q)+"”":"—"}</td><td>${c.src?`<span class="status st-ok">${L("团队已核对","Team-checked")}</span>`:`<span class="status st-gap">${L("证据空白","Gap")}</span>`}</td></tr>`).join("")}</tbody></table></div>`;}
-function gapsList(){const gaps=[
-  [L("交通影响：还没有交通模型，FY27/28 才聘顾问","Traffic effects: no model yet; consultants in FY27/28"),"S4","","tr6"],
-  [L("广场面积：1,200 m² 还是 1,300 m²","Square size: 1,200 m² or 1,300 m²"),"S3","","sq9"],
-  [L("广场下方是否有停车场、能否深土种树","Whether the car park sits under the square, and whether deep soil is possible"),"S2","p.49","tr8"],
-  [L("各项功能的面积比例","Area for each use"),null,""],
-  [L("建设资金来源","Funding sources"),"S2","p.54","sq10"],
-  [L("公示意见汇总（尚未公开）","Exhibition feedback summary (not yet published)"),"S3",""],
-  [L("系数矩阵的文献出处","Literature for each coefficient"),null,""]];
-  return `<ul class="claims">${gaps.map(g=>`<li>${g[0]} ${g[1]?chip(g[1],g[2],g[3]):`<span class="tag t-gap">${L("来源里没有","No source")}</span>`}</li>`).join("")}</ul>`;}
-function pCheckList(){const a=S.a, sh=v=>Math.round(100*v/TOTAL);
-  const P=[["P1",L("连接更新片区与 CBD 和交通枢纽","Connect renewal areas to the CBD and transport"),a.walk>=180,L(`畅通步行 ${sh(a.walk)}%（≥15%）`,`Clear walking ${sh(a.walk)}% (≥15%)`)],
-    ["P2",L("新建社区聚会空间","New spaces for community gathering"),a.events+a.rest>=480,L(`活动 + 休憩 ${sh(a.events+a.rest)}%（≥40%）`,`Events + rest ${sh(a.events+a.rest)}% (≥40%)`)],
-    ["P3",L("改善街道与公共空间的连接","Better links between streets and public space"),a.walk>=180,L(`畅通步行 ${sh(a.walk)}%（≥15%）`,`Clear walking ${sh(a.walk)}% (≥15%)`)],
-    ["P4",L("让步行和骑行更容易、更安全、更舒适","Easier, safer, more comfortable walking and cycling"),a.walk>=180&&a.canopy>=120,L(`步行 ${sh(a.walk)}%，树冠 ${sh(a.canopy)}%（≥10%）`,`Walking ${sh(a.walk)}%, canopy ${sh(a.canopy)}% (≥10%)`)],
-    ["P5",L("唐人街成为文化目的地","Chinatown as a cultural destination"),a.culture>=36&&a.events>=200,L(`文化 ${sh(a.culture)}%（≥3%），活动 ${sh(a.events)}%`,`Culture ${sh(a.culture)}% (≥3%), events ${sh(a.events)}%`)],
-    ["P6",L("用 Council 用地提供公共便利","Council land delivering public amenity"),sum(a)===TOTAL,L("1,200 m² 全部作为公共空间","All 1,200 m² kept as public space")]];
-  return `<p class="small muted">${L("检查当前分配是否仍符合总规的 6 条城市设计原则","Checks whether the current split still meets the plan's six urban design principles")} ${chip("S2","p.22")} <span class="tag t-design">${L("阈值是我们的假设","Thresholds are our assumptions")}</span></p>
-  <ul class="claims">${P.map(p=>`<li><b>${p[0]}</b> ${p[1]} — <span class="${p[2]?"ok":"bad"}">${p[2]?"✓":"✗"} ${p[3]}</span></li>`).join("")}</ul>`;}
+/* Evidence gaps: figures no source gives. "who" is the team's reading of the D / P / A roles (S5 p.33);
+   "when" repeats only what a source states, otherwise it stays empty. */
+const GAPS=()=>[
+ {id:"g-traffic",t:L("交通影响：还没有交通模型","Traffic effects: no traffic model yet"),chips:[["S4","","tr6"]],
+  hit:L("畅通步行、路缘接驳，以及对周边街道的所有影响","Clear walking, kerbside access and every effect on nearby streets"),
+  who:"A",whoT:L("Council 与 TfNSW 一起做交通研究","Council runs the traffic study with TfNSW"),whoC:[["S2","p.54"]],
+  when:L("研究范围和预算先报 Council 批准，FY27/28 聘顾问","Scope and budget go to Council first; consultants in FY27/28"),whenC:[["S4","","tr6"]],
+  res:L("交通相关的结果都标“等待 Council 交通研究”","Traffic-related results carry “Awaits Council traffic study”")},
+ {id:"g-size",t:L("广场面积：1,200 m² 还是 1,300 m²","Square size: 1,200 m² or 1,300 m²"),chips:[["S2","p.23","sq1"],["S3","","sq9"]],
+  hit:L("所有面积，以及按面积算出的结果","Every area, and every result worked out from area"),
+  who:"D",whoT:L("Council 在最终版总规里确认","Council confirms it in the final master plan"),whoC:[["S3",""]],
+  when:L("最终版总规（是否已通过，待核实）","The final master plan (whether it has been adopted is still to be checked)"),whenC:[["S3",""]],
+  res:L("暂用总规正文的 1,200 m²，并注明两处说法不同","Uses the plan's 1,200 m² for now and notes that the two figures differ")},
+ {id:"g-soil",t:L("广场下方是否有停车场、能否深土种树","Whether the car park sits under the square, and whether deep soil is possible"),chips:[["S2","p.49","tr8"],["S2","p.45","sq3"]],
+  hit:L("树冠和遮荫面积","Canopy and shaded area"),
+  who:"D",whoT:L("Council 对停车场的可行性研究和设计","Council's feasibility and design work on the car park"),whoC:[["S2","p.49","tr8"]],
+  res:L("居民可以在“抬高种植池”和“深土种植”两种假设之间切换","Residents can switch between two assumptions: raised planters or deep soil")},
+ {id:"g-areas",t:L("各项功能的面积比例","Area for each use"),chips:[],
+  hit:L("方案 0 的全部比例","Every share in Scenario 0"),
+  who:"D",whoT:L("Council 的广场设计","Council's design of the square"),whoC:[],
+  res:L("方案 0 标为“假设：我们对总规的解读”","Scenario 0 is marked “Assumption: our reading”")},
+ {id:"g-fund",t:L("建设资金来源","Funding sources"),chips:[["S2","p.54","sq10"]],
+  hit:L("各项用途能不能建成","Whether each use gets built"),
+  who:"D · A",whoT:L("Council 预算和开发贡献由 Council 决定；州和联邦拨款要去争取","Council decides its own budget and contributions; State and Federal grants have to be sought"),whoC:[["S2","p.54","sq10"]],
+  res:L("居民端标为“还没定”","Shown to residents as “Still open”")},
+ {id:"g-exh",t:L("公示意见汇总（尚未公开）","Exhibition feedback summary (not yet published)"),chips:[["S3",""]],
+  hit:L("生活经验：居民和商户在公示期已经说过什么","Lived experience: what residents and businesses already said during exhibition"),
+  who:"D",whoT:L("Council 正在审阅公示意见","Council is reviewing the submissions"),whoC:[["S3",""]],
+  res:L("本工具的演示提交不代替公示意见","Demo submissions in this tool do not stand in for exhibition feedback")},
+ {id:"g-coef",t:L("系数矩阵的文献出处","Literature for each coefficient"),chips:[],
+  hit:L("9 个维度的全部结果","Every result across the nine dimensions"),
+  who:L("团队","Team"),whoT:L("核实文献后替换假设值","Replace the assumed values once checked against literature"),whoC:[],
+  res:L("所有系数标“假设”，结果显示为区间，不是预测","Every coefficient is marked “Assumption”; results show as ranges, not forecasts")}];
+function gapsList(){const cs=a=>(a||[]).map(c=>chip(c[0],c[1],c[2])).join(" ");
+  return `<div class="gaps">${GAPS().map(g=>`<article class="gap" id="${g.id}">
+    <div class="gap-t"><b>${g.t}</b> ${g.chips.length?cs(g.chips):`<span class="tag t-gap">${L("来源里没有","No source")}</span>`}</div>
+    <dl><div><dt>${L("影响","Affects")}</dt><dd>${g.hit}</dd></div>
+     <div><dt>${L("谁能补","Who can fill it")}</dt><dd><span class="rtag">${g.who}</span> ${g.whoT} ${cs(g.whoC)}</dd></div>
+     <div><dt>${L("什么时候","When")}</dt><dd>${g.when?g.when+" "+cs(g.whenC):`<span class="muted">${L("来源没有给出时间","No source gives a date")}</span>`}</dd></div>
+     <div><dt>${L("居民端现在","Shown to residents as")}</dt><dd>${g.res}</dd></div></dl></article>`).join("")}</div>
+   <p class="small muted" style="margin:8px 0 0">${L("“谁能补”是团队按 D / P / A 分工做的判断","“Who can fill it” is the team's reading of the D / P / A roles")} ${chip("S5","p.33")} <span class="tag t-design">${L("假设","Assumption")}</span></p>`;}
+/* P1–P6 check. Each measure is compared with a threshold (team assumption) and with Scenario 0:
+   below the threshold = not met; above it but below Scenario 0 = weakened; otherwise kept.
+   P1 and P3 share one row because this model can only measure both by clear walking area.
+   P6 is not scored: the tool fixes the total at 1,200 m², so it could never fail. */
+function pCheckData(a){const b=PRESETS.base.a;
+  const m=(zh,en,f,min)=>{const v=f(a),v0=f(b);return {t:L(zh,en),v,v0,min,st:v<min?"fail":v<v0?"weak":"keep"};};
+  const walk=()=>m("畅通步行","Clear walking",x=>x.walk,180);
+  const rows=[
+   {ids:["P1","P3"],t:L("连接更新片区与 CBD 和交通枢纽；改善街道与公共空间的连接","Connect renewal areas to the CBD and transport; better links between streets and public space"),ms:[walk()],
+    note:L("本模型只能用畅通步行面积来衡量这两条，所以合成一行。","This model can only measure both by clear walking area, so they share a row.")},
+   {ids:["P2"],t:L("新建社区聚会空间","New spaces for community gathering"),ms:[m("活动 + 休憩","Events + rest",x=>x.events+x.rest,480)]},
+   {ids:["P4"],t:L("让步行和骑行更容易、更安全、更舒适","Easier, safer, more comfortable walking and cycling"),ms:[walk(),m("树冠","Canopy",x=>x.canopy,120)]},
+   {ids:["P5"],t:L("唐人街成为文化目的地","Chinatown as a cultural destination"),ms:[m("文化表达","Culture",x=>x.culture,36),m("活动和夜市","Events and markets",x=>x.events,200)]}];
+  rows.forEach(r=>r.st=r.ms.some(x=>x.st==="fail")?"fail":r.ms.some(x=>x.st==="weak")?"weak":"keep");
+  return rows;}
+function pCheckSummary(a){const c={keep:0,weak:0,fail:0};pCheckData(a).forEach(r=>c[r.st]+=r.ids.length);return c;}
+const pcLabel=st=>({keep:L("保持","Kept"),weak:L("削弱","Weakened"),fail:L("不满足","Not met")}[st]);
+function pCheckList(){
+  return `<p class="small muted">${L("检查当前分配是否仍符合总规的 6 条城市设计原则","Checks whether the current split still meets the plan's six urban design principles")} ${chip("S2","p.22")} <span class="tag t-design">${L("门槛和方案 0 都是我们的假设","Thresholds and Scenario 0 are our assumptions")}</span></p>
+  <div class="pc">${pCheckData(S.a).map(r=>`<div class="pc-r pc-${r.st}"><div class="pc-h"><span><b>${r.ids.join(" · ")}</b> ${r.t}</span><span class="status pcs-${r.st}">${pcLabel(r.st)}</span></div>
+    ${r.ms.map(x=>`<div class="pc-m"><span class="pc-k">${x.t}</span><span class="pc-v">${L("方案 0","Scenario 0")} ${fmt(x.v0)} m² → <b class="pcv-${x.st}">${L("当前","now")} ${fmt(x.v)} m²</b></span><span class="pc-t">${L("门槛","Threshold")} ≥ ${fmt(x.min)} m²</span></div>`).join("")}
+    ${r.note?`<div class="pc-n">${r.note}</div>`:""}</div>`).join("")}
+   <div class="pc-r pc-na"><div class="pc-h"><span><b>P6</b> ${L("用 Council 用地提供公共便利","Council land delivering public amenity")}</span><span class="status pcs-na">${L("不评分","Not scored")}</span></div>
+    <div class="pc-n">${L("本工具把总面积固定在 1,200 m²，全部是公共空间，所以这条不会变。真正没定的是资金和停车场，见证据空白。","The tool fixes the total at 1,200 m², all of it public space, so this cannot change. What is still open is funding and the car park: see the evidence gaps.")} ${chip("S2","p.23","sq1")}</div></div></div>
+  <p class="small muted" style="margin:8px 0 0">${L("保持 = 不低于方案 0；削弱 = 低于方案 0，但仍在门槛以上；不满足 = 低于门槛。","Kept = no lower than Scenario 0. Weakened = lower than Scenario 0 but still above the threshold. Not met = below the threshold.")}</p>`;}
 function subsPanel(){const subs=store.get("cav_subs")||[];
   return `<p class="small muted">${L("正式版只在同一群体达到 10 人以上时显示汇总，并对比 ABS 人口结构检查代表性。演示版没有真实提交，只显示本浏览器里的演示数据。","The full version shows a summary only once a group reaches 10 or more people, and checks representativeness against the ABS Census. The demo has no real submissions, only demo data from this browser.")}</p>
   <div class="thr"><div class="thrn">${subs.length}<small>/10</small></div><div class="thrbar"><span style="width:${Math.min(100,subs.length*10)}%"></span></div></div>
