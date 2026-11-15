@@ -189,6 +189,91 @@ svg.iso .plate{filter:drop-shadow(0 2px 3px rgba(0,0,0,.25))}
 .srcs{display:grid;gap:6px;padding-left:18px}
 .srcs li{font-size:14px}
 .srcs a{color:var(--accent)}
+/* chapter 4: pick and vote (variants/vote.js) */
+.vgrid{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:14px;align-items:start}
+@media (max-width:900px){.vgrid{grid-template-columns:1fr}}
+.vcard{display:grid;gap:10px}
+.vh{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+.vh{align-items:center}
+.vq{font-size:17px;line-height:1.35;margin:-4px 0 0;text-wrap:pretty}
+.vtabs button{font-size:14px;padding:5px 14px}
+.vdot{display:inline-grid;place-items:center;min-width:18px;height:18px;border-radius:9px;background:var(--surface);color:var(--accent);font-size:11px;font-weight:700;padding:0 4px}
+.vnote{margin:0}
+.obs-l{display:grid;gap:8px}
+.obs{border:1px solid var(--line);border-radius:12px;padding:10px 12px;background:var(--surface);transition:border-color .2s,background .2s}
+.obs.on{border-color:var(--accent);background:var(--accent-soft);box-shadow:0 0 0 1px var(--accent)}
+.ob-r{display:flex;gap:10px;align-items:flex-start}
+.ob-t{flex:1;min-width:0;display:flex;gap:10px;align-items:flex-start;text-align:left;background:none;border:0;padding:0;line-height:1.4}
+.ob-t b{font-size:15px;font-weight:600;display:block}
+.ob-t .tag{margin-top:4px}
+.ob-c{flex:0 0 22px;height:22px;border-radius:6px;border:2px solid var(--muted);display:grid;place-items:center;font-size:14px;font-weight:700;color:var(--on-accent);margin-top:1px}
+.obs.on .ob-c{background:var(--accent);border-color:var(--accent)}
+.ob-n{flex:0 0 auto;min-width:48px;text-align:center;border:1px solid var(--line);border-radius:999px;padding:2px 10px;font-family:var(--f-mono);font-weight:600;font-variant-numeric:tabular-nums;background:var(--surface)}
+.ob-n small{font-size:10.5px;color:var(--muted);margin-left:3px;font-weight:400}
+.obs.on .ob-n{border-color:var(--accent);color:var(--accent)}
+.ob-s{font-size:13px;color:var(--muted);margin:6px 0 0 32px;line-height:1.5}
+.ob-s b{color:var(--fg);font-weight:600;margin-right:2px}
+.ob-s .sep{color:var(--muted)}
+.ob-g{margin-top:2px}
+.obs.on .src{background:var(--surface)}
+.ob-f{margin:4px 0 0 32px;display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.vrole{background:var(--surface-2);color:var(--fg);font-family:var(--f-mono)}
+.vmore{justify-self:start}
+.vadd,.vfree{border:1px dashed var(--line);border-radius:12px;padding:10px 12px}
+.vadd summary,.vfree summary{cursor:pointer;font-weight:600;color:var(--accent)}
+.vadd .pill button{font-size:13px}
+.vprev{margin-top:8px}.vprev .ob-s{margin-left:0}
+.btn[aria-disabled="true"]{opacity:.55}
+.dprog{display:flex;gap:4px;flex:0 0 auto}
+.dprog i{width:8px;height:8px;border-radius:50%;background:var(--line)}
+.dprog i.d{background:var(--accent)}.dprog i.c{background:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+.duel{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:8px;align-items:start}
+.vs{align-self:center;font-family:var(--f-display);font-weight:700;color:var(--muted);font-size:14px;margin-top:-30px}
+.dside{display:grid;gap:6px;min-width:0}
+.dpick{border:2px solid var(--line);background:var(--surface);border-radius:14px;padding:14px 8px 12px;display:grid;justify-items:center;gap:6px;min-height:118px;transition:transform .15s,border-color .15s}
+.dpick:hover{border-color:var(--gc)}
+.dpick:active{transform:scale(.97)}
+.dpick b{font-size:14.5px;line-height:1.3;text-align:center}
+.dic{display:inline-grid;place-items:center;width:52px;height:52px;border-radius:50%;background:var(--surface-2)}
+.dic svg{width:30px;height:30px}
+.dic.sm{width:26px;height:26px}.dic.sm svg{width:16px;height:16px}
+.dcap{font-size:12px;color:var(--muted);text-align:center;line-height:1.5}
+.drank{display:grid;gap:6px;padding:0;margin:0}
+.drank li{list-style:none;display:grid;grid-template-columns:20px 26px minmax(0,1fr) minmax(50px,.8fr) 48px;gap:8px;align-items:center;font-size:13.5px}
+.drank .dn{font-family:var(--f-mono);color:var(--muted);text-align:right}
+.drank .db{height:8px;border-radius:4px;background:var(--surface-2);overflow:hidden}.drank .db span{display:block;height:100%}
+.drank .dp{font-family:var(--f-mono);font-variant-numeric:tabular-nums;text-align:right;font-size:12.5px}
+.drank .dp small{display:block;color:var(--muted);font-size:10.5px}
+@media (max-width:420px){.drank li{grid-template-columns:18px 26px minmax(0,1fr) 44px}.drank .db{display:none}}
+.sendbar{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.vfree label.f{display:block;margin-top:8px}
+.vwide{grid-column:1/-1}
+.vgate{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:space-between}
+.vt{font-size:15px;margin:14px 0 6px}
+.tally{display:grid;gap:8px;padding:0;margin:0}
+.tally li{list-style:none;border:1px solid var(--line);border-radius:10px;padding:8px 10px}
+.tally .ob-s,.tally .ob-f{margin-left:0}
+.tl2{display:flex;align-items:center;gap:8px;margin-top:4px}
+.tbar{flex:1;height:8px;border-radius:4px;background:var(--surface-2);overflow:hidden}.tbar span{display:block;height:100%;background:var(--accent)}
+.tn{font-family:var(--f-mono);font-variant-numeric:tabular-nums;font-weight:600}.tn small{color:var(--muted);font-weight:400}
+/* simulated votes (D1) */
+.t-sim{background:transparent;border:1px dashed var(--infer);color:var(--infer);line-height:1.35}
+.t-mine{background:var(--accent);color:var(--on-accent)}
+.ob-n.sim{display:grid;justify-items:center;line-height:1.15;padding:3px 10px;border-style:dashed;border-color:var(--infer)}
+.ob-n i{font-style:normal;font-size:10px;color:var(--infer);font-family:var(--f-body);font-weight:500}
+.ob-mix{display:inline-flex;gap:6px;align-items:center;flex-wrap:wrap;margin-left:auto}
+.vsimrow .pill button{font-size:12.5px;padding:3px 10px}
+.vabout{border:1px dashed var(--infer);border-radius:12px;padding:8px 12px;font-size:13.5px;background:var(--infer-bg)}
+.vabout summary{cursor:pointer;font-weight:600;color:var(--infer)}
+.vabout p{margin:8px 0 0}
+.vlean{margin:8px 0 0;padding-left:18px;display:grid;gap:4px}
+.vlast{margin:8px 0 0;text-align:center}
+.thr .t-sim{flex:0 0 auto}
+.trole{display:flex;flex-wrap:wrap;gap:4px 12px;font-size:12.5px;margin-top:4px}
+.trole b{font-family:var(--f-mono)}
+.gh{color:var(--muted)}.gh small{font-size:11px}
+.vgroups{margin:0;padding-left:18px;display:grid;gap:4px;font-size:13.5px}
+.sendbtns{display:flex;gap:8px;flex-wrap:wrap}
 </style>
 
 <header class="top"><div class="wrap">
@@ -322,10 +407,10 @@ function resultsInner(){const r=resultsRows();
 function results(){return `<section class="wrap ch" id="c-res"><div class="card enter" id="resBox">${resultsInner()}</div></section>`;}
 function decide(){
   const adv=["tr6","tr7","ct6","ct7","sq10"];
-  return `<section class="wrap ch" id="c-say" style="padding-bottom:40px"><div class="ch-h"><div class="eyebrow">${L("第 4 章 · 你怎么看、谁负责","Chapter 4 · Your view and who decides")}</div><h2>${L("这块广场由谁来做？你想告诉 Council 什么？","Who delivers this square, and what do you want Council to hear?")}</h2></div>
-   <div class="two"><div class="card"><div id="dpaBox">${dpaCards()}</div>
-     <h3 style="font-size:15px;margin:14px 0 4px">${L("广场本身决定不了、要等别人的事","Outside the square's control")}</h3>${claimsById(adv)}</div>
-    <div class="card"><h3 style="font-size:16px;margin-bottom:8px">${L("你的意见","Your feedback")}</h3>${feedbackHTML()}</div></div></section>`;
+  return `<section class="wrap ch" id="c-say" style="padding-bottom:40px"><div class="ch-h"><div class="eyebrow">${L("第 4 章 · 你怎么看、谁负责","Chapter 4 · Your view and who decides")}</div><h2>${L("点一点、比一比，告诉 Council 你的看法","Tap and compare to tell Council what you think")}</h2><p>${L("不用打字：勾选你也遇到过的情况，再做几轮二选一。每条“Council 说”都能点开原文。","No typing needed: tick what you've run into, then do a few pick-one-of-two rounds. Every \"Council says\" line opens to the original.")}</p></div>
+   ${voteSection()}
+   <div class="card" style="margin-top:14px"><div id="dpaBox">${dpaCards()}</div>
+     <h3 style="font-size:15px;margin:14px 0 4px">${L("广场本身决定不了、要等别人的事","Outside the square's control")}</h3>${claimsById(adv)}</div></section>`;
 }
 const QUESTS=()=>({square:[L("广场","The square"),["sq1","sq2","sq3","sq4","sq9","sq12"]],street:["Wentworth St",["tr1","tr2","tr6"]],north:[L("周边建筑","Surrounding buildings"),["sq5","sq10","sq11"]],below:[L("广场下面","Below the square"),["tr3","tr8"]]});
 function openQuest(id){const [t,ids]=QUESTS()[id];
@@ -340,6 +425,7 @@ function councilTab(){
     <div class="card"><h2 style="font-size:18px">${L("总规原则检查 P1–P6","Plan principles P1–P6")}</h2>${pCheckList()}</div>
     <div class="card"><h2 style="font-size:18px">${L("证据空白","Evidence gaps")}</h2><p class="small muted">${L("这些数字在来源里找不到。原型不会用估算填上，而是列出来交给 Council。","No source gives these figures. The prototype lists them for Council instead of filling them with estimates.")}</p>${gapsList()}</div>
     <div class="card"><h2 style="font-size:18px">${L("当前分配的责任分工","Who delivers the current split")}</h2><div id="dpaBox">${dpaCards()}</div></div>
+    <div class="card vwide"><h2 style="font-size:18px">${L("居民投票汇总","Resident votes")}</h2><div id="tallyBox">${tallyPanel()}</div></div>
    </div></div>`;
 }
 function ledgerTab(){
@@ -391,6 +477,8 @@ window.addEventListener("scroll",()=>{
 bindCommon({render,live},b=>{
   const d=b.dataset;
   if(d.tab){TAB=d.tab;render();window.scrollTo(0,0);return true;}
+  if(b.id==="submit"){submitDemo();voteAfterSubmit();render();return true;}
+  if(voteClick(b)) return true;
   if(d.night){setNight(d.night==="1");return true;}
   if(d.quest){openQuest(d.quest);return true;}
   if(d.resview){RESVIEW=d.resview;const r=document.getElementById("resBox");if(r){r.classList.add("enter");r.innerHTML=resultsInner();setTimeout(()=>r.classList.remove("enter"),1200);}return true;}

@@ -31,7 +31,7 @@ const core = [
 
 const map = rd("data/precinct.json").trim();
 const baseCss = rd("variants/base.css");
-const shared = [rd("variants/shared.js"), rd("variants/iso.js")].join(String.fromCharCode(10, 10));
+const shared = [rd("variants/shared.js"), rd("variants/iso.js"), rd("variants/vote.js")].join(String.fromCharCode(10, 10));
 
 const BANNED = ["+43", "43 sec", "19% shade", "18,400", "n=142", "Verified Data Layers", "-0.0°C", "−0.0°C", "Monash", "parramatta-logo", "City of Parramatta logo"];
 
@@ -52,6 +52,9 @@ for (const name of ["a-studio", "b-scroll", "c-map", "index"]) {
   src = src.replace(/__URL_([ABC])__/g, (m, k) => links[k.toLowerCase()] || "");
   for (const b of BANNED) if (src.includes(b)) throw new Error(`${name}: banned string "${b}"`);
   if (/__(CORE|BASE_CSS|MAP)__/.test(src)) throw new Error(`${name}: unreplaced placeholder`);
+  // fail the build if the page script does not parse (a stray quote once broke the whole page)
+  const js = src.slice(src.lastIndexOf("<script>") + 8, src.lastIndexOf("</script>"));
+  try { new Function(js); } catch (e) { throw new Error(`${name}: page script does not parse: ${e.message}`); }
   fs.writeFileSync(path.join(outDir, name + ".html"), src);
   console.log(`wrote dist/variants/${name}.html`, (src.length / 1024).toFixed(0) + " KB");
 }
