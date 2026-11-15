@@ -120,6 +120,14 @@
   "zh": "<b>参赛原型。</b>Council 的事实都附来源和页码（点绿色标签看原文）。广场分配的系数和方案 0 的比例是团队假设，还没用文献核实。这里不收集、不发送任何个人信息。"
  },
  {
+  "en": "We acknowledge the Dharug people, the Traditional Custodians of the land of Parramatta, and pay our respects to Elders past and present. We extend that respect to all Aboriginal and Torres Strait Islander people using this site.",
+  "zh": "我们承认 Dharug 人是 Parramatta 这片土地的传统守护者，并向过去和现在的长者致敬。我们也向所有使用本网站的原住民和托雷斯海峡岛民致以同样的敬意。"
+ },
+ {
+  "en": "Acknowledgement of Country",
+  "zh": "致谢原住民土地"
+ },
+ {
   "en": "Sources: S1 challenge brief; S2 draft master plan; S3 Participate Parramatta page; S4 Council report OCM26-56; S5 Smart City Strategy. Base map © OpenStreetMap contributors (ODbL), snapshot 10 Nov 2026. CivicAlign is a competition prototype and does not represent the City of Parramatta.",
   "zh": "来源：S1 挑战简报；S2 总规草案；S3 Participate Parramatta 项目页；S4 Council 报告 OCM26-56；S5 智慧城市战略。底图 © OpenStreetMap contributors（ODbL），2026-11-10 快照。CivicAlign 是参赛原型，不代表 City of Parramatta。"
  },
@@ -2746,14 +2754,6 @@
  {
   "en": "votes",
   "zh": "票"
- },
- {
-  "en": "We acknowledge the Dharug people, the Traditional Custodians of the land of Parramatta, and pay our respects to Elders past and present. We extend that respect to all Aboriginal and Torres Strait Islander people using this site.",
-  "zh": "我们承认 Dharug 人是 Parramatta 这片土地的传统守护者，并向过去和现在的长者致敬。我们也向所有使用本网站的原住民和托雷斯海峡岛民致以同样的敬意。"
- },
- {
-  "en": "Acknowledgement of Country",
-  "zh": "致谢原住民土地"
  },
  {
   "en": "English shown where a translation is missing. Council quotes stay in their original English.",

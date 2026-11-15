@@ -26,3 +26,4 @@
 :root:not([data-lang="en"]) .tag{white-space:normal;max-width:100%;overflow-wrap:anywhere}
 /* very long single words (Tamil, Telugu…) at display sizes may break rather than push the layout past the screen */
 :root:not([data-lang="en"]):not([data-lang="zh"]):not([data-lang="zh-Hant"]) :is(main,header,.aiban){overflow-wrap:anywhere}
+:root:not([data-lang="en"]) .btn{white-space:normal;max-width:100%;height:auto}
