@@ -1,0 +1,954 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>CivicAlign Design Options</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&family=Space+Grotesk:wght@500;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Shared tokens and components for the three CivicAlign variants.
+   Navy civic chrome, a green "evidence" accent, four use-group colours from GROUPS. */
+:root{
+  --bg:#f2f5f8; --surface:#ffffff; --surface-2:#e9eef3; --fg:#13202e; --muted:#566476; --line:#d3dce5;
+  --chrome:#0e1c33; --chrome-2:#18294a; --chrome-3:#243a63; --chrome-fg:#eaf0f9; --chrome-mut:#9fb0cb;
+  --accent:#1f6b57; --accent-soft:#d8ece4; --on-accent:#ffffff;
+  --base:#8e9bab; --fact:#1f6b57; --fact-bg:#dcefe6; --infer:#93580a; --infer-bg:#fbecd2;
+  --design:#2c5aa0; --design-bg:#dfe8f7; --gap:#b23a3a; --gap-bg:#f8dfdf;
+  --map-bg:#e7ecf0; --map-bld:#cfd7de; --map-road:#ffffff; --map-road-edge:#c2ccd6; --map-green:#cfe6c9; --map-rail:#6d7a86;
+  --p-base:#e4e9f0; --p-base-fg:#23324a; --p-green:#e0f1e2; --p-green-fg:#245a2c; --p-night:#fbecd6; --p-night-fg:#7a4a0c;
+  --shadow:0 1px 2px rgba(16,32,52,.06),0 6px 18px rgba(16,32,52,.07);
+  --f-display:"Space Grotesk","Noto Sans SC",system-ui,sans-serif;
+  --f-body:"Noto Sans SC",system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0b121b; --surface:#121c28; --surface-2:#1a2635; --fg:#e4ebf3; --muted:#98a7b9; --line:#283749;
+  --chrome:#070e19; --chrome-2:#101d33; --chrome-3:#1c3054; --chrome-fg:#e4ebf6; --chrome-mut:#8ea1bf;
+  --accent:#6cc3a6; --accent-soft:#183a30; --on-accent:#08140f;
+  --base:#66768a; --fact:#7fd0b2; --fact-bg:#173629; --infer:#f0b257; --infer-bg:#3a2c14; --design:#8fb3f0; --design-bg:#1b2944; --gap:#f08a8a; --gap-bg:#3d1f1f;
+  --map-bg:#141f2b; --map-bld:#2a3847; --map-road:#3a4a5c; --map-road-edge:#243142; --map-green:#21402c; --map-rail:#8b9aab;
+  --p-base:#1f2c3f; --p-base-fg:#d6e0ee; --p-green:#1d3a25; --p-green-fg:#bfe5c4; --p-night:#3a2c14; --p-night-fg:#f2cf98;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 6px 18px rgba(0,0,0,.25);
+  color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0b121b; --surface:#121c28; --surface-2:#1a2635; --fg:#e4ebf3; --muted:#98a7b9; --line:#283749;
+  --chrome:#070e19; --chrome-2:#101d33; --chrome-3:#1c3054; --chrome-fg:#e4ebf6; --chrome-mut:#8ea1bf;
+  --accent:#6cc3a6; --accent-soft:#183a30; --on-accent:#08140f;
+  --base:#66768a; --fact:#7fd0b2; --fact-bg:#173629; --infer:#f0b257; --infer-bg:#3a2c14; --design:#8fb3f0; --design-bg:#1b2944; --gap:#f08a8a; --gap-bg:#3d1f1f;
+  --map-bg:#141f2b; --map-bld:#2a3847; --map-road:#3a4a5c; --map-road-edge:#243142; --map-green:#21402c; --map-rail:#8b9aab;
+  --p-base:#1f2c3f; --p-base-fg:#d6e0ee; --p-green:#1d3a25; --p-green-fg:#bfe5c4; --p-night:#3a2c14; --p-night-fg:#f2cf98;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 6px 18px rgba(0,0,0,.25);
+  color-scheme:dark}
+*{box-sizing:border-box}
+html,body{min-height:100%}
+body{background:var(--bg);color:var(--fg);font-family:var(--f-body);font-size:15px;line-height:1.6;overflow-x:hidden}
+.wrap{max-width:1200px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+h1,h2,h3{font-family:var(--f-display);text-wrap:balance;margin:0}
+p{margin:0 0 8px}
+.muted{color:var(--muted)} .small{font-size:13px}
+.eyebrow{font-family:var(--f-mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px;min-width:0}
+.tag{display:inline-block;font-size:11.5px;line-height:1.5;border-radius:4px;padding:0 6px;font-weight:500;white-space:nowrap;vertical-align:1px}
+.t-fact{background:var(--fact-bg);color:var(--fact)} .t-infer{background:var(--infer-bg);color:var(--infer)}
+.t-design{background:var(--design-bg);color:var(--design)} .t-gap{background:var(--gap-bg);color:var(--gap)}
+.src{font-family:var(--f-mono);font-size:11.5px;color:var(--accent);background:var(--accent-soft);border:0;border-radius:4px;padding:0 6px;white-space:nowrap;line-height:1.6;vertical-align:1px}
+.src:hover{text-decoration:underline}
+.btn{border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:9px 16px}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--on-accent);font-weight:600}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.pill{display:inline-flex;gap:6px;flex-wrap:wrap}
+.pill button{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:4px 12px;font-size:13px}
+.pill button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.tgl{display:inline-flex;border:1px solid var(--chrome-3);border-radius:8px;overflow:hidden}
+.tgl button{border:0;background:transparent;color:var(--chrome-fg);padding:5px 10px;font-size:13px}
+.tgl button[aria-pressed="true"]{background:var(--chrome-fg);color:var(--chrome)}
+/* source drawer (markup from app/template.html openDrawer) */
+.drawer{position:fixed;top:0;right:0;bottom:0;width:min(440px,100%);background:var(--surface);border-left:1px solid var(--line);box-shadow:-8px 0 24px rgba(0,0,0,.18);z-index:60;padding:calc(18px + env(safe-area-inset-top,0px)) calc(18px + env(safe-area-inset-right,0px)) calc(16px + env(safe-area-inset-bottom,0px)) 20px;overflow-y:auto}
+.drawer h2{font-size:19px;margin:4px 0 10px}
+.drawer blockquote{margin:10px 0;padding:10px 12px;border-left:3px solid var(--accent);background:var(--surface-2);font-size:14px}
+.drawer .x{float:right;border:1px solid var(--line);background:var(--surface);border-radius:6px;padding:2px 10px}
+.drawer a{color:var(--accent)}
+.scrim{position:fixed;inset:0;background:rgba(5,12,22,.4);z-index:59}
+@media (prefers-reduced-motion:no-preference){.drawer{animation:slide .18s ease-out}@keyframes slide{from{transform:translateX(24px);opacity:.6}to{transform:none;opacity:1}}}
+/* linked sliders */
+input[type=range].rg{-webkit-appearance:none;appearance:none;width:100%;height:22px;background:transparent;margin:4px 0 0;--c:var(--accent);--p:50%}
+input[type=range].rg::-webkit-slider-runnable-track{height:8px;border-radius:4px;background:linear-gradient(to right,var(--c) var(--p),var(--surface-2) var(--p))}
+input[type=range].rg::-moz-range-track{height:8px;border-radius:4px;background:linear-gradient(to right,var(--c) var(--p),var(--surface-2) var(--p))}
+input[type=range].rg::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;border-radius:50%;background:var(--surface);border:3px solid var(--c);margin-top:-7px;box-shadow:0 1px 4px rgba(0,0,0,.25)}
+input[type=range].rg::-moz-range-thumb{width:16px;height:16px;border-radius:50%;background:var(--surface);border:3px solid var(--c);box-shadow:0 1px 4px rgba(0,0,0,.25)}
+.gcards{display:grid;gap:10px}
+.gcard{--gc:#888;border:1px solid color-mix(in srgb,var(--gc) 40%,var(--line));background:color-mix(in srgb,var(--gc) 8%,var(--surface));border-radius:12px;padding:10px 12px 8px}
+.gtop{display:flex;align-items:center;gap:10px}
+.gic{flex:0 0 34px;height:34px;border-radius:9px;background:var(--gc);display:grid;place-items:center}
+.gic svg{width:20px;height:20px}
+.gname{flex:1;min-width:0} .gname b{display:block;font-size:15px;line-height:1.3} .gname small{color:var(--muted);font-size:12px;line-height:1.3;display:block}
+.gval{font-family:var(--f-display);font-size:26px;font-weight:700;color:var(--gc);font-variant-numeric:tabular-nums;line-height:1}
+.gval small{display:block;font-family:var(--f-mono);font-size:11px;font-weight:400;color:var(--muted);text-align:right;margin-top:3px}
+.mods{margin-top:6px}
+.mod{display:grid;grid-template-columns:minmax(0,1fr) 110px 64px;gap:8px;align-items:center;padding:4px 0}
+@media (max-width:480px){.mod{grid-template-columns:minmax(0,1fr) 64px}.mod input{grid-column:1/-1;order:3}}
+.mod .nm{font-size:13px;min-width:0;line-height:1.35}
+.mod .nm small{display:block;color:var(--muted);font-size:11px}
+.mod output{font-family:var(--f-mono);font-size:12.5px;text-align:right;font-variant-numeric:tabular-nums}
+.mic{display:inline-block;vertical-align:-3px;margin-right:6px}
+details.more{border:1px solid var(--line);border-radius:10px;background:var(--surface);padding:8px 12px;margin-top:10px}
+details.more summary{cursor:pointer;font-weight:500;font-size:14px}
+/* quick-compare scenario buttons */
+.pzs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.pz{border:2px solid transparent;border-radius:10px;padding:9px 8px;font-size:12.5px;font-weight:600;text-align:left;line-height:1.3;min-width:0}
+.pz small{display:block;font-weight:400;font-size:11px;opacity:.8;margin-top:2px}
+.pz-base{background:var(--p-base);color:var(--p-base-fg)} .pz-green{background:var(--p-green);color:var(--p-green-fg)} .pz-night{background:var(--p-night);color:var(--p-night-fg)}
+.pz[aria-pressed="true"]{border-color:currentColor}
+@media (max-width:420px){.pzs{grid-template-columns:1fr}}
+/* allocation bar */
+.abar{display:flex;height:26px;border-radius:7px;overflow:hidden;background:var(--surface-2)}
+.abar span{display:flex;align-items:center;justify-content:center;color:#fff;font-size:11.5px;font-weight:600;white-space:nowrap;overflow:hidden;transition:width .15s}
+/* KPI cards */
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px}
+.kpi{border:1px solid var(--line);border-radius:12px;padding:12px 14px;background:var(--surface);min-width:0;position:relative;overflow:hidden}
+.kpi::before{content:"";position:absolute;inset:0 auto 0 0;width:4px;background:var(--kc,var(--accent))}
+.kh{display:flex;justify-content:space-between;align-items:center;gap:6px;font-size:12.5px;color:var(--muted)}
+.kh b{font-weight:500;color:var(--fg);display:flex;align-items:center;gap:6px}
+.kv{font-family:var(--f-display);font-size:28px;font-weight:700;font-variant-numeric:tabular-nums;line-height:1.15;margin-top:4px;letter-spacing:-.01em}
+.kv small{font-size:13px;font-weight:500;color:var(--muted);letter-spacing:0}
+.kd{font-size:12.5px;font-weight:500;margin-top:2px} .kn{font-size:12px;color:var(--muted);margin-top:2px;line-height:1.4}
+.delta-up{color:var(--fact)} .delta-down{color:var(--gap)}
+/* plaza diagram */
+.plaza{width:100%;height:auto;display:block}
+.plaza text{font-family:var(--f-body)}
+/* results rows */
+.res{display:grid;grid-template-columns:150px minmax(0,1fr) 190px;gap:10px;align-items:center;padding:8px 0;border-bottom:1px solid var(--line)}
+@media (max-width:640px){.res{grid-template-columns:1fr}}
+.res:last-child{border-bottom:0}
+.res .dn{font-size:14px;font-weight:500}
+.res .dn small{display:block;font-weight:400;color:var(--muted);font-size:12px}
+.res .dn.pri::after{content:" ★";color:var(--accent)}
+.track{position:relative;height:30px}
+.track .rng{position:absolute;height:9px;border-radius:5px;transition:left .15s,width .15s}
+.track .r0{top:3px;background:var(--base)} .track .r1{top:17px;background:var(--accent)}
+.vals{font-family:var(--f-mono);font-size:12.5px;font-variant-numeric:tabular-nums;line-height:1.45}
+.vals .y{color:var(--accent)}
+.keyrow{display:flex;gap:14px;flex-wrap:wrap;font-size:12.5px;color:var(--muted);margin-bottom:6px}
+.sw{display:inline-block;width:12px;height:12px;border-radius:3px;vertical-align:-1px;margin-right:4px}
+/* tables */
+.scroll{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:13px}
+th,td{text-align:left;padding:7px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+th{color:var(--muted);font-weight:500;background:var(--surface-2);white-space:nowrap}
+td.n{font-family:var(--f-mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+.status{font-size:12px;border-radius:4px;padding:0 6px;white-space:nowrap}
+.st-ok{background:var(--fact-bg);color:var(--fact)} .st-gap{background:var(--gap-bg);color:var(--gap)}
+ul.claims{list-style:none;margin:0;padding:0}
+ul.claims li{padding:6px 0;border-bottom:1px dashed var(--line);font-size:14px}
+ul.claims li:last-child{border-bottom:0}
+.kind{font-size:11.5px;font-weight:500;color:var(--muted);margin:10px 0 2px;text-transform:uppercase;letter-spacing:.06em;font-family:var(--f-mono)}
+.ok{color:var(--fact)} .bad{color:var(--gap)}
+textarea,input[type=text],select{width:100%;border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:8px 10px}
+textarea{min-height:84px;resize:vertical}
+label.f{display:block;font-size:13px;color:var(--muted);margin-bottom:4px}
+/* base map */
+.basemap{width:100%;height:100%;display:block;background:var(--map-bg)}
+.basemap .lab{font-family:var(--f-body);paint-order:stroke;stroke:var(--map-bg);stroke-width:3px;fill:var(--fg)}
+.hl{transition:opacity .35s}
+footer.foot{border-top:1px solid var(--line);color:var(--muted);font-size:12.5px}
+footer.foot .wrap{padding-block:16px 28px}
+.disc{background:var(--infer-bg);color:var(--fg);font-size:13px}
+.disc .wrap{padding-block:7px}
+.disc b{color:var(--infer)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+
+/* Layout: navy header, three option cards side by side (stacked on phones), shared rules, recommendation. */
+.top{background:var(--chrome);color:var(--chrome-fg)}
+.top .wrap{padding-block:28px 30px}
+.top h1{font-size:clamp(26px,4vw,40px);line-height:1.1}
+.top p{color:var(--chrome-mut);max-width:62ch;margin-top:8px}
+main{padding-block:24px 40px;display:grid;gap:22px}
+.opts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+@media (max-width:900px){.opts{grid-template-columns:1fr}}
+.opt{display:flex;flex-direction:column;gap:10px}
+.opt .k{font-family:var(--f-mono);font-size:12px;color:var(--accent);letter-spacing:.06em}
+.opt h2{font-size:22px}
+.thumb{height:120px;border-radius:10px;background:var(--surface-2);position:relative;overflow:hidden;border:1px solid var(--line)}
+.thumb i{position:absolute;display:block;border-radius:4px}
+.pc{display:grid;gap:6px;font-size:14px}
+.pc div{display:grid;grid-template-columns:22px minmax(0,1fr);gap:4px}
+.pc b{font-family:var(--f-mono)}
+.plus b{color:var(--fact)} .minus b{color:var(--gap)}
+.links{display:flex;flex-wrap:wrap;gap:8px;margin-top:auto}
+.links a{text-decoration:none}
+.best{font-size:13px;color:var(--muted)}
+.rec{border:2px solid var(--accent);background:var(--accent-soft)}
+.rec h2{font-size:20px;margin-bottom:6px}
+ul.rules{margin:0;padding-left:18px;display:grid;gap:4px;font-size:14px}
+</style>
+<header class="top"><div class="wrap">
+  <div class="eyebrow" style="color:#8fe0c4">CivicAlign · Challenge 4 · 2026-11-16</div>
+  <h1 id="h1"></h1><p id="lede"></p>
+  <div style="margin-top:12px" id="toggles"></div>
+</div></header>
+<main class="wrap" id="main"></main>
+<footer class="foot"><div class="wrap" id="foot"></div></footer>
+<div id="drawerHost"></div>
+<script>
+const MAP = null;
+/* ===== Cut from app/template.html at build time (do not edit here) ===== */
+
+/* ---------- Sources (see docs/SOURCES.md) ---------- */
+const SOURCES = {
+  S1:{zh:"Parramatta Possibilities 挑战简报（2026-11-06）",en:"Parramatta Possibilities challenge brief (6 Nov 2026)",url:""},
+  S2:{zh:"Draft CBD South Parramatta Precinct Master Plan（第一期）",en:"Draft CBD South Parramatta Precinct Master Plan, Phase 1",url:"https://participate.cityofparramatta.nsw.gov.au/upload/parra/document/260421---Draft-CBD-South-Master-PlanUpdate_1778470189.pdf"},
+  S3:{zh:"Participate Parramatta 项目页（2026-11-15 访问）",en:"Participate Parramatta project page (accessed 15 Nov 2026)",url:"https://participate.cityofparramatta.nsw.gov.au/cbd-south-master-plan"},
+  S4:{zh:"Council 报告 OCM26-56（2026-04-28）",en:"Council report OCM26-56 (28 Apr 2026)",url:"https://docspublished.com.au/CityofParramatta/document/5bdbd20f-5ff3-43bc-97c4-1819402e9f6f"},
+  S5:{zh:"Smart City & Innovation Strategy 2024–2033",en:"Smart City & Innovation Strategy 2024–2033",url:"https://www.cityofparramatta.nsw.gov.au/files/assets/public/v/1/publications/smart-city-and-innovation-strategy.pdf"}
+};
+
+/* ---------- Claims: every one carries source, page and the original wording ---------- */
+const CLAIMS = [
+ // 1 New City Square
+ {id:"sq1",card:"square",kind:"planned",src:"S2",pg:"p.23",
+  zh:"在 Council 自有土地上新建一个 1,200 m² 的城市广场，临 Wentworth Street。",en:"A new 1,200 m² urban plaza on Council-owned land, fronting Wentworth Street.",
+  q:"New Urban Plaza 1,200sqm … Option 3: Urban Plaza on Wentworth Street"},
+ {id:"sq2",card:"square",kind:"planned",src:"S2",pg:"p.45",
+  zh:"有遮荫树、公共艺术和照明的灵活硬地广场，边缘是户外餐饮。",en:"A flexible paved square with shade trees, public art and lighting, with outdoor dining at its edges.",
+  q:"A community space with shade trees, public art and lighting in a flexible paved city square activated by outdoor dining at its edges."},
+ {id:"sq3",card:"square",kind:"planned",src:"S2",pg:"p.45",
+  zh:"可以办夜市和文化活动；设抬高的种植池和一体化座椅。",en:"Can host night markets and cultural events; raised planters with built-in seating.",
+  q:"…with flexibility to be programmed for night markets and cultural events … with raised planters and integrated seating for gathering."},
+ {id:"sq4",card:"square",kind:"planned",src:"S2",pg:"p.45",
+  zh:"设计优先考虑无障碍和清晰的步行动线。",en:"The design puts universal access and clear walking routes first.",
+  q:"The design prioritises universal access and clear pedestrian movement."},
+ {id:"sq5",card:"square",kind:"planned",src:"S2",pg:"p.45",
+  zh:"Council 留作新楼的主要租户，有机会为广场设文化基础设施。",en:"Council stays as anchor tenant in the new building, with a chance to add cultural infrastructure for the square.",
+  q:"There is an opportunity to provide cultural infrastructure to activate the square."},
+ {id:"sq6",card:"square",kind:"ruled",src:"S4",pg:"",
+  zh:"2025 年测试过大公园和小型会展中心，最后推荐餐饮夜生活片区加市民广场。",en:"In 2025 Council tested a large park and a small convention centre, then recommended a dining and nightlife precinct with a civic square.",
+  q:"…options for either provision of a large public open space as a square or park, provision of a small convention centre … The scenario of developing a dining and nightlife precinct was ultimately recommended."},
+ {id:"sq7",card:"square",kind:"ruled",src:"S2",pg:"p.23",
+  zh:"3,500 m² 大开放空间方案被淘汰：开发量、舒适度和安全感都不够。",en:"A 3,500 m² open-space scheme was dropped for low yield, amenity and visual security.",
+  q:"It is not suitable for further testing as it does not achieve development yield, amenity or visual security to the open space."},
+ {id:"sq8",card:"square",kind:"ruled",src:"S2",pg:"p.23",
+  zh:"把广场放在地块内部的两个位置被否决：远离街道、日照很少。",en:"Two plaza locations inside the block were rejected: cut off from streets, very little sun.",
+  q:"The location is not suitable due to isolation from public streets, very low solar access…"},
+ {id:"sq9",card:"square",kind:"open",src:"S3",pg:"",
+  zh:"面积说法不一：公示页面写 1,300 m²，总规正文写 1,200 m²。",en:"The size differs: the exhibition page says 1,300 m², the plan says 1,200 m².",
+  q:"Delivery of a new 1,300 square metre city square…"},
+ {id:"sq10",card:"square",kind:"open",src:"S2",pg:"p.54",
+  zh:"建设资金还没定，可能来自 Council 预算、开发贡献、政府拨款或合资。",en:"Funding is not settled: Council budget, developer contributions, grants or joint ventures.",
+  q:"…funding for delivery of assets on Council-owned and managed land will be achieved through a range of sources, potentially including Council capital works funding…"},
+ {id:"sq11",card:"square",kind:"open",src:"S2",pg:"p.54",
+  zh:"名字是暂定的，要走正式命名程序。",en:"The name is provisional and will go through a formal naming process.",
+  q:"The assumed names of these spaces in the Master Plan are subject to change, including: … Woodhouse Square…"},
+ {id:"sq12",card:"square",kind:"gap",src:null,pg:"",
+  zh:"总规没有给出各项功能各占多少面积——这正是本工具请你来试的部分。",en:"The plan gives no area for each use. That is what this tool asks you to try.",q:""},
+ // 2 Chinatown
+ {id:"ct1",card:"china",kind:"planned",src:"S3",pg:"",
+  zh:"Church Street 的餐饮零售，小巷和拱廊里的大排档式美食、艺术和灯光，配夜市和户外餐饮。",en:"Restaurants on Church St; hawker-style food, art and lighting in laneways and arcades; night markets and outdoor dining.",
+  q:"…hawker-style food and drink with art, lighting, colour and culture in laneways and arcades, supported by night markets and outdoor dining."},
+ {id:"ct2",card:"china",kind:"planned",src:"S4",pg:"",
+  zh:"2026/27 预算草案给 Church Street 升级拨了 100 万澳元：拆围栏、种树、铺装、唐人街标识和灯笼。",en:"$1 million in the draft 2026/27 budget for Church St upgrades: fences out, trees, paving, Chinatown signage and lanterns.",
+  q:"Under Council's Draft Budget 2026/27, $1 million has been allocated as part of the capital works program for the CBD Church Street upgrades…"},
+ {id:"ct3",card:"china",kind:"planned",src:"S2",pg:"p.41",
+  zh:"拱廊里是小开间餐饮，店面宽度不超过 4 米。",en:"Arcades hold fine-grain restaurants and cafes, no wider than 4 m each.",
+  q:"The arcades have fine grain restaurants and cafes with maximum width of 4m"},
+ {id:"ct4",card:"china",kind:"planned",src:"S4",pg:"",
+  zh:"Council 已通过包括本片区的 Special Entertainment Precinct（特别娱乐区）试点，鼓励夜间活动。",en:"Council endorsed a trial Special Entertainment Precinct covering this area, to encourage night-time activity.",
+  q:"Council endorsed a trial Special Entertainment Precincts (SEP) area that includes this precinct…"},
+ {id:"ct5",card:"china",kind:"ruled",src:"S4",pg:"",
+  zh:"名称定为 “Chinatown Precinct”，不用 “Asian Food and Nightlife Precinct”。",en:"The name is “Chinatown Precinct”, not “Asian Food and Nightlife Precinct”.",
+  q:"That the Phase 1 Master Plan makes references to “Chinatown Precinct” rather than “Asian Food and Nightlife Precinct”."},
+ {id:"ct6",card:"china",kind:"open",src:"S4",pg:"",
+  zh:"公共艺术、照明和标识要等之后的公共艺术总体规划。",en:"Public art, lighting and signage wait for a Public Art Master Plan.",
+  q:"…prepare a Public Art Master Plan to provide guidance for delivery of public art, lighting and signage within the Precinct…"},
+ {id:"ct7",card:"china",kind:"open",src:"S4",pg:"",
+  zh:"要和本地华人社团、商家和居民沟通，共同确定唐人街的做法。",en:"Council will work with local Chinese community groups, businesses and residents on the Chinatown precinct.",
+  q:"Engagement with local Chinese community organisations, business owners, and residents to guide the proposed Chinatown precinct."},
+ // 3 Traffic
+ {id:"tr1",card:"traffic",kind:"planned",src:"S4",pg:"",
+  zh:"Fitzwilliam St 和 Wentworth St 改为单向通行，拆除 Woodhouse Lane 和环岛。",en:"Fitzwilliam St and Wentworth St become one-way; Woodhouse Lane and the roundabout are removed.",
+  q:"Fitzwilliam Street and Wentworth Street are converted to one-way, westbound & southbound, with Woodhouse Lane and the roundabout on Wentworth Street removed…"},
+ {id:"tr2",card:"traffic",kind:"planned",src:"S2",pg:"p.43",
+  zh:"在对着 Rivoli Way 的位置新增抬高的人行横道。",en:"A new raised pedestrian crossing lines up with Rivoli Way.",
+  q:"Removal of Woodhouse Lane allows for a raised pedestrian crossing aligned to Rivoli Way"},
+ {id:"tr3",card:"traffic",kind:"planned",src:"S3",pg:"",
+  zh:"在 Council 用地上新建公共停车场，替换现有车站停车场：地下加包裹式地上停车。",en:"A new public car park on Council land replaces the station car park: underground plus sleeved above-ground parking.",
+  q:"…a new public car park to replace the existing Council-owned Parramatta Station car park is proposed on Council-owned land, comprising underground and sleeved above-ground parking."},
+ {id:"tr4",card:"traffic",kind:"planned",src:"S2",pg:"p.50",
+  zh:"分隔式骑行道建在 Fitzwilliam St 和 Valentine Ave，不经过广场。",en:"Separated cycleways go on Fitzwilliam St and Valentine Ave, not through the square.",
+  q:"A new separated contraflow cycleway is introduced in Fitzwilliam Street and Valentine Avenue"},
+ {id:"tr5",card:"traffic",kind:"planned",src:"S2",pg:"p.49",
+  zh:"即停即走和出租车下客区集中在 Fitzwilliam St。",en:"Kiss-and-ride and taxi drop-off move to Fitzwilliam St.",
+  q:"Dedicated kiss-and-ride and taxi drop-off zones are formalised in Fitzwilliam Street"},
+ {id:"tr6",card:"traffic",kind:"open",src:"S4",pg:"",
+  zh:"交通模型还没做：研究范围和预算要先报批，FY27/28 才聘顾问。",en:"No traffic modelling yet: scope and budget go to Council first, with consultants in FY27/28.",
+  q:"A scope and budget will be prepared for Council approval prior to consultant engagement during FY27/28."},
+ {id:"tr7",card:"traffic",kind:"open",src:"S4",pg:"",
+  zh:"车站和 Argyle St 公交换乘站留到第二期总规再看。",en:"The station and Argyle St bus interchange wait for the Phase 2 master plan.",
+  q:"Detailed consideration of Paramatta Train Station and the Argyle Street bus interchange will occur in the Phase 2 Master Plan."},
+ {id:"tr8",card:"traffic",kind:"open",src:"S2",pg:"p.49",
+  zh:"停车场还要做可行性研究；它是否在广场正下方，来源里没有说。",en:"The car park still needs feasibility work; no source says whether it sits under the square.",
+  q:"Subject to further feasibility and design, a new public car park is proposed on Council-owned land…"}
+];
+
+const CARDS = [
+  {id:"square", zh:"新市民广场", en:"New City Square", src:"S3",
+   intro:{resident:{zh:"这是你家附近新的公共空间：总规写了要有什么，但没写各占多少。",en:"This is a new public space near home. The plan says what it should have, but not how much of each."},
+          business:{zh:"广场边缘是户外餐饮，可以办夜市——和 Church St 的生意直接相关。",en:"Outdoor dining lines its edges and it can host night markets, which matters for Church St trade."},
+          commuter:{zh:"广场在车站和 Jubilee Park 之间的步行线上，新的横道对着 Rivoli Way。",en:"The square sits on the walk between the station and Jubilee Park, with a new crossing at Rivoli Way."},
+          visitor:{zh:"这是唐人街的新中心：活动、夜市和聚会都在这里。",en:"This is the new heart of Chinatown: events, night markets and gatherings."}}},
+  {id:"china", zh:"唐人街夜生活目的地", en:"Chinatown Nightlife Destination", src:"S3",
+   intro:{resident:{zh:"夜间活动会更多，Council 已在试点特别娱乐区。",en:"Expect more night-time activity; Council is trialling a Special Entertainment Precinct."},
+          business:{zh:"Church St 已有 100 万澳元的升级预算，拱廊会改成小开间餐饮。",en:"Church St has a $1m upgrade budget, and arcades become small food tenancies."},
+          commuter:{zh:"Church St 会拆围栏、种树，走起来更舒服。",en:"Church St loses its fences and gains trees, so it will be easier to walk."},
+          visitor:{zh:"大排档、夜市、灯笼和公共艺术是这里的特色。",en:"Hawker food, night markets, lanterns and public art set the place apart."}}},
+  {id:"traffic", zh:"为行人改造交通", en:"Traffic Changes for Pedestrians", src:"S3",
+   intro:{resident:{zh:"街道改单向，人行道更宽；但交通影响还没有官方模型。",en:"Streets go one-way with wider footpaths, but there is no official traffic model yet."},
+          business:{zh:"送货、停车和接送的位置会变，停车场入口改在 Wentworth St 和 Parkes St。",en:"Loading, parking and drop-off move; car park access shifts to Wentworth St and Parkes St."},
+          commuter:{zh:"接送区集中到 Fitzwilliam St，骑行道在 Fitzwilliam St 和 Valentine Ave。",en:"Drop-off moves to Fitzwilliam St; cycleways run on Fitzwilliam St and Valentine Ave."},
+          visitor:{zh:"从车站走到唐人街和广场会更直接、更安全。",en:"Walking from the station to Chinatown and the square becomes more direct and safer."}}}
+];
+
+/* ---------- Uses (10 modules). Areas in m². Scenario 0 is our reading of S2 p.44–45, an assumption. ---------- */
+const MODULES = [
+ {id:"canopy",g:"green",zh:"树冠绿化",en:"Tree canopy",role:"D",act:"2.1.2",base:180},
+ {id:"blue",g:"green",zh:"蓝绿基础设施（雨水花园）",en:"Rain gardens",role:"D",act:"2.1.4",base:40},
+ {id:"events",g:"active",zh:"活动、夜市与户外餐饮",en:"Events, night markets, outdoor dining",role:"D+P",act:"4.2.1",base:500},
+ {id:"culture",g:"active",zh:"文化表达与公共艺术",en:"Culture and public art",role:"P",act:"6.3.2",base:60},
+ {id:"rest",g:"active",zh:"休憩座椅与儿童游戏",en:"Seating, rest and play",role:"D",act:"—",base:120},
+ {id:"walk",g:"move",zh:"畅通步行与无障碍",en:"Clear walking and access",role:"D",act:"6.2.2",base:260},
+ {id:"bike",g:"move",zh:"自行车停放与微出行",en:"Bike and scooter parking",role:"D+P",act:"3.1.3",base:20},
+ {id:"kerb",g:"move",zh:"路缘接驳（落客、装卸）",en:"Kerbside drop-off and loading",role:"D",act:"—",base:0},
+ {id:"smart",g:"smart",zh:"智慧照明与传感器",en:"Smart lighting and sensors",role:"D",act:"4.1.2",base:20},
+ {id:"circ",g:"smart",zh:"回收与循环点",en:"Recycling point",role:"D+P",act:"2.2.2",base:0}
+];
+const GROUPS = {green:{zh:"绿",en:"Green",c:"#4f9a5b"},active:{zh:"活",en:"Active",c:"#d08a2c"},move:{zh:"行",en:"Movement",c:"#3f7cc0"},smart:{zh:"智",en:"Smart",c:"#8a63b8"}};
+const TOTAL = 1200; // S2 p.23
+const PRESETS = {
+  base:{zh:"方案 0：总规原样（我们的解读）",en:"Scenario 0: the plan as drawn (our reading)",a:{canopy:180,blue:40,events:500,culture:60,rest:120,walk:260,bike:20,kerb:0,smart:20,circ:0}},
+  green:{zh:"示例：更凉快、更绿",en:"Example: cooler and greener",a:{canopy:360,blue:120,events:330,culture:60,rest:120,walk:180,bike:10,kerb:0,smart:20,circ:0}},
+  night:{zh:"示例：活动和夜市优先",en:"Example: events and markets first",a:{canopy:120,blue:20,events:640,culture:90,rest:70,walk:220,bike:10,kerb:0,smart:30,circ:0}}
+};
+
+/* ---------- Dimensions and coefficients: ALL are team assumptions until checked against literature ---------- */
+const DIMS = [
+ {id:"shade",zh:"遮荫面积",en:"Shaded area",unit:"m²",better:"high",type:"measure",
+  note:{zh:"夏季午后有树荫或遮挡的面积。树冠随树龄长大。",en:"Area in shade on a summer afternoon. Tree crowns grow with age."}},
+ {id:"storm",zh:"雨水滞留",en:"Stormwater held",unit:"m³",better:"high",type:"measure",
+  note:{zh:"一场雨能在广场里留住的雨水量。",en:"Rain the square can hold back in one storm."}},
+ {id:"econ",zh:"活动与经济容量",en:"Event and trade capacity",unit:"人 / people",better:"high",type:"measure",
+  note:{zh:"同时能容纳的活动、市集和用餐人数。",en:"People who can attend events, markets and dining at once."}},
+ {id:"access",zh:"畅通步行空间",en:"Clear walking space",unit:"%",better:"high",type:"measure",flag:true,
+  note:{zh:"广场里留给畅通步行的比例。周边交通影响要等官方交通研究〔S4〕。",en:"Share of the square kept clear for walking. Wider traffic effects await Council's traffic study [S4]."}},
+ {id:"safety",zh:"安全感",en:"Feeling safe",unit:"0–100",better:"high",type:"proxy",
+  note:{zh:"代理指标：夜间有人活动、有照明、视线通透。",en:"Proxy score: night-time activity, lighting and open sightlines."}},
+ {id:"incl",zh:"包容",en:"Inclusion",unit:"0–100",better:"high",type:"proxy",
+  note:{zh:"代理指标：座椅、儿童空间、无障碍和遮荫。",en:"Proxy score: seating, play space, access and shade."}},
+ {id:"culture",zh:"文化与社交",en:"Culture and social life",unit:"0–100",better:"high",type:"proxy",
+  note:{zh:"代理指标：文化表达、活动和停留空间。",en:"Proxy score: cultural expression, events and places to linger."}},
+ {id:"cost",zh:"成本",en:"Cost",unit:"$k",better:"low",type:"measure",
+  note:{zh:"建设费加上到所选年份为止的累计维护费。",en:"Build cost plus maintenance up to the chosen year."}},
+ {id:"carbon",zh:"隐含碳",en:"Embodied carbon",unit:"t CO₂e",better:"low",type:"measure",
+  note:{zh:"建造材料带来的碳排放。",en:"Carbon from construction materials."}}
+];
+// crown spread multiplier on canopy area, by planting type and year [low, high]
+const CROWN = {planter:{2026:[0.2,0.4],2036:[0.8,1.2],2041:[1.0,1.5],2050:[1.2,1.8]}, deep:{2026:[0.2,0.4],2036:[1.2,1.8],2041:[1.6,2.4],2050:[2.0,3.0]}};
+// per m² [low, high]
+const COEF = {
+ restShade:[0.3,0.6],
+ storm:{blue:[0.15,0.30],canopy_planter:[0.03,0.06],canopy_deep:[0.05,0.10]},
+ econ:{events:[0.5,1.0],rest:[0.15,0.30],culture:[0.1,0.2]},
+ walkClear:[0.85,1.0],
+ capex:{canopy:[1500,3000],blue:[800,1500],events:[600,1200],culture:[1000,3000],rest:[800,2000],walk:[500,1000],bike:[400,800],kerb:[300,700],smart:[2000,5000],circ:[1000,2500]},
+ opex:{canopy:[30,60],blue:[20,40],events:[10,20],culture:[15,40],rest:[15,30],walk:[5,10],bike:[5,10],kerb:[5,10],smart:[40,90],circ:[30,70]},
+ carbon:{canopy:[0.10,0.20],blue:[0.05,0.10],events:[0.08,0.15],culture:[0.10,0.25],rest:[0.08,0.18],walk:[0.06,0.12],bike:[0.05,0.10],kerb:[0.08,0.15],smart:[0.15,0.30],circ:[0.08,0.15]}
+};
+const W = {safety:{events:0.06,smart:0.8,walk:0.05,culture:0.05},incl:{rest:0.25,walk:0.08,shade:0.03,bike:0.2},culture:{culture:0.3,events:0.06,rest:0.1}};
+
+function compute(a, plant, year){
+  const out={};
+  const cr = CROWN[plant][year];
+  const sh = [0,1].map(i=>Math.min(TOTAL, a.canopy*cr[i] + a.rest*COEF.restShade[i]));
+  out.shade = sh;
+  const cs = plant==="deep"?COEF.storm.canopy_deep:COEF.storm.canopy_planter;
+  out.storm = [0,1].map(i=>a.blue*COEF.storm.blue[i] + a.canopy*cs[i]);
+  out.econ = [0,1].map(i=>a.events*COEF.econ.events[i]+a.rest*COEF.econ.rest[i]+a.culture*COEF.econ.culture[i]);
+  out.access = [0,1].map(i=>100*a.walk*COEF.walkClear[i]/TOTAL);
+  const proxy=(w,extra)=>{let s=0;for(const k in w){s+= (k==="shade"?extra:a[k])*w[k];}return s;};
+  const sMid=(sh[0]+sh[1])/2;
+  out.safety = [0.85,1.15].map(f=>Math.min(100,proxy(W.safety)*f));
+  out.incl = [0.85,1.15].map(f=>Math.min(100,proxy(W.incl,sMid)*f));
+  out.culture = [0.85,1.15].map(f=>Math.min(100,proxy(W.culture)*f));
+  const yrs = year-2026;
+  out.cost = [0,1].map(i=>{let c=0;for(const m of MODULES){c+=a[m.id]*(COEF.capex[m.id][i]+COEF.opex[m.id][i]*yrs);}return c/1000;});
+  out.carbon = [0,1].map(i=>{let c=0;for(const m of MODULES){c+=a[m.id]*COEF.carbon[m.id][i];}return c;});
+  return out;
+}
+
+const L=(zh,en)=>S.lang==="zh"?zh:en;
+const T=o=>o?(S.lang==="zh"?o.zh:o.en):"";
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const fmt=(n,d=0)=>Number(n).toLocaleString(S.lang==="zh"?"zh-CN":"en-AU",{maximumFractionDigits:d,minimumFractionDigits:d});
+const sum=a=>MODULES.reduce((s,m)=>s+(+a[m.id]||0),0);
+const chip=(src,pg,cid)=>`<button class="src" data-claim="${cid||""}" data-src="${src}" data-pg="${pg||""}">${src}${pg?" "+pg:""}</button>`;
+
+const ROLES=[{id:"resident",zh:"附近居民",en:"Local resident",d:{zh:"住在片区或附近",en:"Live in or near the precinct"}},{id:"business",zh:"商户 / 员工",en:"Business or worker",d:{zh:"在 Church St 一带做生意或上班",en:"Trade or work around Church St"}},{id:"commuter",zh:"通勤者",en:"Commuter",d:{zh:"经过车站或公交换乘",en:"Pass through the station or buses"}},{id:"visitor",zh:"访客",en:"Visitor",d:{zh:"来吃饭、逛夜市、参加活动",en:"Come to eat, shop or attend events"}}];
+const AGES=["<18","18–34","35–54","55–74","75+"];
+
+function kindLabel(k){return {planned:L("总规安排了","Planned"),ruled:L("Council 排除了 / 已定","Ruled out or settled"),open:L("还没定","Still open"),gap:L("证据空白","Evidence gap")}[k];}
+
+const GDESC={green:{zh:"降温、遮荫、留住雨水",en:"Cooling, shade, holding rain"},active:{zh:"唐人街夜市、活动、停留",en:"Night markets, events, places to stay"},move:{zh:"穿行、无障碍、接驳",en:"Getting through, access, drop-off"},smart:{zh:"夜间照明、回收",en:"Night lighting, recycling"}};
+const r10=v=>Math.round(v/10)*10;
+function normalise(){ // keep the total at exactly 1,200 m² after rounding
+  let d=TOTAL-sum(S.a); if(!d) return;
+  const ids=MODULES.map(m=>m.id).sort((x,y)=>S.a[y]-S.a[x]);
+  for(const id of ids){ const nv=Math.max(0,S.a[id]+d); d-=nv-S.a[id]; S.a[id]=nv; if(!d) break; }
+}
+function setModule(id,v){
+  v=Math.max(0,Math.min(TOTAL,r10(v)));
+  const others=MODULES.filter(m=>m.id!==id), rest=others.reduce((s,m)=>s+S.a[m.id],0), target=TOTAL-v;
+  others.forEach(m=>{S.a[m.id]= rest>0 ? r10(S.a[m.id]*target/rest) : r10(target/others.length);});
+  S.a[id]=v; normalise();
+}
+function setGroup(g,v){
+  v=Math.max(0,Math.min(TOTAL,r10(v)));
+  const inG=MODULES.filter(m=>m.g===g), outG=MODULES.filter(m=>m.g!==g);
+  const gt=inG.reduce((s,m)=>s+S.a[m.id],0), ot=outG.reduce((s,m)=>s+S.a[m.id],0);
+  inG.forEach(m=>{S.a[m.id]= gt>0 ? r10(S.a[m.id]*v/gt) : r10(v/inG.length);});
+  outG.forEach(m=>{S.a[m.id]= ot>0 ? r10(S.a[m.id]*(TOTAL-v)/ot) : r10((TOTAL-v)/outG.length);});
+  normalise();
+}
+const gsum=g=>MODULES.filter(m=>m.g===g).reduce((s,m)=>s+S.a[m.id],0);
+const pct=v=>Math.round(100*v/TOTAL);
+
+/* icons: tiny pictograms drawn at 16×16 */
+const ICON={
+ canopy:c=>`<svg viewBox="0 0 16 16" width="16" height="16"><circle cx="8" cy="6.5" r="5.2" fill="${c}"/><rect x="7.2" y="10.5" width="1.6" height="4.5" rx=".6" fill="${c}"/></svg>`,
+ blue:c=>`<svg viewBox="0 0 16 16" width="16" height="16"><path d="M8 1.5C8 1.5 3.2 7 3.2 10a4.8 4.8 0 0 0 9.6 0C12.8 7 8 1.5 8 1.5z" fill="${c}"/></svg>`,
+ events:c=>`<svg viewBox="0 0 16 16" width="16" height="16"><path d="M1.5 6.5 8 2l6.5 4.5z" fill="${c}"/><rect x="3" y="7.5" width="10" height="6.5" rx="1" fill="none" stroke="${c}" stroke-width="1.6"/></svg>`,
+ culture:c=>`<svg viewBox="0 0 16 16" width="16" height="16"><rect x="7.3" y="1" width="1.4" height="2.5" fill="${c}"/><rect x="3.5" y="3.5" width="9" height="9.5" rx="4" fill="${c}"/><rect x="6" y="13" width="4" height="2" rx=".5" fill="${c}"/></svg>`,
+ rest:c=>`<svg viewBox="0 0 16 16" width="16" height="16"><rect x="1.5" y="6" width="13" height="2.4" rx="1" fill="${c}"/><rect x="1.5" y="3" width="13" height="1.8" rx=".9" fill="${c}"/><rect x="3" y="8.4" width="1.6" height="5" fill="${c}"/><rect x="11.4" y="8.4" width="1.6" height="5" fill="${c}"/></svg>`,
+ walk:c=>`<svg viewBox="0 0 16 16" width="16" height="16"><ellipse cx="5.5" cy="10" rx="2.2" ry="3.6" fill="${c}"/><ellipse cx="10.5" cy="5.5" rx="2.2" ry="3.6" fill="${c}"/></svg>`,
+ bike:c=>`<svg viewBox="0 0 16 16" width="16" height="16"><circle cx="4" cy="11" r="3" fill="none" stroke="${c}" stroke-width="1.6"/><circle cx="12" cy="11" r="3" fill="none" stroke="${c}" stroke-width="1.6"/><path d="M4 11 7 5h4l1 6M7 5 9 11" fill="none" stroke="${c}" stroke-width="1.5"/></svg>`,
+ kerb:c=>`<svg viewBox="0 0 16 16" width="16" height="16"><rect x="1.5" y="6" width="13" height="5.5" rx="1.5" fill="${c}"/><path d="M4 6 5.5 3h5L12 6z" fill="${c}"/><circle cx="4.5" cy="12" r="1.6" fill="var(--surface)"/><circle cx="11.5" cy="12" r="1.6" fill="var(--surface)"/></svg>`,
+ smart:c=>`<svg viewBox="0 0 16 16" width="16" height="16"><rect x="7.2" y="5" width="1.6" height="10" fill="${c}"/><path d="M4.5 5.5h7L10 2H6z" fill="${c}"/><circle cx="8" cy="7" r="1.4" fill="${c}" opacity=".5"/></svg>`,
+ circ:c=>`<svg viewBox="0 0 16 16" width="16" height="16"><path d="M8 2 13.5 12h-11z" fill="none" stroke="${c}" stroke-width="1.8" stroke-linejoin="round"/><circle cx="8" cy="9" r="1.6" fill="${c}"/></svg>`
+};
+
+function coefTable(){
+  const r=(k,o)=>o?`${o[0]}–${o[1]}`:"—";
+  return `<p class="small muted">${L("每个值都是团队假设，标注“待文献核实”。下一版会逐个替换为有出处的数值。","Every value is a team assumption marked “to be checked against literature”. The next version replaces each with a cited value.")}</p>
+  <div class="scroll"><table><thead><tr><th>${L("用途","Use")}</th><th>${L("建设 $/m²","Build $/m²")}</th><th>${L("维护 $/m²/年","Upkeep $/m²/yr")}</th><th>${L("隐含碳 t/m²","Carbon t/m²")}</th><th>${L("其他","Other")}</th></tr></thead><tbody>
+  ${MODULES.map(m=>`<tr><td>${T(m)}</td><td class="n">${r(0,COEF.capex[m.id])}</td><td class="n">${r(0,COEF.opex[m.id])}</td><td class="n">${r(0,COEF.carbon[m.id])}</td><td class="small">${
+    m.id==="canopy"?L(`树冠倍数 种植池 ${JSON.stringify(CROWN.planter)}；深土 ${JSON.stringify(CROWN.deep)}；雨水 ${COEF.storm.canopy_planter.join("–")} / ${COEF.storm.canopy_deep.join("–")} m³/m²`,`Crown factor planter ${JSON.stringify(CROWN.planter)}; deep ${JSON.stringify(CROWN.deep)}; storm ${COEF.storm.canopy_planter.join("–")} / ${COEF.storm.canopy_deep.join("–")} m³/m²`)
+    :m.id==="blue"?L(`雨水 ${COEF.storm.blue.join("–")} m³/m²`,`Storm ${COEF.storm.blue.join("–")} m³/m²`)
+    :m.id==="events"?L(`容量 ${COEF.econ.events.join("–")} 人/m²`,`Capacity ${COEF.econ.events.join("–")} people/m²`)
+    :m.id==="rest"?L(`容量 ${COEF.econ.rest.join("–")} 人/m²；遮荫 ${COEF.restShade.join("–")}`,`Capacity ${COEF.econ.rest.join("–")} people/m²; shade ${COEF.restShade.join("–")}`)
+    :m.id==="culture"?L(`容量 ${COEF.econ.culture.join("–")} 人/m²`,`Capacity ${COEF.econ.culture.join("–")} people/m²`)
+    :m.id==="walk"?L(`畅通系数 ${COEF.walkClear.join("–")}`,`Clear factor ${COEF.walkClear.join("–")}`):"—"}</td></tr>`).join("")}
+  </tbody></table></div>
+  <p class="small muted" style="margin-top:6px">${L("代理指标权重：","Proxy weights: ")}${esc(JSON.stringify(W))}</p>`;
+}
+
+function openDrawer(src,pg,cid){
+  const c=CLAIMS.find(x=>x.id===cid); const s=SOURCES[src];
+  document.getElementById("drawerHost").innerHTML=`<div class="scrim" data-close="1"></div><aside class="drawer" role="dialog" aria-modal="true" aria-label="${L("来源","Source")}">
+   <button class="x" data-close="1">${L("关闭","Close")}</button><div class="eyebrow">${src}${pg?" · "+pg:""}</div><h2>${esc(T(s))}</h2>
+   ${c?`<p>${esc(T(c))}</p>${c.q?`<blockquote lang="en">“${esc(c.q)}”</blockquote><p class="small muted">${L("原文（英文），","Original wording, ")}${src}${c.pg?" "+c.pg:""}</p>`:""}`:`<p class="muted">${L("这一段整体出自该来源。","This section as a whole comes from this source.")}</p>`}
+   ${s.url?`<p><a href="${s.url}" target="_blank" rel="noopener">${L("打开原文件","Open the original")} ↗</a></p>`:`<p class="small muted">${L("团队持有的简报文件。","Brief held by the team.")}</p>`}
+   <p class="small muted">${L("页码为 PDF 上印的页码。","Page numbers are those printed in the document.")}</p></aside>`;
+  document.querySelector(".drawer .x").focus();
+}
+function closeDrawer(){document.getElementById("drawerHost").innerHTML="";}
+
+/* ===== End of cut ===== */
+
+/* ===== variants/shared.js: UI pieces shared by the three variants ===== */
+const MEM={};
+const store={get(k){try{const v=localStorage.getItem(k);if(v!==null)return JSON.parse(v)}catch(e){}return k in MEM?MEM[k]:null},set(k,v){MEM[k]=v;try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+const S={night:false,lang:"zh",role:"resident",age:null,postcode:"",pri:["shade","econ","access"],react:{},note:{},a:{...PRESETS.base.a},plant:"planter",year:2041,exp:"",wish:"",theme:null};
+(()=>{const l=store.get("cav_lang");if(l==="zh"||l==="en")S.lang=l;const t=store.get("cav_theme");if(t==="light"||t==="dark")S.theme=t;})();
+
+/* theme: system by default, the toggle sets data-theme */
+function applyTheme(){const r=document.documentElement;if(S.theme)r.setAttribute("data-theme",S.theme);else r.removeAttribute("data-theme");}
+function isDark(){return S.theme?S.theme==="dark":(window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches);}
+function toggleTheme(){S.theme=isDark()?"light":"dark";store.set("cav_theme",S.theme);applyTheme();}
+applyTheme();
+const themeLabel=()=>isDark()?L("浅色","Light"):L("深色","Dark");
+const langToggle=()=>`<div class="tgl" role="group" aria-label="Language"><button id="lZh" aria-pressed="${S.lang==="zh"}">中文</button><button id="lEn" aria-pressed="${S.lang==="en"}">EN</button></div>`;
+const themeBtn=()=>`<div class="tgl"><button id="themeBtn" aria-label="${L("切换深浅色","Toggle theme")}">${isDark()?"☀":"☾"} ${themeLabel()}</button></div>`;
+
+const ASSUME=()=>`<span class="tag t-design">${L("假设","Assumption")}</span>`;
+const TRAFFIC_WAIT=()=>`<span class="tag t-gap">${L("等待 Council 交通研究","Awaits Council traffic study")}</span>`;
+function noticeHTML(){return L(
+  "<b>参赛原型。</b>Council 的事实都附来源和页码（点绿色标签看原文）。广场分配的系数和方案 0 的比例是团队假设，还没用文献核实。这里不收集、不发送任何个人信息。",
+  "<b>Competition prototype.</b> Every Council fact carries its source and page (tap a green tag for the original). The square's coefficients and the Scenario 0 split are team assumptions, not yet checked against literature. Nothing personal is collected or sent.");}
+function footHTML(){return L(
+  `来源：S1 挑战简报；S2 总规草案；S3 Participate Parramatta 项目页；S4 Council 报告 OCM26-56；S5 智慧城市战略。底图 © OpenStreetMap contributors（ODbL），2026-11-10 快照。CivicAlign 是参赛原型，不代表 City of Parramatta。`,
+  `Sources: S1 challenge brief; S2 draft master plan; S3 Participate Parramatta page; S4 Council report OCM26-56; S5 Smart City Strategy. Base map © OpenStreetMap contributors (ODbL), snapshot 10 Nov 2026. CivicAlign is a competition prototype and does not represent the City of Parramatta.`);}
+
+/* ---------- allocation controls ---------- */
+const PZ={base:{zh:"方案 0 · 总规原样",en:"Scenario 0 · plan as drawn",s:{zh:"假设：我们对总规的解读",en:"Assumption: our reading"}},
+          green:{zh:"更凉快、更绿",en:"Cooler and greener",s:{zh:"示例分法",en:"Example split"}},
+          night:{zh:"活动和夜市优先",en:"Events and markets first",s:{zh:"示例分法",en:"Example split"}}};
+const presetKey=()=>Object.keys(PRESETS).find(k=>MODULES.every(m=>PRESETS[k].a[m.id]===S.a[m.id]))||null;
+function presetButtons(){const cur=presetKey();return `<div class="pzs" role="group" aria-label="${L("快速对比","Quick compare")}">${Object.keys(PRESETS).map(k=>`<button class="pz pz-${k}" data-preset="${k}" aria-pressed="${cur===k}" title="${esc(T(PRESETS[k]))}">${T(PZ[k])}<small>${T(PZ[k].s)}</small></button>`).join("")}</div>`;}
+const pctP=v=>(100*v/TOTAL).toFixed(1)+"%";
+function groupCards(){return `<div class="gcards">${Object.keys(GROUPS).map(g=>`<div class="gcard" style="--gc:${GROUPS[g].c}">
+  <div class="gtop"><span class="gic">${ICON[MODULES.find(m=>m.g===g).id]("#fff")}</span><div class="gname"><b>${T(GROUPS[g])}</b><small>${T(GDESC[g])}</small></div><span class="gval"><span id="gv_${g}">${pct(gsum(g))}%</span><small id="gm_${g}">${fmt(gsum(g))} m²</small></span></div>
+  <input class="rg" type="range" min="0" max="${TOTAL}" step="10" value="${gsum(g)}" data-grp="${g}" id="g_${g}" style="--c:${GROUPS[g].c};--p:${pctP(gsum(g))}" aria-label="${esc(T(GROUPS[g]))}"></div>`).join("")}</div>`;}
+function moduleRows(){return `<details class="more"><summary>${L("细分到 10 类用途","Fine-tune all 10 uses")}</summary><div class="mods">${MODULES.map(m=>`<div class="mod"><label class="nm" for="m_${m.id}"><span class="mic">${ICON[m.id](GROUPS[m.g].c)}</span>${T(m)}<small>${L("角色","Role")} ${m.role} · ${L("战略行动","Action")} ${m.act} · ${L("方案 0","Scen. 0")} ${m.base} m²</small></label>
+  <input class="rg" type="range" id="m_${m.id}" data-mod="${m.id}" min="0" max="${TOTAL}" step="10" value="${S.a[m.id]}" style="--c:${GROUPS[m.g].c};--p:${pctP(S.a[m.id])}"><output id="o_${m.id}">${fmt(S.a[m.id])} m²</output></div>`).join("")}</div>
+  <p class="small muted" style="margin:6px 0 0">${L("角色 D/P/A 和战略行动编号","Roles D/P/A and action numbers")} ${chip("S5","p.33")}</p></details>`;}
+function plantButtons(){return `<div class="pill" role="group" aria-label="${L("种树方式","Planting")}"><button data-plant="planter" aria-pressed="${S.plant==="planter"}">${L("抬高种植池","Raised planters")}</button><button data-plant="deep" aria-pressed="${S.plant==="deep"}">${L("深土种植","Deep soil")}</button></div>`;}
+function yearButtons(ys=[2026,2041,2050]){return `<div class="pill" role="group" aria-label="${L("年份","Year")}">${ys.map(y=>`<button data-year="${y}" aria-pressed="${S.year===y}">${y}</button>`).join("")}</div>`;}
+function syncSliders(active){
+  MODULES.forEach(m=>{const r=document.getElementById("m_"+m.id);if(r){if(r!==active)r.value=S.a[m.id];r.style.setProperty("--p",pctP(S.a[m.id]));}const o=document.getElementById("o_"+m.id);if(o)o.textContent=fmt(S.a[m.id])+" m²";});
+  for(const g in GROUPS){const r=document.getElementById("g_"+g);if(r){if(r!==active)r.value=gsum(g);r.style.setProperty("--p",pctP(gsum(g)));}const v=document.getElementById("gv_"+g);if(v)v.textContent=pct(gsum(g))+"%";const mm=document.getElementById("gm_"+g);if(mm)mm.textContent=fmt(gsum(g))+" m²";}
+  const cur=presetKey();document.querySelectorAll("[data-preset]").forEach(b=>b.setAttribute("aria-pressed",b.dataset.preset===cur));
+}
+function allocBar(){return `<div class="abar">${Object.keys(GROUPS).map(g=>{const p=pct(gsum(g));return p?`<span style="width:${100*gsum(g)/TOTAL}%;background:${GROUPS[g].c}">${p>=9?`${T(GROUPS[g])} ${p}%`:""}</span>`:"";}).join("")}</div>`;}
+
+/* ---------- computeV: compute() with proxy scores rescaled ----------
+   compute() clamps safety, inclusion and culture at 100, so strong splits read "100–100". Here they become a
+   relative index against Scenario 0: index = 100·raw/(raw + raw₀), so Scenario 0 ≈ 50 and the scale never clamps. */
+function proxyRaw(a,plant,year){const cr=CROWN[plant][year],sh=[0,1].map(i=>Math.min(TOTAL,a.canopy*cr[i]+a.rest*COEF.restShade[i])),sMid=(sh[0]+sh[1])/2;
+  const f=w=>{let t=0;for(const k in w)t+=(k==="shade"?sMid:a[k])*w[k];return t;};return {safety:f(W.safety),incl:f(W.incl),culture:f(W.culture)};}
+function computeV(a,plant,year){const o=compute(a,plant,year),r=proxyRaw(a,plant,year),r0=proxyRaw(PRESETS.base.a,"planter",year);
+  for(const k of ["safety","incl","culture"])o[k]=[0.85,1.15].map(f=>100*r[k]*f/(r[k]*f+r0[k]));return o;}
+
+/* ---------- KPI cards (all values are ranges from team-assumed coefficients) ---------- */
+function kpiData(id){
+  const you=computeV(S.a,S.plant,S.year), base=computeV(PRESETS.base.a,"planter",S.year);
+  const d=DIMS.find(x=>x.id===id), y=you[id], b=base[id];
+  const ym=(y[0]+y[1])/2, bm=(b[0]+b[1])/2, raw=(ym-bm)/Math.max(Math.abs(bm),1), rel=d.better==="low"?-raw:raw;
+  return {y,b,raw,good:rel>0.005,bad:rel<-0.005,p:Math.round(raw*100)};
+}
+function deltaHTML(k){return `<div class="kd ${k.good?"delta-up":k.bad?"delta-down":"muted"}">${k.p>0?"▲":k.p<0?"▼":"="} ${fmt(Math.abs(k.p))}% ${L("对比方案 0","vs Scenario 0")}${k.good?L("，更好",", better"):k.bad?L("，更差",", worse"):""}</div>`;}
+const KPI_DEF=()=>[
+  {id:"shade",c:GROUPS.green.c,ic:"canopy",label:L("遮荫面积","Shaded area"),f:v=>fmt(v),u:"m²",note:k=>L(`约占广场 ${pct((k.y[0]+k.y[1])/2)}%；树冠随年份长大`,`About ${pct((k.y[0]+k.y[1])/2)}% of the square; crowns grow over time`)},
+  {id:"econ",c:GROUPS.active.c,ic:"events",label:L("活动与市集容量","Event and market capacity"),f:v=>fmt(v),u:L("人","people"),note:()=>L("同时能容纳的人数","People at one time")},
+  {id:"access",c:GROUPS.move.c,ic:"walk",label:L("畅通步行空间","Clear walking space"),f:v=>fmt(v),u:"%",note:()=>`${L("广场内部的比例。周边交通影响：","Inside the square only. Wider traffic effects: ")}${TRAFFIC_WAIT()} ${chip("S4","","tr6")}`},
+  {id:"cost",c:GROUPS.smart.c,ic:"smart",label:L("建设 + 维护成本","Build + upkeep cost"),f:v=>fmt(v/1000,2),u:"$M",note:()=>L(`到 ${S.year} 年累计；资金来源未定`,`Total to ${S.year}; funding not settled`)+" "+chip("S2","p.54","sq10")}
+];
+function kpiCards(ids){return `<div class="kpis">${KPI_DEF().filter(d=>!ids||ids.includes(d.id)).map(d=>{const k=kpiData(d.id);return `<div class="kpi" style="--kc:${d.c}">
+  <div class="kh"><b><span class="mic" style="margin:0">${ICON[d.ic](d.c)}</span>${d.label}</b>${ASSUME()}</div>
+  <div class="kv">${d.f(k.y[0])}–${d.f(k.y[1])}<small> ${d.u}</small></div>${deltaHTML(k)}<div class="kn">${d.note(k)}</div></div>`;}).join("")}</div>`;}
+
+/* ---------- 9-dimension results, as in screen 4 of app/template.html ---------- */
+function resultsRows(){
+  const base=computeV(PRESETS.base.a,"planter",S.year), you=computeV(S.a,S.plant,S.year);
+  let ws=0,acc=0;
+  const rows=DIMS.map(d=>{
+    const b=base[d.id], y=you[d.id], max=Math.max(b[1],y[1],1)*1.1, bm=(b[0]+b[1])/2, ym=(y[0]+y[1])/2;
+    const raw=(ym-bm)/Math.max(Math.abs(bm),1); let rel=d.better==="low"?-raw:raw; rel=Math.max(-1,Math.min(1,rel));
+    const w=S.pri.includes(d.id)?3:1; ws+=w; acc+=w*rel;
+    const dec=d.id==="storm"?1:0, p=Math.round(raw*100), good=rel>0.005, bad=rel<-0.005;
+    return `<div class="res"><div class="dn ${S.pri.includes(d.id)?"pri":""}">${T(d)}<small>${d.type==="proxy"?L("相对指数，方案 0 ≈ 50","Index, Scenario 0 ≈ 50"):d.unit} · ${d.type==="proxy"?L("代理指标","Proxy score"):L("估算","Estimate")}${d.flag?` · ${TRAFFIC_WAIT()}`:""}</small></div>
+      <div class="track" aria-hidden="true"><span class="rng r0" style="left:${100*b[0]/max}%;width:${Math.max(1,100*(b[1]-b[0])/max)}%"></span><span class="rng r1" style="left:${100*y[0]/max}%;width:${Math.max(1,100*(y[1]-y[0])/max)}%"></span></div>
+      <div class="vals"><span class="muted">${L("方案 0","Scen. 0")} ${fmt(b[0],dec)}–${fmt(b[1],dec)}</span><br><span class="y">${L("你的","Yours")} ${fmt(y[0],dec)}–${fmt(y[1],dec)}</span> <span class="${good?"delta-up":bad?"delta-down":"muted"}">${p>0?"▲":p<0?"▼":"="}${fmt(Math.abs(p))}%</span></div></div>`;
+  }).join("");
+  return {rows,fit:Math.round(100*acc/ws)};
+}
+const resultsKey=()=>`<div class="keyrow"><span><i class="sw" style="background:var(--base)"></i>${L("方案 0：总规原样（假设）","Scenario 0: plan as drawn (assumption)")}</span><span><i class="sw" style="background:var(--accent)"></i>${L("你的方案","Your split")}</span><span>★ ${L("你的优先项（×3）","Your priority (×3)")}</span></div>`;
+
+/* ---------- plaza diagram: iconographic, compass-labelled, indicative only ---------- */
+function plazaSVG2(){
+  // Edges after S2 p.45 (heritage townhouse north; new Council building south and west, with cultural space),
+  // Wentworth St east, one-way southbound (S4), raised crossing aligned to Rivoli Way (S2 p.43). Not a layout design.
+  const X=64,Y=48,Wd=300,H=206; let g="";
+  const tx=(t,x,y,o={})=>`<text x="${x}" y="${y}" text-anchor="${o.a||"middle"}" font-size="${o.s||10}" font-weight="${o.w||500}" fill="${o.f||"var(--fg)"}" ${o.tr?`transform="${o.tr}"`:""} ${o.halo?'paint-order="stroke" stroke="var(--surface)" stroke-width="3"':""}>${esc(t)}</text>`;
+  g+=`<defs><pattern id="pv" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M0 10 10 0" stroke="var(--line)" stroke-width=".6"/></pattern></defs>`;
+  // context: buildings and street
+  g+=`<rect x="${X}" y="8" width="${Wd}" height="30" rx="4" fill="var(--map-bld)"/>`+tx(L("北 · 历史联排楼（保留餐饮）","N · heritage townhouse (dining)"),X+Wd/2,27);
+  g+=`<rect x="${X}" y="${Y+H+10}" width="${Wd}" height="30" rx="4" fill="var(--map-bld)"/>`+tx(L("南 · Council 新楼（餐饮界面）","S · new Council building (active edge)"),X+Wd/2,Y+H+29);
+  g+=`<rect x="8" y="${Y}" width="46" height="${H}" rx="4" fill="var(--map-bld)"/>`+tx(L("西 · Council 新楼 · 文化空间","W · Council bldg · cultural space"),0,0,{s:9.5,tr:`translate(35 ${Y+H*0.66}) rotate(-90)`});
+  const RX=X+Wd+10;
+  g+=`<rect x="${RX}" y="0" width="52" height="${Y+H+50}" fill="var(--map-road)" stroke="var(--map-road-edge)"/>`;
+  g+=tx("Wentworth St",0,0,{s:11,w:700,tr:`translate(${RX+36} ${Y+H-40}) rotate(90)`});
+  g+=`<path d="M${RX+13} ${Y+H-60} v26 m-5 -7 5 7 5 -7" fill="none" stroke="var(--muted)" stroke-width="1.6"/>`+tx(L("单向南行","one-way S"),RX+13,Y+H-66,{s:8.5,f:"var(--muted)"});
+  const cy=Y+58;
+  g+=`<g fill="var(--fg)" opacity=".6">${[0,1,2,3,4,5,6].map(i=>`<rect x="${RX+3+i*7}" y="${cy-10}" width="4" height="20"/>`).join("")}</g>`;
+  g+=tx(L("抬高横道","raised crossing"),RX+26,cy-15,{s:8.5,f:"var(--muted)",halo:1});
+  g+=`<rect x="8" y="${cy-9}" width="46" height="18" fill="var(--accent)" fill-opacity=".22"/>`+tx("Rivoli Way",31,cy+3,{s:8,w:700,f:"var(--accent)"});
+  // site
+  g+=`<rect x="${X-4}" y="${Y-4}" width="${Wd+8}" height="${H+8}" rx="8" fill="url(#pv)" stroke="var(--fg)" stroke-opacity=".35" stroke-dasharray="4 3"/>`;
+  // zones west→east: green | active | smart | move (walking along the Wentworth St frontage)
+  const cr=CROWN[S.plant][S.year], crMid=(cr[0]+cr[1])/2;
+  let x=X;
+  ["green","active","smart","move"].forEach(gk=>{
+    const gt=gsum(gk); if(!gt) return; const w=Wd*gt/TOTAL, c=GROUPS[gk].c; let y=Y;
+    g+=`<clipPath id="cz_${gk}"><rect x="${x}" y="${Y}" width="${w}" height="${H}"/></clipPath>`;
+    MODULES.filter(m=>m.g===gk&&S.a[m.id]>0).forEach(m=>{
+      const h=H*S.a[m.id]/gt;
+      g+=`<rect x="${x+1.5}" y="${y+1.5}" width="${Math.max(0,w-3)}" height="${Math.max(0,h-3)}" rx="6" fill="${c}" fill-opacity=".14" stroke="${c}" stroke-opacity=".6"/>`;
+      const n=Math.max(1,Math.round(S.a[m.id]/25)), step=21;
+      const cols=Math.max(1,Math.floor((w-6)/step)), rows=Math.max(1,Math.floor((h-6)/step)), k=Math.min(n,cols*rows);
+      const usedRows=Math.ceil(k/cols), ox=x+(w-Math.min(k,cols)*step)/2, oy=y+(h-usedRows*step)/2;
+      g+=`<g clip-path="url(#cz_${gk})">`;
+      for(let i=0;i<k;i++){const ix=ox+(i%cols)*step+2.5, iy=oy+Math.floor(i/cols)*step+2.5;
+        if(m.id==="canopy"){const r=Math.min(16,5.5*Math.sqrt(crMid)+2);g+=`<circle cx="${ix+8}" cy="${iy+8}" r="${r}" fill="${c}" fill-opacity=".42" stroke="${c}" stroke-opacity=".8"/><circle cx="${ix+8}" cy="${iy+8}" r="1.6" fill="${c}"/>`;}
+        else g+=`<g transform="translate(${ix} ${iy})">${ICON[m.id](c)}</g>`;}
+      g+=`</g>`;
+      if(w>=58&&h>=26) g+=tx(T(m).split(/[（(,，、]/)[0],x+6,y+13,{a:"start",s:8.5,w:700,f:c,halo:1});
+      y+=h;
+    });
+    x+=w;
+  });
+  // compass
+  g+=`<g transform="translate(${X-30} 22)"><circle r="11" fill="var(--surface)" stroke="var(--line)"/><path d="M0 -8 4 4 0 1 -4 4z" fill="var(--fg)"/>${tx("N",0,-13,{s:9,w:700})}</g>`;
+  return `<svg class="plaza" viewBox="0 0 430 ${Y+H+48}" role="img" aria-label="${L("广场用途示意图","Diagram of uses in the square")}">${g}</svg>`;
+}
+const plazaCaption=()=>`<p class="small muted" style="margin:4px 0 0">${L("示意图，不是设计方案。每个图标约 25 m²，树冠大小随年份和种植方式变化。周边关系依据","Diagram only, not a design. Each icon is about 25 m²; crowns grow with the year and planting type. Edges from")} ${chip("S2","p.45","sq5")} ${chip("S2","p.43","tr2")} ${chip("S4","","tr1")}</p>`;
+
+/* ---------- base map from data/precinct.json (OSM, 10 Nov 2026) ---------- */
+const HOTS=[
+  {id:"square",x:1,y:64,zh:"Woodhouse Square",en:"Woodhouse Square",claims:["sq1","sq2","sq3","sq4","sq5","sq7","sq8","sq9","sq10","sq11","sq12"]},
+  {id:"china",x:-104,y:4,zh:"Church St · 唐人街",en:"Church St · Chinatown",claims:["ct1","ct2","ct3","ct4","ct5","ct6","ct7"]},
+  {id:"went",x:30,y:128,zh:"Wentworth St",en:"Wentworth St",claims:["tr1","tr2","sq1","tr6"]},
+  {id:"fitz",x:-24,y:-50,zh:"Fitzwilliam St",en:"Fitzwilliam St",claims:["tr1","tr4","tr5","tr6"]},
+  {id:"park",x:-38,y:96,zh:"车站停车场",en:"Station car park",claims:["tr3","tr8","tr7"]}
+];
+function sqInner(o){
+  const on=k=>o.hl===k; let sx=-14; const sq=[];
+  if(o.alloc){["green","active","smart","move"].forEach(k=>{const w=30*gsum(k)/TOTAL;if(w>0)sq.push(`<rect x="${sx}" y="44" width="${w}" height="40" fill="${GROUPS[k].c}"/>`);sx+=w;});}
+  return (o.alloc?`<clipPath id="sqc"><rect x="-14" y="44" width="30" height="40" rx="3"/></clipPath><g clip-path="url(#sqc)">${sq.join("")}</g><rect x="-14" y="44" width="30" height="40" rx="3" fill="none" stroke="var(--fg)" stroke-width="1.2"/>`:`<rect x="-14" y="44" width="30" height="40" rx="3" fill="var(--accent)" fill-opacity=".9"/>`)
+   +`<circle cx="1" cy="64" r="${on("square")?26:22}" fill="none" stroke="var(--accent)" stroke-width="${on("square")?2.5:1.5}" stroke-dasharray="3 3"/>`;
+}
+function mapSVG2(o={}){
+  const vb=o.vb||[-185,-200,440,530];
+  const pts=a=>{let s="";for(let i=0;i<a.length;i+=2)s+=`${a[i]},${-a[i+1]} `;return s.trim();};
+  const x0=vb[0]-40,x1=vb[0]+vb[2]+40,y0=-(vb[1]+vb[3])-40,y1=-vb[1]+40;
+  const inView=a=>{for(let i=0;i<a.length;i+=2){if(a[i]>x0&&a[i]<x1&&a[i+1]>y0&&a[i+1]<y1)return true;}return false;};
+  let g="";
+  g+=MAP.G.filter(x=>inView(x.p)).map(x=>`<polygon points="${pts(x.p)}" fill="var(--map-green)"/>`).join("");
+  g+=MAP.R.filter(x=>inView(x.p)).map(x=>`<polyline points="${pts(x.p)}" fill="none" stroke="var(--map-road-edge)" stroke-width="${x.w+2}" stroke-linecap="round" stroke-linejoin="round"/>`).join("");
+  g+=MAP.R.filter(x=>inView(x.p)).map(x=>`<polyline points="${pts(x.p)}" fill="none" stroke="var(--map-road)" stroke-width="${x.w}" stroke-linecap="round" stroke-linejoin="round"/>`).join("");
+  g+=MAP.RL.filter(inView).map(p=>`<polyline points="${pts(p)}" fill="none" stroke="var(--map-rail)" stroke-width="2" stroke-dasharray="6 3"/>`).join("");
+  g+=MAP.B.filter(b=>inView(b.p)).map(b=>{const cp=/Carpark/.test(b.n||"");return `<polygon points="${pts(b.p)}" fill="${cp?"var(--infer)":"var(--map-bld)"}" ${cp?'fill-opacity=".5" data-cp="1"':""}/>`;}).join("");
+  const on=k=>o.hl===k?1:0;
+  // highlight layers (positions read off the OSM base map; indicative)
+  g+=`<g class="hl" data-k="phase" style="opacity:${o.hl&&o.hl!=="phase"?.35:1}"><polygon points="${pts(MAP.P)}" fill="${on("phase")?"var(--accent)":"none"}" fill-opacity=".08" stroke="var(--fg)" stroke-width="${on("phase")?2.5:1.5}" stroke-dasharray="5 4"/></g>`;
+  g+=`<g class="hl" data-k="china" style="opacity:${on("china")}"><path d="M-110 -60 L-101 150" stroke="#d0453a" stroke-width="16" stroke-opacity=".35" stroke-linecap="round" fill="none"/>${[...Array(6)].map((_,i)=>`<circle cx="${-108+i*1.5}" cy="${-40+i*36}" r="4" fill="#d0453a"/>`).join("")}</g>`;
+  const arrow=(x1,y1,x2,y2,c)=>{const a=Math.atan2(y2-y1,x2-x1),hx=x2-11*Math.cos(a),hy=y2-11*Math.sin(a),px=6*Math.sin(a),py=-6*Math.cos(a);return `<line x1="${x1}" y1="${y1}" x2="${hx}" y2="${hy}" stroke="${c}" stroke-width="5" stroke-linecap="round"/><polygon points="${x2},${y2} ${hx+px},${hy+py} ${hx-px},${hy-py}" fill="${c}"/>`;};
+  g+=`<g class="hl" data-k="traffic" style="opacity:${on("traffic")}">${arrow(26,2,30,150,"#3f7cc0")}${arrow(60,-52,-95,-58,"#3f7cc0")}<path d="M-95 -48 L60 -42" stroke="#4f9a5b" stroke-width="3" stroke-dasharray="4 4" fill="none"/></g>`;
+  g+=`<g class="hl" data-k="council" style="opacity:${on("council")}"><circle cx="-18" cy="66" r="58" fill="none" stroke="var(--infer)" stroke-width="2.5" stroke-dasharray="6 4"/></g>`;
+  // the square: tinted by the current allocation, west→east
+  g+=`<g id="sqg">${sqInner(o)}</g>`;
+  const lab=(t,x,y,anchor="middle",w=600,s=11)=>`<text class="lab" x="${x}" y="${-y}" text-anchor="${anchor}" font-size="${s}" font-weight="${w}">${esc(t)}</text>`;
+  if(!o.noLabels){
+    g+=lab("Church St",-122,-40)+lab("Parkes St",70,-152)+lab("Wentworth St",52,-40)+lab("Fitzwilliam St",-55,62)+lab("Jubilee Park",80,-225,"middle",500)+(o.hots?"":lab("Woodhouse Sq",34,-92,"start",700));
+    g+=lab(L("↑ 车站","↑ Station"),-40,175,"middle",500);
+  }
+  if(o.hots){g+=HOTS.map((h,i)=>{const sel=o.sel===h.id;return `<g class="hot" data-hot="${h.id}" role="button" tabindex="0" aria-label="${esc(T(h))}" aria-pressed="${sel}" transform="translate(${h.x} ${h.y})"><g class="hs">
+     <circle class="pulse" r="15" fill="var(--accent)" fill-opacity=".22"/><circle r="${sel?12:10}" fill="${sel?"var(--fg)":"var(--accent)"}" stroke="var(--surface)" stroke-width="2.5"/>
+     <text y="4.5" text-anchor="middle" font-size="12" font-weight="700" fill="var(--surface)" style="pointer-events:none">${i+1}</text>
+     <text class="hlab" x="18" y="4.5" font-size="13" font-weight="700" fill="var(--fg)" paint-order="stroke" stroke="var(--map-bg)" stroke-width="4" stroke-linejoin="round">${esc(T(h))}</text></g></g>`;}).join("");}
+  // compass and scale (1 map unit = 1 m in the OSM projection)
+  if(!o.noChrome){const cx=vb[0]+vb[2]-22, cyy=vb[1]+24;
+  g+=`<g transform="translate(${cx} ${cyy})"><circle r="12" fill="var(--surface)" stroke="var(--line)"/><path d="M0 -9 4.5 4.5 0 1 -4.5 4.5z" fill="var(--fg)"/><text class="lab" y="-15" text-anchor="middle" font-size="10" font-weight="700">N</text></g>`;
+  const bx=vb[0]+14, by=vb[1]+vb[3]-16;
+  g+=`<g><rect x="${bx}" y="${by-3}" width="100" height="4" fill="var(--fg)"/><rect x="${bx+50}" y="${by-3}" width="50" height="4" fill="var(--surface)" stroke="var(--fg)" stroke-width=".8"/><text class="lab" x="${bx}" y="${by-7}" font-size="9">0</text><text class="lab" x="${bx+100}" y="${by-7}" font-size="9" text-anchor="middle">100 m</text></g>`;}
+  return `<svg class="basemap" viewBox="${vb.join(" ")}" preserveAspectRatio="xMidYMid ${o.slice?"slice":"meet"}" ${o.hots?"":'role="img"'} aria-label="${L("CBD South 第一期范围底图","Base map of CBD South Phase 1")}">${g}</svg>`;
+}
+
+/* ---------- deliverable cards (screen 2 content) ---------- */
+function claimList(cid,kinds=["planned","ruled","open","gap"]){
+  const cl=CLAIMS.filter(x=>x.card===cid);
+  return kinds.map(k=>{const xs=cl.filter(x=>x.kind===k);if(!xs.length)return"";return `<div class="kind">${kindLabel(k)}</div><ul class="claims">${xs.map(x=>`<li>${T(x)} ${x.src?chip(x.src,x.pg,x.id):`<span class="tag t-gap">${L("来源里没有","No source has this")}</span>`}</li>`).join("")}</ul>`;}).join("");
+}
+function claimsById(ids){return `<ul class="claims">${ids.map(id=>CLAIMS.find(c=>c.id===id)).map(x=>`<li><span class="tag ${x.kind==="open"?"t-infer":x.kind==="gap"?"t-gap":"t-fact"}">${kindLabel(x.kind)}</span> ${T(x)} ${x.src?chip(x.src,x.pg,x.id):""}${x.id==="tr6"?" "+TRAFFIC_WAIT():""}</li>`).join("")}</ul>`;}
+function reactRow(cid){const r=S.react[cid];return `<div class="pill" role="group" aria-label="${L("你觉得呢","What do you think")}" style="margin-top:8px;align-items:center"><b class="small">${L("你觉得呢？","Your view?")}</b>${[["yes",L("支持","Support")],["unsure",L("不确定","Not sure")],["no",L("有顾虑","Concerned")]].map(([k,t])=>`<button data-react="${cid}" data-v="${k}" aria-pressed="${r===k}">${t}</button>`).join("")}</div>`;}
+const TIMELINE=()=>[
+  ["2025-06",L("决议编制总规","Decides to prepare a master plan"),chip("S4","")],
+  ["2025-08",L("研究在 Church St 设唐人街","Studies a Chinatown on Church St"),chip("S4","")],
+  ["2025-07–11",L("比较大公园、会展中心、餐饮夜生活 + 广场，选了第三种","Compares a park, a convention centre, and dining and nightlife with a square; picks the third"),chip("S4","","sq6")],
+  [L("方案比选","Options test"),L("3,500 m² 大开放空间被淘汰；选带 1,200 m² 广场的方案 3","Drops a 3,500 m² open space; picks Scheme 3 with a 1,200 m² plaza"),chip("S2","p.23","sq7")],
+  [L("位置比选","Location test"),L("地块内部两个位置被否决，广场放在临 Wentworth St","Rejects two inner-block sites; puts the plaza on Wentworth St"),chip("S2","p.23","sq8")],
+  ["2026-04-28",L("一致同意公示","Votes unanimously to exhibit"),chip("S3","")],
+  ["2026-05–06",L("公示，意见在审阅中","Exhibition; submissions under review"),chip("S3","")]];
+
+/* ---------- who decides, feedback, Council demo ---------- */
+function dpaCards(){const by={D:0,"D+P":0,P:0};MODULES.forEach(m=>by[m.role]+=S.a[m.id]);
+  return `<div class="dpa">${[["D",L("Council 直接负责","Council delivers"),L("树冠、雨水花园、座椅、步行、路缘、照明","Canopy, rain gardens, seating, walking, kerb, lighting")],["D+P",L("Council 牵头，与伙伴合作","Council leads with partners"),L("活动和夜市、自行车、回收","Events and markets, bikes, recycling")],["P",L("主要靠伙伴","Mainly partners"),L("文化表达：艺术家、华人社团、First Nations 团体","Cultural expression: artists, Chinese community groups, First Nations groups")]].map(([k,t,d])=>`<div class="dpac"><b>${k}</b><span>${t}</span><div class="big" id="dpa_${k.replace("+","")}">${fmt(by[k])} m²</div><small>${d}</small></div>`).join("")}</div>
+  <p class="small muted" style="margin-top:6px">${L("D = Council 自己做，P = 和伙伴一起做，A = 向州政府等争取","D = Council delivers, P = partners, A = advocates to others such as the State")} ${chip("S5","p.33")}</p>`;}
+function syncDpa(){const by={D:0,"D+P":0,P:0};MODULES.forEach(m=>by[m.role]+=S.a[m.id]);for(const k in by){const e=document.getElementById("dpa_"+k.replace("+",""));if(e)e.textContent=fmt(by[k])+" m²";}}
+function feedbackHTML(){const subs=store.get("cav_subs")||[];
+  return `<label class="f" for="exp">${L("你现在在这一带的体验是什么？比如晚上走、等车、带孩子、做生意。","What is it like around here now? Walking at night, waiting for a bus, with kids, running a shop.")}</label><textarea id="exp">${esc(S.exp)}</textarea>
+  <label class="f" for="wish" style="margin-top:8px">${L("这个广场怎样才对你有用？","What would make this square work for you?")}</label><textarea id="wish">${esc(S.wish)}</textarea>
+  <p class="small muted">${L("请不要写姓名、电话或住址。按“最少必要数据”原则，我们只问身份和可选的年龄段、邮编","Please leave out names, phone numbers and addresses. Under the minimum-data rule we only ask your role, and optionally age band and postcode")} ${chip("S5","p.30")}。</p>
+  <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap"><button class="btn primary" id="submit">${L("提交（演示）","Submit (demo)")}</button><span class="small muted" id="subMsg">${subs.length?L(`本浏览器已保存 ${subs.length} 份演示提交，没有发送给 Council。`,`${subs.length} demo submission(s) saved in this browser only. Nothing was sent to Council.`):L("演示版只保存在你的浏览器里，不会发送给任何人。","In this demo your answers stay in your browser and are not sent anywhere.")}</span></div>`;}
+function submitDemo(){const subs=store.get("cav_subs")||[];subs.push({t:Date.now(),role:S.role,pri:S.pri,react:S.react,a:S.a,exp:S.exp,wish:S.wish});store.set("cav_subs",subs);}
+const TEAM_CHECKED=()=>L("本演示里的条目由团队人工整理和核对，<b>不是 Council 批准的</b>。","In this demo the team extracted and checked every entry by hand; <b>Council has not approved them</b>.");
+function ledgerTable(){return `<div class="scroll"><table><thead><tr><th>#</th><th>${L("条目","Claim")}</th><th>${L("来源","Source")}</th><th>${L("原文","Original wording")}</th><th>${L("状态","Status")}</th></tr></thead><tbody>
+  ${CLAIMS.map((c,i)=>`<tr><td class="n">${i+1}</td><td>${T(c)}</td><td>${c.src?chip(c.src,c.pg,c.id):"—"}</td><td class="small">${c.q?"“"+esc(c.q)+"”":"—"}</td><td>${c.src?`<span class="status st-ok">${L("团队已核对","Team-checked")}</span>`:`<span class="status st-gap">${L("证据空白","Gap")}</span>`}</td></tr>`).join("")}</tbody></table></div>`;}
+function gapsList(){const gaps=[
+  [L("交通影响：还没有交通模型，FY27/28 才聘顾问","Traffic effects: no model yet; consultants in FY27/28"),"S4","","tr6"],
+  [L("广场面积：1,200 m² 还是 1,300 m²","Square size: 1,200 m² or 1,300 m²"),"S3","","sq9"],
+  [L("广场下方是否有停车场、能否深土种树","Whether the car park sits under the square, and whether deep soil is possible"),"S2","p.49","tr8"],
+  [L("各项功能的面积比例","Area for each use"),null,""],
+  [L("建设资金来源","Funding sources"),"S2","p.54","sq10"],
+  [L("公示意见汇总（尚未公开）","Exhibition feedback summary (not yet published)"),"S3",""],
+  [L("系数矩阵的文献出处","Literature for each coefficient"),null,""]];
+  return `<ul class="claims">${gaps.map(g=>`<li>${g[0]} ${g[1]?chip(g[1],g[2],g[3]):`<span class="tag t-gap">${L("来源里没有","No source")}</span>`}</li>`).join("")}</ul>`;}
+function pCheckList(){const a=S.a, sh=v=>Math.round(100*v/TOTAL);
+  const P=[["P1",L("连接更新片区与 CBD 和交通枢纽","Connect renewal areas to the CBD and transport"),a.walk>=180,L(`畅通步行 ${sh(a.walk)}%（≥15%）`,`Clear walking ${sh(a.walk)}% (≥15%)`)],
+    ["P2",L("新建社区聚会空间","New spaces for community gathering"),a.events+a.rest>=480,L(`活动 + 休憩 ${sh(a.events+a.rest)}%（≥40%）`,`Events + rest ${sh(a.events+a.rest)}% (≥40%)`)],
+    ["P3",L("改善街道与公共空间的连接","Better links between streets and public space"),a.walk>=180,L(`畅通步行 ${sh(a.walk)}%（≥15%）`,`Clear walking ${sh(a.walk)}% (≥15%)`)],
+    ["P4",L("让步行和骑行更容易、更安全、更舒适","Easier, safer, more comfortable walking and cycling"),a.walk>=180&&a.canopy>=120,L(`步行 ${sh(a.walk)}%，树冠 ${sh(a.canopy)}%（≥10%）`,`Walking ${sh(a.walk)}%, canopy ${sh(a.canopy)}% (≥10%)`)],
+    ["P5",L("唐人街成为文化目的地","Chinatown as a cultural destination"),a.culture>=36&&a.events>=200,L(`文化 ${sh(a.culture)}%（≥3%），活动 ${sh(a.events)}%`,`Culture ${sh(a.culture)}% (≥3%), events ${sh(a.events)}%`)],
+    ["P6",L("用 Council 用地提供公共便利","Council land delivering public amenity"),sum(a)===TOTAL,L("1,200 m² 全部作为公共空间","All 1,200 m² kept as public space")]];
+  return `<p class="small muted">${L("检查当前分配是否仍符合总规的 6 条城市设计原则","Checks whether the current split still meets the plan's six urban design principles")} ${chip("S2","p.22")} <span class="tag t-design">${L("阈值是我们的假设","Thresholds are our assumptions")}</span></p>
+  <ul class="claims">${P.map(p=>`<li><b>${p[0]}</b> ${p[1]} — <span class="${p[2]?"ok":"bad"}">${p[2]?"✓":"✗"} ${p[3]}</span></li>`).join("")}</ul>`;}
+function subsPanel(){const subs=store.get("cav_subs")||[];
+  return `<p class="small muted">${L("正式版只在同一群体达到 10 人以上时显示汇总，并对比 ABS 人口结构检查代表性。演示版没有真实提交，只显示本浏览器里的演示数据。","The full version shows a summary only once a group reaches 10 or more people, and checks representativeness against the ABS Census. The demo has no real submissions, only demo data from this browser.")}</p>
+  <div class="thr"><div class="thrn">${subs.length}<small>/10</small></div><div class="thrbar"><span style="width:${Math.min(100,subs.length*10)}%"></span></div></div>
+  <p>${subs.length<10?L("少于 10 份，不显示汇总（隐私门槛）。","Fewer than 10, so no summary is shown (privacy threshold)."):L("已达到 10 份，可以显示汇总。","10 or more, so a summary can be shown.")}</p>${subs.length?`<button class="btn" id="clearSubs">${L("清除本浏览器的演示提交","Clear demo submissions in this browser")}</button>`:""}`;}
+
+/* ---------- shared events. ctx = {render(), live()} ---------- */
+function bindCommon(ctx,extra){
+  document.addEventListener("click",e=>{
+    const b=e.target.closest("button,[data-close],[data-hot],[data-quest]"); if(!b) return;
+    if(extra&&extra(b,e)) return;
+    const d=b.dataset;
+    if(d.close){closeDrawer();return;}
+    if(d.src){openDrawer(d.src,d.pg,d.claim);return;}
+    if(b.id==="lZh"||b.id==="lEn"){S.lang=b.id==="lZh"?"zh":"en";store.set("cav_lang",S.lang);ctx.render();return;}
+    if(b.id==="themeBtn"){toggleTheme();ctx.render();return;}
+    if(d.preset){S.a={...PRESETS[d.preset].a};syncSliders(null);ctx.live();return;}
+    if(d.plant){S.plant=d.plant;document.querySelectorAll("[data-plant]").forEach(x=>x.setAttribute("aria-pressed",x.dataset.plant===S.plant));ctx.live();return;}
+    if(d.year){S.year=+d.year;document.querySelectorAll("[data-year]").forEach(x=>x.setAttribute("aria-pressed",+x.dataset.year===S.year));ctx.live();return;}
+    if(d.role){S.role=d.role;ctx.render();return;}
+    if(d.pri){const i=S.pri.indexOf(d.pri);if(i>=0)S.pri.splice(i,1);else if(S.pri.length<3)S.pri.push(d.pri);ctx.render();return;}
+    if(d.react){S.react[d.react]=S.react[d.react]===d.v?null:d.v;document.querySelectorAll(`[data-react="${d.react}"]`).forEach(x=>x.setAttribute("aria-pressed",S.react[d.react]===x.dataset.v));return;}
+    if(b.id==="submit"){submitDemo();ctx.render();return;}
+    if(b.id==="clearSubs"){store.set("cav_subs",[]);ctx.render();return;}
+  });
+  let raf=0;
+  document.addEventListener("input",e=>{
+    const t=e.target;
+    if(t.dataset.mod||t.dataset.grp){ // linked sliders: update in place so the drag continues
+      if(t.dataset.mod) setModule(t.dataset.mod,+t.value); else setGroup(t.dataset.grp,+t.value);
+      syncSliders(t); cancelAnimationFrame(raf); raf=requestAnimationFrame(ctx.live); return;}
+    if(t.id==="exp"){S.exp=t.value;return;}
+    if(t.id==="wish"){S.wish=t.value;return;}
+  });
+  document.addEventListener("keydown",e=>{if(e.key==="Escape")closeDrawer();});
+  if(window.matchMedia){try{matchMedia("(prefers-color-scheme: dark)").addEventListener("change",()=>{if(!S.theme)ctx.render();});}catch(e){}}
+}
+
+/* toggle highlight layers without re-rendering the map */
+function setMapHL(svg,k){if(!svg)return;svg.querySelectorAll(".hl").forEach(gr=>{const kk=gr.dataset.k;gr.style.opacity=kk==="phase"?(k&&k!=="phase"?.35:1):(kk===k?1:0);});}
+/* tween the map's viewBox */
+function tweenVB(svg,to,ms=650,onF){if(!svg)return;const from=svg.getAttribute("viewBox").split(" ").map(Number);if(svg._raf)cancelAnimationFrame(svg._raf);
+  const reduce=window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches;if(reduce){svg.setAttribute("viewBox",to.join(" "));onF&&onF();return;}
+  const t0=performance.now();const step=t=>{const u=Math.min(1,(t-t0)/ms),e=u<.5?2*u*u:1-Math.pow(-2*u+2,2)/2;svg.setAttribute("viewBox",from.map((f,i)=>(f+(to[i]-f)*e).toFixed(1)).join(" "));onF&&onF();if(u<1)svg._raf=requestAnimationFrame(step);};svg._raf=requestAnimationFrame(step);}
+
+
+/* ===== variants/iso.js: 2.5D isometric plaza for option D =====
+   The square is 48 tiles of 25 m² (8 west→east × 6 north→south). Tiles are handed to uses in proportion to
+   S.a, filled column by column from the west, so trees sit at the back and walking + kerb face Wentworth St.
+   Edges after S2 p.45 / p.43 and S4 (one-way southbound). Indicative only, not a layout design. */
+const ISO={C:8,R:6,HW:36,HH:18};
+const ISO_ORDER=["canopy","blue","culture","rest","events","smart","circ","bike","walk","kerb"];
+const ip=(c,r,z=0)=>[(c-r)*ISO.HW,(c+r)*ISO.HH-z];
+const P=a=>a.map(p=>p.map(v=>+v.toFixed(1)).join(",")).join(" ");
+function tileMap(a){
+  const n=ISO.C*ISO.R, raw=ISO_ORDER.map(id=>a[id]/TOTAL*n), fl=raw.map(Math.floor);
+  let rem=n-fl.reduce((s,v)=>s+v,0);
+  raw.map((v,i)=>[v-fl[i],i]).sort((x,y)=>y[0]-x[0]).slice(0,rem).forEach(([,i])=>fl[i]++);
+  const out=[]; ISO_ORDER.forEach((id,i)=>{for(let k=0;k<fl[i];k++)out.push(id);}); return out;
+}
+const tileCR=t=>[Math.floor(t/ISO.R),t%ISO.R];
+/* a box in world tile units */
+function isoBox(c0,r0,c1,r1,z0,h,top,south,east,extra=""){
+  const T=[ip(c0,r0,z0+h),ip(c1,r0,z0+h),ip(c1,r1,z0+h),ip(c0,r1,z0+h)];
+  const Sf=[ip(c0,r1,z0),ip(c1,r1,z0),ip(c1,r1,z0+h),ip(c0,r1,z0+h)];
+  const Ef=[ip(c1,r0,z0),ip(c1,r1,z0),ip(c1,r1,z0+h),ip(c1,r0,z0+h)];
+  return `<polygon points="${P(Sf)}" fill="${south}"/><polygon points="${P(Ef)}" fill="${east}"/><polygon points="${P(T)}" fill="${top}"/>${extra}`;
+}
+/* local box around a tile centre, offsets in tile units */
+function lbox(x0,y0,x1,y1,z0,h,top,s,e){const L=(dc,dr,z)=>[(dc-dr)*ISO.HW,(dc+dr)*ISO.HH-z];
+  return `<polygon points="${P([L(x0,y1,z0),L(x1,y1,z0),L(x1,y1,z0+h),L(x0,y1,z0+h)])}" fill="${s}"/><polygon points="${P([L(x1,y0,z0),L(x1,y1,z0),L(x1,y1,z0+h),L(x1,y0,z0+h)])}" fill="${e}"/><polygon points="${P([L(x0,y0,z0+h),L(x1,y0,z0+h),L(x1,y1,z0+h),L(x0,y1,z0+h)])}" fill="${top}"/>`;}
+const person=(x,y,c="#2c5aa0",s=1)=>`<g transform="translate(${x} ${y}) scale(${s})"><ellipse cx="0" cy="0" rx="4" ry="2" fill="rgba(0,0,0,.18)"/><rect x="-3" y="-13" width="6" height="11" rx="3" fill="${c}"/><circle cx="0" cy="-16" r="3.2" fill="#f1c9a5"/></g>`;
+const GROUND={canopy:"#9fd38a",blue:"#7fbfae",events:"#efe2c9",culture:"#f0d9c8",rest:"#e3ead2",walk:"#ece7dd",bike:"#dde2e8",kerb:"#b9c0c8",smart:"#e2def0",circ:"#dfe8d6"};
+const diamond=(f,inset=0)=>{const k=1-inset;return `<polygon points="0,${-ISO.HH*k} ${ISO.HW*k},0 0,${ISO.HH*k} ${-ISO.HW*k},0" fill="${f}"/>`;};
+function crownScale(){const cr=CROWN[S.plant][S.year];return Math.sqrt((cr[0]+cr[1])/2);}
+function tileArt(id,t){
+  const g=diamond(GROUND[id])+`<polygon points="0,${-ISO.HH} ${ISO.HW},0 0,${ISO.HH} ${-ISO.HW},0" fill="none" stroke="rgba(60,50,30,.12)"/>`;
+  const sc=crownScale();
+  switch(id){
+    case "canopy": return g+`<g class="shd" style="transform:scale(${sc})"><ellipse cx="7" cy="4" rx="24" ry="12" fill="rgba(25,70,35,.28)"/></g><rect x="-2" y="-17" width="4" height="17" rx="1.5" fill="#7a5a3a"/>
+      <g class="crown" style="transform:scale(${sc})"><circle cx="0" cy="-30" r="15" fill="#3f8f4e"/><circle cx="-7" cy="-25" r="10" fill="#4aa05a"/><circle cx="6" cy="-35" r="8" fill="#72c07a"/><circle cx="-3" cy="-38" r="4" fill="#9ad49b"/></g>`;
+    case "blue": return g+diamond("#4f8f8a",.28)+diamond("#5fb7d0",.45)+`<ellipse cx="-4" cy="1" rx="7" ry="3" fill="none" stroke="#d9f3fb" stroke-width="1"/><path d="M14 -2v-9M17 -1v-7M-16 2v-8M-19 3v-6" stroke="#3c7d43" stroke-width="1.6" stroke-linecap="round"/>`;
+    case "events": { const st=[0,1,2,3].map(i=>{const L=(dc,dr,z)=>[(dc-dr)*ISO.HW,(dc+dr)*ISO.HH-z];const a=-.36+i*.18,b=a+.18;return `<polygon points="${P([L(a,-.3,30),L(b,-.3,30),L(b,.3,26),L(a,.3,26)])}" fill="${i%2?"#fff4e6":(t%3?"#e2583e":"#e8912e")}"/>`;}).join("");
+      return g+lbox(-.26,-.18,.26,.18,0,11,"#c99a62","#a87a46","#8e6436")+`<path d="M-21 -7v-22M21 -7v-22" stroke="#6b4a2a" stroke-width="1.5"/>`+st+person(-4,14,"#d08a2c",.9); }
+    case "culture": return g+`<path d="M-14 4v-40M14 4v-40M-14 -34Q0 -26 14 -34" stroke="#5a4636" stroke-width="1.6" fill="none"/>${[-8,0,8].map((x,i)=>`<ellipse cx="${x}" cy="${-30+(i===1?4:2)}" rx="3.6" ry="4.6" fill="#d43c32"/><rect x="${x-1.6}" y="${-35+(i===1?4:2)}" width="3.2" height="1.4" fill="#f2c14e"/>`).join("")}
+      ${lbox(-.12,.08,.1,.3,0,10,"#8a63b8","#6d4c99","#583d80")}`;
+    case "rest": return g+lbox(-.32,-.12,.12,-.02,0,5,"#b7884e","#946a38","#7d5a2e")+lbox(-.32,-.15,.12,-.12,5,7,"#b7884e","#946a38","#7d5a2e")+lbox(.06,.12,.3,.3,0,4,"#e0c06a","#c2a24f","#a98b3f")+`<circle cx="18" cy="-6" r="4" fill="#4f9a5b"/>`+person(-10,-4,"#8a63b8",.85)+person(10,8,"#e2583e",.7);
+    case "walk": return g+`<path d="M-18 -9 18 9M-18 9 18 -9" stroke="rgba(120,100,70,.18)" stroke-width="1"/><g fill="rgba(90,80,60,.35)"><ellipse cx="-6" cy="-3" rx="2" ry="1.2"/><ellipse cx="-1" cy="0" rx="2" ry="1.2"/><ellipse cx="4" cy="2" rx="2" ry="1.2"/><ellipse cx="9" cy="5" rx="2" ry="1.2"/></g>`;
+    case "bike": return g+`<path d="M-20 -2 20 -2" stroke="#5c6670" stroke-width="2"/>${[-10,6].map(x=>`<g transform="translate(${x} 0)"><ellipse cx="-5" cy="-5" rx="4.5" ry="5" fill="none" stroke="#2f5f9c" stroke-width="1.6"/><ellipse cx="5" cy="-5" rx="4.5" ry="5" fill="none" stroke="#2f5f9c" stroke-width="1.6"/><path d="M-5 -5 0 -12 5 -5M0 -12 2 -14" stroke="#2f5f9c" stroke-width="1.4" fill="none"/></g>`).join("")}`;
+    case "kerb": return g+`<path d="M-30 3 0 18" stroke="#fff" stroke-width="1.2" stroke-dasharray="4 3"/>`+lbox(-.3,-.14,.3,.14,2,9,"#3f7cc0","#2f62a0","#264f82")+lbox(-.14,-.12,.16,.12,11,7,"#9cc3ea","#5f8fc4","#4c7aac")+`<circle cx="-14" cy="6" r="3" fill="#222"/><circle cx="10" cy="12" r="3" fill="#222"/>`;
+    case "smart": return g+`<path d="M0 2V-46" stroke="#4b4f63" stroke-width="2.4"/><path d="M0 -46h10" stroke="#4b4f63" stroke-width="2"/><ellipse cx="11" cy="-45" rx="5" ry="2.4" fill="#f7e9a8"/><circle cx="0" cy="-20" r="2.2" fill="#8a63b8"/>`;
+    case "circ": return g+lbox(-.3,-.1,-.12,.08,0,10,"#4f9a5b","#3e7d48","#336a3c")+lbox(-.08,-.1,.1,.08,0,10,"#e0b43a","#c0962c","#a68026")+lbox(.14,-.1,.32,.08,0,10,"#3f7cc0","#2f62a0","#264f82");
+  }
+  return g;
+}
+const ISO_DEFS=`<defs><radialGradient id="gWarm"><stop offset="0" stop-color="#ffe7a3" stop-opacity=".95"/><stop offset="1" stop-color="#ffcf6a" stop-opacity="0"/></radialGradient>
+ <radialGradient id="gRed"><stop offset="0" stop-color="#ffb08a" stop-opacity=".95"/><stop offset="1" stop-color="#ff6a4a" stop-opacity="0"/></radialGradient>
+ <linearGradient id="gGlass" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#a9c6e3"/><stop offset="1" stop-color="#6f93b8"/></linearGradient></defs>`;
+function windows(c0,c1,r,z0,rows,cols,h){ // window strips on a south face
+  let s="";for(let i=0;i<rows;i++)for(let j=0;j<cols;j++){const a=c0+(c1-c0)*(j+.18)/cols,b=c0+(c1-c0)*(j+.82)/cols,z=z0+(i+.3)*h/rows,zz=z0+(i+.75)*h/rows;
+    s+=`<polygon class="win" points="${P([ip(a,r,z),ip(b,r,z),ip(b,r,zz),ip(a,r,zz)])}"/>`;}return s;}
+function windowsE(r0,r1,c,z0,rows,cols,h){let s="";for(let i=0;i<rows;i++)for(let j=0;j<cols;j++){const a=r0+(r1-r0)*(j+.18)/cols,b=r0+(r1-r0)*(j+.82)/cols,z=z0+(i+.3)*h/rows,zz=z0+(i+.75)*h/rows;
+    s+=`<polygon class="win" points="${P([ip(c,a,z),ip(c,b,z),ip(c,b,zz),ip(c,a,zz)])}"/>`;}return s;}
+function plate(x,y,txt,c,id){return `<g class="plate" transform="translate(${x} ${y})" ${id?`data-quest="${id}" role="button" tabindex="0"`:""}><rect x="${-txt.length*3.6-10}" y="-11" width="${txt.length*7.2+20}" height="20" rx="10" fill="${c}" stroke="#fff" stroke-width="1.5"/><text y="4" text-anchor="middle" font-size="11" font-weight="700" fill="#fff">${esc(txt)}</text></g>`;}
+function quest(x,y,n,id,label){return `<g class="quest" data-quest="${id}" role="button" tabindex="0" aria-label="${esc(label)}" transform="translate(${x} ${y})"><g class="bob"><path d="M0 14 -9 0a12 12 0 1 1 18 0z" fill="#ffcd3c" stroke="#7a5200" stroke-width="1.5"/><text y="4" text-anchor="middle" font-size="13" font-weight="800" fill="#4a3000">${n}</text></g></g>`;}
+function isoScene(){
+  const reduce=window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let g=ISO_DEFS;
+  // ground plane and back edges
+  g+=`<polygon points="${P([ip(-4,-4),ip(12,-4),ip(12,10),ip(-4,10)])}" fill="#cfd8c6"/>`;
+  // north: heritage townhouse (low, brick, pitched roof) S2 p.45
+  g+=isoBox(.6,-2.4,6.6,-.4,0,34,"#d99a77","#b86f4f","#9b5a3e",windows(.6,6.6,-.4,4,2,6,28));
+  g+=`<polygon points="${P([ip(.6,-2.4,34),ip(6.6,-2.4,34),ip(6.6,-1.4,48),ip(.6,-1.4,48)])}" fill="#7d4a3a"/><polygon points="${P([ip(.6,-1.4,48),ip(6.6,-1.4,48),ip(6.6,-.4,34),ip(.6,-.4,34)])}" fill="#a35f47"/>`;
+  // west: new Council building with cultural space (tall, glass)
+  g+=isoBox(-3.4,-2.4,-.4,6.4,0,118,"#c8d6e6","url(#gGlass)","#5b7ea3",windowsE(-2.4,6.4,-.4,8,7,8,104)+windows(-3.4,-.4,6.4,8,7,3,104));
+  // east: Wentworth St, one-way southbound (S4), raised crossing aligned to Rivoli Way (S2 p.43)
+  g+=`<polygon points="${P([ip(8,-4),ip(8.4,-4),ip(8.4,10),ip(8,10)])}" fill="#d9d4ca"/><polygon points="${P([ip(8.4,-4),ip(11,-4),ip(11,10),ip(8.4,10)])}" fill="#59626d"/>`;
+  g+=[0,1,2,3,4,5,6].map(i=>{const r=1.1+i*.12;return `<polygon points="${P([ip(8.5,r),ip(10.9,r),ip(10.9,r+.06),ip(8.5,r+.06)])}" fill="#f4f4f4"/>`;}).join("");
+  g+=[-3,0,3,6].map(r=>`<polygon points="${P([ip(9.6,r),ip(9.8,r),ip(9.8,r+1.2),ip(9.6,r+1.2)])}" fill="#f2d24b"/>`).join("");
+  // car driving south
+  const car=`<g>${lbox(-.18,-.34,.18,.34,0,9,"#e8eef5","#c7d2de","#aab8c7")}${lbox(-.15,-.16,.15,.14,9,7,"#5f7d9c","#4b6886","#3e5872")}</g>`;
+  g+= reduce?`<g transform="translate(${ip(9.7,4)[0]} ${ip(9.7,4)[1]})">${car}</g>`:`<g>${car}<animateMotion dur="7s" repeatCount="indefinite" path="M${ip(9.7,-3.5).join(",")} L${ip(9.7,9.5).join(",")}"/></g>`;
+  // plaza base slab
+  g+=`<polygon points="${P([ip(-.12,-.12),ip(8.12,-.12),ip(8.12,6.12),ip(-.12,6.12)])}" fill="#bfae95"/>`;
+  // tiles, back to front
+  const tm=tileMap(S.a), order=[...tm.keys()].sort((a,b)=>{const[x1,y1]=tileCR(a),[x2,y2]=tileCR(b);return (x1+y1)-(x2+y2)||x1-x2;});
+  g+=`<g id="tiles">${order.map(t=>{const[c,r]=tileCR(t),[x,y]=ip(c+.5,r+.5);return `<g id="tl_${t}" data-u="${tm[t]}" transform="translate(${x.toFixed(1)} ${y.toFixed(1)})"><g class="tc">${tileArt(tm[t],t)}</g></g>`;}).join("")}</g>`;
+  // walkers along the Wentworth St frontage and across from the crossing
+  g+=`<g id="walkers">${walkers(reduce)}</g>`;
+  // south: new Council building, cut away so the square stays visible
+  g+=isoBox(-3.4,6.5,8,8.4,0,12,"#e6dccb","#cdbfa8","#b7a88f")+`<polygon points="${P([ip(-3.4,8.4,12),ip(8,8.4,12),ip(8,8.4,96),ip(-3.4,8.4,96)])}" fill="none" stroke="rgba(60,80,110,.35)" stroke-dasharray="5 4"/><polygon points="${P([ip(8,6.5,12),ip(8,8.4,12),ip(8,8.4,96),ip(8,6.5,96)])}" fill="none" stroke="rgba(60,80,110,.35)" stroke-dasharray="5 4"/>`;
+  // night
+  g+=`<polygon id="nightVeil" points="${P([ip(-6,-6,200),ip(14,-6,200),ip(14,12),ip(-6,12)])}" fill="#0b1633" style="opacity:${S.night?.55:0}"/>`;
+  g+=`<g id="glows" class="glow">${glows()}</g><g id="nameplates">${nameplates()}</g>`;
+  // edge labels and quests
+  const lab=(t,[x,y],o="")=>`<text class="elab" x="${x}" y="${y}" text-anchor="middle" ${o}>${esc(t)}</text>`;
+  g+=lab(L("北 · 历史联排楼（餐饮）","N · heritage townhouse (dining)"),ip(3.6,-1.4,64));
+  g+=lab(L("西 · Council 新楼 · 文化空间","W · Council building · cultural space"),ip(-1.9,2,132));
+  g+=lab(L("南 · Council 新楼（餐饮界面）","S · new Council building (active edge)"),ip(2.3,7.5,28));
+  g+=lab(L("Wentworth St · 单向南行","Wentworth St · one-way south"),ip(10.75,4.6,0),`transform="rotate(-26.6 ${ip(10.75,4.6)[0]} ${ip(10.75,4.6)[1]})"`);
+  g+=lab(L("抬高横道 · Rivoli Way","raised crossing · Rivoli Way"),ip(10.2,1.5,-16));
+  g+=quest(...ip(4,3,96),1,"square",L("广场","The square"))+quest(...ip(9.6,.6,40),2,"street",L("街道","Street"))+quest(...ip(3.6,-1.4,96),3,"north",L("周边建筑","Buildings"))+quest(...ip(5.5,7.4,60),4,"below",L("地下","Below"));
+  // compass: north points up-right in this view
+  const VBX=-395,VBY=-240,VBW=850,VBH=520, nx=VBX+34, ny=VBY+VBH-34;
+  g+=`<g transform="translate(${nx} ${ny})"><circle r="16" fill="rgba(255,255,255,.85)" stroke="#9aa"/><path d="M0 0 ${(ISO.HW*.4).toFixed(1)} ${(-ISO.HH*.4).toFixed(1)}" stroke="#13202e" stroke-width="2.5" /><text x="18" y="-12" font-size="12" font-weight="800" fill="#13202e">N</text></g>`;
+  return `<svg class="iso" id="isoSvg" viewBox="${VBX} ${VBY} ${VBW} ${VBH}" role="img" aria-label="${L("Woodhouse Square 2.5D 示意","Woodhouse Square 2.5D view")}">${g}</svg>`;
+}
+function walkers(reduce){
+  const walkC=[];tileMap(S.a).forEach((u,t)=>{if(u==="walk"){const c=tileCR(t)[0];if(!walkC.includes(c))walkC.push(c);}});
+  const n=Math.max(1,Math.min(6,Math.round(S.a.walk/60))), cols=["#2c5aa0","#e2583e","#4f9a5b","#8a63b8","#d08a2c","#13202e"];
+  let s="";
+  for(let i=0;i<n;i++){
+    const c=(walkC.length?walkC[i%walkC.length]:7.6)+.5+(i%2?.18:-.18), down=i%2===0;
+    const a=ip(c,-.1),b=ip(c,6.1),from=down?a:b,to=down?b:a,[sx,sy]=ip(c,1+i*.8);
+    s+=reduce?person(sx,sy,cols[i%6]):`<g>${person(0,0,cols[i%6])}<animateMotion dur="${9+i*1.7}s" begin="-${i*2.3}s" repeatCount="indefinite" path="M${from.join(",")} L${to.join(",")}"/></g>`;
+  }
+  // one person crossing from the raised crossing into the square
+  if(!reduce){const a=ip(10.4,1.5),b=ip(1,1.5);s+=`<g>${person(0,0,"#e2583e")}<animateMotion dur="14s" repeatCount="indefinite" path="M${a.join(",")} L${b.join(",")}"/></g>`;}
+  return s;
+}
+function glows(){ // drawn above the night veil so lights read at night
+  const G={events:[0,-20,24,"gWarm"],culture:[0,-28,22,"gRed"],smart:[11,-40,30,"gWarm"]};
+  return tileMap(S.a).map((u,t)=>{const q=G[u];if(!q)return"";const[c,r]=tileCR(t),[x,y]=ip(c+.5,r+.5);return `<circle cx="${(x+q[0]).toFixed(1)}" cy="${(y+q[1]).toFixed(1)}" r="${q[2]}" fill="url(#${q[3]})"/>`;}).join("");
+}
+function nameplates(){
+  const tm=tileMap(S.a);let s="";
+  ["green","active","smart","move"].forEach(gk=>{const ts=tm.map((u,t)=>[u,t]).filter(([u])=>MODULES.find(m=>m.id===u).g===gk).map(([,t])=>tileCR(t));if(!ts.length)return;
+    const cx=ts.reduce((a,b)=>a+b[0],0)/ts.length+.5,cy=ts.reduce((a,b)=>a+b[1],0)/ts.length+.5,[x,y]=ip(cx,cy,gk==="green"?78:56);
+    s+=plate(x,y,`${T(GROUPS[gk])} ${pct(gsum(gk))}%`,GROUPS[gk].c);});
+  return s;
+}
+/* live update: only tiles whose use changed are redrawn, with a pop-in */
+function isoUpdate(){
+  const svg=document.getElementById("isoSvg"); if(!svg) return;
+  const tm=tileMap(S.a);
+  tm.forEach((u,t)=>{const el=document.getElementById("tl_"+t); if(!el||el.dataset.u===u) return; el.dataset.u=u;
+    el.innerHTML=`<g class="tc pop">${tileArt(u,t)}</g>`;});
+  const reduce=window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches;
+  document.getElementById("walkers").innerHTML=walkers(reduce);
+  document.getElementById("nameplates").innerHTML=nameplates();
+  document.getElementById("glows").innerHTML=glows();
+}
+function isoGrow(){const s=crownScale();document.querySelectorAll("#isoSvg .crown,#isoSvg .shd").forEach(e=>e.style.transform=`scale(${s})`);}
+function isoNight(){const v=document.getElementById("nightVeil");if(v)v.style.opacity=S.night?.55:0;const svg=document.getElementById("isoSvg");if(svg)svg.classList.toggle("night",!!S.night);}
+
+/* ---------- pictogram results (values from computeV; Scenario 0 vs yours) ---------- */
+function costSplit(a,year){const yrs=year-2026;const b=[0,1].map(i=>MODULES.reduce((s,m)=>s+a[m.id]*COEF.capex[m.id][i],0)/1000),u=[0,1].map(i=>MODULES.reduce((s,m)=>s+a[m.id]*COEF.opex[m.id][i]*yrs,0)/1000);return {b,u};}
+function picto(id,v,opt={}){
+  const c=opt.grey?"#8e9bab":opt.c||"var(--accent)", W=150,H=86; let g="";
+  const lo=v[0],hi=v[1];
+  if(id==="shade"){const n=48,a=Math.round(lo/25),b=Math.round(hi/25);for(let t=0;t<n;t++){const col=Math.floor(t/6),row=t%6;const f=t<a?c:t<b?c:"var(--surface-2)";g+=`<rect x="${4+col*18}" y="${4+row*13}" width="16" height="11" rx="2" fill="${f}" fill-opacity="${t<a?1:t<b?.4:1}"/>`;}}
+  else if(id==="storm"){const max=opt.max||Math.max(hi,1);const hl=70*lo/max,hh=70*hi/max;g+=`<rect x="45" y="8" width="60" height="72" rx="8" fill="var(--surface-2)" stroke="var(--line)"/><rect x="47" y="${78-hh}" width="56" height="${hh}" rx="6" fill="${c}" fill-opacity=".35"/><rect x="47" y="${78-hl}" width="56" height="${hl}" rx="6" fill="${c}"/><path d="M118 30c0 0-8 9-8 14a8 8 0 0 0 16 0c0-5-8-14-8-14z" fill="${c}"/>`;}
+  else if(id==="econ"){const unit=opt.unit||25,a=Math.round(lo/unit),b=Math.min(40,Math.round(hi/unit));for(let i=0;i<b;i++){const x=6+(i%10)*14,y=8+Math.floor(i/10)*20;g+=`<g opacity="${i<a?1:.3}"><circle cx="${x+5}" cy="${y+3}" r="3" fill="${c}"/><rect x="${x+1}" y="${y+7}" width="8" height="9" rx="3" fill="${c}"/></g>`;}}
+  else if(id==="access"){g+=`<rect x="6" y="8" width="138" height="72" rx="6" fill="var(--surface-2)"/>`;const hl=72*lo/100,hh=72*hi/100;g+=`<rect x="6" y="${44-hh/2}" width="138" height="${hh}" fill="${c}" fill-opacity=".3"/><rect x="6" y="${44-hl/2}" width="138" height="${hl}" fill="${c}"/>`+[0,1,2,3].map(i=>person(28+i*30,50+(i%2?-6:4),"#fff",.8)).join("");}
+  else if(["safety","incl","culture"].includes(id)){const ang=p=>Math.PI*(1-p/100),pt=(p,r)=>[75+r*Math.cos(ang(p)),78-r*Math.sin(ang(p))];const arc=(p0,p1,r)=>{const[a,b]=pt(p0,r),[x,y]=pt(p1,r);return `M${a} ${b}A${r} ${r} 0 0 1 ${x} ${y}`;};
+    g+=`<path d="${arc(0,100,58)}" stroke="var(--surface-2)" stroke-width="14" fill="none"/><path d="${arc(Math.max(0,lo),Math.min(100,hi),58)}" stroke="${c}" stroke-width="14" fill="none"/><path d="M${pt(50,46).join(" ")}L${pt(50,70).join(" ")}" stroke="var(--fg)" stroke-width="2"/><text x="75" y="76" text-anchor="middle" font-size="18" font-weight="700" fill="var(--fg)">${fmt((lo+hi)/2)}</text>`;}
+  else if(id==="cost"){const s=opt.split,unit=250,nb=[0,1].map(i=>Math.round(s.b[i]/unit)),nu=[0,1].map(i=>Math.round(s.u[i]/unit));let x=6;const blk=(n0,n1,col)=>{let o="";for(let i=0;i<n1;i++){const col_=Math.floor(x/1);o+=`<rect x="${6+(i%12)*11.5}" y="${70-Math.floor(i/12)*13}" width="10" height="11" rx="2" fill="${col}" fill-opacity="${i<n0?1:.3}"/>`;}return o;};
+    g+=`<g>${blk(nb[0],nb[1],c)}</g><g transform="translate(0 -${(Math.ceil(nb[1]/12)||1)*13+4})">${blk(nu[0],nu[1],opt.grey?"#b7c0cc":"#d08a2c")}</g>`;}
+  else if(id==="carbon"){const unit=20,a=Math.round(lo/unit),b=Math.min(18,Math.round(hi/unit));for(let i=0;i<b;i++){const x=8+(i%6)*23,y=14+Math.floor(i/6)*24;g+=`<path d="M${x} ${y+12}h16a5 5 0 0 0-1-10 7 7 0 0 0-13 1 5 5 0 0 0-2 9z" fill="${opt.grey?"#8e9bab":"#7d8794"}" opacity="${i<a?1:.3}"/>`;}}
+  return `<svg class="pic" viewBox="0 0 ${W} ${H}" aria-hidden="true">${g}</svg>`;
+}
+const PIC_UNIT={shade:L=>L("1 格 = 25 m²","1 cell = 25 m²"),storm:L=>L("水位 = 低–高","Level = low–high"),econ:L=>L("1 人形 = 25 人","1 figure = 25 people"),access:L=>L("路带宽 = 畅通比例","Band = clear share"),safety:L=>L("相对指数，方案 0 = 50","Index, Scenario 0 = 50"),incl:L=>L("相对指数，方案 0 = 50","Index, Scenario 0 = 50"),culture:L=>L("相对指数，方案 0 = 50","Index, Scenario 0 = 50"),cost:L=>L("1 块 = $25 万（下排建设，上排维护）","1 block = $250k (build below, upkeep above)"),carbon:L=>L("1 朵 = 20 t CO₂e","1 cloud = 20 t CO₂e")};
+
+const LINKS={a:"https://claude.ai/artifact/E7HJdjbHXSentsRVeYrJee",b:"https://claude.ai/artifact/DbxzwqUbYwjksB1Gu59wCk",c:"https://claude.ai/artifact/RAJFSc62YGg2xVRLvAUVkU"};
+const OPTS=()=>[
+ {id:"a",file:"a-studio.html",k:"A",t:L("A+B 互动工作台 · 2.5D","A+B Studio · 2.5D"),
+  th:`<i style="left:0;right:0;top:0;height:18px;background:var(--chrome);border-radius:0"></i><i style="left:8px;top:26px;width:30%;height:14px;background:#4f9a5b;opacity:.6"></i><i style="left:8px;top:44px;width:30%;height:14px;background:#d08a2c;opacity:.6"></i><i style="left:8px;top:62px;width:30%;height:14px;background:#3f7cc0;opacity:.6"></i><i style="left:8px;top:80px;width:30%;height:14px;background:#8a63b8;opacity:.6"></i><i style="right:8px;top:26px;width:58%;height:86px;background:linear-gradient(180deg,#dff0f7,#eef5e9);border:1px solid var(--line)"></i><i style="right:24%;top:46px;width:18%;height:34px;background:#d08a2c;transform:skewY(-26deg);opacity:.7"></i><i style="right:12%;top:40px;width:12%;height:40px;background:#4f9a5b;transform:skewY(-26deg);opacity:.7"></i>`,
+  p:[L("往下滑先讲故事（来自 B）：地图随滚动缩放高亮，再讲三件事和 Council 的决策经过。","It opens as a scroll story (from B): the map reframes and highlights as you scroll, then the three items and Council's decision path."),
+     L("然后进入 2.5D 游戏风格的广场：48 块地砖随滑杆实时换成树、夜市摊、座椅、步行道，树冠随年份长大，可切换夜市夜景。","Then a game-style 2.5D square: 48 tiles turn into trees, market stalls, benches and paths as you drag; crowns grow by year; a night-market view."),
+     L("结果可在“对比条”（和方案 0 比）和“图示”之间切换；三个大标签保留 Council 后台和证据台账。","Results switch between comparison bars against Scenario 0 and pictograms; the three big tabs keep the Council backend and evidence ledger.")],
+  m:[L("页面最长，现场演示要用顶部章节条跳转。","It is the longest page, so a live demo uses the chapter bar to jump."),
+     L("2.5D 广场是示意，不是设计方案；地块分区按比例自动排布。","The 2.5D square is indicative, not a design; zones are laid out automatically by share.")],
+  best:L("最适合：明天的 3 分钟演示，讲故事加动手。","Best for: tomorrow's 3-minute demo, story plus hands-on.")},
+ {id:"b",file:"b-scroll.html",k:"B",t:L("故事卷轴 Scrollytelling","Scrollytelling"),
+  th:`<i style="left:0;right:0;top:0;height:34px;background:var(--chrome);border-radius:0"></i><i style="left:8px;top:42px;width:52%;height:70px;background:var(--map-bld)"></i><i style="left:24%;top:62px;width:10%;height:18px;background:var(--accent)"></i><i style="right:8px;top:52px;width:36%;height:40px;background:var(--surface);border:1px solid var(--line)"></i>`,
+  p:[L("按讲稿顺序走：在哪 → 三件事 → Council 已定了什么 → 留给你的 → 试分 → 意见，3 分钟刚好讲完。","Follows a pitch script: where, the three items, what Council decided, what is left, try a split, give feedback. It fits in 3 minutes."),
+     L("地图跟着滚动缩放、高亮停车场、唐人街、单向街道。","The map zooms and highlights the car park, Chinatown and one-way streets as you scroll."),
+     L("最适合录屏：往下滚就是完整故事，不需要点来点去。","Best for a screen recording: scrolling tells the whole story.")],
+  m:[L("想跳到某一段要靠顶部章节链接，现场被提问时不如 A 灵活。","Jumping around relies on chapter links, so it is less flexible than A for questions."),
+     L("Council 后台只放在结尾的折叠区里，分量最轻。","The Council view sits in folded sections at the end and gets the least weight.")],
+  best:L("最适合：录视频或按稿讲。","Best for: a recorded video or scripted pitch.")},
+ {id:"c",file:"c-map.html",k:"C",t:L("地图优先 Map-first","Map-first"),
+  th:`<i style="inset:0;background:var(--map-bg);border-radius:0"></i><i style="left:30%;top:20%;width:40%;height:60%;background:var(--map-bld)"></i><i style="left:8px;top:8px;width:26%;height:104px;background:var(--surface);border:1px solid var(--line)"></i><i style="right:8px;top:8px;width:28%;height:40px;background:var(--surface);border:1px solid var(--line)"></i><i style="right:8px;top:54px;width:28%;height:58px;background:var(--surface);border:1px solid var(--line)"></i><i style="left:52%;top:46%;width:12px;height:12px;border-radius:50%;background:var(--accent)"></i><i style="left:40%;top:30%;width:12px;height:12px;border-radius:50%;background:var(--accent)"></i>`,
+  p:[L("真实 OSM 底图铺满屏幕，五个编号热点点开就是带来源的证据卡，最像规划师用的工具。","A full-screen OSM base map with five numbered hotspots that open sourced evidence cards. It feels most like a planner's tool."),
+     L("广场在地图上按你的分法实时变色，KPI 浮在地图右上。","The square on the map recolours with your split; KPIs float top-right."),
+     L("建筑和规划背景的评委最容易认可空间逻辑。","Judges with design or planning backgrounds will read the spatial logic fastest.")],
+  m:[L("手机上地图缩小、面板往下堆，单手操作不如 A。","On phones the map shrinks and panels stack, which is less comfortable than A."),
+     L("没有固定讲述顺序，讲者要自己带节奏。","There is no built-in order, so the presenter sets the pace.")],
+  best:L("最适合：给规划/建筑背景的评委看空间关系。","Best for: showing spatial logic to planning-minded judges.")}
+];
+function render(){
+  document.documentElement.lang=S.lang==="zh"?"zh-CN":"en";
+  document.getElementById("h1").textContent=L("三个设计方向，选一个交","Three design directions to choose from");
+  document.getElementById("lede").textContent=L("内容、来源和模型完全一样（构建时从同一个原型里取），只换了界面和讲法。每个版本都支持中英文、深浅色和手机宽度。","Content, sources and model are identical, taken from the same prototype at build time. Only the interface and the storytelling change. Each supports Chinese and English, light and dark, and phone width.");
+  document.getElementById("toggles").innerHTML=`<div style="display:flex;gap:6px">${langToggle()}${themeBtn()}</div>`;
+  document.getElementById("foot").innerHTML=footHTML();
+  document.getElementById("main").innerHTML=`<section class="opts">${OPTS().map(o=>`<article class="card opt"><div class="k">${L("版本","OPTION")} ${o.k}</div><h2>${o.t}</h2><div class="thumb" aria-hidden="true">${o.th}</div>
+     <div class="pc plus">${o.p.map(x=>`<div><b>+</b><span>${x}</span></div>`).join("")}</div>
+     <div class="pc minus">${o.m.map(x=>`<div><b>−</b><span>${x}</span></div>`).join("")}</div>
+     <p class="best">${o.best}</p>
+     <div class="links">${/^https:/.test(LINKS[o.id])?`<a class="btn primary" href="${LINKS[o.id]}" target="_blank" rel="noopener">${L("打开在线版本","Open online version")} ↗</a>`:""}${location.protocol==="file:"?`<a class="btn" href="${o.file}">${L("打开本地文件","Open local file")}</a>`:""}</div></article>`).join("")}</section>
+   <section class="card rec"><h2>${L("建议：3 分钟演示用 A+B 2.5D 版","Recommendation: use the A+B 2.5D version for the 3-minute demo")}</h2>
+     <p>${L("讲稿顺序：开场一句话（10 秒）→ 往下滑地图，讲在哪、Council 已定什么（50 秒）→ 到 2.5D 广场拉滑杆，切 2050 年看树长大、切夜市看灯光（60 秒）→ 切“对比条”看和方案 0 的差别（30 秒）→ 点一个黄色标记或绿色来源标签，展示原文出处，再切到 Council 后台（30 秒）。","Script: one opening line (10 s), scroll the map for where it is and what Council decided (50 s), drag sliders in the 2.5D square, switch to 2050 and to night (60 s), open the comparison bars against Scenario 0 (30 s), then tap a yellow marker or green source chip and switch to the Council backend (30 s).")}</p>
+     <p style="margin:0">${L("如果要录视频，可以用 B 的顺序做讲稿；C 可以作为“下一步：接入 Council GIS”的展望截图。","If you record a video, use B's order as the script. C makes a good screenshot for a next step of connecting to Council GIS.")}</p></section>
+   <section class="card"><h2 style="font-size:18px;margin-bottom:8px">${L("三个版本共同遵守的规则","Rules all three follow")}</h2><ul class="rules">
+     <li>${L("每条 Council 事实都有来源标签（S1–S5 加页码），点开看原文。","Every Council fact has a source chip (S1–S5 plus page) that opens the original quote.")} ${chip("S2","p.23","sq1")}</li>
+     <li>${L("系数和方案 0 的比例一律标“假设”。","Coefficients and the Scenario 0 split are always labelled as assumptions.")} ${ASSUME()}</li>
+     <li>${L("交通影响一律显示“等待 Council 交通研究”。","Traffic effects always show that they await Council's traffic study.")} ${TRAFFIC_WAIT()}</li>
+     <li>${L("不用 Gemini 演示里查不到来源的数字，也不用 City of Parramatta 的标志。","No unsourced numbers from the Gemini demo and no City of Parramatta branding.")}</li>
+     <li>${L("Council 演示视图写明：条目由团队核对，不是 Council 批准的。","The demo Council view states that entries were team-checked, not Council-approved.")}</li></ul></section>`;
+}
+bindCommon({render,live:()=>{}});
+render();
+</script>

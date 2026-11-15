@@ -1,0 +1,93 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>CivicAlign Design Options</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&family=Space+Grotesk:wght@500;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/*__BASE_CSS__*/
+/* Layout: navy header, three option cards side by side (stacked on phones), shared rules, recommendation. */
+.top{background:var(--chrome);color:var(--chrome-fg)}
+.top .wrap{padding-block:28px 30px}
+.top h1{font-size:clamp(26px,4vw,40px);line-height:1.1}
+.top p{color:var(--chrome-mut);max-width:62ch;margin-top:8px}
+main{padding-block:24px 40px;display:grid;gap:22px}
+.opts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+@media (max-width:900px){.opts{grid-template-columns:1fr}}
+.opt{display:flex;flex-direction:column;gap:10px}
+.opt .k{font-family:var(--f-mono);font-size:12px;color:var(--accent);letter-spacing:.06em}
+.opt h2{font-size:22px}
+.thumb{height:120px;border-radius:10px;background:var(--surface-2);position:relative;overflow:hidden;border:1px solid var(--line)}
+.thumb i{position:absolute;display:block;border-radius:4px}
+.pc{display:grid;gap:6px;font-size:14px}
+.pc div{display:grid;grid-template-columns:22px minmax(0,1fr);gap:4px}
+.pc b{font-family:var(--f-mono)}
+.plus b{color:var(--fact)} .minus b{color:var(--gap)}
+.links{display:flex;flex-wrap:wrap;gap:8px;margin-top:auto}
+.links a{text-decoration:none}
+.best{font-size:13px;color:var(--muted)}
+.rec{border:2px solid var(--accent);background:var(--accent-soft)}
+.rec h2{font-size:20px;margin-bottom:6px}
+ul.rules{margin:0;padding-left:18px;display:grid;gap:4px;font-size:14px}
+</style>
+<header class="top"><div class="wrap">
+  <div class="eyebrow" style="color:#8fe0c4">CivicAlign · Challenge 4 · 2026-11-16</div>
+  <h1 id="h1"></h1><p id="lede"></p>
+  <div style="margin-top:12px" id="toggles"></div>
+</div></header>
+<main class="wrap" id="main"></main>
+<footer class="foot"><div class="wrap" id="foot"></div></footer>
+<div id="drawerHost"></div>
+<script>
+/*__NOMAP__*/
+/*__CORE__*/
+const LINKS={a:"__URL_A__",b:"__URL_B__",c:"__URL_C__"};
+const OPTS=()=>[
+ {id:"a",file:"a-studio.html",k:"A",t:L("A+B 互动工作台 · 2.5D","A+B Studio · 2.5D"),
+  th:`<i style="left:0;right:0;top:0;height:18px;background:var(--chrome);border-radius:0"></i><i style="left:8px;top:26px;width:30%;height:14px;background:#4f9a5b;opacity:.6"></i><i style="left:8px;top:44px;width:30%;height:14px;background:#d08a2c;opacity:.6"></i><i style="left:8px;top:62px;width:30%;height:14px;background:#3f7cc0;opacity:.6"></i><i style="left:8px;top:80px;width:30%;height:14px;background:#8a63b8;opacity:.6"></i><i style="right:8px;top:26px;width:58%;height:86px;background:linear-gradient(180deg,#dff0f7,#eef5e9);border:1px solid var(--line)"></i><i style="right:24%;top:46px;width:18%;height:34px;background:#d08a2c;transform:skewY(-26deg);opacity:.7"></i><i style="right:12%;top:40px;width:12%;height:40px;background:#4f9a5b;transform:skewY(-26deg);opacity:.7"></i>`,
+  p:[L("往下滑先讲故事（来自 B）：地图随滚动缩放高亮，再讲三件事和 Council 的决策经过。","It opens as a scroll story (from B): the map reframes and highlights as you scroll, then the three items and Council's decision path."),
+     L("然后进入 2.5D 游戏风格的广场：48 块地砖随滑杆实时换成树、夜市摊、座椅、步行道，树冠随年份长大，可切换夜市夜景。","Then a game-style 2.5D square: 48 tiles turn into trees, market stalls, benches and paths as you drag; crowns grow by year; a night-market view."),
+     L("结果可在“对比条”（和方案 0 比）和“图示”之间切换；三个大标签保留 Council 后台和证据台账。","Results switch between comparison bars against Scenario 0 and pictograms; the three big tabs keep the Council backend and evidence ledger.")],
+  m:[L("页面最长，现场演示要用顶部章节条跳转。","It is the longest page, so a live demo uses the chapter bar to jump."),
+     L("2.5D 广场是示意，不是设计方案；地块分区按比例自动排布。","The 2.5D square is indicative, not a design; zones are laid out automatically by share.")],
+  best:L("最适合：明天的 3 分钟演示，讲故事加动手。","Best for: tomorrow's 3-minute demo, story plus hands-on.")},
+ {id:"b",file:"b-scroll.html",k:"B",t:L("故事卷轴 Scrollytelling","Scrollytelling"),
+  th:`<i style="left:0;right:0;top:0;height:34px;background:var(--chrome);border-radius:0"></i><i style="left:8px;top:42px;width:52%;height:70px;background:var(--map-bld)"></i><i style="left:24%;top:62px;width:10%;height:18px;background:var(--accent)"></i><i style="right:8px;top:52px;width:36%;height:40px;background:var(--surface);border:1px solid var(--line)"></i>`,
+  p:[L("按讲稿顺序走：在哪 → 三件事 → Council 已定了什么 → 留给你的 → 试分 → 意见，3 分钟刚好讲完。","Follows a pitch script: where, the three items, what Council decided, what is left, try a split, give feedback. It fits in 3 minutes."),
+     L("地图跟着滚动缩放、高亮停车场、唐人街、单向街道。","The map zooms and highlights the car park, Chinatown and one-way streets as you scroll."),
+     L("最适合录屏：往下滚就是完整故事，不需要点来点去。","Best for a screen recording: scrolling tells the whole story.")],
+  m:[L("想跳到某一段要靠顶部章节链接，现场被提问时不如 A 灵活。","Jumping around relies on chapter links, so it is less flexible than A for questions."),
+     L("Council 后台只放在结尾的折叠区里，分量最轻。","The Council view sits in folded sections at the end and gets the least weight.")],
+  best:L("最适合：录视频或按稿讲。","Best for: a recorded video or scripted pitch.")},
+ {id:"c",file:"c-map.html",k:"C",t:L("地图优先 Map-first","Map-first"),
+  th:`<i style="inset:0;background:var(--map-bg);border-radius:0"></i><i style="left:30%;top:20%;width:40%;height:60%;background:var(--map-bld)"></i><i style="left:8px;top:8px;width:26%;height:104px;background:var(--surface);border:1px solid var(--line)"></i><i style="right:8px;top:8px;width:28%;height:40px;background:var(--surface);border:1px solid var(--line)"></i><i style="right:8px;top:54px;width:28%;height:58px;background:var(--surface);border:1px solid var(--line)"></i><i style="left:52%;top:46%;width:12px;height:12px;border-radius:50%;background:var(--accent)"></i><i style="left:40%;top:30%;width:12px;height:12px;border-radius:50%;background:var(--accent)"></i>`,
+  p:[L("真实 OSM 底图铺满屏幕，五个编号热点点开就是带来源的证据卡，最像规划师用的工具。","A full-screen OSM base map with five numbered hotspots that open sourced evidence cards. It feels most like a planner's tool."),
+     L("广场在地图上按你的分法实时变色，KPI 浮在地图右上。","The square on the map recolours with your split; KPIs float top-right."),
+     L("建筑和规划背景的评委最容易认可空间逻辑。","Judges with design or planning backgrounds will read the spatial logic fastest.")],
+  m:[L("手机上地图缩小、面板往下堆，单手操作不如 A。","On phones the map shrinks and panels stack, which is less comfortable than A."),
+     L("没有固定讲述顺序，讲者要自己带节奏。","There is no built-in order, so the presenter sets the pace.")],
+  best:L("最适合：给规划/建筑背景的评委看空间关系。","Best for: showing spatial logic to planning-minded judges.")}
+];
+function render(){
+  document.documentElement.lang=S.lang==="zh"?"zh-CN":"en";
+  document.getElementById("h1").textContent=L("三个设计方向，选一个交","Three design directions to choose from");
+  document.getElementById("lede").textContent=L("内容、来源和模型完全一样（构建时从同一个原型里取），只换了界面和讲法。每个版本都支持中英文、深浅色和手机宽度。","Content, sources and model are identical, taken from the same prototype at build time. Only the interface and the storytelling change. Each supports Chinese and English, light and dark, and phone width.");
+  document.getElementById("toggles").innerHTML=`<div style="display:flex;gap:6px">${langToggle()}${themeBtn()}</div>`;
+  document.getElementById("foot").innerHTML=footHTML();
+  document.getElementById("main").innerHTML=`<section class="opts">${OPTS().map(o=>`<article class="card opt"><div class="k">${L("版本","OPTION")} ${o.k}</div><h2>${o.t}</h2><div class="thumb" aria-hidden="true">${o.th}</div>
+     <div class="pc plus">${o.p.map(x=>`<div><b>+</b><span>${x}</span></div>`).join("")}</div>
+     <div class="pc minus">${o.m.map(x=>`<div><b>−</b><span>${x}</span></div>`).join("")}</div>
+     <p class="best">${o.best}</p>
+     <div class="links">${/^https:/.test(LINKS[o.id])?`<a class="btn primary" href="${LINKS[o.id]}" target="_blank" rel="noopener">${L("打开在线版本","Open online version")} ↗</a>`:""}${location.protocol==="file:"?`<a class="btn" href="${o.file}">${L("打开本地文件","Open local file")}</a>`:""}</div></article>`).join("")}</section>
+   <section class="card rec"><h2>${L("建议：3 分钟演示用 A+B 2.5D 版","Recommendation: use the A+B 2.5D version for the 3-minute demo")}</h2>
+     <p>${L("讲稿顺序：开场一句话（10 秒）→ 往下滑地图，讲在哪、Council 已定什么（50 秒）→ 到 2.5D 广场拉滑杆，切 2050 年看树长大、切夜市看灯光（60 秒）→ 切“对比条”看和方案 0 的差别（30 秒）→ 点一个黄色标记或绿色来源标签，展示原文出处，再切到 Council 后台（30 秒）。","Script: one opening line (10 s), scroll the map for where it is and what Council decided (50 s), drag sliders in the 2.5D square, switch to 2050 and to night (60 s), open the comparison bars against Scenario 0 (30 s), then tap a yellow marker or green source chip and switch to the Council backend (30 s).")}</p>
+     <p style="margin:0">${L("如果要录视频，可以用 B 的顺序做讲稿；C 可以作为“下一步：接入 Council GIS”的展望截图。","If you record a video, use B's order as the script. C makes a good screenshot for a next step of connecting to Council GIS.")}</p></section>
+   <section class="card"><h2 style="font-size:18px;margin-bottom:8px">${L("三个版本共同遵守的规则","Rules all three follow")}</h2><ul class="rules">
+     <li>${L("每条 Council 事实都有来源标签（S1–S5 加页码），点开看原文。","Every Council fact has a source chip (S1–S5 plus page) that opens the original quote.")} ${chip("S2","p.23","sq1")}</li>
+     <li>${L("系数和方案 0 的比例一律标“假设”。","Coefficients and the Scenario 0 split are always labelled as assumptions.")} ${ASSUME()}</li>
+     <li>${L("交通影响一律显示“等待 Council 交通研究”。","Traffic effects always show that they await Council's traffic study.")} ${TRAFFIC_WAIT()}</li>
+     <li>${L("不用 Gemini 演示里查不到来源的数字，也不用 City of Parramatta 的标志。","No unsourced numbers from the Gemini demo and no City of Parramatta branding.")}</li>
+     <li>${L("Council 演示视图写明：条目由团队核对，不是 Council 批准的。","The demo Council view states that entries were team-checked, not Council-approved.")}</li></ul></section>`;
+}
+bindCommon({render,live:()=>{}});
+render();
+</script>

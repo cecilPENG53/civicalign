@@ -1,0 +1,211 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>CivicAlign Story</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&family=Space+Grotesk:wght@500;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/*__BASE_CSS__*/
+/* Layout (B · Scrollytelling): one narrative for a 3-minute pitch. A sticky base map on the left
+   reframes and highlights places as the steps scroll past; then deliverables, Council's decision path,
+   an inline allocation with live results, and feedback. */
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:40;background:var(--chrome)}
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:30;background:var(--chrome);color:var(--chrome-fg)}
+.bar .wrap{display:flex;align-items:center;gap:10px;padding-block:9px;flex-wrap:wrap}
+.bar .brand{font-family:var(--f-display);font-weight:700;font-size:17px;flex:1 1 auto;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bar .brand span{font-weight:500;color:var(--chrome-mut);font-size:13px;margin-left:8px}
+.prog{position:absolute;left:0;bottom:0;height:3px;background:#3fae8c;width:0}
+.chap{display:none;gap:4px}
+@media (min-width:900px){.chap{display:flex}}
+.chap a{color:var(--chrome-mut);text-decoration:none;font-size:12.5px;padding:3px 8px;border-radius:6px}
+.chap a.on{background:var(--chrome-3);color:var(--chrome-fg)}
+/* hero */
+.hero{background:var(--chrome);color:var(--chrome-fg)}
+.hero .wrap{padding-block:34px 38px;display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:28px;align-items:end}
+@media (max-width:820px){.hero .wrap{grid-template-columns:1fr;padding-block:24px 28px}}
+.hero h1{font-size:clamp(34px,6vw,64px);line-height:1.04;letter-spacing:-.02em}
+.hero h1 em{font-style:normal;color:#8fe0c4}
+.hero p.lede{color:var(--chrome-mut);font-size:16.5px;max-width:52ch;margin-top:12px}
+.hero .facts{display:grid;gap:8px}
+.hero .fact{border-top:1px solid var(--chrome-3);padding-top:8px;font-size:14px}
+.hero .fact b{font-family:var(--f-display);font-size:22px;display:block;color:#fff}
+.hero .src{background:rgba(143,224,196,.15);color:#8fe0c4}
+/* scrolly */
+.scrolly{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:28px;padding-block:28px}
+.mapwrap{position:sticky;top:calc(env(safe-area-inset-top,0px) + 62px);height:calc(100vh - 86px);min-height:420px;border-radius:16px;overflow:hidden;border:1px solid var(--line);background:var(--map-bg)}
+.mapwrap .key{position:absolute;left:10px;bottom:10px;right:10px;display:flex;flex-wrap:wrap;gap:6px 12px;font-size:12px;background:color-mix(in srgb,var(--surface) 88%,transparent);border-radius:8px;padding:6px 10px}
+.steps{display:grid;gap:0}
+.step{min-height:78vh;display:flex;align-items:center}
+.step:first-child{min-height:60vh}
+.step .card{box-shadow:var(--shadow);opacity:.45;transition:opacity .3s}
+.step.on .card{opacity:1}
+.step h3{font-size:21px;margin:4px 0 8px}
+.step .n{font-family:var(--f-mono);color:var(--accent);font-size:12px}
+@media (max-width:820px){
+  .scrolly{grid-template-columns:1fr;gap:0}
+  .mapwrap{height:44vh;min-height:260px;top:calc(env(safe-area-inset-top,0px) + 50px);z-index:5}
+  .step{min-height:72vh;align-items:flex-end;padding-bottom:6vh;position:relative;z-index:1}
+  .step:first-child{min-height:64vh}
+  .step .card{opacity:.6}
+}
+/* chapters */
+.ch{padding-block:44px 8px}
+.ch-h{max-width:760px;margin-bottom:18px}
+.ch-h .eyebrow{margin-bottom:6px}
+.ch-h h2{font-size:clamp(24px,3.4vw,34px);line-height:1.15;letter-spacing:-.01em}
+.ch-h p{color:var(--muted);margin-top:8px;font-size:15.5px}
+.deliv{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+@media (max-width:900px){.deliv{grid-template-columns:1fr}}
+.deliv h3{font-size:18px;display:flex;gap:8px;align-items:baseline}
+.deliv .num{font-family:var(--f-mono);color:var(--accent);font-size:13px}
+.deliv details{margin-top:8px}.deliv summary{cursor:pointer;color:var(--accent);font-size:13.5px;font-weight:500}
+.tl{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:0;position:relative;margin:8px 0 18px}
+.tl::before{content:"";position:absolute;left:0;right:0;top:9px;height:2px;background:var(--line)}
+.tl li{list-style:none;position:relative;padding:26px 10px 0 0;font-size:13.5px;line-height:1.45}
+.tl li::before{content:"";position:absolute;left:0;top:2px;width:16px;height:16px;border-radius:50%;background:var(--surface);border:3px solid var(--accent)}
+.tl li.dec::before{background:var(--accent)}
+.tl .d{font-family:var(--f-mono);font-size:11.5px;color:var(--muted);display:block}
+@media (max-width:900px){.tl{grid-template-columns:1fr;padding-left:0}.tl::before{left:7px;right:auto;top:0;bottom:0;width:2px;height:auto}.tl li{padding:0 0 12px 28px}.tl li::before{top:3px}}
+.split{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px}
+@media (max-width:820px){.split{grid-template-columns:1fr}}
+.split .yours{border:2px solid var(--accent);background:var(--accent-soft)}
+.split h3{font-size:17px;margin-bottom:6px}
+.alloc{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.3fr);gap:18px;align-items:start}
+@media (max-width:960px){.alloc{grid-template-columns:1fr}}
+.alloc .ctrl{display:grid;gap:12px}
+.alloc .viz{position:sticky;top:70px;display:grid;gap:10px}
+@media (max-width:960px){.alloc .viz{position:static}}
+.vh{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;flex-wrap:wrap}
+.vh b{font-family:var(--f-display);font-size:17px}
+.viz .kpis{grid-template-columns:repeat(2,minmax(0,1fr))}
+@media (max-width:480px){.viz .kpis{grid-template-columns:1fr}}
+.fit{font-family:var(--f-display);font-size:34px;font-weight:700;line-height:1}
+.two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px}
+@media (max-width:820px){.two{grid-template-columns:1fr}}
+.dpa{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+@media (max-width:480px){.dpa{grid-template-columns:1fr}}
+.dpac{background:var(--surface-2);border-radius:10px;padding:10px;min-width:0}
+.dpac b{font-family:var(--f-mono);color:var(--accent)} .dpac span{display:block;font-size:12.5px;font-weight:500}
+.dpac .big{font-family:var(--f-display);font-size:22px;font-weight:700;font-variant-numeric:tabular-nums}
+.dpac small{display:block;color:var(--muted);font-size:11.5px;line-height:1.35}
+.roles{display:flex;flex-wrap:wrap;gap:6px}
+.roles button{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:4px 12px;font-size:13px}
+.roles button[aria-pressed="true"]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.persona-note{background:var(--surface-2);border-radius:10px;padding:10px 12px;font-size:14.5px;margin-top:10px}
+.end{background:var(--chrome);color:var(--chrome-fg);border-radius:16px;padding:20px;margin-top:18px}
+.end h3{font-size:19px;margin-bottom:6px}
+.end p{color:var(--chrome-mut)}
+.end details{margin-top:10px}.end summary{cursor:pointer;color:#8fe0c4}
+.end .scroll{background:var(--surface);color:var(--fg);border-radius:10px;margin-top:8px}
+.thr{display:flex;align-items:center;gap:12px;margin:8px 0}
+.thrn{font-family:var(--f-display);font-size:30px;font-weight:700;line-height:1}.thrn small{font-size:14px;color:var(--chrome-mut)}
+.thrbar{flex:1;height:10px;border-radius:5px;background:var(--chrome-3);overflow:hidden}.thrbar span{display:block;height:100%;background:#3fae8c}
+</style>
+
+<div class="bar"><div class="wrap">
+  <div class="brand">CivicAlign<span id="sub"></span></div>
+  <nav class="chap" id="chap" aria-label="Chapters"></nav>
+  <div id="toggles" style="display:flex;gap:6px"></div>
+</div><div class="prog" id="prog"></div></div>
+<div class="disc"><div class="wrap" id="notice"></div></div>
+<div id="app"></div>
+<footer class="foot"><div class="wrap" id="foot"></div></footer>
+<div id="drawerHost"></div>
+
+<script>
+/*__MAP__*/
+/*__CORE__*/
+
+/* ===== B · Scrollytelling ===== */
+const VB={phase:[-185,-200,440,530],council:[-140,-40,250,250],square:[-110,-20,220,200],china:[-215,-110,270,320],traffic:[-160,-110,290,300]};
+const STEPS=()=>[
+ {k:"phase",n:"01",h:L("这是第一期范围","This is the Phase 1 area"),
+  b:`${L("Parramatta 车站南边的 CBD South。总规草案第一期覆盖虚线范围。","CBD South, just south of Parramatta Station. The draft master plan's Phase 1 covers the dashed area.")} ${chip("S2","")}<br>${L("Council 用三件事向居民介绍它：新市民广场、唐人街夜生活、为行人改造交通。","Council presents it to residents through three items: a new city square, a Chinatown nightlife destination, and traffic changes for pedestrians.")} ${chip("S3","")}`},
+ {k:"council",n:"02",h:L("Council 自己的地","Council's own land"),
+  b:`${claimsById(["tr3","tr8"])}`},
+ {k:"square",n:"03",h:L("在这块地上：1,200 m² 新广场","On that land: a new 1,200 m² square"),
+  b:`${claimsById(["sq1","sq2","sq9"])}`},
+ {k:"china",n:"04",h:L("Church St：唐人街","Church St: Chinatown"),
+  b:`${claimsById(["ct1","ct2","ct4"])}`},
+ {k:"traffic",n:"05",h:L("街道为行人改造","Streets changed for walking"),
+  b:`${claimsById(["tr1","tr2","tr4","tr6"])}`}
+];
+let curStep="phase";
+
+function chromeB(){
+  document.documentElement.lang=S.lang==="zh"?"zh-CN":"en";
+  document.getElementById("sub").textContent=L("Woodhouse Square 的故事","The Woodhouse Square story");
+  document.getElementById("toggles").innerHTML=langToggle()+themeBtn();
+  document.getElementById("chap").innerHTML=[["c-map",L("地图","Map")],["c-three",L("三件事","Three items")],["c-path",L("决策经过","Decisions")],["c-try",L("你来分","Your split")],["c-say",L("你的意见","Your say")]].map(([id,t])=>`<a href="#${id}" data-chap="${id}">${t}</a>`).join("");
+  document.getElementById("notice").innerHTML=noticeHTML();
+  document.getElementById("foot").innerHTML=footHTML();
+}
+function hero(){return `<section class="hero"><div class="wrap">
+  <div><div class="eyebrow" style="color:#8fe0c4">CBD South Parramatta · ${L("三分钟","3 minutes")}</div>
+   <h1>${L("一块新广场，<em>1,200&nbsp;m²</em>，你来分。","One new square, <em>1,200&nbsp;m²</em>, and you share it out.")}</h1>
+   <p class="lede">${L("Council 已经定了做广场、放在哪里。还没定的是广场里面怎么分。往下滑：先看总规说了什么，再试试你的分法。","Council has decided to build a square and where it goes. How the space inside is shared is still open. Scroll to see what the plan says, then try your own split.")}</p></div>
+  <div class="facts">
+   <div class="fact"><b>1,200 m²</b>${L("新广场面积，临 Wentworth St","New square, fronting Wentworth St")} ${chip("S2","p.23","sq1")}</div>
+   <div class="fact"><b>${L("3 件事","3 items")}</b>${L("广场、唐人街、交通","Square, Chinatown, traffic")} ${chip("S3","")}</div>
+   <div class="fact"><b>${L("未给面积","No areas given")}</b>${L("总规列了用途，没给各占多少","The plan lists uses, not their sizes")} <span class="tag t-gap">${L("证据空白","Evidence gap")}</span></div>
+  </div></div></section>`;}
+function scrolly(){return `<section class="wrap scrolly" id="c-map" aria-label="${L("地图故事","Map story")}">
+  <div class="mapwrap" id="mapwrap">${mapSVG2({vb:VB.phase,hl:"phase",alloc:true})}
+   <div class="key"><span><i class="sw" style="border:1.5px dashed var(--fg)"></i>${L("第一期范围","Phase 1 area")}</span><span><i class="sw" style="background:var(--infer)"></i>${L("车站停车场（Council 用地）","Station car park (Council land)")}</span><span><i class="sw" style="background:var(--accent)"></i>${L("广场（大致位置，色块是你的分法）","Square (approximate; colours show your split)")}</span></div></div>
+  <div class="steps">${STEPS().map(s=>`<div class="step ${s.k===curStep?"on":""}" data-step="${s.k}"><div class="card"><span class="n">${s.n} / 05</span><h3>${s.h}</h3><div>${s.b}</div></div></div>`).join("")}</div>
+ </section>`;}
+function three(){return `<section class="wrap ch" id="c-three"><div class="ch-h"><div class="eyebrow">${L("第 1 章 · 总规说了什么","Chapter 1 · What the plan says")}</div><h2>${L("三件事，每一条都能点开看原文","Three items, every line opens to the original")}</h2>
+  <div class="roles" style="margin-top:12px" role="group" aria-label="${L("你的身份","Your role")}">${ROLES.map(r=>`<button data-role="${r.id}" aria-pressed="${S.role===r.id}">${T(r)}</button>`).join("")}</div></div>
+  <div class="deliv">${CARDS.map((c,i)=>`<article class="card"><h3><span class="num">${i+1}</span>${T(c)} ${chip(c.src,"")}</h3>
+   <div class="persona-note">${T(c.intro[S.role])} <span class="tag t-design">${L("团队预写","Team-written")}</span></div>
+   ${claimList(c.id,["planned"])}<details><summary>${L("还有：已排除、还没定、证据空白","More: ruled out, still open, gaps")}</summary>${claimList(c.id,["ruled","open","gap"])}</details>${reactRow(c.id)}</article>`).join("")}</div></section>`;}
+function path(){const tl=TIMELINE();return `<section class="wrap ch" id="c-path"><div class="ch-h"><div class="eyebrow">${L("第 2 章 · Council 怎么走到这一步","Chapter 2 · How Council got here")}</div><h2>${L("大方向已经定了，留给你的是广场里面","The big choices are made. What is left for you is inside the square.")}</h2></div>
+  <ol class="tl">${tl.map((t,i)=>`<li class="${i===2||i===4?"dec":""}"><span class="d">${t[0]}</span>${t[1]} ${t[2]}</li>`).join("")}</ol>
+  <div class="split"><div class="card"><h3>${L("Council 已经定了","Council has decided")}</h3>${claimsById(["sq6","sq7","sq8","ct5"])}</div>
+   <div class="card yours"><h3>${L("留给你的","Left for you")}</h3><p>${T(CLAIMS.find(c=>c.id==="sq12"))} <span class="tag t-gap">${L("来源里没有","No source has this")}</span></p><p class="small muted">${L("总规列出了用途：遮荫树、公共艺术、照明、可办夜市的灵活铺地、边缘餐饮、带座椅的种植池","The plan lists the uses: shade trees, public art, lighting, flexible paving for night markets, dining at the edges, planters with seating")} ${chip("S2","p.45","sq2")} ${chip("S2","p.45","sq3")}</p></div></div></section>`;}
+function vizInner(){return `<div class="vh"><div><b>Woodhouse Square · 1,200 m²</b> ${chip("S2","p.23","sq1")}<div class="small muted">${L("你的分法","Your split")} · ${S.year}</div></div>${yearButtons()}</div>${allocBar()}${plazaSVG2()}${plazaCaption()}`;}
+function tryIt(){return `<section class="wrap ch" id="c-try"><div class="ch-h"><div class="eyebrow">${L("第 3 章 · 换一种分法会怎样","Chapter 3 · What if it were shared differently")}</div><h2>${L("拉一拉：多给一项，其他几项就要让","Drag it: give one use more and the others give way")}</h2><p>${L("从方案 0 开始。它是我们按总规描述换算的比例，总规本身没给面积。","Start from Scenario 0, our reading of the plan's description. The plan itself gives no areas.")} ${ASSUME()}</p></div>
+  <div class="alloc"><div class="card ctrl">${presetButtons()}${groupCards()}${moduleRows()}<div><b class="small">${L("种树方式","Planting")}</b> <span class="tag t-infer">${L("深土待核实","Deep soil unconfirmed")}</span> ${chip("S2","p.49","tr8")}<div style="margin-top:6px">${plantButtons()}</div></div></div>
+   <div class="viz"><div class="card" id="vizArt">${vizInner()}</div><div id="kpiBox">${kpiCards()}</div></div></div>
+  <div class="card" style="margin-top:16px" id="resBox">${resInner()}</div></section>`;}
+function resInner(){const r=resultsRows();return `<div class="vh" style="margin-bottom:8px"><div><b>${L("全部 9 项结果","All 9 results")}</b> ${ASSUME()}<div class="small muted">${L("区间，不是预测。系数见下方“给 Council”。","Ranges, not forecasts. Coefficients are under “For Council” below.")}</div></div><div style="text-align:right"><div class="fit ${r.fit>0?"delta-up":r.fit<0?"delta-down":""}">${r.fit>0?"+":""}${r.fit}%</div><div class="small muted">${L("与 3 个优先项的契合度","Fit with 3 priorities")}</div></div></div>${resultsKey()}${r.rows}`;}
+function say(){const adv=["tr6","tr7","ct6","ct7","sq10"];return `<section class="wrap ch" id="c-say" style="padding-bottom:40px"><div class="ch-h"><div class="eyebrow">${L("第 4 章 · 你怎么看、谁负责","Chapter 4 · Your view and who decides")}</div><h2>${L("这块广场由谁来做？你想告诉 Council 什么？","Who delivers this square, and what do you want Council to hear?")}</h2></div>
+  <div class="two"><div class="card"><div id="dpaBox">${dpaCards()}</div><h3 style="font-size:15px;margin:14px 0 4px">${L("广场本身决定不了、要等别人的事","Outside the square's control")}</h3>${claimsById(adv)}</div>
+   <div class="card"><h3 style="font-size:17px;margin-bottom:8px">${L("你的意见","Your feedback")}</h3>${feedbackHTML()}</div></div>
+  <div class="end"><h3>${L("给 Council：这些意见到哪里去","For Council: where this feedback goes")}</h3><p>${TEAM_CHECKED()}</p>${subsPanel()}
+   <details><summary>${L("证据核对清单","Evidence ledger")} (${CLAIMS.length})</summary>${ledgerTable()}</details>
+   <details><summary>${L("模型系数（全部是假设）","Model coefficients (all assumptions)")}</summary><div class="scroll" style="padding:10px">${coefTable()}</div></details>
+   <details><summary>${L("总规原则检查 P1–P6 · 证据空白","Plan principles P1–P6 · evidence gaps")}</summary><div class="scroll" style="padding:10px" id="pBox">${pCheckList()}<h3 style="font-size:15px;margin-top:10px">${L("证据空白","Evidence gaps")}</h3>${gapsList()}</div></details></div></section>`;}
+
+let io=null;
+function render(){
+  chromeB();
+  const y=window.scrollY;
+  document.getElementById("app").innerHTML=hero()+scrolly()+three()+path()+tryIt()+say();
+  window.scrollTo(0,y);
+  observe();
+}
+function observe(){
+  if(io) io.disconnect();
+  const svg=document.querySelector("#mapwrap svg");
+  if(svg){svg.setAttribute("viewBox",VB[curStep].join(" "));setMapHL(svg,curStep);}
+  const mobile=matchMedia("(max-width:820px)").matches;
+  io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){const k=e.target.closest(".step").dataset.step;if(k===curStep)return;curStep=k;
+     document.querySelectorAll(".step").forEach(s=>s.classList.toggle("on",s.dataset.step===k));
+     const sv=document.querySelector("#mapwrap svg");setMapHL(sv,k);tweenVB(sv,VB[k]);}});},{rootMargin:mobile?"-62% 0px -12% 0px":"-45% 0px -45% 0px"});
+  document.querySelectorAll(".step .card").forEach(s=>io.observe(s));
+}
+function live(){
+  const v=document.getElementById("vizArt"); if(v) v.innerHTML=vizInner();
+  const k=document.getElementById("kpiBox"); if(k) k.innerHTML=kpiCards();
+  const r=document.getElementById("resBox"); if(r) r.innerHTML=resInner();
+  const p=document.getElementById("pBox"); if(p) p.innerHTML=pCheckList()+`<h3 style="font-size:15px;margin-top:10px">${L("证据空白","Evidence gaps")}</h3>`+gapsList();
+  syncDpa();
+}
+window.addEventListener("scroll",()=>{
+  const h=document.documentElement.scrollHeight-innerHeight; document.getElementById("prog").style.width=(h>0?100*scrollY/h:0)+"%";
+  let on=null; document.querySelectorAll("section[id^=c-]").forEach(s=>{if(s.getBoundingClientRect().top<innerHeight*.4)on=s.id;});
+  document.querySelectorAll("[data-chap]").forEach(a=>a.classList.toggle("on",a.dataset.chap===on));
+},{passive:true});
+bindCommon({render,live});
+render();
+</script>
