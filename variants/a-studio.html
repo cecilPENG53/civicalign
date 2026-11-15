@@ -1,0 +1,209 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>CivicAlign Studio</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&family=Space+Grotesk:wght@500;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/*__BASE_CSS__*/
+/* Layout (A · Studio): navy civic header with three big tabs; tab 1 is one working screen —
+   persona banner, the three deliverables, then controls left and the live plaza + KPI cards right. */
+.top{background:var(--chrome);color:var(--chrome-fg)}
+.top .wrap{padding-block:14px 0}
+.brandrow{display:flex;flex-wrap:wrap;align-items:center;gap:10px 16px}
+.brand{display:flex;align-items:center;gap:12px;flex:1 1 280px;min-width:0}
+.mark{flex:0 0 40px;height:40px;border-radius:10px;background:linear-gradient(135deg,#3fae8c,#2c6fb4);display:grid;place-items:center;font-family:var(--f-display);font-weight:700;color:#fff;letter-spacing:-.02em}
+.brand b{font-family:var(--f-display);font-size:20px;display:block;line-height:1.15}
+.brand span{font-size:12.5px;color:var(--chrome-mut);display:block}
+.tabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin-top:14px}
+.tab{border:0;border-radius:12px 12px 0 0;background:var(--chrome-2);color:var(--chrome-mut);padding:12px 14px;text-align:left;display:flex;gap:10px;align-items:center;min-width:0}
+.tab .tn{flex:0 0 28px;height:28px;border-radius:50%;display:grid;place-items:center;border:1.5px solid currentColor;font-family:var(--f-mono);font-size:13px}
+.tab b{display:block;font-family:var(--f-display);font-size:16px;line-height:1.2;color:var(--chrome-fg)}
+.tab small{display:block;font-size:12px;line-height:1.3}
+.tab[aria-selected="true"]{background:var(--bg);color:var(--accent)}
+.tab[aria-selected="true"] b{color:var(--fg)}
+.tab[aria-selected="true"] small{color:var(--muted)}
+@media (max-width:640px){.tab{padding:10px 8px;flex-direction:column;align-items:flex-start;gap:4px}.tab small{display:none}.tab b{font-size:13.5px}.tab .tn{width:24px;height:24px;flex-basis:24px;font-size:11.5px}}
+main{padding-block:18px 40px;display:grid;gap:18px}
+.sec-h{display:flex;justify-content:space-between;align-items:flex-end;gap:10px;flex-wrap:wrap;margin-bottom:10px}
+.sec-h h2{font-size:21px}
+/* persona banner */
+.persona{background:linear-gradient(120deg,var(--chrome-2),var(--chrome-3));color:var(--chrome-fg);border-radius:16px;padding:18px 20px;display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.4fr);gap:18px;align-items:start}
+@media (max-width:820px){.persona{grid-template-columns:1fr}}
+.persona .eyebrow{color:#8fe0c4}
+.roles{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 10px}
+.roles button{border:1px solid rgba(255,255,255,.25);background:rgba(255,255,255,.06);color:var(--chrome-fg);border-radius:999px;padding:5px 12px;font-size:13.5px}
+.roles button[aria-pressed="true"]{background:#eaf0f9;color:#0e1c33;border-color:#eaf0f9;font-weight:600}
+.pris{display:flex;flex-wrap:wrap;gap:5px}
+.pris button{border:1px dashed rgba(255,255,255,.3);background:transparent;color:var(--chrome-mut);border-radius:6px;padding:2px 8px;font-size:12px}
+.pris button[aria-pressed="true"]{border-style:solid;border-color:#8fe0c4;color:#8fe0c4}
+.trans{display:grid;gap:10px}
+.trans .big{font-family:var(--f-display);font-size:clamp(18px,2.2vw,22px);line-height:1.35;margin:4px 0 0;text-wrap:pretty}
+.trans .row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+@media (max-width:560px){.trans .row{grid-template-columns:1fr}}
+.trans .mini{background:rgba(255,255,255,.07);border-radius:10px;padding:8px 10px;font-size:13.5px}
+.trans .mini b{display:block;font-size:12px;color:var(--chrome-mut);font-weight:500}
+.persona .tag{background:rgba(255,255,255,.12);color:var(--chrome-fg)}
+/* deliverables */
+.deliv{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+@media (max-width:900px){.deliv{grid-template-columns:1fr}}
+.dv h3{font-size:16.5px;display:flex;gap:8px;align-items:baseline}
+.dv .num{font-family:var(--f-mono);color:var(--accent);font-size:13px}
+.counts{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0}
+.dv details{margin-top:6px}
+.dv summary{cursor:pointer;font-size:13.5px;color:var(--accent);font-weight:500}
+/* studio */
+.studio{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.35fr);gap:16px;align-items:start}
+@media (max-width:960px){.studio{grid-template-columns:1fr}}
+.ctrl{display:grid;gap:12px}
+.lbl{font-size:12.5px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;font-family:var(--f-mono)}
+.viz{position:sticky;top:10px;display:grid;gap:10px}
+@media (max-width:960px){.viz{position:static}}
+.vh{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;flex-wrap:wrap}
+.vh b{font-family:var(--f-display);font-size:17px}
+.viz .kpis{grid-template-columns:repeat(2,minmax(0,1fr))}
+@media (max-width:480px){.viz .kpis{grid-template-columns:1fr}}
+.fit{font-family:var(--f-display);font-size:34px;font-weight:700;line-height:1}
+.two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px}
+@media (max-width:820px){.two{grid-template-columns:1fr}}
+.dpa{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+@media (max-width:480px){.dpa{grid-template-columns:1fr}}
+.dpac{background:var(--surface-2);border-radius:10px;padding:10px;min-width:0}
+.dpac b{font-family:var(--f-mono);color:var(--accent)} .dpac span{display:block;font-size:12.5px;font-weight:500}
+.dpac .big{font-family:var(--f-display);font-size:22px;font-weight:700;font-variant-numeric:tabular-nums}
+.dpac small{display:block;color:var(--muted);font-size:11.5px;line-height:1.35}
+/* council + ledger */
+.banner{border-radius:12px;padding:12px 14px;background:var(--design-bg);color:var(--fg);font-size:14px}
+.cgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+@media (max-width:820px){.cgrid{grid-template-columns:1fr}}
+.thr{display:flex;align-items:center;gap:12px;margin:8px 0}
+.thrn{font-family:var(--f-display);font-size:36px;font-weight:700;line-height:1}.thrn small{font-size:15px;color:var(--muted)}
+.thrbar{flex:1;height:10px;border-radius:5px;background:var(--surface-2);overflow:hidden}.thrbar span{display:block;height:100%;background:var(--accent)}
+.pipe{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;counter-reset:p}
+@media (max-width:760px){.pipe{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.pipe div{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px;font-size:13.5px;position:relative}
+.pipe b{display:block;font-family:var(--f-display);font-size:15px}
+.pipe .st{margin-top:6px}
+.srcs{display:grid;gap:6px}
+.srcs li{font-size:14px}
+.srcs a{color:var(--accent)}
+</style>
+
+<header class="top"><div class="wrap">
+  <div class="brandrow">
+    <div class="brand"><div class="mark" aria-hidden="true">CA</div><div><b>CivicAlign</b><span id="sub"></span></div></div>
+    <div id="toggles" style="display:flex;gap:8px;flex-wrap:wrap"></div>
+  </div>
+  <div class="tabs" role="tablist" id="tabs"></div>
+</div></header>
+<div class="disc"><div class="wrap" id="notice"></div></div>
+<main class="wrap" id="main"></main>
+<footer class="foot"><div class="wrap" id="foot"></div></footer>
+<div id="drawerHost"></div>
+
+<script>
+/*__NOMAP__*/
+/*__CORE__*/
+
+/* ===== A · Studio ===== */
+let TAB="res";
+const TABS=()=>[["res","1",L("居民故事板","Resident storyboard"),L("看懂总规，再试着分广场","Understand the plan, then share the square")],
+  ["council","2",L("Council 后台（演示）","Council backend (demo)"),L("意见汇总、原则检查、证据空白","Feedback, principle check, evidence gaps")],
+  ["ledger","3",L("证据与 AI 台账","Evidence & AI ledger"),L("每条事实的来源、原文和核对状态","Source, quote and check status for every fact")]];
+
+function chromeA(){
+  document.documentElement.lang=S.lang==="zh"?"zh-CN":"en";
+  document.getElementById("sub").textContent=L("Woodhouse Square 决策工作台 · CBD South Parramatta","Woodhouse Square decision studio · CBD South Parramatta");
+  document.getElementById("toggles").innerHTML=langToggle()+themeBtn();
+  document.getElementById("tabs").innerHTML=TABS().map(([k,n,t,s])=>`<button class="tab" role="tab" data-tab="${k}" aria-selected="${TAB===k}"><span class="tn">${n}</span><span><b>${t}</b><small>${s}</small></span></button>`).join("");
+  document.getElementById("notice").innerHTML=noticeHTML();
+  document.getElementById("foot").innerHTML=footHTML();
+}
+
+function persona(){
+  const role=S.role, c=CARDS;
+  return `<section class="persona" aria-label="${L("按你的身份讲解","Explained for your role")}">
+   <div><div class="eyebrow">${L("先说你是谁","Start with who you are")}</div>
+     <div class="roles">${ROLES.map(r=>`<button data-role="${r.id}" aria-pressed="${role===r.id}">${T(r)}</button>`).join("")}</div>
+     <div class="small" style="color:var(--chrome-mut);margin-bottom:6px">${L("你最在乎的 3 项（结果里 ×3）","Your top 3 (weighted ×3 in results)")} · ${S.pri.length}/3</div>
+     <div class="pris">${DIMS.map(d=>`<button data-pri="${d.id}" aria-pressed="${S.pri.includes(d.id)}">${T(d)}</button>`).join("")}</div></div>
+   <div class="trans"><div><div class="eyebrow">${L("总规对你意味着什么","What the plan means for you")} <span class="tag">${L("团队预写","Team-written")}</span></div>
+     <p class="big">${T(c[0].intro[role])}</p></div>
+     <div class="row"><div class="mini"><b>${T(c[1])} ${chip("S3","")}</b>${T(c[1].intro[role])}</div><div class="mini"><b>${T(c[2])} ${chip("S3","")}</b>${T(c[2].intro[role])}</div></div></div>
+  </section>`;
+}
+function deliverables(){
+  return `<section><div class="sec-h"><div><div class="eyebrow">${L("① 总规说了什么","① What the plan says")}</div><h2>${L("总规要做的三件事","Three things the master plan delivers")}</h2></div><span class="small muted">${L("Council 用这三项向居民介绍总规","How Council presents the plan to residents")} ${chip("S3","")}</span></div>
+   <div class="deliv">${CARDS.map((c,i)=>{const cl=CLAIMS.filter(x=>x.card===c.id),n=k=>cl.filter(x=>x.kind===k).length;const top=cl.filter(x=>x.kind==="planned").slice(0,2);
+     return `<article class="card dv"><h3><span class="num">${i+1}</span>${T(c)}</h3>
+      <div class="counts"><span class="tag t-fact">${kindLabel("planned")} ${n("planned")}</span>${n("ruled")?`<span class="tag t-design">${kindLabel("ruled")} ${n("ruled")}</span>`:""}<span class="tag t-infer">${kindLabel("open")} ${n("open")}</span>${n("gap")?`<span class="tag t-gap">${kindLabel("gap")} ${n("gap")}</span>`:""}</div>
+      <ul class="claims">${top.map(x=>`<li>${T(x)} ${chip(x.src,x.pg,x.id)}</li>`).join("")}</ul>
+      <details><summary>${L("看全部条目","See every line")} (${cl.length})</summary>${claimList(c.id)}</details>${reactRow(c.id)}</article>`;}).join("")}</div></section>`;
+}
+function vizInner(){
+  return `<div class="vh"><div><b>Woodhouse Square · 1,200 m²</b> ${chip("S2","p.23","sq1")}<div class="small muted">${L("你的分法","Your split")} · ${S.year} · ${S.plant==="planter"?L("抬高种植池","raised planters"):L("深土种植","deep soil")}</div></div>${yearButtons()}</div>
+   ${allocBar()}${plazaSVG2()}${plazaCaption()}`;
+}
+function studio(){
+  return `<section><div class="sec-h"><div><div class="eyebrow">${L("② 换一种分法会怎样","② What if it were shared differently")}</div><h2>${L("你会怎么分这 1,200 m²？","How would you share the 1,200 m²?")}</h2></div><span class="small muted">${L("拉高一项，其他几项按比例让出面积。","Raise one and the others give way in proportion.")}</span></div>
+   <div class="studio">
+    <div class="card ctrl">
+      <div><div class="lbl">${L("快速对比","Quick compare")}</div><div style="margin-top:6px">${presetButtons()}</div>
+      <p class="small muted" style="margin:6px 0 0">${L("方案 0 是我们按总规描述换算的比例，总规本身没给面积","Scenario 0 is our reading of the plan's description; the plan gives no areas")} ${chip("S2","p.45","sq2")} ${ASSUME()}</p></div>
+      <div><div class="lbl" style="margin-bottom:6px">${L("100% = 1,200 m²，四组联动","100% = 1,200 m², four linked groups")}</div>${groupCards()}${moduleRows()}</div>
+      <div><div class="lbl">${L("种树方式","Planting")}</div><div style="margin-top:6px">${plantButtons()}</div>
+      <p class="small muted" style="margin:6px 0 0">${L("总规写的是抬高种植池","The plan says raised planters")} ${chip("S2","p.45","sq3")}${L("。广场下方是否有停车场还没定，深土","; whether a car park sits below is unsettled, so deep soil is")} <span class="tag t-infer">${L("待核实","unconfirmed")}</span> ${chip("S2","p.49","tr8")}</p></div>
+    </div>
+    <div class="viz"><div class="card" id="vizArt">${vizInner()}</div><div id="kpiBox">${kpiCards()}</div>
+      <p class="small muted" style="margin:0">${L("所有数值都是按团队假设系数算出的区间，不是预测。系数见“证据与 AI 台账”。","All values are ranges from team-assumed coefficients, not forecasts. Coefficients are listed under Evidence & AI ledger.")}</p></div>
+   </div></section>`;
+}
+function results(){const r=resultsRows();
+  return `<section class="card" id="resBox"><div class="sec-h"><div><div class="eyebrow">${L("9 项结果","All 9 results")}</div><h2>${L("和总规原样比，有什么不同？","How does it compare with the plan as drawn?")}</h2></div>
+   <div style="text-align:right"><div class="fit ${r.fit>0?"delta-up":r.fit<0?"delta-down":""}">${r.fit>0?"+":""}${r.fit}%</div><div class="small muted">${L("与你 3 个优先项的契合度","Fit with your 3 priorities")} ${ASSUME()}</div></div></div>
+   ${resultsKey()}${r.rows}</section>`;}
+function decide(){
+  const adv=CLAIMS.filter(c=>["tr6","tr7","ct6","ct7","sq10"].includes(c.id));
+  return `<section><div class="sec-h"><div><div class="eyebrow">${L("③ 你怎么看、谁负责","③ Your view and who decides")}</div><h2>${L("谁来决定、谁来做？","Who decides, and who delivers?")}</h2></div></div>
+   <div class="two"><div class="card"><div id="dpaBox">${dpaCards()}</div>
+     <h3 style="font-size:15px;margin:14px 0 4px">${L("广场本身决定不了、要等别人的事","Outside the square's control")}</h3>${claimsById(adv.map(x=>x.id))}</div>
+    <div class="card"><h3 style="font-size:16px;margin-bottom:8px">${L("你的意见","Your feedback")}</h3>${feedbackHTML()}</div></div></section>`;
+}
+function councilTab(){
+  return `<div class="banner"><b>${L("演示后台。","Demo backend.")}</b> ${TEAM_CHECKED()} ${L("居民端的分配会实时反映到下面的原则检查。","The resident's split feeds the principle check below live.")}</div>
+   <div class="cgrid">
+    <div class="card"><h2 style="font-size:18px">${L("居民提交 · 隐私门槛","Submissions · privacy threshold")}</h2>${subsPanel()}</div>
+    <div class="card" id="pBox"><h2 style="font-size:18px">${L("总规原则检查 P1–P6","Plan principles P1–P6")}</h2>${pCheckList()}</div>
+    <div class="card"><h2 style="font-size:18px">${L("证据空白","Evidence gaps")}</h2><p class="small muted">${L("这些数字在来源里找不到。原型不会用估算填上，而是列出来交给 Council。","No source gives these figures. The prototype lists them for Council instead of filling them with estimates.")}</p>${gapsList()}</div>
+    <div class="card"><h2 style="font-size:18px">${L("当前分配的责任分工","Who delivers the current split")}</h2><div id="dpaBox">${dpaCards()}</div></div>
+   </div>`;
+}
+function ledgerTab(){
+  return `<div class="banner"><b>${L("证据规则。","Evidence rule.")}</b> ${L("每条 Council 事实都有来源、页码和原文；没有来源的只能标成假设或证据空白。","Every Council fact has a source, page and quote; anything without one is marked as an assumption or a gap.")}</div>
+   <section><div class="sec-h"><h2>${L("正式版流程","How the full version works")}</h2></div>
+   <div class="pipe">
+    <div><b>1 · PDF</b>${L("规划师上传总规、Council 报告和战略","A planner uploads the plan, report and strategy")}<div class="st"><span class="tag t-fact">S2 · S4 · S5</span></div></div>
+    <div><b>2 · ${L("AI 提取","AI extracts")}</b>${L("逐条提取，附页码和原文","Each claim with page and quote")}<div class="st"><span class="tag t-infer">${L("演示：团队人工完成","Demo: done by hand")}</span></div></div>
+    <div><b>3 · ${L("规划师批准","Planner approves")}</b>${L("批准后才进入居民端","Only approved claims reach residents")}<div class="st"><span class="tag t-gap">${L("演示：未经 Council 批准","Demo: not Council-approved")}</span></div></div>
+    <div><b>4 · ${L("居民端","Residents")}</b>${L("按身份讲解，带来源标签","Explained per role, with source chips")}<div class="st"><span class="tag t-design">${L("本原型","This prototype")}</span></div></div>
+   </div></section>
+   <section class="card"><h2 style="font-size:18px;margin-bottom:8px">${L("来源","Sources")}</h2><ul class="srcs">${Object.entries(SOURCES).map(([k,s])=>`<li><b class="src" style="cursor:default">${k}</b> ${esc(T(s))} ${s.url?`<a href="${s.url}" target="_blank" rel="noopener">${L("原文","Open")} ↗</a>`:`<span class="small muted">${L("团队持有","held by the team")}</span>`}</li>`).join("")}</ul></section>
+   <section class="card"><div class="sec-h"><h2 style="font-size:18px">${L("证据核对清单","Evidence ledger")} (${CLAIMS.length})</h2><span class="small muted">${TEAM_CHECKED()}</span></div>${ledgerTable()}</section>
+   <section class="card"><div class="sec-h"><h2 style="font-size:18px">${L("模型系数","Model coefficients")}</h2>${ASSUME()}</div>${coefTable()}</section>`;
+}
+function render(){
+  chromeA();
+  const m=document.getElementById("main");
+  m.innerHTML = TAB==="res" ? persona()+deliverables()+studio()+results()+decide() : TAB==="council" ? councilTab() : ledgerTab();
+}
+function live(){
+  const v=document.getElementById("vizArt"); if(v) v.innerHTML=vizInner();
+  const k=document.getElementById("kpiBox"); if(k) k.innerHTML=kpiCards();
+  const r=document.getElementById("resBox"); if(r) r.outerHTML=results();
+  syncDpa();
+}
+bindCommon({render,live},b=>{
+  if(b.dataset.tab){TAB=b.dataset.tab;render();window.scrollTo(0,0);return true;}
+  return false;
+});
+render();
+</script>

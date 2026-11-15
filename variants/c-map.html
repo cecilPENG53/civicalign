@@ -1,0 +1,210 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>CivicAlign Map</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&family=Space+Grotesk:wght@500;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/*__BASE_CSS__*/
+/* Layout (C · Map-first): the OSM base map fills the screen. Five numbered hotspots open evidence cards;
+   a floating panel on the left holds the allocation, results and feedback; KPI cards float top-right
+   over the map. Below 900px everything stacks under a shorter map. */
+html,body{height:100%}
+body{display:flex;flex-direction:column}
+.bar{background:var(--chrome);color:var(--chrome-fg);flex:0 0 auto}
+.bar .wrap{max-width:none;display:flex;align-items:center;gap:10px 14px;padding-block:9px;flex-wrap:wrap}
+.bar .brand{display:flex;align-items:center;gap:10px;flex:1 1 220px;min-width:0}
+.mark{flex:0 0 32px;height:32px;border-radius:8px;background:linear-gradient(135deg,#3fae8c,#2c6fb4);display:grid;place-items:center;font-family:var(--f-display);font-weight:700;color:#fff;font-size:13px}
+.brand>div{min-width:0}
+.brand b{font-family:var(--f-display);font-size:17px;line-height:1.1;display:block}
+.brand span{font-size:12px;color:var(--chrome-mut);display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cbtn{border:1px solid var(--chrome-3);background:var(--chrome-2);color:var(--chrome-fg);border-radius:8px;padding:5px 10px;font-size:13px}
+.disc .wrap{max-width:none}
+.stage{position:relative;flex:1 1 auto;min-height:560px;overflow:hidden}
+.mapbox{position:absolute;inset:0}
+.mapbox svg{cursor:default}
+.hot{cursor:pointer;outline:none}
+.hot:focus-visible .hs>circle:nth-child(2){stroke:var(--accent);stroke-width:4}
+@media (prefers-reduced-motion:no-preference){.hot .pulse{animation:pulse 2.2s ease-out infinite;transform-origin:center;transform-box:fill-box}@keyframes pulse{0%{transform:scale(.6);opacity:1}100%{transform:scale(1.9);opacity:0}}}
+.float{position:absolute;z-index:5;background:color-mix(in srgb,var(--surface) 94%,transparent);backdrop-filter:blur(6px);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow)}
+.panel{left:max(14px,env(safe-area-inset-left,0px));top:14px;bottom:14px;width:340px;display:flex;flex-direction:column;overflow:hidden}
+.ptabs{display:grid;grid-template-columns:repeat(3,1fr);border-bottom:1px solid var(--line);flex:0 0 auto}
+.ptabs button{border:0;background:transparent;padding:10px 6px;font-size:13.5px;font-weight:500;color:var(--muted);border-bottom:2.5px solid transparent}
+.ptabs button[aria-selected="true"]{color:var(--fg);border-bottom-color:var(--accent)}
+.pbody{overflow-y:auto;padding:12px 14px 16px;display:grid;gap:12px;align-content:start;flex:1 1 auto}
+.pbody .gcard{padding:8px 10px 6px}.pbody .gval{font-size:22px}
+.right{right:max(14px,env(safe-area-inset-right,0px));top:14px;bottom:14px;width:360px;display:flex;flex-direction:column;gap:10px;z-index:5;position:absolute;pointer-events:none}
+.right>*{pointer-events:auto}
+.kgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;flex:0 0 auto}
+.kgrid .kpis{display:contents}
+.kgrid .kpi{background:color-mix(in srgb,var(--surface) 94%,transparent);backdrop-filter:blur(6px);box-shadow:var(--shadow);padding:9px 11px}
+.kgrid .kv{font-size:21px}.kgrid .kn{display:none}.kgrid .kh{font-size:11.5px}.kgrid .kh .tag{font-size:10.5px}
+.ev{position:relative;overflow-y:auto;padding:14px 16px;flex:1 1 auto;min-height:0}
+.ev h2{font-size:20px;margin:2px 0 8px;display:flex;gap:8px;align-items:center}
+.ev .no{flex:0 0 26px;height:26px;border-radius:50%;background:var(--accent);color:var(--on-accent);display:grid;place-items:center;font-size:13px;font-family:var(--f-mono)}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
+.chips button{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:3px 10px 3px 4px;font-size:12.5px;display:flex;align-items:center;gap:6px}
+.chips button i{font-style:normal;width:20px;height:20px;border-radius:50%;background:var(--accent);color:var(--on-accent);display:grid;place-items:center;font-size:11px;font-family:var(--f-mono)}
+.chips button[aria-pressed="true"]{border-color:var(--fg);font-weight:600}
+.zoom{position:absolute;z-index:4;left:368px;bottom:16px;display:grid;gap:4px}
+.zoom button{width:34px;height:34px;border-radius:8px;border:1px solid var(--line);background:var(--surface);font-size:18px;line-height:1;box-shadow:var(--shadow)}
+.compass{position:absolute;z-index:4;left:370px;top:16px;width:34px;height:34px;border-radius:50%;background:var(--surface);border:1px solid var(--line);display:grid;place-items:center;font-family:var(--f-display);font-weight:700;font-size:11px;box-shadow:var(--shadow)}
+.maplegend{position:absolute;z-index:4;left:416px;bottom:16px;right:390px;display:flex;flex-wrap:wrap;gap:4px 12px;font-size:12px;color:var(--muted)}
+.maplegend span{background:color-mix(in srgb,var(--surface) 85%,transparent);border-radius:6px;padding:1px 6px}
+.lbl{font-size:12px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;font-family:var(--f-mono)}
+.fit{font-family:var(--f-display);font-size:28px;font-weight:700;line-height:1}
+.pbody .res{grid-template-columns:1fr;gap:2px;padding:6px 0}
+.dpa{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+.dpac{background:var(--surface-2);border-radius:10px;padding:8px;min-width:0}
+.dpac b{font-family:var(--f-mono);color:var(--accent);font-size:12px} .dpac span{display:block;font-size:11.5px;font-weight:500;line-height:1.3}
+.dpac .big{font-family:var(--f-display);font-size:18px;font-weight:700;font-variant-numeric:tabular-nums}
+.dpac small{display:none}
+.wait{background:var(--gap-bg);color:var(--fg);border-radius:10px;padding:8px 10px;font-size:13px;margin:8px 0}
+.thr{display:flex;align-items:center;gap:12px;margin:8px 0}
+.thrn{font-family:var(--f-display);font-size:32px;font-weight:700;line-height:1}.thrn small{font-size:14px;color:var(--muted)}
+.thrbar{flex:1;height:10px;border-radius:5px;background:var(--surface-2);overflow:hidden}.thrbar span{display:block;height:100%;background:var(--accent)}
+.drawer.wide{width:min(820px,100%)}
+.drawer.wide h3{font-size:16px;margin:16px 0 6px}
+.banner{border-radius:10px;padding:10px 12px;background:var(--design-bg);font-size:14px}
+@media (max-width:1099px){
+  body{display:block}
+  .stage{min-height:0;overflow:visible;display:flex;flex-direction:column}
+  .mapbox{position:relative;height:58vh;min-height:340px;order:0}
+  .float,.right{position:static;width:auto;backdrop-filter:none}
+  .right{order:2;margin:12px max(16px,env(safe-area-inset-right,0px)) 0 max(16px,env(safe-area-inset-left,0px));pointer-events:auto}
+  .panel{order:3;margin:12px max(16px,env(safe-area-inset-right,0px)) 16px max(16px,env(safe-area-inset-left,0px));overflow:visible}
+  .pbody{overflow:visible}
+  .ev{overflow:visible}
+  .zoom{left:auto;right:max(12px,env(safe-area-inset-right,0px));bottom:auto;top:56px}
+  .compass{left:auto;right:max(12px,env(safe-area-inset-right,0px));top:12px}
+  .maplegend{display:none}
+}
+@media (max-width:480px){.kgrid .kv{font-size:18px}}
+</style>
+
+<div class="bar"><div class="wrap">
+  <div class="brand"><div class="mark" aria-hidden="true">CA</div><div><b>CivicAlign</b><span id="sub"></span></div></div>
+  <button class="cbtn" id="councilBtn"></button>
+  <div id="toggles" style="display:flex;gap:6px"></div>
+</div></div>
+<div class="disc"><div class="wrap" id="notice"></div></div>
+<div class="stage" id="stage">
+  <div class="mapbox" id="mapbox"></div>
+  <div class="compass" aria-hidden="true" title="North">N↑</div>
+  <div class="zoom"><button data-zoom="in" aria-label="Zoom in">+</button><button data-zoom="out" aria-label="Zoom out">−</button><button data-zoom="reset" aria-label="Reset view" style="font-size:13px">⟲</button></div>
+  <div class="maplegend" id="legend"></div>
+  <aside class="float panel" id="panel"></aside>
+  <div class="right"><div class="kgrid" id="kpiBox"></div><section class="float ev" id="ev" aria-live="polite"></section></div>
+</div>
+<footer class="foot"><div class="wrap" id="foot" style="max-width:none"></div></footer>
+<div id="drawerHost"></div>
+
+<script>
+/*__MAP__*/
+/*__CORE__*/
+
+/* ===== C · Map-first ===== */
+let VBC=[-215,-120,400,330], ZF=1, SEL="square", PTAB="alloc";
+const BBOX={x0:-125,x1:75,y0:-68,y1:142}; // the five hotspots and their labels, in map units
+function fitView(){ // frame the hotspots inside the free area between the floating panels
+  const mb=document.getElementById("mapbox").getBoundingClientRect(); if(!mb.width) return VBC;
+  let l=0,r=mb.width,t=0,b=mb.height;
+  if(!matchMedia("(max-width:1099px)").matches){const pr=document.getElementById("panel").getBoundingClientRect(),rr=document.querySelector(".right").getBoundingClientRect();l=pr.right-mb.left+16;r=rr.left-mb.left-16;t=40;b=mb.height-40;}
+  else{l=12;r=mb.width-52;t=12;b=mb.height-12;}
+  const k=Math.min((r-l)/(BBOX.x1-BBOX.x0),(b-t)/(BBOX.y1-BBOX.y0))*ZF, cx=(BBOX.x0+BBOX.x1)/2, cy=(BBOX.y0+BBOX.y1)/2;
+  return [cx-(l+r)/2/k, cy-(t+b)/2/k, mb.width/k, mb.height/k].map(v=>+v.toFixed(1));
+}
+const HL={square:"square",china:"china",went:"traffic",fitz:"traffic",park:"council"};
+const CARD_OF={square:"square",china:"china",went:"traffic",fitz:"traffic",park:"traffic"};
+
+function chromeC(){
+  document.documentElement.lang=S.lang==="zh"?"zh-CN":"en";
+  document.getElementById("sub").textContent=L("Woodhouse Square · CBD South Parramatta · 点地图上的数字","Woodhouse Square · CBD South Parramatta · tap a number on the map");
+  document.getElementById("toggles").innerHTML=langToggle()+themeBtn();
+  document.getElementById("councilBtn").textContent=L("Council 后台（演示）","Council backend (demo)");
+  document.getElementById("notice").innerHTML=noticeHTML();
+  document.getElementById("foot").innerHTML=footHTML();
+  document.getElementById("legend").innerHTML=`<span><i class="sw" style="border:1.5px dashed var(--fg)"></i>${L("第一期范围","Phase 1 area")}</span><span><i class="sw" style="background:var(--infer)"></i>${L("车站停车场（Council 用地）","Station car park (Council land)")}</span><span><i class="sw" style="background:linear-gradient(90deg,#4f9a5b,#d08a2c,#8a63b8,#3f7cc0)"></i>${L("广场：大致位置，颜色是你的分法","Square: approximate, coloured by your split")}</span><span>${L("底图 OSM 2026-11-10","Base map OSM 10 Nov 2026")}</span>`;
+}
+function drawMap(){
+  VBC=fitView();
+  document.getElementById("mapbox").innerHTML=mapSVG2({vb:VBC,hl:HL[SEL],alloc:true,hots:true,sel:SEL,slice:true,noChrome:true});
+  fitLabels();
+}
+function svgEl(){return document.querySelector("#mapbox svg");}
+function fitLabels(){ // keep text and hotspots a constant screen size whatever the zoom
+  const svg=svgEl(); if(!svg) return; const m=svg.getScreenCTM(); if(!m) return; const k=m.a||1;
+  svg.querySelectorAll("text.lab").forEach(t=>{const b=+(t.dataset.fs||(t.dataset.fs=t.getAttribute("font-size")));t.style.fontSize=(b*1.15/k)+"px";t.style.strokeWidth=(3/k)+"px";});
+  svg.querySelectorAll(".hs").forEach(h=>h.setAttribute("transform",`scale(${1/k})`));
+}
+function evidence(){
+  const h=HOTS.find(x=>x.id===SEL), i=HOTS.indexOf(h), cid=CARD_OF[SEL], card=CARDS.find(c=>c.id===cid);
+  return `<div class="chips" role="group" aria-label="${L("地点","Places")}">${HOTS.map((x,j)=>`<button data-hot="${x.id}" aria-pressed="${x.id===SEL}"><i>${j+1}</i>${T(x)}</button>`).join("")}</div>
+   <div class="eyebrow">${L("证据卡","Evidence card")} · ${T(card)} ${chip(card.src,"")}</div>
+   <h2><span class="no">${i+1}</span>${T(h)}</h2>
+   <p class="small" style="background:var(--surface-2);border-radius:8px;padding:6px 8px">${T(card.intro[S.role])} <span class="tag t-design">${L("团队预写","Team-written")}</span></p>
+   ${SEL==="square"?`<div id="plazaBox">${plazaSVG2()}</div>${plazaCaption()}`:""}
+   ${(SEL==="went"||SEL==="fitz")?`<div class="wait"><b>${L("交通影响：","Traffic effects: ")}</b>${L("等待 Council 交通研究。还没有交通模型，FY27/28 才聘顾问。","awaits Council traffic study. There is no traffic model yet; consultants come in FY27/28.")} ${chip("S4","","tr6")}</div>`:""}
+   ${claimsById(h.claims)}${reactRow(cid)}`;
+}
+function panel(){
+  const tabs=[["alloc",L("分配广场","Share")],["res",L("9 项结果","Results")],["say",L("你的意见","Your say")]];
+  let body="";
+  if(PTAB==="alloc") body=`<div><div class="lbl">${L("你会怎么分这 1,200 m²？","How would you share 1,200 m²?")}</div><p class="small muted" style="margin:4px 0 0">${L("拉高一项，其他几项按比例让出。","Raise one and the others give way.")}</p></div>
+    ${presetButtons()}<p class="small muted" style="margin:-4px 0 0">${L("方案 0 是我们对总规的解读","Scenario 0 is our reading of the plan")} ${chip("S2","p.45","sq2")} ${ASSUME()}</p>
+    ${allocBar()}${groupCards()}${moduleRows()}
+    <div><div class="lbl">${L("种树方式 · 年份","Planting · year")}</div><div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:6px">${plantButtons()}${yearButtons()}</div><p class="small muted" style="margin:6px 0 0">${L("深土是否可行待核实","Deep soil is unconfirmed")} ${chip("S2","p.49","tr8")}</p></div>`;
+  else if(PTAB==="res"){const r=resultsRows();body=`<div style="display:flex;justify-content:space-between;align-items:flex-end;gap:8px"><div><div class="lbl">${L("和方案 0 比","Against Scenario 0")}</div>${ASSUME()}</div><div style="text-align:right"><div class="fit ${r.fit>0?"delta-up":r.fit<0?"delta-down":""}">${r.fit>0?"+":""}${r.fit}%</div><div class="small muted">${L("优先项契合度","Priority fit")}</div></div></div>
+    <div><div class="lbl" style="margin-bottom:4px">${L("我是","I am")}</div><div class="pill">${ROLES.map(x=>`<button data-role="${x.id}" aria-pressed="${S.role===x.id}">${T(x)}</button>`).join("")}</div></div>
+    <div><div class="lbl" style="margin-bottom:4px">${L("最在乎的 3 项","Top 3")} · ${S.pri.length}/3</div><div class="pill">${DIMS.map(d=>`<button data-pri="${d.id}" aria-pressed="${S.pri.includes(d.id)}">${T(d)}</button>`).join("")}</div></div>
+    <div id="resRows">${resultsKey()}${r.rows}</div>`;}
+  else body=`<div id="dpaBox">${dpaCards()}</div>${feedbackHTML()}`;
+  return `<div class="ptabs" role="tablist">${tabs.map(([k,t])=>`<button role="tab" data-ptab="${k}" aria-selected="${PTAB===k}">${t}</button>`).join("")}</div><div class="pbody">${body}</div>`;
+}
+function councilDrawer(){
+  document.getElementById("drawerHost").innerHTML=`<div class="scrim" data-close="1"></div><aside class="drawer wide" role="dialog" aria-modal="true" aria-label="Council">
+   <button class="x" data-close="1">${L("关闭","Close")}</button><div class="eyebrow">${L("Council 后台 · 演示","Council backend · demo")}</div><h2>${L("Council 收到什么、要核对什么","What Council receives and checks")}</h2>
+   <div class="banner">${TEAM_CHECKED()}</div>
+   <h3>${L("居民提交 · 隐私门槛","Submissions · privacy threshold")}</h3>${subsPanel()}
+   <h3>${L("总规原则检查 P1–P6（当前分配）","Plan principles P1–P6 (current split)")}</h3>${pCheckList()}
+   <h3>${L("证据空白","Evidence gaps")}</h3>${gapsList()}
+   <h3>${L("证据核对清单","Evidence ledger")} (${CLAIMS.length})</h3>${ledgerTable()}
+   <h3>${L("模型系数","Model coefficients")} ${ASSUME()}</h3>${coefTable()}</aside>`;
+  document.querySelector(".drawer .x").focus();
+}
+function render(){
+  chromeC();
+  document.getElementById("panel").innerHTML=panel();
+  document.getElementById("kpiBox").innerHTML=kpiCards();
+  document.getElementById("ev").innerHTML=evidence();
+  drawMap();
+}
+function live(){
+  const g=document.getElementById("sqg"); if(g) g.innerHTML=sqInner({alloc:true,hl:HL[SEL]});
+  document.getElementById("kpiBox").innerHTML=kpiCards();
+  const pb=document.getElementById("plazaBox"); if(pb) pb.innerHTML=plazaSVG2();
+  const ab=document.querySelector(".pbody .abar"); if(ab) ab.outerHTML=allocBar();
+  const rr=document.getElementById("resRows"); if(rr){const r=resultsRows();rr.innerHTML=resultsKey()+r.rows;}
+  syncDpa();
+}
+function select(id){SEL=id;drawMap();document.getElementById("ev").innerHTML=evidence();document.getElementById("ev").scrollTop=0;
+  if(matchMedia("(max-width:1099px)").matches) document.getElementById("ev").scrollIntoView({behavior:"smooth",block:"start"});}
+function zoom(f){
+  ZF=f==="reset"?1:Math.max(.5,Math.min(3,ZF/f));
+  VBC=fitView(); tweenVB(svgEl(),VBC,350,fitLabels);
+}
+bindCommon({render,live},b=>{
+  const d=b.dataset;
+  if(d.hot){select(d.hot);return true;}
+  if(d.ptab){PTAB=d.ptab;document.getElementById("panel").innerHTML=panel();return true;}
+  if(d.zoom){zoom(d.zoom==="in"?0.75:d.zoom==="out"?1.33:"reset");return true;}
+  if(b.id==="councilBtn"){councilDrawer();return true;}
+  if(d.role||d.pri){ // keep the panel tab; refresh evidence intro too
+    if(d.role)S.role=d.role; else {const i=S.pri.indexOf(d.pri);if(i>=0)S.pri.splice(i,1);else if(S.pri.length<3)S.pri.push(d.pri);}
+    document.getElementById("panel").innerHTML=panel();document.getElementById("ev").innerHTML=evidence();return true;}
+  if(b.id==="submit"){submitDemo();document.getElementById("panel").innerHTML=panel();return true;}
+  return false;
+});
+document.addEventListener("keydown",e=>{const h=e.target.closest&&e.target.closest("[data-hot]");if(h&&(e.key==="Enter"||e.key===" ")){e.preventDefault();select(h.dataset.hot);}});
+let rz=0; window.addEventListener("resize",()=>{cancelAnimationFrame(rz);rz=requestAnimationFrame(()=>{const sv=svgEl();if(sv){VBC=fitView();sv.setAttribute("viewBox",VBC.join(" "));fitLabels();}});});
+render();
+</script>
