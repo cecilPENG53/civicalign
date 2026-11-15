@@ -99,6 +99,15 @@ Council 向居民介绍总规时用了三项交付内容〔S3〕：
 - **广场下方情况不明：** 是否有停车场、种植池是否因为没有深土〔S2 p.45〕；
 - **团队待定：** 路线 B（只做广场分配）还是路线 C（先选楼栋方案，再分配广场）。
 
+## 原型 v2（2026-11-15）
+
+`dist/civicalign.html` 是可点击的居民故事板原型，附 Council 后台演示，直接用浏览器打开即可。它由 `app/template.html` 生成，生成命令是 `node scripts/build_app.js`，底图数据来自 `data/precinct.json`。
+
+- **第 2 屏：** 每条 Council 事实都能点开看来源、页码和原文。
+- **第 3–4 屏：** 系数和方案 0 的比例都标为团队假设。
+- **提交：** 演示提交只保存在浏览器里，不发送给任何人。
+- **后台：** 核对清单由团队核对，不是 Council 批准的。
+
 ## 仓库里有什么
 
 | 路径 | 内容 |
@@ -106,7 +115,8 @@ Council 向居民介绍总规时用了三项交付内容〔S3〕：
 | `docs/framework.html` | 完整思路框架（单页） |
 | `docs/CHAT_HANDOFF_2026-11-15.md` | 详细设计记录，每条附来源 |
 | `docs/SOURCES.md` | 来源登记表 |
-| `src/`、`dist/`、`data/`、`scripts/` | 原型 v1 |
+| `app/`、`dist/civicalign.html`、`scripts/build_app.js` | 原型 v2 |
+| `src/`、`dist/index.html`、`data/`、`scripts/` | 原型 v1 |
 
 **原型 v1**：three.js 大屏，展示片区 3D 模型。它在十个地块上对比两个示意方案，比较住房、温度、开放空间、出行和就业，每项结果标明责任方；界面可以切换中英文。**v1 还没有实现上面的框架。**
 

@@ -101,6 +101,15 @@ Several of the strategy's indicators have the baseline "TBC" [S5 p.39–63], and
 - **Soil under the square is unknown.** It is not clear whether the new car park sits under it, or whether the raised planters mean there is no deep soil [S2 p.45].
 - **Undecided by the team:** route B (allocate the square only) or route C (choose the building scheme first, then allocate the square).
 
+## Prototype v2 (built 15 Nov 2026)
+
+`dist/civicalign.html` is a clickable prototype of the resident storyboard and a demo Council view. Open it in a browser. It is built from `app/template.html` with `node scripts/build_app.js`, which inlines `data/precinct.json` for the base map.
+
+- **Screen 2:** every Council fact opens to its source, page and original wording.
+- **Screens 3–4:** the coefficients and Scenario 0 split are labelled team assumptions.
+- **Submissions:** stay in the viewer's browser and are not sent anywhere.
+- **Council view:** its ledger entries were checked by the team. Council has not approved them.
+
 ## What is in this repository
 
 | Path | What it is |
@@ -108,7 +117,8 @@ Several of the strategy's indicators have the baseline "TBC" [S5 p.39–63], and
 | `docs/framework.html` | The full framework as one page |
 | `docs/CHAT_HANDOFF_2026-11-15.md` | Detailed design notes with sources, in Chinese |
 | `docs/SOURCES.md` | Source register |
-| `src/`, `dist/`, `data/`, `scripts/` | Prototype v1 |
+| `app/`, `dist/civicalign.html`, `scripts/build_app.js` | Prototype v2 |
+| `src/`, `dist/index.html`, `data/`, `scripts/` | Prototype v1 |
 
 **Prototype v1** is a three.js big-screen view of the precinct in 3D. It compares two illustrative options on ten parcels across housing, heat, open space, car trips and jobs, and tags each result with who is responsible. It has English and Chinese text. **v1 does not implement the framework above yet.**
 
