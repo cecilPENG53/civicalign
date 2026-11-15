@@ -61,7 +61,7 @@ function cbStandard(){const k=cbCounts(),tag=(c,t)=>`<span class="tag ${c}">${t}
    [L("来源和日期","Source and date"),L("5 份来源都列了发布方和日期，见下方“来源”","All five sources list publisher and date: see Sources below"),done],
    [L("分析单元和覆盖范围","Unit of analysis and coverage"),L("一个地点、一个决策：第一期范围里的一块 1,200 m² 广场","One place, one decision: a 1,200 m² square inside the Phase 1 area")+" "+chip("S2","p.23","sq1"),done],
    [L("清洗过程","Cleaning"),L(`条目是人工摘录的，没有自动清洗；${k.nopage} 条 S4 条目还缺页码`,`Claims were extracted by hand with no automated cleaning; ${k.nopage} S4 claims still lack a page number`),part],
-   [L("缺失或有偏的群体","Missing or biased groups"),L("演示没有真实提交。代表性检查的版式在 Council 后台，ABS 数据还没读","The demo has no real submissions. The representativeness check is laid out in the Council backend; the ABS data is not read yet"),todo],
+   [L("缺失或有偏的群体","Missing or biased groups"),L("演示没有真实提交；投票汇总用的是标明的模拟数据。代表性检查的版式在 Council 后台，ABS 数据还没读","The demo has no real submissions; the vote tally uses simulated data, labelled as such. The representativeness check is laid out in the Council backend; the ABS data is not read yet"),todo],
    [L("至少一个人工验证步骤","At least one human check"),L(`本清单逐条核对：${k.ok} / ${k.sourced} 条通过。核对人是团队成员，不是 Council`,`This ledger, claim by claim: ${k.ok} of ${k.sourced} passed. The reviewer is a team member, not Council`),done],
    [L("AI 使用情况","Use of AI"),L("演示页面运行时不调用 AI：条目来自来源原文，数字由透明公式算出。正式版由 AI 提取和起草，规划师批准","The demo page calls no AI when it runs: claims come from the source wording and figures from an open formula. In the full version AI extracts and drafts, and a planner approves"),done],
    [L("区分事实、假设和生成内容","Facts, assumptions and generated content kept apart"),L("四种标签：来源原文、我们的设计、假设、证据空白","Four tags: source wording, our design, assumption, evidence gap"),done]];
@@ -141,7 +141,7 @@ function cbRep(subs,show){const known=subs.filter(s=>s.lang),zh=known.filter(s=>
    <div class="cb-kv h"><span>${L("基准","Benchmark")}</span><span>${L("我们手上能比的","What we can set against it")}</span><span>${L("现在","Now")}</span></div>
    ${rows.map(r=>`<div class="cb-kv"><span>${r[0]}</span><span>${r[1]}</span><span>${r[2]}</span></div>`).join("")}</div>`;}
 function cbFeedback(){const subs=cbSubs(),n=subs.length,g=cbGroups(),pv=cbPreview(),show=n>=CB_MIN||(pv&&n>0);
-  const head=`<p class="small muted">${L(`同一群体达到 ${CB_MIN} 份才显示汇总，免得从汇总里认出个人。演示版没有真实提交，只有本浏览器里的演示提交，没有发送给任何人。`,`A group's summary shows only once it reaches ${CB_MIN}, so no one can be picked out. The demo has no real submissions, only demo submissions saved in this browser; nothing is sent anywhere.`)}</p>
+  const head=`<p class="small muted">${L(`同一群体达到 ${CB_MIN} 份才显示汇总，免得从汇总里认出个人。这一栏只算本浏览器里的演示提交（分法、态度、最在乎的维度），不含模拟票，也没有发送给任何人。`,`A group's summary shows only once it reaches ${CB_MIN}, so no one can be picked out. This card counts only demo submissions saved in this browser (splits, views, top concerns). It leaves out the simulated votes, and nothing is sent anywhere.`)}</p>
    <div class="cb-thr"><b>${n}</b><span>${L("份演示提交","demo submission(s)")}</span></div>
    <ul class="cb-grps">${g.rows.map(x=>`<li><span>${T(x.r)}</span><span class="${x.n>=CB_MIN?"ok":"muted"}">${x.n>=CB_MIN?L(`≥ ${CB_MIN} · 可单独显示`,`≥ ${CB_MIN} · shown on its own`):L(`< ${CB_MIN} · 已隐藏`,`< ${CB_MIN} · hidden`)}</span></li>`).join("")}</ul>`;
   let body;
@@ -152,7 +152,7 @@ function cbFeedback(){const subs=cbSubs(),n=subs.length,g=cbGroups(),pv=cbPrevie
     ${show?`${n<CB_MIN?`<p class="small" style="margin-top:8px"><span class="tag t-gap">${L("预览：正式版不会显示","Preview: the full version would hide this")}</span></p>`:""}${cbSummary(subs)}
       ${g.rows.filter(x=>x.n>=CB_MIN).map(x=>`<div class="cb-blk"><h3>${T(x.r)} (${x.n})</h3>${CARDS.map(cd=>cbReactRow(subs.filter(s=>s.role===x.r.id),cd)).join("")}</div>`).join("")}`:""}
     <button class="btn cb-sm" id="clearSubs" style="margin-top:12px">${L("清除本浏览器的演示提交","Clear demo submissions in this browser")}</button>`;
-  return head+body+cbRep(subs,show)+(typeof tallyPanel==="function"?`<div class="cb-blk" id="tallyBox">${tallyPanel()}</div>`:"");}
+  return head+body+cbRep(subs,show);}
 
 /* ---------- written comments: one next step each ---------- */
 const cbRoutes=()=>store.get("cav_triage")||{};
@@ -227,11 +227,12 @@ function cbCouncilPage(){
    <div class="cgrid">
     <section class="card" id="cb-fb"><h2>${L("居民意见 · 隐私门槛","Resident feedback · privacy threshold")}</h2>${cbFeedback()}</section>
     <section class="card" id="cb-triage"><h2>${L("文字意见 · 每条一个去向","Written comments · one next step each")}</h2>${cbTriage()}</section></div>
+   ${typeof tallyPanel==="function"?`<section class="card" id="cb-votes"><h2>${L("居民投票汇总","Resident votes")}</h2><div id="tallyBox">${tallyPanel()}</div></section>`:""}
    <section class="card" id="cb-roles"><h2>${L("谁来做：控制、合作、倡导","Who delivers: control, partner, advocate")}</h2>${cbRoles()}<div id="cb-brief">${cbBrief()}</div></section>
    <section class="card" id="cb-gaps"><h2>${L("证据空白清单","Evidence-gap list")} (${GAPS().length})</h2><p class="small muted">${L("这些数字在来源里找不到。原型不用估算填上，而是列出来交给 Council：缺什么、影响什么、谁能补、什么时候。","No source gives these figures. The prototype does not fill them with estimates; it lists them for Council: what is missing, what it affects, who can fill it, and when.")}</p>${gapsList()}</section>
    <section class="card" id="cb-ind"><h2>${L("战略指标基线","Strategy indicator baselines")}</h2>${cbIndicators()}</section></div>`;}
 /* a band at the end of the resident story that leads into the backend */
-function cbHandoff(){return `<section class="wrap" style="padding-bottom:40px"><div class="card cb-hand"><div><b>${L("你的意见到了 Council 那边，会变成什么？","What becomes of your feedback on Council's side?")}</b>
+function cbHandoff(){if(typeof V!=="undefined"&&V.sent)return "";return `<section class="wrap" style="padding-bottom:40px"><div class="card cb-hand"><div><b>${L("你的意见到了 Council 那边，会变成什么？","What becomes of your feedback on Council's side?")}</b>
    <p class="small muted" style="margin:2px 0 0">${L(`后台会检查你的分法是否还符合总规的 6 条原则，按群体汇总意见（不足 ${CB_MIN} 份不显示），并列出证据空白。`,`The backend checks your split against the plan's six principles, sums up feedback by group (hidden below ${CB_MIN}), and lists the evidence gaps.`)}</p></div>
    <button class="btn primary" data-tab="council">${L("看 Council 后台会收到什么","See what Council would receive")} →</button></div></section>`;}
 
@@ -258,5 +259,6 @@ function cbClick(b){const d=b.dataset;
 function cbAfterSubmit(){const subs=cbSubs(),last=subs[subs.length-1];if(last&&!last.lang){last.lang=S.lang;store.set("cav_subs",subs);}}
 document.addEventListener("click",e=>{
   if(e.target.closest("#submit"))setTimeout(cbAfterSubmit,0);
+  if(e.target.closest("#clearVotes")&&document.getElementById("cb-fb"))setTimeout(cbRedraw,0);
   const b=e.target.closest("[data-cb]");if(b)cbClick(b);});
 document.addEventListener("change",e=>{const t=e.target;if(t&&t.dataset&&t.dataset.cbroute!==undefined){const r=cbRoutes();if(t.value)r[t.dataset.cbroute]=t.value;else delete r[t.dataset.cbroute];store.set("cav_triage",r);cbRedraw();}});

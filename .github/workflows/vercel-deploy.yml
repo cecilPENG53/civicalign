@@ -1,0 +1,45 @@
+name: Vercel Deploy
+# Every push to main publishes the latest resident demo
+# (dist/variants/a-studio.html) to https://civicalign.vercel.app.
+# Same approach as the Hume repo: the Vercel CLI with a VERCEL_TOKEN secret,
+# not Vercel's GitHub integration. What gets uploaded is set by
+# .vercelignore and vercel.json.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+concurrency:
+  group: vercel-production
+  cancel-in-progress: false
+permissions:
+  contents: read
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      # Project IDs from `vercel link` (.vercel/project.json); not secret.
+      VERCEL_ORG_ID: team_MQMAbLA2WmhOB0Ncq4cXy0R1
+      VERCEL_PROJECT_ID: prj_bA0vLKBjudr6lOYjftcfB1ZwtX36
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      # A free Vercel team rejects deploys whose git commit author is not a
+      # team member. Teammates push here too, so deploy without git metadata,
+      # as the token owner.
+      - name: Drop git metadata
+        run: rm -rf .git
+      - name: Install Vercel CLI
+        run: npm install --global vercel@65.12.1
+      - name: Deploy to production
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        run: |
+          if [ -z "$VERCEL_TOKEN" ]; then
+            echo "::error::Repository secret VERCEL_TOKEN is not set."
+            exit 1
+          fi
+          url=$(vercel deploy --prod --yes --token="$VERCEL_TOKEN")
+          echo "Deployed: $url" >> "$GITHUB_STEP_SUMMARY"
