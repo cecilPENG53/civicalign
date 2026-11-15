@@ -250,7 +250,7 @@ function reviewActions(c){
    <select class="rvb no" data-rej="${c.id}" aria-label="${L("驳回理由","Reason to reject")}"><option value="">${L("驳回…","Reject…")}</option>${REJ_WHY().map(([k,t])=>`<option value="${k}">${t}</option>`).join("")}</select></div>`;
 }
 function ledgerTable(o={}){return `<div class="scroll"><table class="ledger"><thead><tr><th>#</th><th>${L("状态","Status")}</th><th>${L("条目","Claim")}</th><th>${L("来源","Source")}</th><th>${L("原文","Original wording")}</th></tr></thead><tbody>
-  ${CLAIMS.map((c,i)=>{const rej=isRejected(c.id), ed=o.review&&RV_EDIT===c.id;
+  ${CLAIMS.map((c,i)=>{if(o.only&&!o.only(c))return "";const rej=isRejected(c.id), ed=o.review&&RV_EDIT===c.id;
     const txt=ed?`<textarea id="rvTxt" rows="3" aria-label="${L("修改条目","Edit claim")}">${esc((rv(c.id)&&rv(c.id).txt&&rv(c.id).txt[S.lang])||T(c))}</textarea><div class="rvact"><button class="rvb ok" data-rv="save" data-id="${c.id}">${L("保存","Save")}</button><button class="rvb" data-rv="cancel">${L("取消","Cancel")}</button></div>`
       :`<span class="${rej?"strike":""}">${claimTxt(c)}</span>`;
     return `<tr class="${rej?"row-rej":""}"><td class="n">${i+1}</td><td>${statusCell(c)}${o.review&&!ed?reviewActions(c):""}</td><td>${txt}</td><td>${c.src?chip(c.src,c.pg,c.id):"—"}</td><td class="small">${c.q?"“"+esc(c.q)+"”":"—"}</td></tr>`;}).join("")}</tbody></table></div>`;}
