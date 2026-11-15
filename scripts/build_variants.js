@@ -16,7 +16,7 @@ function grab(start, end) {
   if (j < 0) throw new Error("end marker not found in app/template.html: " + end);
   return js.slice(i, j).trim();
 }
-const core = [
+let core = [
   "/* ===== Cut from app/template.html at build time (do not edit here) ===== */",
   grab("/* ---------- Sources", "/* ---------- State ---------- */"),   // SOURCES, CLAIMS, CARDS, MODULES, GROUPS, TOTAL, PRESETS, DIMS, CROWN, COEF, W, compute()
   grab("const L=(zh,en)", "/* ---------- Chrome"),                       // L, T, esc, fmt, sum, chip
@@ -28,10 +28,29 @@ const core = [
   grab("function openDrawer(", "\nfunction syncS3("),                     // openDrawer, closeDrawer
   "/* ===== End of cut ===== */"
 ].join("\n\n");
+// L() and T() go through the language tables in variants/i18n.js
+for (const [a, b] of [
+  ['const L=(zh,en)=>S.lang==="zh"?zh:en;', "const L=(zh,en)=>I18N_L(zh,en);"],
+  ['const T=o=>o?(S.lang==="zh"?o.zh:o.en):"";', 'const T=o=>o?I18N_L(o.zh,o.en):"";']]) {
+  if (!core.includes(a)) throw new Error("L/T definition changed in app/template.html: " + a);
+  core = core.replace(a, b);
+}
 
 const map = rd("data/precinct.json").trim();
-const baseCss = rd("variants/base.css") + "\n" + rd("variants/council.css");
-const shared = [rd("variants/shared.js"), rd("variants/iso.js"), rd("variants/vote.js"), rd("variants/council.js")].join(String.fromCharCode(10, 10));
+const baseCss = rd("variants/base.css") + "\n" + rd("variants/council.css") + "\n" + rd("variants/i18n.css");
+// translation tables: variants/i18n/<code>.json (AI translations, English text → target) and zh-Hant.json (OpenCC table)
+const i18nDir = path.join(root, "variants", "i18n");
+const dict = {};
+for (const f of fs.readdirSync(i18nDir).sort()) {
+  const m = /^([a-z]{2}|zh-Hant)\.json$/.exec(f);
+  if (m) dict[m[1]] = JSON.parse(fs.readFileSync(path.join(i18nDir, f), "utf8"));
+}
+for (const rtl of ["ar", "fa"]) { // "next" arrows point the other way in right-to-left text
+  const d = dict[rtl]; if (!d) continue;
+  for (const k in d) d[k] = d[k].replace(/→/g, "←");
+}
+const i18nJs = rd("variants/i18n.js").replace("/*__I18N__*/{}", () => JSON.stringify(dict));
+const shared = [i18nJs, rd("variants/shared.js"), rd("variants/iso.js"), rd("variants/vote.js"), rd("variants/council.js")].join(String.fromCharCode(10, 10));
 
 const BANNED = ["+43", "43 sec", "19% shade", "18,400", "n=142", "Verified Data Layers", "-0.0°C", "−0.0°C", "Monash", "parramatta-logo", "City of Parramatta logo"];
 
@@ -46,6 +65,8 @@ for (const name of ["a-studio", "b-scroll", "c-map", "index"]) {
     .replace("/*__CORE__*/", () => core + "\n\n" + shared)
     .replace("/*__MAP__*/", () => `const MAP = ${map};`);
   if (!needsMap) src = src.replace("/*__NOMAP__*/", "const MAP = null;");
+  // English (Australia) is the default before any script runs; applyLang() updates it for the chosen language
+  if (!/^\s*(<!doctype[^>]*>\s*)?<html/i.test(src)) src = '<html lang="en-AU">\n' + src;
   // published artifact links for the comparison page (variants/links.json, optional)
   const lp = path.join(root, "variants", "links.json");
   const links = fs.existsSync(lp) ? JSON.parse(fs.readFileSync(lp, "utf8")) : {};

@@ -68,7 +68,7 @@ const OPTS=()=>[
   best:L("最适合：给规划/建筑背景的评委看空间关系。","Best for: showing spatial logic to planning-minded judges.")}
 ];
 function render(){
-  document.documentElement.lang=S.lang==="zh"?"zh-CN":"en";
+  applyLang();
   document.getElementById("h1").textContent=L("三个设计方向，选一个交","Three design directions to choose from");
   document.getElementById("lede").textContent=L("内容、来源和模型完全一样（构建时从同一个原型里取），只换了界面和讲法。每个版本都支持中英文、深浅色和手机宽度。","Content, sources and model are identical, taken from the same prototype at build time. Only the interface and the storytelling change. Each supports Chinese and English, light and dark, and phone width.");
   document.getElementById("toggles").innerHTML=`<div style="display:flex;gap:6px">${langToggle()}${themeBtn()}</div>`;

@@ -1,8 +1,8 @@
 /* ===== variants/shared.js: UI pieces shared by the three variants ===== */
 const MEM={};
 const store={get(k){try{const v=localStorage.getItem(k);if(v!==null)return JSON.parse(v)}catch(e){}return k in MEM?MEM[k]:null},set(k,v){MEM[k]=v;try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
-const S={night:false,lang:"zh",role:"resident",age:null,postcode:"",pri:["shade","econ","access"],react:{},note:{},a:{...PRESETS.base.a},plant:"planter",year:2041,exp:"",wish:"",theme:null};
-(()=>{const l=store.get("cav_lang");if(l==="zh"||l==="en")S.lang=l;const t=store.get("cav_theme");if(t==="light"||t==="dark")S.theme=t;})();
+const S={night:false,lang:"en",role:"resident",age:null,postcode:"",pri:["shade","econ","access"],react:{},note:{},a:{...PRESETS.base.a},plant:"planter",year:2041,exp:"",wish:"",theme:null};
+(()=>{const l=store.get("cav_lang");if(LANGS.some(x=>x[0]===l))S.lang=l;const t=store.get("cav_theme");if(t==="light"||t==="dark")S.theme=t;})();
 
 /* theme: system by default, the toggle sets data-theme */
 function applyTheme(){const r=document.documentElement;if(S.theme)r.setAttribute("data-theme",S.theme);else r.removeAttribute("data-theme");}
@@ -10,7 +10,7 @@ function isDark(){return S.theme?S.theme==="dark":(window.matchMedia&&matchMedia
 function toggleTheme(){S.theme=isDark()?"light":"dark";store.set("cav_theme",S.theme);applyTheme();}
 applyTheme();
 const themeLabel=()=>isDark()?L("浅色","Light"):L("深色","Dark");
-const langToggle=()=>`<div class="tgl" role="group" aria-label="Language"><button id="lZh" aria-pressed="${S.lang==="zh"}">中文</button><button id="lEn" aria-pressed="${S.lang==="en"}">EN</button></div>`;
+const langToggle=()=>langPicker(); // 13 languages, see variants/i18n.js
 const themeBtn=()=>`<div class="tgl"><button id="themeBtn" aria-label="${L("切换深浅色","Toggle theme")}">${isDark()?"☀":"☾"} ${themeLabel()}</button></div>`;
 
 const ASSUME=()=>`<span class="tag t-design">${L("假设","Assumption")}</span>`;
@@ -354,7 +354,6 @@ function bindCommon(ctx,extra){
     const d=b.dataset;
     if(d.close){closeDrawer();return;}
     if(d.src){openDrawer(d.src,d.pg,d.claim);return;}
-    if(b.id==="lZh"||b.id==="lEn"){S.lang=b.id==="lZh"?"zh":"en";store.set("cav_lang",S.lang);ctx.render();return;}
     if(b.id==="themeBtn"){toggleTheme();ctx.render();return;}
     if(d.preset){S.a={...PRESETS[d.preset].a};syncSliders(null);ctx.live();return;}
     if(d.plant){S.plant=d.plant;document.querySelectorAll("[data-plant]").forEach(x=>x.setAttribute("aria-pressed",x.dataset.plant===S.plant));ctx.live();return;}
@@ -365,6 +364,7 @@ function bindCommon(ctx,extra){
     if(b.id==="submit"){submitDemo();ctx.render();return;}
     if(b.id==="clearSubs"){store.set("cav_subs",[]);ctx.render();return;}
   });
+  document.addEventListener("cav:lang",()=>ctx.render()); // fired by setLang() in variants/i18n.js
   let raf=0;
   document.addEventListener("input",e=>{
     const t=e.target;

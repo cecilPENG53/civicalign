@@ -1,0 +1,2762 @@
+[
+ {
+  "en": "Planned",
+  "zh": "总规安排了"
+ },
+ {
+  "en": "Ruled out or settled",
+  "zh": "Council 排除了 / 已定"
+ },
+ {
+  "en": "Still open",
+  "zh": "还没定"
+ },
+ {
+  "en": "Evidence gap",
+  "zh": "证据空白"
+ },
+ {
+  "en": "Every value is a team assumption marked “to be checked against literature”. The next version replaces each with a cited value.",
+  "zh": "每个值都是团队假设，标注“待文献核实”。下一版会逐个替换为有出处的数值。"
+ },
+ {
+  "en": "Use",
+  "zh": "用途"
+ },
+ {
+  "en": "Build $/m²",
+  "zh": "建设 $/m²"
+ },
+ {
+  "en": "Upkeep $/m²/yr",
+  "zh": "维护 $/m²/年"
+ },
+ {
+  "en": "Carbon t/m²",
+  "zh": "隐含碳 t/m²"
+ },
+ {
+  "en": "Other",
+  "zh": "其他"
+ },
+ {
+  "en": "Crown factor planter {0}; deep {1}; storm {2} / {3} m³/m²",
+  "zh": "树冠倍数 种植池 {0}；深土 {1}；雨水 {2} / {3} m³/m²"
+ },
+ {
+  "en": "Storm {0} m³/m²",
+  "zh": "雨水 {0} m³/m²"
+ },
+ {
+  "en": "Capacity {0} people/m²",
+  "zh": "容量 {0} 人/m²"
+ },
+ {
+  "en": "Capacity {0} people/m²; shade {1}",
+  "zh": "容量 {0} 人/m²；遮荫 {1}"
+ },
+ {
+  "en": "Clear factor {0}",
+  "zh": "畅通系数 {0}"
+ },
+ {
+  "en": "Proxy weights: ",
+  "zh": "代理指标权重："
+ },
+ {
+  "en": "Source",
+  "zh": "来源"
+ },
+ {
+  "en": "Close",
+  "zh": "关闭"
+ },
+ {
+  "en": "Original wording, ",
+  "zh": "原文（英文），"
+ },
+ {
+  "en": "This section as a whole comes from this source.",
+  "zh": "这一段整体出自该来源。"
+ },
+ {
+  "en": "Open the original",
+  "zh": "打开原文件"
+ },
+ {
+  "en": "Brief held by the team.",
+  "zh": "团队持有的简报文件。"
+ },
+ {
+  "en": "Page numbers are those printed in the document.",
+  "zh": "页码为 PDF 上印的页码。"
+ },
+ {
+  "en": "Language",
+  "zh": "语言"
+ },
+ {
+  "en": "Light",
+  "zh": "浅色"
+ },
+ {
+  "en": "Dark",
+  "zh": "深色"
+ },
+ {
+  "en": "Toggle theme",
+  "zh": "切换深浅色"
+ },
+ {
+  "en": "Assumption",
+  "zh": "假设"
+ },
+ {
+  "en": "Awaits Council traffic study",
+  "zh": "等待 Council 交通研究"
+ },
+ {
+  "en": "<b>Competition prototype.</b> Every Council fact carries its source and page (tap a green tag for the original). The square's coefficients and the Scenario 0 split are team assumptions, not yet checked against literature. Nothing personal is collected or sent.",
+  "zh": "<b>参赛原型。</b>Council 的事实都附来源和页码（点绿色标签看原文）。广场分配的系数和方案 0 的比例是团队假设，还没用文献核实。这里不收集、不发送任何个人信息。"
+ },
+ {
+  "en": "We acknowledge the Dharug people, the Traditional Custodians of the land of Parramatta, and pay our respects to Elders past and present. We extend that respect to all Aboriginal and Torres Strait Islander people using this site.",
+  "zh": "我们承认 Dharug 人是 Parramatta 这片土地的传统守护者，并向过去和现在的长者致敬。我们也向所有使用本网站的原住民和托雷斯海峡岛民致以同样的敬意。"
+ },
+ {
+  "en": "Acknowledgement of Country",
+  "zh": "致谢原住民土地"
+ },
+ {
+  "en": "Sources: S1 challenge brief; S2 draft master plan; S3 Participate Parramatta page; S4 Council report OCM26-56; S5 Smart City Strategy. Base map © OpenStreetMap contributors (ODbL), snapshot 10 Nov 2026. CivicAlign is a competition prototype and does not represent the City of Parramatta.",
+  "zh": "来源：S1 挑战简报；S2 总规草案；S3 Participate Parramatta 项目页；S4 Council 报告 OCM26-56；S5 智慧城市战略。底图 © OpenStreetMap contributors（ODbL），2026-11-10 快照。CivicAlign 是参赛原型，不代表 City of Parramatta。"
+ },
+ {
+  "en": "Quick compare",
+  "zh": "快速对比"
+ },
+ {
+  "en": "Fine-tune all 10 uses",
+  "zh": "细分到 10 类用途"
+ },
+ {
+  "en": "Role",
+  "zh": "角色"
+ },
+ {
+  "en": "Action",
+  "zh": "战略行动"
+ },
+ {
+  "en": "Scen. 0",
+  "zh": "方案 0"
+ },
+ {
+  "en": "Roles D/P/A and action numbers",
+  "zh": "角色 D/P/A 和战略行动编号"
+ },
+ {
+  "en": "Planting",
+  "zh": "种树方式"
+ },
+ {
+  "en": "Raised planters",
+  "zh": "抬高种植池"
+ },
+ {
+  "en": "Deep soil",
+  "zh": "深土种植"
+ },
+ {
+  "en": "Year",
+  "zh": "年份"
+ },
+ {
+  "en": "vs Scenario 0",
+  "zh": "对比方案 0"
+ },
+ {
+  "en": ", better",
+  "zh": "，更好"
+ },
+ {
+  "en": ", worse",
+  "zh": "，更差"
+ },
+ {
+  "en": "Shaded area",
+  "zh": "遮荫面积"
+ },
+ {
+  "en": "About {0}% of the square; crowns grow over time",
+  "zh": "约占广场 {0}%；树冠随年份长大"
+ },
+ {
+  "en": "Event and market capacity",
+  "zh": "活动与市集容量"
+ },
+ {
+  "en": "people",
+  "zh": "人"
+ },
+ {
+  "en": "People at one time",
+  "zh": "同时能容纳的人数"
+ },
+ {
+  "en": "Clear walking space",
+  "zh": "畅通步行空间"
+ },
+ {
+  "en": "Inside the square only. Wider traffic effects: ",
+  "zh": "广场内部的比例。周边交通影响："
+ },
+ {
+  "en": "Build + upkeep cost",
+  "zh": "建设 + 维护成本"
+ },
+ {
+  "en": "Total to {0}; funding not settled",
+  "zh": "到 {0} 年累计；资金来源未定"
+ },
+ {
+  "en": "Index, Scenario 0 ≈ 50",
+  "zh": "相对指数，方案 0 ≈ 50"
+ },
+ {
+  "en": "Proxy score",
+  "zh": "代理指标"
+ },
+ {
+  "en": "Estimate",
+  "zh": "估算"
+ },
+ {
+  "en": "Yours",
+  "zh": "你的"
+ },
+ {
+  "en": "Scenario 0: plan as drawn (assumption)",
+  "zh": "方案 0：总规原样（假设）"
+ },
+ {
+  "en": "Your split",
+  "zh": "你的方案"
+ },
+ {
+  "en": "Your priority (×3)",
+  "zh": "你的优先项（×3）"
+ },
+ {
+  "en": "N · heritage townhouse (dining)",
+  "zh": "北 · 历史联排楼（保留餐饮）"
+ },
+ {
+  "en": "S · new Council building (active edge)",
+  "zh": "南 · Council 新楼（餐饮界面）"
+ },
+ {
+  "en": "W · Council bldg · cultural space",
+  "zh": "西 · Council 新楼 · 文化空间"
+ },
+ {
+  "en": "one-way S",
+  "zh": "单向南行"
+ },
+ {
+  "en": "raised crossing",
+  "zh": "抬高横道"
+ },
+ {
+  "en": "Diagram of uses in the square",
+  "zh": "广场用途示意图"
+ },
+ {
+  "en": "Diagram only, not a design. Each icon is about 25 m²; crowns grow with the year and planting type. Edges from",
+  "zh": "示意图，不是设计方案。每个图标约 25 m²，树冠大小随年份和种植方式变化。周边关系依据"
+ },
+ {
+  "en": "↑ Station",
+  "zh": "↑ 车站"
+ },
+ {
+  "en": "Base map of CBD South Phase 1",
+  "zh": "CBD South 第一期范围底图"
+ },
+ {
+  "en": "Team member (demo)",
+  "zh": "团队成员（演示）"
+ },
+ {
+  "en": "Does not match the source",
+  "zh": "原文不符"
+ },
+ {
+  "en": "Out of context",
+  "zh": "断章取义"
+ },
+ {
+  "en": "Wrong page",
+  "zh": "页码错"
+ },
+ {
+  "en": "Out of date",
+  "zh": "过时"
+ },
+ {
+  "en": "Edited by team",
+  "zh": "团队已修改"
+ },
+ {
+  "en": "This line did not pass review and is hidden from residents.",
+  "zh": "此条未通过核对，暂不向居民显示。"
+ },
+ {
+  "en": "No source has this",
+  "zh": "来源里没有"
+ },
+ {
+  "en": "What do you think",
+  "zh": "你觉得呢"
+ },
+ {
+  "en": "Your view?",
+  "zh": "你觉得呢？"
+ },
+ {
+  "en": "Support",
+  "zh": "支持"
+ },
+ {
+  "en": "Not sure",
+  "zh": "不确定"
+ },
+ {
+  "en": "Concerned",
+  "zh": "有顾虑"
+ },
+ {
+  "en": "Decides to prepare a master plan",
+  "zh": "决议编制总规"
+ },
+ {
+  "en": "Studies a Chinatown on Church St",
+  "zh": "研究在 Church St 设唐人街"
+ },
+ {
+  "en": "Compares a park, a convention centre, and dining and nightlife with a square; picks the third",
+  "zh": "比较大公园、会展中心、餐饮夜生活 + 广场，选了第三种"
+ },
+ {
+  "en": "Options test",
+  "zh": "方案比选"
+ },
+ {
+  "en": "Drops a 3,500 m² open space; picks Scheme 3 with a 1,200 m² plaza",
+  "zh": "3,500 m² 大开放空间被淘汰；选带 1,200 m² 广场的方案 3"
+ },
+ {
+  "en": "Location test",
+  "zh": "位置比选"
+ },
+ {
+  "en": "Rejects two inner-block sites; puts the plaza on Wentworth St",
+  "zh": "地块内部两个位置被否决，广场放在临 Wentworth St"
+ },
+ {
+  "en": "Votes unanimously to exhibit",
+  "zh": "一致同意公示"
+ },
+ {
+  "en": "Exhibition; submissions under review",
+  "zh": "公示，意见在审阅中"
+ },
+ {
+  "en": "Council delivers",
+  "zh": "Council 直接负责"
+ },
+ {
+  "en": "Canopy, rain gardens, seating, walking, kerb, lighting",
+  "zh": "树冠、雨水花园、座椅、步行、路缘、照明"
+ },
+ {
+  "en": "Council leads with partners",
+  "zh": "Council 牵头，与伙伴合作"
+ },
+ {
+  "en": "Events and markets, bikes, recycling",
+  "zh": "活动和夜市、自行车、回收"
+ },
+ {
+  "en": "Mainly partners",
+  "zh": "主要靠伙伴"
+ },
+ {
+  "en": "Cultural expression: artists, Chinese community groups, First Nations groups",
+  "zh": "文化表达：艺术家、华人社团、First Nations 团体"
+ },
+ {
+  "en": "D = Council delivers, P = partners, A = advocates to others such as the State",
+  "zh": "D = Council 自己做，P = 和伙伴一起做，A = 向州政府等争取"
+ },
+ {
+  "en": "Traffic study: with TfNSW, after the Phase 2 master plan",
+  "zh": "交通研究：第二期总规之后与 TfNSW 一起做"
+ },
+ {
+  "en": "Station and Argyle St bus interchange wait for Phase 2",
+  "zh": "车站和 Argyle St 公交换乘站留到第二期"
+ },
+ {
+  "en": "Funding may include State and Federal grants",
+  "zh": "建设资金可能包括州和联邦拨款"
+ },
+ {
+  "en": "Advocate to others",
+  "zh": "需向他方争取"
+ },
+ {
+  "en": "No floor area; these are things Council must win from others such as the State",
+  "zh": "不对应广场面积，列的是要向州政府等争取的事"
+ },
+ {
+  "en": "What is it like around here now? Walking at night, waiting for a bus, with kids, running a shop.",
+  "zh": "你现在在这一带的体验是什么？比如晚上走、等车、带孩子、做生意。"
+ },
+ {
+  "en": "What would make this square work for you?",
+  "zh": "这个广场怎样才对你有用？"
+ },
+ {
+  "en": "Please leave out names, phone numbers and addresses. Under the minimum-data rule we only ask your role, and optionally age band and postcode",
+  "zh": "请不要写姓名、电话或住址。按“最少必要数据”原则，我们只问身份和可选的年龄段、邮编"
+ },
+ {
+  "en": "Submit (demo)",
+  "zh": "提交（演示）"
+ },
+ {
+  "en": "{0} demo submission(s) saved in this browser only. Nothing was sent to Council.",
+  "zh": "本浏览器已保存 {0} 份演示提交，没有发送给 Council。"
+ },
+ {
+  "en": "In this demo your answers stay in your browser and are not sent anywhere.",
+  "zh": "演示版只保存在你的浏览器里，不会发送给任何人。"
+ },
+ {
+  "en": "In this demo the team extracted and checked every entry by hand; <b>Council has not approved them</b>.",
+  "zh": "本演示里的条目由团队人工整理和核对，<b>不是 Council 批准的</b>。"
+ },
+ {
+  "en": "Gap",
+  "zh": "证据空白"
+ },
+ {
+  "en": "Team-checked",
+  "zh": "团队已核对"
+ },
+ {
+  "en": "Approved (demo)",
+  "zh": "已批准（演示）"
+ },
+ {
+  "en": "Edited",
+  "zh": "已修改"
+ },
+ {
+  "en": "Rejected",
+  "zh": "已驳回"
+ },
+ {
+  "en": "Undo reject",
+  "zh": "撤销驳回"
+ },
+ {
+  "en": "Approve",
+  "zh": "批准"
+ },
+ {
+  "en": "Edit",
+  "zh": "修改"
+ },
+ {
+  "en": "Reason to reject",
+  "zh": "驳回理由"
+ },
+ {
+  "en": "Reject…",
+  "zh": "驳回…"
+ },
+ {
+  "en": "Status",
+  "zh": "状态"
+ },
+ {
+  "en": "Claim",
+  "zh": "条目"
+ },
+ {
+  "en": "Original wording",
+  "zh": "原文"
+ },
+ {
+  "en": "Edit claim",
+  "zh": "修改条目"
+ },
+ {
+  "en": "Save",
+  "zh": "保存"
+ },
+ {
+  "en": "Cancel",
+  "zh": "取消"
+ },
+ {
+  "en": "Traffic effects: no traffic model yet",
+  "zh": "交通影响：还没有交通模型"
+ },
+ {
+  "en": "Consultants FY27/28; with TfNSW",
+  "zh": "FY27/28 聘顾问；与 TfNSW 一起做"
+ },
+ {
+  "en": "“Awaits Council traffic study”",
+  "zh": "标“等待 Council 交通研究”"
+ },
+ {
+  "en": "Square size: 1,200 m² or 1,300 m²",
+  "zh": "广场面积：1,200 m² 还是 1,300 m²"
+ },
+ {
+  "en": "Final master plan",
+  "zh": "最终版总规"
+ },
+ {
+  "en": "1,200 m², with the difference noted",
+  "zh": "用 1,200 m²，并注明两处说法不同"
+ },
+ {
+  "en": "Whether a car park sits under the square, and whether deep soil is possible",
+  "zh": "广场下方是否有停车场、能否深土种树"
+ },
+ {
+  "en": "Car park feasibility work; no date in the sources",
+  "zh": "停车场可行性研究；来源未给时间"
+ },
+ {
+  "en": "Deep soil marked “unconfirmed”",
+  "zh": "深土种植标“待核实”"
+ },
+ {
+  "en": "Area for each use",
+  "zh": "各项功能的面积比例"
+ },
+ {
+  "en": "No areas in the sources",
+  "zh": "来源里没有面积"
+ },
+ {
+  "en": "Square design stage; no date in the sources",
+  "zh": "广场设计阶段；来源未给时间"
+ },
+ {
+  "en": "Scenario 0 labelled “our reading”",
+  "zh": "方案 0 标“我们的解读”"
+ },
+ {
+  "en": "Funding sources",
+  "zh": "建设资金来源"
+ },
+ {
+  "en": "No date in the sources",
+  "zh": "来源未给时间"
+ },
+ {
+  "en": "Cost card says “funding not settled”",
+  "zh": "成本卡注明“资金来源未定”"
+ },
+ {
+  "en": "Exhibition feedback summary (not yet published)",
+  "zh": "公示意见汇总（尚未公开）"
+ },
+ {
+  "en": "No exhibition feedback shown",
+  "zh": "不引用公示意见"
+ },
+ {
+  "en": "Literature for each coefficient",
+  "zh": "系数矩阵的文献出处"
+ },
+ {
+  "en": "Our design",
+  "zh": "我们的设计"
+ },
+ {
+  "en": "This team",
+  "zh": "本团队"
+ },
+ {
+  "en": "After submission",
+  "zh": "提交后"
+ },
+ {
+  "en": "Every result labelled “assumption”",
+  "zh": "所有结果标“假设”"
+ },
+ {
+  "en": "Who",
+  "zh": "谁能补"
+ },
+ {
+  "en": "When",
+  "zh": "何时"
+ },
+ {
+  "en": "Residents",
+  "zh": "居民端"
+ },
+ {
+  "en": "Connect renewal areas to the CBD and transport",
+  "zh": "连接更新片区与 CBD 和交通枢纽"
+ },
+ {
+  "en": "Clear walking",
+  "zh": "畅通步行"
+ },
+ {
+  "en": "New spaces for community gathering",
+  "zh": "新建社区聚会空间"
+ },
+ {
+  "en": "Events + rest",
+  "zh": "活动 + 休憩"
+ },
+ {
+  "en": "Better links between streets and public space",
+  "zh": "改善街道与公共空间的连接"
+ },
+ {
+  "en": "Street edge: walking + kerb + bikes",
+  "zh": "街道界面：步行 + 路缘 + 自行车"
+ },
+ {
+  "en": "Easier, safer, more comfortable walking and cycling",
+  "zh": "让步行和骑行更容易、更安全、更舒适"
+ },
+ {
+  "en": "Shade canopy",
+  "zh": "遮荫树冠"
+ },
+ {
+  "en": "Chinatown as a cultural destination",
+  "zh": "唐人街成为文化目的地"
+ },
+ {
+  "en": "Culture",
+  "zh": "文化表达"
+ },
+ {
+  "en": "Events and markets",
+  "zh": "活动和夜市"
+ },
+ {
+  "en": "Council land delivering public amenity",
+  "zh": "用 Council 用地提供公共便利"
+ },
+ {
+  "en": "Kept",
+  "zh": "保持"
+ },
+ {
+  "en": "Weakened",
+  "zh": "削弱"
+ },
+ {
+  "en": "Not met",
+  "zh": "不满足"
+ },
+ {
+  "en": "Not scored",
+  "zh": "不评分"
+ },
+ {
+  "en": "Checked: the resident storyboard's <b>current split</b>, against Scenario 0 (plan as drawn, our reading). Principles from",
+  "zh": "检查对象：居民故事板的<b>当前分配</b>，对比方案 0（总规原样，我们的解读）。原则来自"
+ },
+ {
+  "en": "Thresholds and “weakened” (over 10% below Scenario 0) are our assumptions",
+  "zh": "门槛和“削弱”（比方案 0 少 10% 以上）是我们的假设"
+ },
+ {
+  "en": "This tool fixes the total at 1,200 m², so this always holds and is not scored. The real risks are funding and the car park; see evidence gaps.",
+  "zh": "本工具把总面积固定在 1,200 m²，所以这条恒满足，不打分。真正的风险在资金和停车场，见证据空白。"
+ },
+ {
+  "en": "Now",
+  "zh": "当前"
+ },
+ {
+  "en": "Min",
+  "zh": "门槛"
+ },
+ {
+  "en": "The tool flags which principle is weakened; it does not decide for Council.",
+  "zh": "系统只标出哪条被削弱，不替 Council 做决定。"
+ },
+ {
+  "en": "A summary appears only once a group reaches 10 or more people, with an ABS Census check for representativeness. The demo has no real submissions, only demo data from this browser.",
+  "zh": "只有同一群体达到 10 人以上才显示汇总，并对比 ABS 人口结构检查代表性。演示版没有真实提交，只读本浏览器里的演示数据。"
+ },
+ {
+  "en": "Reached 10",
+  "zh": "已达到 10 人"
+ },
+ {
+  "en": "Under 10, hidden",
+  "zh": "少于 10，已隐藏"
+ },
+ {
+  "en": "{0} group(s) reached the threshold. The full version shows that group's summary here; the demo does not build it yet.",
+  "zh": "{0} 个群体达到门槛。正式版会在这里显示该群体的汇总；演示版尚未实现汇总视图。"
+ },
+ {
+  "en": "No group has reached 10 people yet. Once one does, this shows: support for each card, the median split, and a representativeness check.",
+  "zh": "还没有群体达到 10 人。达到后这里会显示：各卡片的支持度、方案面积中位数、代表性对比。"
+ },
+ {
+  "en": "Clear demo submissions in this browser",
+  "zh": "清除本浏览器的演示提交"
+ },
+ {
+  "en": "The decision this tool serves",
+  "zh": "这个工具服务的决策"
+ },
+ {
+  "en": "The brief asks for decision, owner, refresh and action",
+  "zh": "赛题要求讲清决策、负责人、更新和行动"
+ },
+ {
+  "en": "Decision",
+  "zh": "决策"
+ },
+ {
+  "en": "How the square is shared",
+  "zh": "广场里面怎么分"
+ },
+ {
+  "en": "Woodhouse Square (provisional name",
+  "zh": "Woodhouse Square（暂定名"
+ },
+ {
+  "en": "): how its 1,200 m²",
+  "zh": "）这 1,200 m²"
+ },
+ {
+  "en": "is shared between uses. The plan gives no area for each use.",
+  "zh": "在各类用途之间怎么分。总规没给各项面积。"
+ },
+ {
+  "en": "Owner",
+  "zh": "负责人"
+ },
+ {
+  "en": "Council",
+  "zh": "Council"
+ },
+ {
+  "en": "The master plan is Council's document",
+  "zh": "总规是 Council 的文件"
+ },
+ {
+  "en": ". Which team runs this tool:",
+  "zh": "。工具内由哪个团队负责："
+ },
+ {
+  "en": "For Council to name",
+  "zh": "待 Council 指定"
+ },
+ {
+  "en": "Refresh",
+  "zh": "何时更新"
+ },
+ {
+  "en": "Three milestones",
+  "zh": "三个节点"
+ },
+ {
+  "en": "Final master plan to Council",
+  "zh": "最终版总规提交 Council"
+ },
+ {
+  "en": "traffic study consultants in FY27/28",
+  "zh": "交通研究顾问 FY27/28"
+ },
+ {
+  "en": "Phase 2 exhibited in 2027",
+  "zh": "第二期 2027 年公示"
+ },
+ {
+  "en": "At each one, re-run the evidence review and principle check",
+  "zh": "每到一个节点，重跑证据核对和原则检查"
+ },
+ {
+  "en": "Actions",
+  "zh": "能促成的行动"
+ },
+ {
+  "en": "Three follow-on pieces + advocacy",
+  "zh": "三项后续工作 + 倡导"
+ },
+ {
+  "en": "Amend DCP 2023 Part 9; prepare a Public Art Master Plan; feasibility study for Council land",
+  "zh": "修订 DCP 2023 Part 9；编制公共艺术总体规划；Council 用地可行性研究"
+ },
+ {
+  "en": "Plus what Council must win from others; see tier A below.",
+  "zh": "另有向州政府等争取的事，见下方 A 层。"
+ },
+ {
+  "en": "Claims checked",
+  "zh": "条目已核对"
+ },
+ {
+  "en": "Rejected, hidden from residents",
+  "zh": "已驳回，居民端已隐藏"
+ },
+ {
+  "en": "Evidence gaps",
+  "zh": "证据空白"
+ },
+ {
+  "en": "Principles kept / weakened or not met",
+  "zh": "原则 保持 / 削弱或不满足"
+ },
+ {
+  "en": "Groups at the 10-person threshold",
+  "zh": "达到 10 人门槛的群体"
+ },
+ {
+  "en": "W · Council building · cultural space",
+  "zh": "西 · Council 新楼 · 文化空间"
+ },
+ {
+  "en": "Wentworth St · one-way south",
+  "zh": "Wentworth St · 单向南行"
+ },
+ {
+  "en": "raised crossing · Rivoli Way",
+  "zh": "抬高横道 · Rivoli Way"
+ },
+ {
+  "en": "The square",
+  "zh": "广场"
+ },
+ {
+  "en": "Street",
+  "zh": "街道"
+ },
+ {
+  "en": "Buildings",
+  "zh": "周边建筑"
+ },
+ {
+  "en": "Below",
+  "zh": "地下"
+ },
+ {
+  "en": "Woodhouse Square 2.5D view",
+  "zh": "Woodhouse Square 2.5D 示意"
+ },
+ {
+  "en": "1 cell = 25 m²",
+  "zh": "1 格 = 25 m²"
+ },
+ {
+  "en": "Level = low–high",
+  "zh": "水位 = 低–高"
+ },
+ {
+  "en": "1 figure = 25 people",
+  "zh": "1 人形 = 25 人"
+ },
+ {
+  "en": "Band = clear share",
+  "zh": "路带宽 = 畅通比例"
+ },
+ {
+  "en": "Index, Scenario 0 = 50",
+  "zh": "相对指数，方案 0 = 50"
+ },
+ {
+  "en": "1 block = $250k (build below, upkeep above)",
+  "zh": "1 块 = $25 万（下排建设，上排维护）"
+ },
+ {
+  "en": "1 cloud = 20 t CO₂e",
+  "zh": "1 朵 = 20 t CO₂e"
+ },
+ {
+  "en": "Laneways and arcades",
+  "zh": "小巷和拱廊"
+ },
+ {
+  "en": "Around the station",
+  "zh": "车站一带"
+ },
+ {
+  "en": "Not enough shade",
+  "zh": "树荫不够"
+ },
+ {
+  "en": "Nowhere to sit",
+  "zh": "没地方坐"
+ },
+ {
+  "en": "Hard with a wheelchair or pram",
+  "zh": "轮椅、婴儿车难走"
+ },
+ {
+  "en": "Too dark at night",
+  "zh": "晚上太暗"
+ },
+ {
+  "en": "Noise or litter",
+  "zh": "噪音或垃圾"
+ },
+ {
+  "en": "Hard to cross",
+  "zh": "过街难"
+ },
+ {
+  "en": "Drop-off or loading in the way",
+  "zh": "接送、装卸挡路"
+ },
+ {
+  "en": "Unsafe to cycle",
+  "zh": "骑车不安全"
+ },
+ {
+  "en": "Something else",
+  "zh": "其他"
+ },
+ {
+  "en": "Simulated",
+  "zh": "模拟数据"
+ },
+ {
+  "en": "Council advocates to others such as the State",
+  "zh": "Council 向州政府等争取"
+ },
+ {
+  "en": "No official figure · evidence gap",
+  "zh": "没有官方数字 · 证据空白"
+ },
+ {
+  "en": "No matching Council claim in our ledger · evidence gap",
+  "zh": "我们整理的 Council 条目里没有对应内容 · 证据空白"
+ },
+ {
+  "en": "Council says",
+  "zh": "Council 说"
+ },
+ {
+  "en": "Vote source",
+  "zh": "票数来源"
+ },
+ {
+  "en": "Show simulated votes",
+  "zh": "显示模拟票"
+ },
+ {
+  "en": "Only my votes",
+  "zh": "只看我的票"
+ },
+ {
+  "en": "About this data",
+  "zh": "关于这些数据"
+ },
+ {
+  "en": "These votes are <b>simulated</b>. They are not real residents' views and not Council data. A fixed random seed ({0}) generates {1} simulated respondents, so the set is the same every time: 44 local residents, 28 commuters, 16 business owners or workers and 8 visitors, with different age-band mixes per role. Each one ticks situations by the leanings below: a 50% chance for a leaning item, 12% for the rest. Each then does 8 pick-one-of-two rounds, choosing by their role's weights for each use, with 12% \"about the same\" and 8% skipped. Visitors are only 8, below the 10-person threshold on purpose, to show the privacy rule. The brief allows clearly labelled simulated data",
+  "zh": "这里的票是<b>模拟的</b>，不是真实居民的意见，也不是 Council 的数据。我们用固定的随机种子（{0}）生成 {1} 位模拟受访者，所以每次打开结果都一样。身份分布是：附近居民 44、通勤者 28、商户 / 员工 16、访客 8，各身份的年龄段比例不同。每人按下面的倾向勾选情况：倾向项被勾的概率是 50%，其他是 12%。然后做 8 轮二选一，按各身份对用途的权重抽选，12% 选“差不多”，8% 跳过。访客只有 8 人，故意低于 10 人的门槛，用来演示隐私规则。赛题允许使用标明的模拟数据"
+ },
+ {
+  "en": ". Every \"Council says\" line is still a real citation or an evidence gap; only the votes are simulated.",
+  "zh": "。每条“Council 说”仍是真实引用或证据空白，只有票数是模拟的。"
+ },
+ {
+  "en": "ticks more often: ",
+  "zh": "常勾："
+ },
+ {
+  "en": ". Leans to: ",
+  "zh": "。二选一偏向："
+ },
+ {
+  "en": "How the full version gets real data:",
+  "zh": "正式版怎么拿到真实数据："
+ },
+ {
+  "en": "collect on Council's existing Participate Parramatta (more than 196,000 unique visitors since 2020",
+  "zh": "在 Council 已有的 Participate Parramatta 上收集（2020 年以来超过 196,000 名独立访客"
+ },
+ {
+  "en": ") plus on-site QR signs and library tablets for people who rarely go online. It asks only for role, and optionally age band and postcode",
+  "zh": "），再加现场二维码标牌和图书馆平板，照顾不常上网的人。只问身份和可选的年龄段、邮编"
+ },
+ {
+  "en": ". The ABS Census is used to check how representative each group is. The platform and venues already exist, so the main costs are signs and tablets.",
+  "zh": "。再用 ABS 人口普查检查各群体的代表性。平台和场地都是 Council 已有的，成本主要是标牌和平板。"
+ },
+ {
+  "en": "Square",
+  "zh": "广场"
+ },
+ {
+  "en": "Chinatown",
+  "zh": "唐人街"
+ },
+ {
+  "en": "Traffic",
+  "zh": "交通"
+ },
+ {
+  "en": "Council says vs you see",
+  "zh": "Council 说 vs 你看到"
+ },
+ {
+  "en": "Lived experience",
+  "zh": "亲身体验"
+ },
+ {
+  "en": "Which of these have you run into? One tap is one vote",
+  "zh": "哪些情况你也遇到过？点一下就算一票"
+ },
+ {
+  "en": "Category",
+  "zh": "分类"
+ },
+ {
+  "en": "Team-written example",
+  "zh": "团队示例"
+ },
+ {
+  "en": "These prompts are written by the team, not real resident reports.",
+  "zh": "下面的说法是团队写的提示，不是真实居民的报告。"
+ },
+ {
+  "en": "The number on the right = votes from {0} simulated respondents + yours.",
+  "zh": "右边的数字 = {0} 位模拟受访者的票 + 你的票。"
+ },
+ {
+  "en": "The number on the right counts only your votes in this browser, starting at 0.",
+  "zh": "右边的数字只算你在本浏览器投的票，从 0 开始。"
+ },
+ {
+  "en": "Show {0} more",
+  "zh": "再给我 {0} 条"
+ },
+ {
+  "en": "Added by you · this browser only",
+  "zh": "你添加的 · 只在本浏览器"
+ },
+ {
+  "en": "{0} votes, {1} simulated",
+  "zh": "{0} 票，其中模拟 {1}"
+ },
+ {
+  "en": "simulated",
+  "zh": "模拟"
+ },
+ {
+  "en": "Add something you've run into (tap, no typing)",
+  "zh": "加一条你遇到的问题（点选，不用打字）"
+ },
+ {
+  "en": "Where",
+  "zh": "在哪里"
+ },
+ {
+  "en": "What",
+  "zh": "什么问题"
+ },
+ {
+  "en": "Add to the list and vote",
+  "zh": "加入清单并投一票"
+ },
+ {
+  "en": "Once added, anyone using this browser can see it and vote (the demo has no server). New items have no simulated votes.",
+  "zh": "加进去以后，用这个浏览器的人都能看到并投票（演示没有服务器）。新加的条目没有模拟票。"
+ },
+ {
+  "en": "Listed in the plan",
+  "zh": "总规列出"
+ },
+ {
+  "en": "Use added by the team",
+  "zh": "团队补充的用途"
+ },
+ {
+  "en": "won {0}/{1}",
+  "zh": "赢 {0}/{1}"
+ },
+ {
+  "en": "Too few simulated answers for the last pair to show a split.",
+  "zh": "上一轮这一对的模拟数据太少，不显示比例。"
+ },
+ {
+  "en": "You picked {0}. ",
+  "zh": "你选了「{0}」。"
+ },
+ {
+  "en": "Last round",
+  "zh": "上一轮"
+ },
+ {
+  "en": "{0}% of simulated respondents picked {1}, {2}% {3} (n={4})",
+  "zh": "模拟受访者里 {0}% 选「{1}」，{2}% 选「{3}」（n={4}）"
+ },
+ {
+  "en": "Pick one of two",
+  "zh": "二选一"
+ },
+ {
+  "en": "Round {0} of {1}",
+  "zh": "第 {0} / {1} 轮"
+ },
+ {
+  "en": "If the square had 100 m² more, which use should get it?",
+  "zh": "如果广场多出 100 m²，你更想给哪一个？"
+ },
+ {
+  "en": "About the same",
+  "zh": "差不多"
+ },
+ {
+  "en": "Skip",
+  "zh": "跳过"
+ },
+ {
+  "en": "Round {0} of {1} · the total stays 1,200 m²",
+  "zh": "第 {0} / {1} 轮 · 1,200 m² 的总面积不变"
+ },
+ {
+  "en": "Your order (share of matchups won):",
+  "zh": "你的排序（按赢的比例）："
+ },
+ {
+  "en": "You skipped every round.",
+  "zh": "你都跳过了。"
+ },
+ {
+  "en": "Top three among {0} simulated respondents: ",
+  "zh": "{0} 位模拟受访者的前三："
+ },
+ {
+  "en": "The order shows what you'd rather have, not areas. Pairs are drawn at random from the 10 uses.",
+  "zh": "排序只说明你更想要哪个，不是面积。每次比的组合是从 10 项用途里随机抽的。"
+ },
+ {
+  "en": "New pairs",
+  "zh": "换一批再比"
+ },
+ {
+  "en": "You ticked {0} and compared {1} pairs",
+  "zh": "你勾了 {0} 条，比了 {1} 轮"
+ },
+ {
+  "en": "See what Council would receive →",
+  "zh": "看 Council 会收到什么 →"
+ },
+ {
+  "en": "Anything else? Write a few words (optional)",
+  "zh": "还想补充？写几句（可选）"
+ },
+ {
+  "en": "Pick a place and an issue first.",
+  "zh": "先选地点和问题。"
+ },
+ {
+  "en": "Saved as demo submission {0} in this browser. Nothing was sent to Council. You can vote again as another role.",
+  "zh": "已保存为本浏览器第 {0} 份演示提交，没有发送给 Council。可以换个身份再投一次。"
+ },
+ {
+  "en": "under 10, hidden",
+  "zh": "少于 10，隐藏"
+ },
+ {
+  "en": "Added in this browser",
+  "zh": "在本浏览器添加"
+ },
+ {
+  "en": "Team example",
+  "zh": "团队示例"
+ },
+ {
+  "en": "{0} in all: {1} simulated + {2} demo submission(s) from this browser.",
+  "zh": "共 {0} 份：{1} 份模拟 + {2} 份本浏览器的演示提交。"
+ },
+ {
+  "en": "Only demo submissions from this browser, starting at 0.",
+  "zh": "只算本浏览器里的演示提交，从 0 开始。"
+ },
+ {
+  "en": "Every option keeps its Council source and who delivers it.",
+  "zh": "每条选项都保留“Council 说”的出处和分工。"
+ },
+ {
+  "en": "No demo submissions yet. In the resident storyboard, chapter 4, tick a few items, compare a few pairs, then press Submit (demo).",
+  "zh": "还没有演示提交。到“居民故事板”第 4 章勾几条、比几轮，再点“提交（演示）”。"
+ },
+ {
+  "en": "Fewer than 10.",
+  "zh": "少于 10 份。"
+ },
+ {
+  "en": "The full version shows no summary before this, so no one can be singled out.",
+  "zh": "正式版在这之前不显示任何汇总，免得能认出个人。"
+ },
+ {
+  "en": "Hide demo preview",
+  "zh": "隐藏演示预览"
+ },
+ {
+  "en": "Show demo preview",
+  "zh": "看演示预览"
+ },
+ {
+  "en": "Not given",
+  "zh": "未填"
+ },
+ {
+  "en": "Preview: the full version would hide this",
+  "zh": "预览：正式版不会显示"
+ },
+ {
+  "en": "“Me too”: by option and role",
+  "zh": "“我也遇到过”：按选项和身份"
+ },
+ {
+  "en": "The role line shows the share of each role that ticked it. A role shows only once it has 10 or more people.",
+  "zh": "身份那一行是该身份里勾选的比例。每个身份满 10 人才显示。"
+ },
+ {
+  "en": "Nothing ticked yet.",
+  "zh": "还没有人勾选。"
+ },
+ {
+  "en": "{0} more with 0 votes",
+  "zh": "另外 {0} 条还是 0 票"
+ },
+ {
+  "en": "Pick one of two: share of matchups won",
+  "zh": "二选一：各用途赢的比例"
+ },
+ {
+  "en": "No pairwise results yet.",
+  "zh": "还没有二选一结果。"
+ },
+ {
+  "en": "By role: top three uses",
+  "zh": "按身份：二选一前三"
+ },
+ {
+  "en": "By age band",
+  "zh": "按年龄段"
+ },
+ {
+  "en": "Groups under 10 show only “<10”, with no exact count or votes.",
+  "zh": "少于 10 人的组只显示“<10”，不给具体数字或票数。"
+ },
+ {
+  "en": "D / D+P / P / A is the team's reading of the Smart City Strategy's split",
+  "zh": "分工 D / D+P / P / A 是团队按 Smart City Strategy 的分类做的判断"
+ },
+ {
+  "en": "Clear demo votes and added items in this browser",
+  "zh": "清除本浏览器的演示票和添加项"
+ },
+ {
+  "en": "Fewer than {0}: not shown",
+  "zh": "不足 {0} 份，不显示"
+ },
+ {
+  "en": "All",
+  "zh": "全部"
+ },
+ {
+  "en": "No page",
+  "zh": "缺页码"
+ },
+ {
+  "en": "Filter",
+  "zh": "筛选"
+ },
+ {
+  "en": "S4 is a PDF, but we did not record page numbers when compiling these claims. The evidence standard asks for a source that can be located, so they are listed here until the pages are added.",
+  "zh": "S4 是 PDF，但我们整理这些条目时没有记页码。证据标准要求来源能定位，所以把它们列出来，等补上页码。"
+ },
+ {
+  "en": "No claims match this filter.",
+  "zh": "这个筛选下没有条目。"
+ },
+ {
+  "en": "A planner uploads the plan, the report and the strategy",
+  "zh": "规划师上传总规、Council 报告和战略"
+ },
+ {
+  "en": "AI extracts",
+  "zh": "AI 提取"
+ },
+ {
+  "en": "Each claim with page and quote; no quote, no entry",
+  "zh": "逐条提取，附页码和原文；没有引用的不收录"
+ },
+ {
+  "en": "Demo: done by hand",
+  "zh": "演示：团队人工完成"
+ },
+ {
+  "en": "Planner reviews",
+  "zh": "规划师核对"
+ },
+ {
+  "en": "Approve, edit or reject; reviewer and date are recorded",
+  "zh": "批准、修改或驳回，记下核对人和日期"
+ },
+ {
+  "en": "Demo: the reviewer is a team member",
+  "zh": "演示：核对人是团队成员"
+ },
+ {
+  "en": "Only claims that were not rejected are shown",
+  "zh": "只显示没被驳回的条目"
+ },
+ {
+  "en": "{0} shown · {1} hidden",
+  "zh": "{0} 条显示 · {1} 条不显示"
+ },
+ {
+  "en": "Evidence-gap list",
+  "zh": "证据空白清单"
+ },
+ {
+  "en": "Figures no source gives are listed for Council",
+  "zh": "来源里没有的数字，列出来交给 Council"
+ },
+ {
+  "en": "{0} gaps",
+  "zh": "{0} 条"
+ },
+ {
+  "en": "Done",
+  "zh": "已做"
+ },
+ {
+  "en": "Partly",
+  "zh": "部分"
+ },
+ {
+  "en": "Not yet",
+  "zh": "还没做"
+ },
+ {
+  "en": "Source and date",
+  "zh": "来源和日期"
+ },
+ {
+  "en": "All five sources list publisher and date: see Sources above",
+  "zh": "5 份来源都列了发布方和日期，见上方“来源”"
+ },
+ {
+  "en": "Unit of analysis and coverage",
+  "zh": "分析单元和覆盖范围"
+ },
+ {
+  "en": "One place, one decision: a 1,200 m² square inside the Phase 1 area",
+  "zh": "一个地点、一个决策：第一期范围里的一块 1,200 m² 广场"
+ },
+ {
+  "en": "Cleaning",
+  "zh": "清洗过程"
+ },
+ {
+  "en": "Claims were extracted by hand with no automated cleaning; {0} S4 claims still lack a page number",
+  "zh": "条目是人工摘录的，没有自动清洗；{0} 条 S4 条目还缺页码"
+ },
+ {
+  "en": "Missing or biased groups",
+  "zh": "缺失或有偏的群体"
+ },
+ {
+  "en": "The demo has no real submissions; the vote tally uses simulated data, labelled as such. The representativeness check is laid out in the Council backend; the ABS data is not read yet",
+  "zh": "演示没有真实提交；投票汇总用的是标明的模拟数据。代表性检查的版式在 Council 后台，ABS 数据还没读"
+ },
+ {
+  "en": "At least one human check",
+  "zh": "至少一个人工验证步骤"
+ },
+ {
+  "en": "This ledger, claim by claim: {0} of {1} passed. The reviewer is a team member, not Council",
+  "zh": "本清单逐条核对：{0} / {1} 条通过。核对人是团队成员，不是 Council"
+ },
+ {
+  "en": "Use of AI",
+  "zh": "AI 使用情况"
+ },
+ {
+  "en": "The demo page calls no AI when it runs: claims come from the source wording and figures from an open formula. In the full version AI extracts and drafts, and a planner approves",
+  "zh": "演示页面运行时不调用 AI：条目来自来源原文，数字由透明公式算出。正式版由 AI 提取和起草，规划师批准"
+ },
+ {
+  "en": "Facts, assumptions and generated content kept apart",
+  "zh": "区分事实、假设和生成内容"
+ },
+ {
+  "en": "Separate tags: source wording, our design, assumption, evidence gap, simulated data",
+  "zh": "标签分开：来源原文、我们的设计、假设、证据空白、模拟数据"
+ },
+ {
+  "en": "What the brief asks of each dataset, and how far this demo gets.",
+  "zh": "赛题对每份数据的要求，和本演示做到哪一步。"
+ },
+ {
+  "en": "Requirement",
+  "zh": "要求"
+ },
+ {
+  "en": "This demo",
+  "zh": "本演示"
+ },
+ {
+  "en": "{0} S4 claims have no page number",
+  "zh": "{0} 条 S4 条目还缺页码"
+ },
+ {
+  "en": "Open the ledger",
+  "zh": "去台账"
+ },
+ {
+  "en": "{0} claim(s) are rejected and hidden from residents",
+  "zh": "{0} 条条目被驳回，居民端已隐藏"
+ },
+ {
+  "en": "The resident's current split {0} {1}: {2}",
+  "zh": "居民当前的分配{0} {1}：{2}"
+ },
+ {
+  "en": "See the check",
+  "zh": "看检查"
+ },
+ {
+  "en": "{0} written comment(s) have no next step yet",
+  "zh": "{0} 条居民文字意见还没有去向"
+ },
+ {
+  "en": "Sort them",
+  "zh": "去分拣"
+ },
+ {
+  "en": "The advocacy brief has no draft yet",
+  "zh": "倡导简报还没有草稿"
+ },
+ {
+  "en": "The advocacy brief draft is waiting for a person to approve it",
+  "zh": "倡导简报草稿在等人工批准"
+ },
+ {
+  "en": "The advocacy brief changed after approval and needs approving again",
+  "zh": "倡导简报批准之后内容变了，要重新批准"
+ },
+ {
+  "en": "Open the brief",
+  "zh": "去简报"
+ },
+ {
+  "en": "Nothing needs attention right now.",
+  "zh": "现在没有要处理的事。"
+ },
+ {
+  "en": "Support {0} · Not sure {1} · Concerned {2} · No view {3}",
+  "zh": "支持 {0} · 不确定 {1} · 有顾虑 {2} · 没表态 {3}"
+ },
+ {
+  "en": "Views on the plan's three items",
+  "zh": "对总规三件事的态度"
+ },
+ {
+  "en": "Submitted splits: median area by group",
+  "zh": "提交的分法：四大类面积的中位数"
+ },
+ {
+  "en": "Scenario 0",
+  "zh": "方案 0"
+ },
+ {
+  "en": "median",
+  "zh": "中位数"
+ },
+ {
+  "en": "What these splits do to the plan's principles",
+  "zh": "这些分法对总规原则的影响"
+ },
+ {
+  "en": "Of {0}: weakened in {1} · not met in {2}",
+  "zh": "{0} 份里：削弱 {1} 份 · 不满足 {2} 份"
+ },
+ {
+  "en": "Dimensions people care about most",
+  "zh": "最在乎的维度"
+ },
+ {
+  "en": "Cannot be compared",
+  "zh": "不能比较"
+ },
+ {
+  "en": "56.4% of residents speak a language other than English at home (2021)",
+  "zh": "56.4% 的居民在家说英语以外的语言（2021）"
+ },
+ {
+  "en": "Submissions made in the Chinese interface. A proxy only: interface language is not language at home",
+  "zh": "用中文界面提交的份数。只是代理指标：界面语言不等于在家说的语言"
+ },
+ {
+  "en": "{0} of {1} used the Chinese interface",
+  "zh": "{0} / {1} 份用中文界面"
+ },
+ {
+  "en": "Fewer than {0}: not worked out",
+  "zh": "不足 {0} 份，不计算"
+ },
+ {
+  "en": "22.3% Chinese ancestry, the LGA's largest cultural group",
+  "zh": "华人背景占 22.3%，是 LGA 最大的文化群体"
+ },
+ {
+  "en": "This prototype does not ask about cultural background",
+  "zh": "本原型不问文化背景"
+ },
+ {
+  "en": "Share of each role (resident, business, commuter, visitor) in the population",
+  "zh": "各身份（居民、商户、通勤者、访客）在人口里的占比"
+ },
+ {
+  "en": "We collect the role, but no source gives a matching benchmark",
+  "zh": "我们收集了身份，但来源里没有对应的基准"
+ },
+ {
+  "en": "Age bands and language at home: ABS Census",
+  "zh": "年龄段、在家说的语言：ABS Census"
+ },
+ {
+  "en": "Source not read yet",
+  "zh": "来源待读"
+ },
+ {
+  "en": "To compare once the ABS data is read; this version does not ask for an age band",
+  "zh": "读完 ABS 后再对比；这一版没有问年龄段"
+ },
+ {
+  "en": "Representativeness check",
+  "zh": "代表性检查"
+ },
+ {
+  "en": "The full version compares against ABS Census profiles. We have not read the ABS data yet, so only two figures from sources we hold serve as benchmarks, and no unsourced population figure is stated.",
+  "zh": "正式版对比 ABS Census 的人口结构。ABS 数据我们还没读，所以这里只用手上来源里的两个数字做基准，不写任何没有来源的人口数字。"
+ },
+ {
+  "en": "Benchmark",
+  "zh": "基准"
+ },
+ {
+  "en": "What we can set against it",
+  "zh": "我们手上能比的"
+ },
+ {
+  "en": "A group's summary shows only once it reaches {0}, so no one can be picked out. This card counts only demo submissions saved in this browser (splits, views, top concerns). It leaves out the simulated votes, and nothing is sent anywhere.",
+  "zh": "同一群体达到 {0} 份才显示汇总，免得从汇总里认出个人。这一栏只算本浏览器里的演示提交（分法、态度、最在乎的维度），不含模拟票，也没有发送给任何人。"
+ },
+ {
+  "en": "demo submission(s)",
+  "zh": "份演示提交"
+ },
+ {
+  "en": "≥ {0} · shown on its own",
+  "zh": "≥ {0} · 可单独显示"
+ },
+ {
+  "en": "< {0} · hidden",
+  "zh": "< {0} · 已隐藏"
+ },
+ {
+  "en": "No demo submissions yet.",
+  "zh": "还没有演示提交。"
+ },
+ {
+  "en": "Once there are {0}, this shows:",
+  "zh": "达到 {0} 份后，这里会显示："
+ },
+ {
+  "en": "Views on the plan's three items: support, not sure, concerned",
+  "zh": "居民对总规三件事的态度：支持、不确定、有顾虑"
+ },
+ {
+  "en": "Median area by group across the submitted splits",
+  "zh": "提交的分法里，四大类面积的中位数"
+ },
+ {
+  "en": "Which plan principles those splits weaken",
+  "zh": "这些分法削弱了哪条总规原则"
+ },
+ {
+  "en": "Go and submit one as a resident",
+  "zh": "去居民故事板提交一份"
+ },
+ {
+  "en": "Fewer than {0}.",
+  "zh": "不足 {0} 份。"
+ },
+ {
+  "en": "The full version shows no summary before this.",
+  "zh": "正式版在这之前不显示任何汇总。"
+ },
+ {
+  "en": "Hide the demo preview",
+  "zh": "收起演示预览"
+ },
+ {
+  "en": "Show a demo preview",
+  "zh": "看演示预览"
+ },
+ {
+  "en": "Not decided",
+  "zh": "还没定"
+ },
+ {
+  "en": "To the square's design (D)",
+  "zh": "交给广场设计（D）"
+ },
+ {
+  "en": "Take to partners (P)",
+  "zh": "找伙伴一起做（P）"
+ },
+ {
+  "en": "Into the advocacy brief (A)",
+  "zh": "写进倡导简报（A）"
+ },
+ {
+  "en": "Log as an evidence gap",
+  "zh": "记为证据空白"
+ },
+ {
+  "en": "No action needed",
+  "zh": "无需处理"
+ },
+ {
+  "en": "What it is like here now",
+  "zh": "现在在这一带的体验"
+ },
+ {
+  "en": "What would make the square work",
+  "zh": "广场怎样才有用"
+ },
+ {
+  "en": "A planner picks one next step for each written comment. Role and other details are left out so a single comment cannot identify a person. In the full version AI suggests themes and a planner confirms; the demo uses no AI.",
+  "zh": "每条文字意见由规划师选一个去向。这里不显示身份等信息，免得从一条意见认出个人。正式版由 AI 建议主题，规划师确认；演示版不用 AI。"
+ },
+ {
+  "en": "No written comments yet. What residents write under “Anything else” in chapter 4 of the storyboard appears here.",
+  "zh": "还没有文字意见。居民在故事板第 4 章“还想补充”里写的话会出现在这里。"
+ },
+ {
+  "en": "Next step",
+  "zh": "去向"
+ },
+ {
+  "en": "TfNSW, Council's partner in the traffic study",
+  "zh": "TfNSW：交通研究的合作方"
+ },
+ {
+  "en": "Put walking crossings and kerbside access around the square into the scope of the traffic study.",
+  "zh": "把广场周边的步行过街和路缘接驳，写进交通研究的范围。"
+ },
+ {
+  "en": "For Council to decide",
+  "zh": "由 Council 确定"
+ },
+ {
+  "en": "When Phase 2 looks at the station and the Argyle St bus interchange, include the walk to the square.",
+  "zh": "第二期总规研究车站和 Argyle St 公交换乘站时，把走到广场的这一段一起考虑。"
+ },
+ {
+  "en": "State and Federal governments: grants",
+  "zh": "州和联邦政府：拨款"
+ },
+ {
+  "en": "Seek State and Federal grants towards building the square.",
+  "zh": "为广场建设申请州和联邦拨款。"
+ },
+ {
+  "en": "Advocacy brief, draft: what Woodhouse Square needs from others",
+  "zh": "倡导简报草稿：Woodhouse Square 需要其他方配合的事"
+ },
+ {
+  "en": "A demo draft, not a Council document. Whether it is sent, and to whom, is for Council. Strategy action behind it: 3.1.2, use data to advocate to the NSW Government for better mobility",
+  "zh": "演示草稿，不是 Council 文件。发不发、发给谁，由 Council 决定。依据的战略行动：3.1.2 用数据向 NSW 政府倡导改善出行"
+ },
+ {
+  "en": "Background",
+  "zh": "背景"
+ },
+ {
+  "en": "(The background claim was rejected and cannot be quoted.)",
+  "zh": "（背景条目被驳回，不能引用。）"
+ },
+ {
+  "en": "Asks",
+  "zh": "请求"
+ },
+ {
+  "en": "The claim behind this ask was rejected, so the ask is left out.",
+  "zh": "这一项依据的条目被驳回，已从简报里拿掉。"
+ },
+ {
+  "en": "Fact:",
+  "zh": "事实："
+ },
+ {
+  "en": "Ask:",
+  "zh": "请求："
+ },
+ {
+  "en": "To:",
+  "zh": "对象："
+ },
+ {
+  "en": "What residents said",
+  "zh": "居民意见"
+ },
+ {
+  "en": "On “Traffic changes for pedestrians”: support {0} · not sure {1} · concerned {2} ({3} in all; demo submissions in this browser, not real resident data).",
+  "zh": "对“为行人改造交通”：支持 {0} · 不确定 {1} · 有顾虑 {2}（共 {3} 份，是本浏览器里的演示提交，不是真实居民数据）。"
+ },
+ {
+  "en": "Fewer than {0} demo submissions, so the brief quotes no resident data, and no simulated votes.",
+  "zh": "演示提交不足 {0} 份，简报不引用居民数据，也不引用模拟票。"
+ },
+ {
+  "en": "{0} written comment(s) were also routed to advocacy.",
+  "zh": "另有 {0} 条文字意见被分到倡导事项。"
+ },
+ {
+  "en": "Evidence still missing",
+  "zh": "还缺的证据"
+ },
+ {
+  "en": "No draft yet",
+  "zh": "还没有草稿"
+ },
+ {
+  "en": "Draft · waiting for a person to approve",
+  "zh": "草稿 · 等人工批准"
+ },
+ {
+  "en": "Approved",
+  "zh": "已批准"
+ },
+ {
+  "en": "Changed since approval · approve again",
+  "zh": "批准后内容变了 · 要重新批准"
+ },
+ {
+  "en": "Advocacy brief (tier A)",
+  "zh": "倡导简报（A 层）"
+ },
+ {
+  "en": "In the full version AI drafts it and a planner must approve before it goes out. The demo fills a template with claims that were not rejected and calls no AI; every fact keeps its source.",
+  "zh": "正式版由 AI 起草，规划师批准后才能发出。演示版按模板把没被驳回的条目拼成草稿，页面没有调用 AI；每句事实都带来源。"
+ },
+ {
+  "en": "The draft will hold: background, {0} asks (each with a sourced fact), what residents said, and the evidence still missing.",
+  "zh": "草稿会包含：背景、{0} 条请求（每条配一条有来源的事实）、居民意见、还缺的证据。"
+ },
+ {
+  "en": "Make the draft",
+  "zh": "生成草稿"
+ },
+ {
+  "en": "Approved by: ",
+  "zh": "批准人："
+ },
+ {
+  "en": "Withdraw approval",
+  "zh": "撤回批准"
+ },
+ {
+  "en": "Approve again",
+  "zh": "重新批准"
+ },
+ {
+  "en": "Discard the draft",
+  "zh": "丢弃草稿"
+ },
+ {
+  "en": "No matching question yet",
+  "zh": "还没有对应的问题"
+ },
+ {
+  "en": "Community satisfaction with climate adaptation measures",
+  "zh": "社区对气候适应措施的满意度"
+ },
+ {
+  "en": "Submissions that pick shaded area or stormwater as a top concern. This shows concern, not satisfaction",
+  "zh": "把“遮荫面积”或“雨水滞留”选为最在乎的份数。只说明在乎，不等于满意"
+ },
+ {
+  "en": "{0} of {1}",
+  "zh": "{0} / {1} 份"
+ },
+ {
+  "en": "Residents' sense of whether public and active transport is adequate",
+  "zh": "居民对公共交通和主动出行是否够用的感受"
+ },
+ {
+  "en": "Views on the card “Traffic changes for pedestrians”",
+  "zh": "对“为行人改造交通”这张卡片的态度"
+ },
+ {
+  "en": "Support {0} · Not sure {1} · Concerned {2}",
+  "zh": "支持 {0} · 不确定 {1} · 有顾虑 {2}"
+ },
+ {
+  "en": "Share of public domain projects that include smart infrastructure",
+  "zh": "包含智慧基础设施的公共领域项目占比"
+ },
+ {
+  "en": "Not from resident input. If the square keeps smart lighting and sensors it can count as one project",
+  "zh": "不靠居民输入。广场如果保留智慧照明与传感器，可以算作一个项目"
+ },
+ {
+  "en": "For Council to count",
+  "zh": "由 Council 统计"
+ },
+ {
+  "en": "Community and visitor satisfaction with wayfinding",
+  "zh": "社区和访客对寻路的满意度"
+ },
+ {
+  "en": "A question could be added before submitting",
+  "zh": "可以在提交前加一题"
+ },
+ {
+  "en": "Community satisfaction with Council's digital experience",
+  "zh": "社区对 Council 数字体验的满意度"
+ },
+ {
+  "en": "A question could be added after submitting, asking how the tool worked for them",
+  "zh": "可以在提交后加一题，问这个工具好不好用"
+ },
+ {
+  "en": "The strategy lists these indicators with the baseline still to be confirmed. Resident answers can be candidates for a baseline, but only with the sample size and a representativeness note. Only demo submissions in this browser are counted here.",
+  "zh": "战略里这些指标的基线都写“待定”。居民的回答可以当基线的候选，但要带上样本量和代表性说明。这里只算本浏览器里的演示提交。"
+ },
+ {
+  "en": "The mapping is our design",
+  "zh": "对应关系是我们的设计"
+ },
+ {
+  "en": "Strategy indicator (baseline TBC)",
+  "zh": "战略指标（基线待定）"
+ },
+ {
+  "en": "Resident input that could feed it",
+  "zh": "可用的居民输入"
+ },
+ {
+  "en": "What becomes of your feedback on Council's side?",
+  "zh": "你的意见到了 Council 那边，会变成什么？"
+ },
+ {
+  "en": "The backend checks your split against the plan's six principles, sums up feedback by group (hidden below {0}), and lists the evidence gaps.",
+  "zh": "后台会检查你的分法是否还符合总规的 6 条原则，按群体汇总意见（不足 {0} 份不显示），并列出证据空白。"
+ },
+ {
+  "en": "See what Council would receive",
+  "zh": "看 Council 后台会收到什么"
+ },
+ {
+  "en": "Resident storyboard",
+  "zh": "居民故事板"
+ },
+ {
+  "en": "Scroll: understand the plan, then share the square",
+  "zh": "往下滑：看懂总规，再分广场"
+ },
+ {
+  "en": "Council backend (demo)",
+  "zh": "Council 后台（演示）"
+ },
+ {
+  "en": "Decision card, principle check, evidence gaps",
+  "zh": "决策卡、原则检查、证据空白"
+ },
+ {
+  "en": "Evidence & AI ledger",
+  "zh": "证据与 AI 台账"
+ },
+ {
+  "en": "Source, quote and check status for every fact",
+  "zh": "每条事实的来源、原文和核对状态"
+ },
+ {
+  "en": "Map",
+  "zh": "地图"
+ },
+ {
+  "en": "The plan",
+  "zh": "总规说了什么"
+ },
+ {
+  "en": "Decisions",
+  "zh": "决策经过"
+ },
+ {
+  "en": "Results",
+  "zh": "9 项结果"
+ },
+ {
+  "en": "Your say",
+  "zh": "你的意见"
+ },
+ {
+  "en": "This is the Phase 1 area",
+  "zh": "这是第一期范围"
+ },
+ {
+  "en": "CBD South, just south of Parramatta Station. The draft master plan's Phase 1 covers the dashed area.",
+  "zh": "Parramatta 车站南边的 CBD South。总规草案第一期覆盖虚线范围。"
+ },
+ {
+  "en": "Council presents it to residents through three items: a new city square, a Chinatown nightlife destination, and traffic changes for pedestrians.",
+  "zh": "Council 用三件事向居民介绍它：新市民广场、唐人街夜生活、为行人改造交通。"
+ },
+ {
+  "en": "Council's own land",
+  "zh": "Council 自己的地"
+ },
+ {
+  "en": "On that land: a new 1,200 m² square",
+  "zh": "在这块地上：1,200 m² 新广场"
+ },
+ {
+  "en": "Church St: Chinatown",
+  "zh": "Church St：唐人街"
+ },
+ {
+  "en": "Streets changed for walking",
+  "zh": "街道为行人改造"
+ },
+ {
+  "en": "Woodhouse Square decision studio · CBD South Parramatta",
+  "zh": "Woodhouse Square 决策工作台 · CBD South Parramatta"
+ },
+ {
+  "en": "3 minutes",
+  "zh": "三分钟"
+ },
+ {
+  "en": "One new square, <em>1,200&nbsp;m²</em>, and you share it out.",
+  "zh": "一块新广场，<em>1,200&nbsp;m²</em>，你来分。"
+ },
+ {
+  "en": "Council has decided to build a square and where it goes. How the space inside is shared is still open. Scroll to see what the plan says, then build your own square.",
+  "zh": "Council 已经定了做广场、放在哪里。还没定的是广场里面怎么分。往下滑：先看总规说了什么，再亲手搭一遍你的广场。"
+ },
+ {
+  "en": "Jump to the studio ↓",
+  "zh": "直接去搭广场 ↓"
+ },
+ {
+  "en": "New square, fronting Wentworth St",
+  "zh": "新广场面积，临 Wentworth St"
+ },
+ {
+  "en": "3 items",
+  "zh": "3 件事"
+ },
+ {
+  "en": "Square, Chinatown, traffic",
+  "zh": "广场、唐人街、交通"
+ },
+ {
+  "en": "No areas given",
+  "zh": "未给面积"
+ },
+ {
+  "en": "The plan lists uses, not their sizes",
+  "zh": "总规列了用途，没给各占多少"
+ },
+ {
+  "en": "Map story",
+  "zh": "地图故事"
+ },
+ {
+  "en": "Phase 1 area",
+  "zh": "第一期范围"
+ },
+ {
+  "en": "Station car park (Council land)",
+  "zh": "车站停车场（Council 用地）"
+ },
+ {
+  "en": "Square (approximate; colours show your split)",
+  "zh": "广场（大致位置，色块是你的分法）"
+ },
+ {
+  "en": "Explained for your role",
+  "zh": "按你的身份讲解"
+ },
+ {
+  "en": "Start with who you are",
+  "zh": "先说你是谁"
+ },
+ {
+  "en": "Your top 3 (weighted ×3 in results)",
+  "zh": "你最在乎的 3 项（结果里 ×3）"
+ },
+ {
+  "en": "What the plan means for you",
+  "zh": "总规对你意味着什么"
+ },
+ {
+  "en": "Team-written",
+  "zh": "团队预写"
+ },
+ {
+  "en": "Chapter 1 · What the plan says",
+  "zh": "第 1 章 · 总规说了什么"
+ },
+ {
+  "en": "Three items, every line opens to the original",
+  "zh": "三件事，每一条都能点开看原文"
+ },
+ {
+  "en": "See every line",
+  "zh": "看全部条目"
+ },
+ {
+  "en": "Chapter 2 · How Council got here",
+  "zh": "第 2 章 · Council 怎么走到这一步"
+ },
+ {
+  "en": "The big choices are made. What is left for you is inside the square.",
+  "zh": "大方向已经定了，留给你的是广场里面"
+ },
+ {
+  "en": "Council has decided",
+  "zh": "Council 已经定了"
+ },
+ {
+  "en": "Left for you",
+  "zh": "留给你的"
+ },
+ {
+  "en": "The plan lists the uses: shade trees, public art, lighting, flexible paving for night markets, dining at the edges, planters with seating",
+  "zh": "总规列出了用途：遮荫树、公共艺术、照明、可办夜市的灵活铺地、边缘餐饮、带座椅的种植池"
+ },
+ {
+  "en": "Indicative, not a design",
+  "zh": "示意，不是设计方案"
+ },
+ {
+  "en": "Day or night",
+  "zh": "昼夜"
+ },
+ {
+  "en": "Day",
+  "zh": "白天"
+ },
+ {
+  "en": "Night",
+  "zh": "夜市"
+ },
+ {
+  "en": "1 tile ≈ 25 m², 48 tiles. Tap a yellow marker for its source. Crowns grow with the year and planting.",
+  "zh": "1 块地砖 ≈ 25 m²，共 48 块。点黄色标记看原文出处。树冠随年份和种植方式长大。"
+ },
+ {
+  "en": "Chapter 3 · What if it were shared differently",
+  "zh": "第 3 章 · 换一种分法会怎样"
+ },
+ {
+  "en": "Your turn: give one use more and the others give way",
+  "zh": "你来搭：多给一项，其他几项就要让"
+ },
+ {
+  "en": "Scenario 0 is our reading of the plan's description; the plan gives no areas",
+  "zh": "方案 0 是我们按总规描述换算的比例，总规本身没给面积"
+ },
+ {
+  "en": "100% = 1,200 m², four linked groups",
+  "zh": "100% = 1,200 m²，四组联动"
+ },
+ {
+  "en": "The plan says raised planters",
+  "zh": "总规写的是抬高种植池"
+ },
+ {
+  "en": "; whether a car park sits below is unsettled, so deep soil is",
+  "zh": "。广场下方是否有停车场还没定，深土"
+ },
+ {
+  "en": "unconfirmed",
+  "zh": "待核实"
+ },
+ {
+  "en": "Done? Compare with Scenario 0 ↓",
+  "zh": "分好了？和方案 0 对比 ↓"
+ },
+ {
+  "en": "Chapter 3 · All 9 results",
+  "zh": "第 3 章 · 9 项结果"
+ },
+ {
+  "en": "How does it compare with the plan as drawn (Scenario 0)?",
+  "zh": "和总规原样（方案 0）比，有什么不同？"
+ },
+ {
+  "en": "View",
+  "zh": "显示方式"
+ },
+ {
+  "en": "Comparison bars",
+  "zh": "对比条"
+ },
+ {
+  "en": "Pictograms",
+  "zh": "图示"
+ },
+ {
+  "en": "Fit with your 3 priorities",
+  "zh": "与你 3 个优先项的契合度"
+ },
+ {
+  "en": "Ranges, not forecasts. All coefficients are team assumptions, listed under Evidence & AI ledger. Safety, inclusion and culture are proxy scores shown as an index where Scenario 0 ≈ 50.",
+  "zh": "区间，不是预测。所有系数都是团队假设，见“证据与 AI 台账”。安全感、包容、文化是代理指标，以方案 0 ≈ 50 的相对指数显示。"
+ },
+ {
+  "en": "Proxy · relative index",
+  "zh": "代理 · 相对指数"
+ },
+ {
+  "en": "Estimate · assumption",
+  "zh": "估算 · 假设"
+ },
+ {
+  "en": "All values are ranges from team-assumed coefficients, not forecasts. Safety, inclusion and culture are proxy scores shown as an index where Scenario 0 = 50. Coefficients are under Evidence & AI ledger.",
+  "zh": "所有数值都是按团队假设系数算出的区间，不是预测。安全感、包容、文化是代理指标，以方案 0 = 50 的相对指数显示。系数见“证据与 AI 台账”。"
+ },
+ {
+  "en": "Chapter 4 · Your view and who decides",
+  "zh": "第 4 章 · 你怎么看、谁负责"
+ },
+ {
+  "en": "Tap and compare to tell Council what you think",
+  "zh": "点一点、比一比，告诉 Council 你的看法"
+ },
+ {
+  "en": "No typing needed: tick what you've run into, then do a few pick-one-of-two rounds. Every \"Council says\" line opens to the original.",
+  "zh": "不用打字：勾选你也遇到过的情况，再做几轮二选一。每条“Council 说”都能点开原文。"
+ },
+ {
+  "en": "Outside the square's control",
+  "zh": "广场本身决定不了、要等别人的事"
+ },
+ {
+  "en": "Surrounding buildings",
+  "zh": "周边建筑"
+ },
+ {
+  "en": "Below the square",
+  "zh": "广场下面"
+ },
+ {
+  "en": "Evidence",
+  "zh": "证据"
+ },
+ {
+  "en": "Demo backend.",
+  "zh": "演示后台。"
+ },
+ {
+  "en": "The resident's split feeds the principle check below live.",
+  "zh": "居民端的分配会实时反映到下面的原则检查。"
+ },
+ {
+  "en": "Needs attention",
+  "zh": "需要处理"
+ },
+ {
+  "en": "Plan principles P1–P6",
+  "zh": "总规原则检查 P1–P6"
+ },
+ {
+  "en": "Who delivers: D / P / A",
+  "zh": "谁来做：D / P / A"
+ },
+ {
+  "en": "See the advocacy brief draft",
+  "zh": "看倡导简报草稿"
+ },
+ {
+  "en": "No source gives these figures. The prototype lists them for Council instead of filling them with estimates, with who can fill each and when.",
+  "zh": "这些数字在来源里找不到。原型不会用估算填上，而是列出来交给 Council，并写明谁能补、什么时候。"
+ },
+ {
+  "en": "Resident feedback · privacy threshold",
+  "zh": "居民意见 · 隐私门槛"
+ },
+ {
+  "en": "Resident votes",
+  "zh": "居民投票汇总"
+ },
+ {
+  "en": "Written comments · one next step each",
+  "zh": "文字意见 · 每条一个去向"
+ },
+ {
+  "en": "Strategy indicator baselines",
+  "zh": "战略指标基线"
+ },
+ {
+  "en": "Evidence rule.",
+  "zh": "证据规则。"
+ },
+ {
+  "en": "Every Council fact has a source, page and quote; anything without one is marked as an assumption or a gap.",
+  "zh": "每条 Council 事实都有来源、页码和原文；没有来源的只能标成假设或证据空白。"
+ },
+ {
+  "en": "How the full version works",
+  "zh": "正式版流程"
+ },
+ {
+  "en": "Tap a step to go there",
+  "zh": "点一步，跳到对应的地方"
+ },
+ {
+  "en": "Sources",
+  "zh": "来源"
+ },
+ {
+  "en": "Open",
+  "zh": "原文"
+ },
+ {
+  "en": "held by the team",
+  "zh": "团队持有"
+ },
+ {
+  "en": "Evidence ledger",
+  "zh": "证据核对清单"
+ },
+ {
+  "en": "Reset demo review",
+  "zh": "重置演示核对"
+ },
+ {
+  "en": "<b>Human checkpoint (demo).</b> Approve, edit or reject each line; a rejected line disappears from the resident side at once. The reviewer is recorded as “{0}”; <b>this is not Council approval</b>. Saved in this browser only.",
+  "zh": "<b>人工问责点（演示）。</b>每条可以批准、修改或驳回；驳回的条目立刻从居民端消失。核对人记为“{0}”，<b>不是 Council 批准</b>。只保存在本浏览器。"
+ },
+ {
+  "en": "Evidence standard self-check",
+  "zh": "证据标准自查"
+ },
+ {
+  "en": "Model coefficients",
+  "zh": "模型系数"
+ },
+ {
+  "en": "Parramatta Possibilities challenge brief (6 Nov 2026)",
+  "zh": "Parramatta Possibilities 挑战简报（2026-11-06）"
+ },
+ {
+  "en": "Draft CBD South Parramatta Precinct Master Plan, Phase 1",
+  "zh": "Draft CBD South Parramatta Precinct Master Plan（第一期）"
+ },
+ {
+  "en": "Participate Parramatta project page (accessed 15 Nov 2026)",
+  "zh": "Participate Parramatta 项目页（2026-11-15 访问）"
+ },
+ {
+  "en": "Council report OCM26-56 (28 Apr 2026)",
+  "zh": "Council 报告 OCM26-56（2026-04-28）"
+ },
+ {
+  "en": "Smart City & Innovation Strategy 2024–2033",
+  "zh": "Smart City & Innovation Strategy 2024–2033"
+ },
+ {
+  "en": "A new 1,200 m² urban plaza on Council-owned land, fronting Wentworth Street.",
+  "zh": "在 Council 自有土地上新建一个 1,200 m² 的城市广场，临 Wentworth Street。"
+ },
+ {
+  "en": "A flexible paved square with shade trees, public art and lighting, with outdoor dining at its edges.",
+  "zh": "有遮荫树、公共艺术和照明的灵活硬地广场，边缘是户外餐饮。"
+ },
+ {
+  "en": "Can host night markets and cultural events; raised planters with built-in seating.",
+  "zh": "可以办夜市和文化活动；设抬高的种植池和一体化座椅。"
+ },
+ {
+  "en": "The design puts universal access and clear walking routes first.",
+  "zh": "设计优先考虑无障碍和清晰的步行动线。"
+ },
+ {
+  "en": "Council stays as anchor tenant in the new building, with a chance to add cultural infrastructure for the square.",
+  "zh": "Council 留作新楼的主要租户，有机会为广场设文化基础设施。"
+ },
+ {
+  "en": "In 2025 Council tested a large park and a small convention centre, then recommended a dining and nightlife precinct with a civic square.",
+  "zh": "2025 年测试过大公园和小型会展中心，最后推荐餐饮夜生活片区加市民广场。"
+ },
+ {
+  "en": "A 3,500 m² open-space scheme was dropped for low yield, amenity and visual security.",
+  "zh": "3,500 m² 大开放空间方案被淘汰：开发量、舒适度和安全感都不够。"
+ },
+ {
+  "en": "Two plaza locations inside the block were rejected: cut off from streets, very little sun.",
+  "zh": "把广场放在地块内部的两个位置被否决：远离街道、日照很少。"
+ },
+ {
+  "en": "The size differs: the exhibition page says 1,300 m², the plan says 1,200 m².",
+  "zh": "面积说法不一：公示页面写 1,300 m²，总规正文写 1,200 m²。"
+ },
+ {
+  "en": "Funding is not settled: Council budget, developer contributions, grants or joint ventures.",
+  "zh": "建设资金还没定，可能来自 Council 预算、开发贡献、政府拨款或合资。"
+ },
+ {
+  "en": "The name is provisional and will go through a formal naming process.",
+  "zh": "名字是暂定的，要走正式命名程序。"
+ },
+ {
+  "en": "The plan gives no area for each use. That is what this tool asks you to try.",
+  "zh": "总规没有给出各项功能各占多少面积——这正是本工具请你来试的部分。"
+ },
+ {
+  "en": "Restaurants on Church St; hawker-style food, art and lighting in laneways and arcades; night markets and outdoor dining.",
+  "zh": "Church Street 的餐饮零售，小巷和拱廊里的大排档式美食、艺术和灯光，配夜市和户外餐饮。"
+ },
+ {
+  "en": "$1 million in the draft 2026/27 budget for Church St upgrades: fences out, trees, paving, Chinatown signage and lanterns.",
+  "zh": "2026/27 预算草案给 Church Street 升级拨了 100 万澳元：拆围栏、种树、铺装、唐人街标识和灯笼。"
+ },
+ {
+  "en": "Arcades hold fine-grain restaurants and cafes, no wider than 4 m each.",
+  "zh": "拱廊里是小开间餐饮，店面宽度不超过 4 米。"
+ },
+ {
+  "en": "Council endorsed a trial Special Entertainment Precinct covering this area, to encourage night-time activity.",
+  "zh": "Council 已通过包括本片区的 Special Entertainment Precinct（特别娱乐区）试点，鼓励夜间活动。"
+ },
+ {
+  "en": "The name is “Chinatown Precinct”, not “Asian Food and Nightlife Precinct”.",
+  "zh": "名称定为 “Chinatown Precinct”，不用 “Asian Food and Nightlife Precinct”。"
+ },
+ {
+  "en": "Public art, lighting and signage wait for a Public Art Master Plan.",
+  "zh": "公共艺术、照明和标识要等之后的公共艺术总体规划。"
+ },
+ {
+  "en": "Council will work with local Chinese community groups, businesses and residents on the Chinatown precinct.",
+  "zh": "要和本地华人社团、商家和居民沟通，共同确定唐人街的做法。"
+ },
+ {
+  "en": "Fitzwilliam St and Wentworth St become one-way; Woodhouse Lane and the roundabout are removed.",
+  "zh": "Fitzwilliam St 和 Wentworth St 改为单向通行，拆除 Woodhouse Lane 和环岛。"
+ },
+ {
+  "en": "A new raised pedestrian crossing lines up with Rivoli Way.",
+  "zh": "在对着 Rivoli Way 的位置新增抬高的人行横道。"
+ },
+ {
+  "en": "A new public car park on Council land replaces the station car park: underground plus sleeved above-ground parking.",
+  "zh": "在 Council 用地上新建公共停车场，替换现有车站停车场：地下加包裹式地上停车。"
+ },
+ {
+  "en": "Separated cycleways go on Fitzwilliam St and Valentine Ave, not through the square.",
+  "zh": "分隔式骑行道建在 Fitzwilliam St 和 Valentine Ave，不经过广场。"
+ },
+ {
+  "en": "Kiss-and-ride and taxi drop-off move to Fitzwilliam St.",
+  "zh": "即停即走和出租车下客区集中在 Fitzwilliam St。"
+ },
+ {
+  "en": "No traffic modelling yet: scope and budget go to Council first, with consultants in FY27/28.",
+  "zh": "交通模型还没做：研究范围和预算要先报批，FY27/28 才聘顾问。"
+ },
+ {
+  "en": "The station and Argyle St bus interchange wait for the Phase 2 master plan.",
+  "zh": "车站和 Argyle St 公交换乘站留到第二期总规再看。"
+ },
+ {
+  "en": "The car park still needs feasibility work; no source says whether it sits under the square.",
+  "zh": "停车场还要做可行性研究；它是否在广场正下方，来源里没有说。"
+ },
+ {
+  "en": "New City Square",
+  "zh": "新市民广场"
+ },
+ {
+  "en": "This is a new public space near home. The plan says what it should have, but not how much of each.",
+  "zh": "这是你家附近新的公共空间：总规写了要有什么，但没写各占多少。"
+ },
+ {
+  "en": "Outdoor dining lines its edges and it can host night markets, which matters for Church St trade.",
+  "zh": "广场边缘是户外餐饮，可以办夜市——和 Church St 的生意直接相关。"
+ },
+ {
+  "en": "The square sits on the walk between the station and Jubilee Park, with a new crossing at Rivoli Way.",
+  "zh": "广场在车站和 Jubilee Park 之间的步行线上，新的横道对着 Rivoli Way。"
+ },
+ {
+  "en": "This is the new heart of Chinatown: events, night markets and gatherings.",
+  "zh": "这是唐人街的新中心：活动、夜市和聚会都在这里。"
+ },
+ {
+  "en": "Chinatown Nightlife Destination",
+  "zh": "唐人街夜生活目的地"
+ },
+ {
+  "en": "Expect more night-time activity; Council is trialling a Special Entertainment Precinct.",
+  "zh": "夜间活动会更多，Council 已在试点特别娱乐区。"
+ },
+ {
+  "en": "Church St has a $1m upgrade budget, and arcades become small food tenancies.",
+  "zh": "Church St 已有 100 万澳元的升级预算，拱廊会改成小开间餐饮。"
+ },
+ {
+  "en": "Church St loses its fences and gains trees, so it will be easier to walk.",
+  "zh": "Church St 会拆围栏、种树，走起来更舒服。"
+ },
+ {
+  "en": "Hawker food, night markets, lanterns and public art set the place apart.",
+  "zh": "大排档、夜市、灯笼和公共艺术是这里的特色。"
+ },
+ {
+  "en": "Traffic Changes for Pedestrians",
+  "zh": "为行人改造交通"
+ },
+ {
+  "en": "Streets go one-way with wider footpaths, but there is no official traffic model yet.",
+  "zh": "街道改单向，人行道更宽；但交通影响还没有官方模型。"
+ },
+ {
+  "en": "Loading, parking and drop-off move; car park access shifts to Wentworth St and Parkes St.",
+  "zh": "送货、停车和接送的位置会变，停车场入口改在 Wentworth St 和 Parkes St。"
+ },
+ {
+  "en": "Drop-off moves to Fitzwilliam St; cycleways run on Fitzwilliam St and Valentine Ave.",
+  "zh": "接送区集中到 Fitzwilliam St，骑行道在 Fitzwilliam St 和 Valentine Ave。"
+ },
+ {
+  "en": "Walking from the station to Chinatown and the square becomes more direct and safer.",
+  "zh": "从车站走到唐人街和广场会更直接、更安全。"
+ },
+ {
+  "en": "Tree canopy",
+  "zh": "树冠绿化"
+ },
+ {
+  "en": "Rain gardens",
+  "zh": "蓝绿基础设施（雨水花园）"
+ },
+ {
+  "en": "Events, night markets, outdoor dining",
+  "zh": "活动、夜市与户外餐饮"
+ },
+ {
+  "en": "Culture and public art",
+  "zh": "文化表达与公共艺术"
+ },
+ {
+  "en": "Seating, rest and play",
+  "zh": "休憩座椅与儿童游戏"
+ },
+ {
+  "en": "Clear walking and access",
+  "zh": "畅通步行与无障碍"
+ },
+ {
+  "en": "Bike and scooter parking",
+  "zh": "自行车停放与微出行"
+ },
+ {
+  "en": "Kerbside drop-off and loading",
+  "zh": "路缘接驳（落客、装卸）"
+ },
+ {
+  "en": "Smart lighting and sensors",
+  "zh": "智慧照明与传感器"
+ },
+ {
+  "en": "Recycling point",
+  "zh": "回收与循环点"
+ },
+ {
+  "en": "Green",
+  "zh": "绿"
+ },
+ {
+  "en": "Active",
+  "zh": "活"
+ },
+ {
+  "en": "Movement",
+  "zh": "行"
+ },
+ {
+  "en": "Smart",
+  "zh": "智"
+ },
+ {
+  "en": "Scenario 0: the plan as drawn (our reading)",
+  "zh": "方案 0：总规原样（我们的解读）"
+ },
+ {
+  "en": "Example: cooler and greener",
+  "zh": "示例：更凉快、更绿"
+ },
+ {
+  "en": "Example: events and markets first",
+  "zh": "示例：活动和夜市优先"
+ },
+ {
+  "en": "Area in shade on a summer afternoon. Tree crowns grow with age.",
+  "zh": "夏季午后有树荫或遮挡的面积。树冠随树龄长大。"
+ },
+ {
+  "en": "Stormwater held",
+  "zh": "雨水滞留"
+ },
+ {
+  "en": "Rain the square can hold back in one storm.",
+  "zh": "一场雨能在广场里留住的雨水量。"
+ },
+ {
+  "en": "Event and trade capacity",
+  "zh": "活动与经济容量"
+ },
+ {
+  "en": "People who can attend events, markets and dining at once.",
+  "zh": "同时能容纳的活动、市集和用餐人数。"
+ },
+ {
+  "en": "Share of the square kept clear for walking. Wider traffic effects await Council's traffic study [S4].",
+  "zh": "广场里留给畅通步行的比例。周边交通影响要等官方交通研究〔S4〕。"
+ },
+ {
+  "en": "Feeling safe",
+  "zh": "安全感"
+ },
+ {
+  "en": "Proxy score: night-time activity, lighting and open sightlines.",
+  "zh": "代理指标：夜间有人活动、有照明、视线通透。"
+ },
+ {
+  "en": "Inclusion",
+  "zh": "包容"
+ },
+ {
+  "en": "Proxy score: seating, play space, access and shade.",
+  "zh": "代理指标：座椅、儿童空间、无障碍和遮荫。"
+ },
+ {
+  "en": "Culture and social life",
+  "zh": "文化与社交"
+ },
+ {
+  "en": "Proxy score: cultural expression, events and places to linger.",
+  "zh": "代理指标：文化表达、活动和停留空间。"
+ },
+ {
+  "en": "Cost",
+  "zh": "成本"
+ },
+ {
+  "en": "Build cost plus maintenance up to the chosen year.",
+  "zh": "建设费加上到所选年份为止的累计维护费。"
+ },
+ {
+  "en": "Embodied carbon",
+  "zh": "隐含碳"
+ },
+ {
+  "en": "Carbon from construction materials.",
+  "zh": "建造材料带来的碳排放。"
+ },
+ {
+  "en": "Local resident",
+  "zh": "附近居民"
+ },
+ {
+  "en": "Live in or near the precinct",
+  "zh": "住在片区或附近"
+ },
+ {
+  "en": "Business or worker",
+  "zh": "商户 / 员工"
+ },
+ {
+  "en": "Trade or work around Church St",
+  "zh": "在 Church St 一带做生意或上班"
+ },
+ {
+  "en": "Commuter",
+  "zh": "通勤者"
+ },
+ {
+  "en": "Pass through the station or buses",
+  "zh": "经过车站或公交换乘"
+ },
+ {
+  "en": "Visitor",
+  "zh": "访客"
+ },
+ {
+  "en": "Come to eat, shop or attend events",
+  "zh": "来吃饭、逛夜市、参加活动"
+ },
+ {
+  "en": "Cooling, shade, holding rain",
+  "zh": "降温、遮荫、留住雨水"
+ },
+ {
+  "en": "Night markets, events, places to stay",
+  "zh": "唐人街夜市、活动、停留"
+ },
+ {
+  "en": "Getting through, access, drop-off",
+  "zh": "穿行、无障碍、接驳"
+ },
+ {
+  "en": "Night lighting, recycling",
+  "zh": "夜间照明、回收"
+ },
+ {
+  "en": "Scenario 0 · plan as drawn",
+  "zh": "方案 0 · 总规原样"
+ },
+ {
+  "en": "Assumption: our reading",
+  "zh": "假设：我们对总规的解读"
+ },
+ {
+  "en": "Cooler and greener",
+  "zh": "更凉快、更绿"
+ },
+ {
+  "en": "Example split",
+  "zh": "示例分法"
+ },
+ {
+  "en": "Events and markets first",
+  "zh": "活动和夜市优先"
+ },
+ {
+  "en": "Woodhouse Square",
+  "zh": "Woodhouse Square"
+ },
+ {
+  "en": "Church St · Chinatown",
+  "zh": "Church St · 唐人街"
+ },
+ {
+  "en": "Wentworth St",
+  "zh": "Wentworth St"
+ },
+ {
+  "en": "Fitzwilliam St",
+  "zh": "Fitzwilliam St"
+ },
+ {
+  "en": "Station car park",
+  "zh": "车站停车场"
+ },
+ {
+  "en": "Hard to find shade along Wentworth St in the afternoon",
+  "zh": "下午沿 Wentworth St 走，很难找到树荫"
+ },
+ {
+  "en": "Current tree canopy cover here",
+  "zh": "现在这一带的树冠覆盖率"
+ },
+ {
+  "en": "Out with kids or older people, there is nowhere nearby to sit",
+  "zh": "带孩子或老人出门，附近没地方坐下歇脚"
+ },
+ {
+  "en": "With a wheelchair or pram, the route keeps breaking up",
+  "zh": "坐轮椅或推婴儿车，路线断断续续"
+ },
+ {
+  "en": "Worried a car park underneath means no big trees",
+  "zh": "担心广场下面是停车场，种不了大树"
+ },
+ {
+  "en": "Walking from the station to Church St at night, some stretches feel dark",
+  "zh": "晚上从车站走到 Church St，有几段觉得暗"
+ },
+ {
+  "en": "Current lighting levels",
+  "zh": "现在的照明水平"
+ },
+ {
+  "en": "More night-time activity: worried about noise and litter",
+  "zh": "夜间活动多了，担心噪音和垃圾"
+ },
+ {
+  "en": "Chinese community groups and long-time shops should help shape Chinatown",
+  "zh": "希望华人社团和老店能参与决定唐人街怎么做"
+ },
+ {
+  "en": "Fences on Church St make crossing and browsing a detour",
+  "zh": "Church St 的围栏让过街、逛店都要绕路"
+ },
+ {
+  "en": "Crossing Fitzwilliam St or Wentworth St means a long wait and heavy traffic",
+  "zh": "过 Fitzwilliam St 或 Wentworth St 要等很久，车也多"
+ },
+ {
+  "en": "Current crossing wait times",
+  "zh": "现在的过街等候时间"
+ },
+ {
+  "en": "Drop-off cars near the station block the footpath",
+  "zh": "车站附近接送的车停在路边，挡住人行道"
+ },
+ {
+  "en": "Cycling to the station, there is no safe lane",
+  "zh": "骑车去车站，没有安全的车道"
+ },
+ {
+  "en": "Changing between bus and train is confusing",
+  "zh": "公交和火车之间怎么换乘不清楚"
+ },
+ {
+  "en": "AI translation, not yet reviewed by a native speaker.",
+  "zh": "AI 翻译，尚未经母语者审核。"
+ },
+ {
+  "en": "vote",
+  "zh": "票"
+ },
+ {
+  "en": "votes",
+  "zh": "票"
+ },
+ {
+  "en": "English shown where a translation is missing. Council quotes stay in their original English.",
+  "zh": "缺翻译的地方显示英文。Council 原文保持英文。"
+ }
+]

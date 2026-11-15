@@ -1,0 +1,29 @@
+/* ===== variants/i18n.css: language picker, AI-translation banner, right-to-left ===== */
+.lpick{position:relative}
+.lbtn{display:inline-flex;align-items:center;gap:6px;min-height:36px;padding:4px 10px;border-radius:8px;border:1px dashed currentColor;background:transparent;color:inherit;font:inherit;font-size:13.5px;font-weight:600;cursor:pointer;max-width:220px}
+.lbtn .lcur{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-decoration:underline;text-underline-offset:3px}
+.lbtn .caret{font-size:11px}
+.lbtn:focus-visible,.llist li:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.llist{position:absolute;z-index:60;top:calc(100% + 6px);inset-inline-end:0;margin:0;padding:4px;list-style:none;width:max-content;min-width:230px;max-width:calc(100vw - 32px);max-height:min(70vh,520px);overflow:auto;background:var(--surface);color:var(--fg);border:1px solid var(--line);border-radius:10px;box-shadow:0 10px 30px rgba(0,0,0,.25)}
+.llist li{display:flex;flex-direction:column;gap:1px;padding:7px 12px;border-radius:6px;cursor:pointer;line-height:1.3;text-align:start}
+.llist li+li{border-top:1px solid var(--line)}
+.llist li b{font-size:14.5px;font-weight:600}
+.llist li small{font-size:12px;color:var(--muted)}
+.llist li:hover,.llist li:focus{background:var(--surface-2)}
+.llist li[aria-selected="true"]{background:var(--accent-soft)}
+.llist li[aria-selected="true"] b::after{content:" ✓";color:var(--accent)}
+.aiban{background:var(--infer-bg);color:var(--fg);border-bottom:1px solid var(--line);font-size:13px;line-height:1.45}
+.aiban .wrap{display:flex;gap:10px;align-items:flex-start;padding-block:8px}
+.aiban-tag{flex:0 0 auto;font-family:var(--f-mono);font-weight:700;font-size:11px;color:#fff;background:var(--infer);border-radius:4px;padding:1px 6px;margin-top:2px}
+.aiban-sub{color:var(--muted)}
+.aiban-en{font-size:12px;color:var(--muted)}
+/* right-to-left: text and layout mirror; the map, the 2.5D square, sliders and charts keep their west→east geometry */
+[dir="rtl"] svg,[dir="rtl"] input[type="range"],[dir="rtl"] .abar,[dir="rtl"] .track,[dir="rtl"] .thrbar,[dir="rtl"] .src{direction:ltr}
+[dir="rtl"] th,[dir="rtl"] td{text-align:right}
+/* letter-spacing and upper-casing break joined scripts (Arabic, Persian) and Indic conjuncts: only Latin labels keep them */
+:root:not([data-lang="en"]):not([data-lang="tl"]) :is(.eyebrow,.lbl,.kind){letter-spacing:normal;text-transform:none}
+/* longer labels in other languages (Tamil, Tagalog…) must wrap instead of widening the page at 400 px */
+:root:not([data-lang="en"]) .tag{white-space:normal;max-width:100%;overflow-wrap:anywhere}
+/* very long single words (Tamil, Telugu…) at display sizes may break rather than push the layout past the screen */
+:root:not([data-lang="en"]):not([data-lang="zh"]):not([data-lang="zh-Hant"]) :is(main,header,.aiban){overflow-wrap:anywhere}
+:root:not([data-lang="en"]) .btn{white-space:normal;max-width:100%;height:auto}

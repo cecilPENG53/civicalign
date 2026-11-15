@@ -123,6 +123,16 @@ The demo for the submission is **`dist/variants/a-studio.html`**. It is a single
 
 It works offline. With an internet connection it also loads the web fonts; without one it falls back to system fonts. Feedback typed into it stays in that browser.
 
+**Languages:** the globe menu in the header offers the same 13 languages as the City of Parramatta website. English opens by default.
+- English and Simplified Chinese are written by the team.
+- Traditional Chinese is converted automatically from the Simplified text.
+- The other ten are AI translations.
+- Every language that has not been reviewed shows a banner saying so.
+- Council quotes always stay in their original English.
+- Arabic and Persian read right to left.
+
+See [`variants/i18n/README.md`](variants/i18n/README.md).
+
 What it shows, from top to bottom:
 
 - **Story:** the map reframes and highlights places as you scroll, then the three deliverables and Council's decision path.
@@ -170,6 +180,7 @@ Two other design directions sit beside it: `b-scroll.html` (scroll story only) a
 - Placeholder data is labelled as such. Nothing is shown as observed Council data unless it is.
 - Model output is a range under stated assumptions, not a forecast.
 - AI extracts claims with citations, rewrites explanations and drafts briefs. It produces no numbers, makes no decisions and publishes nothing without a person's approval.
+- The demo's ten AI translations show "AI translation, not yet reviewed by a native speaker" until a native speaker has checked them.
 - Only the minimum data is collected [S5 p.30]: no names, emails or exact addresses. Group results are shown only for groups of 10 or more.
 
 ## Run
