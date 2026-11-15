@@ -1,0 +1,383 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>CivicAlign 思路框架</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&family=Space+Grotesk:wght@500;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: single reading column (max 980px) with full-width bands per part; flows drawn as wrapping card rows with connectors */
+:root{
+  --bg:#f5f7f5; --surface:#ffffff; --surface-2:#eaf0ec; --fg:#17211d; --muted:#56635d; --line:#d3ddd7;
+  --accent:#1f6b57; --accent-soft:#d8ebe3;
+  --fact:#1f6b57; --fact-bg:#dcefe6;
+  --infer:#9a5b00; --infer-bg:#fbecd2;
+  --design:#2c5aa0; --design-bg:#dfe8f7;
+  --gap:#b23a3a; --gap-bg:#f8dfdf;
+  --f-display:"Space Grotesk","Noto Sans SC",system-ui,sans-serif;
+  --f-body:"Noto Sans SC",system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0f1513; --surface:#17201c; --surface-2:#1d2a25; --fg:#e4ece8; --muted:#9aaba3; --line:#2c3a34;
+  --accent:#6cc3a6; --accent-soft:#1f3a31;
+  --fact:#7fd0b2; --fact-bg:#1c3a2f; --infer:#f0b257; --infer-bg:#3a2c14; --design:#8fb3f0; --design-bg:#1d2a44; --gap:#f08a8a; --gap-bg:#3d1f1f;
+  color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0f1513; --surface:#17201c; --surface-2:#1d2a25; --fg:#e4ece8; --muted:#9aaba3; --line:#2c3a34;
+  --accent:#6cc3a6; --accent-soft:#1f3a31;
+  --fact:#7fd0b2; --fact-bg:#1c3a2f; --infer:#f0b257; --infer-bg:#3a2c14; --design:#8fb3f0; --design-bg:#1d2a44; --gap:#f08a8a; --gap-bg:#3d1f1f;
+  color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--f-body);font-size:15.5px;line-height:1.7}
+.wrap{max-width:980px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0}
+header.top{padding-block:40px 24px}
+.eyebrow{font-family:var(--f-mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+h1{font-family:var(--f-display);font-size:clamp(28px,5vw,40px);line-height:1.2;margin:6px 0 12px;text-wrap:balance}
+h2{font-family:var(--f-display);font-size:24px;line-height:1.3;margin:0 0 6px;text-wrap:balance}
+h3{font-size:16.5px;margin:0 0 6px}
+p{margin:0 0 10px;max-width:68ch}
+.lede{font-size:17px;color:var(--fg);max-width:62ch}
+.muted{color:var(--muted)}
+nav.toc{display:flex;flex-wrap:wrap;gap:6px 8px;margin-top:18px}
+nav.toc a{font-size:13px;text-decoration:none;color:var(--fg);background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:3px 11px}
+nav.toc a:hover,nav.toc a:focus-visible{border-color:var(--accent);outline:none}
+section{padding-block:30px;border-top:1px solid var(--line)}
+.secnum{font-family:var(--f-mono);font-size:12px;color:var(--accent);letter-spacing:.06em}
+.sub{color:var(--muted);margin-bottom:18px}
+.legend{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 0}
+.tag{display:inline-block;font-size:12px;line-height:1.5;border-radius:4px;padding:1px 7px;font-weight:500;white-space:nowrap}
+.t-fact{background:var(--fact-bg);color:var(--fact)}
+.t-infer{background:var(--infer-bg);color:var(--infer)}
+.t-design{background:var(--design-bg);color:var(--design)}
+.t-gap{background:var(--gap-bg);color:var(--gap)}
+.src{font-family:var(--f-mono);font-size:11.5px;color:var(--accent);background:var(--accent-soft);border-radius:4px;padding:0 5px;white-space:nowrap}
+.grid{display:grid;gap:12px}
+.g2{grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+.g3{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:14px 16px;min-width:0}
+.card h3{display:flex;gap:8px;align-items:baseline;flex-wrap:wrap}
+.card ul{margin:6px 0 0;padding-left:18px}
+.card li{margin:2px 0}
+.flow{display:flex;flex-wrap:wrap;align-items:stretch;gap:0}
+.flow .step{flex:1 1 170px;min-width:0;background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:12px 14px}
+.flow .arrow{flex:0 0 26px;display:flex;align-items:center;justify-content:center;color:var(--muted);font-family:var(--f-mono)}
+.step .k{font-family:var(--f-mono);font-size:11.5px;color:var(--muted)}
+.step h3{margin:2px 0 4px}
+.step p{font-size:14px;margin:0}
+.band{background:var(--surface-2);border-radius:10px;padding:16px}
+.problem{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:10px;align-items:stretch}
+.problem .arrow{display:flex;align-items:center;color:var(--muted);font-family:var(--f-mono)}
+@media (max-width:720px){.problem{grid-template-columns:1fr}.problem .arrow{justify-content:center;transform:rotate(90deg)}.flow .arrow{flex-basis:100%;height:22px;transform:rotate(90deg)}}
+.scroll{overflow-x:auto;border:1px solid var(--line);border-radius:8px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:14px}
+th,td{text-align:left;vertical-align:top;padding:8px 10px;border-bottom:1px solid var(--line)}
+th{font-weight:500;color:var(--muted);font-size:12.5px;background:var(--surface-2);white-space:nowrap}
+tr:last-child td{border-bottom:none}
+td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+.timeline{list-style:none;margin:0;padding:0;border-left:2px solid var(--line)}
+.timeline li{position:relative;padding:0 0 12px 16px}
+.timeline li::before{content:"";position:absolute;left:-6px;top:8px;width:10px;height:10px;border-radius:50%;background:var(--surface);border:2px solid var(--accent)}
+.timeline li.key::before{background:var(--accent)}
+.timeline .d{font-family:var(--f-mono);font-size:12.5px;color:var(--muted);margin-right:6px}
+.formula{font-family:var(--f-mono);font-size:13.5px;background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:10px 12px;overflow-x:auto;white-space:nowrap}
+.split{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px}
+.decided{border-left:3px solid var(--muted)}
+.open{border-left:3px solid var(--accent)}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font-size:13px;border:1px solid var(--line);background:var(--surface);border-radius:6px;padding:2px 9px}
+.chip b{font-family:var(--f-mono);font-weight:500;color:var(--accent);margin-right:4px}
+.check{list-style:none;padding:0;margin:0}
+.check li{padding:6px 0;border-bottom:1px dashed var(--line);display:flex;gap:10px}
+.check li:last-child{border-bottom:none}
+.box{flex:0 0 14px;height:14px;margin-top:5px;border:1.5px solid var(--muted);border-radius:3px}
+.decision{background:var(--accent-soft);border:1px solid var(--accent);border-radius:10px;padding:16px}
+.decision h3{color:var(--accent)}
+footer{padding-block:28px 48px;color:var(--muted);font-size:13px;border-top:1px solid var(--line)}
+a{color:var(--accent)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+</style>
+
+<div class="wrap">
+<header class="top">
+  <div class="eyebrow">WSTI 2026 · Parramatta Possibilities · Challenge 4</div>
+  <h1>CivicAlign 思路框架</h1>
+  <p class="lede">把 Council 已经写好、但居民读不动的规划和战略 PDF，按多个维度做成可视化：先讲清楚总规做了什么，再让居民试着调整、看到取舍，最后收集他们的反馈交给 Council。每一条内容都能追溯到原文和页码。</p>
+  <div class="legend" aria-label="标注说明">
+    <span class="tag t-fact">事实 · 有来源</span>
+    <span class="tag t-infer">推断 · 待核实</span>
+    <span class="tag t-design">我们的设计</span>
+    <span class="tag t-gap">证据空白</span>
+    <span class="src">S2 p.23</span><span class="muted" style="font-size:13px">= 来源 S2 第 23 页</span>
+  </div>
+  <nav class="toc" aria-label="目录">
+    <a href="#why">1 为什么做</a><a href="#brief">2 赛题要求</a><a href="#decision">3 决策</a><a href="#evidence">4 证据底座</a><a href="#resident">5 居民端</a><a href="#model">6 模块与模型</a><a href="#council">7 议会后台</a><a href="#strategy">8 战略对齐</a><a href="#ai">9 负责任 AI</a><a href="#gaps">10 证据空白</a><a href="#next">11 待定与下一步</a>
+  </nav>
+</header>
+
+<section id="why">
+  <div class="secnum">01</div>
+  <h2>为什么做：问题 → 做法 → 产出</h2>
+  <p class="sub">核心定位，2026-11-15 确认。</p>
+  <div class="problem">
+    <div class="card"><h3>问题</h3><p>Council 已有专业成果：总规草案 <span class="src">S2</span>、Council 报告 <span class="src">S4</span>、智慧城市战略 <span class="src">S5</span>。但每份都几十页，普通居民读不动。</p><p class="muted" style="font-size:14px">简报也说：不要重做，要整合、解读、补证据空白 <span class="src">S1 p.13</span>。</p></div>
+    <div class="arrow" aria-hidden="true">→</div>
+    <div class="card"><h3>做法 <span class="tag t-design">我们的设计</span></h3><ul><li>按多个维度把 PDF 做成可视化讲解</li><li>让居民在总规方案上试着调整，看到取舍</li><li>收集反馈，汇总给 Council</li></ul></div>
+    <div class="arrow" aria-hidden="true">→</div>
+    <div class="card"><h3>产出</h3><ul><li>居民 3 分钟看懂取舍、证据、不确定性和责任方 <span class="src">S1 p.12</span></li><li>Council 拿到有代表性说明的反馈，以及一份证据空白清单</li><li>为战略里"基线待定"的指标提供数据 <span class="src">S5 p.39–63</span></li></ul></div>
+  </div>
+</section>
+
+<section id="brief">
+  <div class="secnum">02</div>
+  <h2>赛题要求，以及我们怎么满足</h2>
+  <p class="sub">来源：挑战简报 <span class="src">S1</span>。</p>
+  <div class="scroll"><table>
+    <thead><tr><th>要求</th><th>来源</th><th>我们的对应</th></tr></thead>
+    <tbody>
+      <tr><td>一个地点的一个增长取舍</td><td><span class="src">S1 p.12</span></td><td>Woodhouse Square 1,200 m² 的空间和预算分配</td></tr>
+      <tr><td>3–5 个核心数据层</td><td><span class="src">S1 p.12</span></td><td>城市热、人口、人流、规划约束、生活经验（第 6 节）</td></tr>
+      <tr><td>至少两个情景，说明假设和不确定性</td><td><span class="src">S1 p.12</span></td><td>基准方案 0 + 居民方案 + 示例方案；低/中/高增长；结果全部以区间显示</td></tr>
+      <tr><td>生活经验或结构化社区观察</td><td><span class="src">S1 p.12</span></td><td>第 2 屏"你觉得呢"，第 5 屏提交</td></tr>
+      <tr><td>区分 Council 控制 / 共同影响 / 需倡导</td><td><span class="src">S1 p.12</span></td><td>每个模块标 D / P / A <span class="src">S5 p.33</span></td></tr>
+      <tr><td>不做通用规划仪表盘，不把模型输出当预测</td><td><span class="src">S1 p.12</span></td><td>只讲一个决策；所有数字标来源，模型结果只给区间</td></tr>
+      <tr><td>假数据要标明，不能当作 Council 的观测数据</td><td><span class="src">S1 p.3</span></td><td>每个数字标"总规原文 / 文献 / 假设 / 假数据"</td></tr>
+      <tr><td>人工问责点</td><td><span class="src">S1 p.3</span></td><td>后台规划师逐条批准 AI 提取的内容</td></tr>
+      <tr><td>证据标准：来源、日期、覆盖范围、清洗、偏差、人工验证、AI 披露</td><td><span class="src">S1 p.13</span></td><td>来源登记表 docs/SOURCES.md + 每条引用</td></tr>
+      <tr><td>提交清单 10 项</td><td><span class="src">S1 p.23</span></td><td>第 11 节逐项准备</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section id="decision">
+  <div class="secnum">03</div>
+  <h2>决策：Woodhouse Square 怎么分</h2>
+  <p class="sub">先看 Council 对居民怎么介绍总规，再看哪些已经定了、哪些留给居民。</p>
+
+  <h3>总规的三项主要交付内容 <span class="src">S3</span></h3>
+  <div class="grid g3" style="margin-bottom:18px">
+    <div class="card"><h3>1 New City Square</h3><p>新市民广场，用于聚会、文化活动和日常生活。公示页面写 1,300 m² <span class="src">S3</span>，总规正文写 1,200 m² <span class="src">S2 p.23</span>。</p><p><b>和我们的关系：</b>决策本身。</p></div>
+    <div class="card"><h3>2 Chinatown Nightlife</h3><p>Church St 餐饮零售，小巷拱廊里的大排档式美食、艺术和灯光，夜市和户外餐饮 <span class="src">S3</span> <span class="src">S2 p.33–41</span>。</p><p><b>和我们的关系：</b>广场要承接夜市和户外餐饮。</p></div>
+    <div class="card"><h3>3 Traffic Changes</h3><p>本地街道单向通行，换来更宽的人行道、更安全的过街和自行车道 <span class="src">S3</span> <span class="src">S2 p.48–50</span>。</p><p><b>和我们的关系：</b>广场边的路缘、过街和停车场入口。</p></div>
+  </div>
+
+  <div class="split">
+    <div class="card decided">
+      <h3>Council 已经定了的 <span class="tag t-fact">事实</span></h3>
+      <ol class="timeline">
+        <li><span class="d">2025-06-10</span>决议编制总规 <span class="src">S4</span></li>
+        <li><span class="d">2025-08-11</span>研究在 Church St 设唐人街片区 <span class="src">S4</span></li>
+        <li class="key"><span class="d">2025 年 7–11 月</span>测试大公园 / 小型会展中心 / 餐饮夜生活 + 广场，选了第三种 <span class="src">S4</span></li>
+        <li><span class="d">2025-12-08</span>通过初步框架，改称"Chinatown Precinct" <span class="src">S4</span></li>
+        <li class="key"><span class="d">方案比选</span>三个楼栋方案选方案 3（约 4.5:1，带广场） <span class="src">S2 p.23</span></li>
+        <li class="key"><span class="d">位置比选</span>三个位置选临 Wentworth St <span class="src">S2 p.23</span></li>
+        <li><span class="d">2026-04-28</span>一致通过公示 <span class="src">S3</span> <span class="src">S4</span></li>
+      </ol>
+      <p class="muted" style="font-size:14px">两次比选都用 P1–P6 打分 <span class="src">S2 p.22</span>。</p>
+    </div>
+    <div class="card open">
+      <h3>留给居民的 <span class="tag t-design">我们的设计</span></h3>
+      <p>广场<b>内部</b>怎么分。总规只写了功能，没写各占多少：</p>
+      <ul>
+        <li>遮荫树、公共艺术、照明 <span class="src">S2 p.45</span></li>
+        <li>灵活硬地，可办夜市和文化活动 <span class="src">S2 p.44–45</span></li>
+        <li>边缘户外餐饮 <span class="src">S2 p.44–45</span></li>
+        <li>抬高种植池配座椅 <span class="src">S2 p.45</span></li>
+        <li>无障碍和清晰的步行动线 <span class="src">S2 p.44</span></li>
+      </ul>
+      <p style="margin-top:8px">还有总规没提、居民可以提出的：雨水花园、儿童游戏、自行车停放、回收点。</p>
+      <p class="muted" style="font-size:14px">名称暂定，要走正式命名程序 <span class="src">S2 p.54</span>。</p>
+    </div>
+  </div>
+</section>
+
+<section id="evidence">
+  <div class="secnum">04</div>
+  <h2>证据底座：来源登记表</h2>
+  <p class="sub">规则：每个画面、每个问题、每个数字都挂来源编号和页码。没有来源的只能标"假设"或"假数据"。完整表格在 docs/SOURCES.md。</p>
+  <div class="grid g2">
+    <div class="card"><h3>已读</h3>
+      <div class="chips">
+        <span class="chip"><b>S1</b>挑战简报</span>
+        <span class="chip"><b>S2</b>总规草案</span>
+        <span class="chip"><b>S3</b>公示页面</span>
+        <span class="chip"><b>S4</b>Council 报告 OCM26-56</span>
+        <span class="chip"><b>S5</b>智慧城市战略</span>
+      </div>
+    </div>
+    <div class="card"><h3>待读</h3>
+      <div class="chips">
+        <span class="chip"><b>S6</b>总规中文摘要</span>
+        <span class="chip"><b>S7</b>初步框架 2025</span>
+        <span class="chip"><b>S8</b>DCP 2023</span>
+        <span class="chip"><b>S9</b>ABS 2021</span>
+        <span class="chip"><b>S10</b>WSU 热研究</span>
+        <span class="chip"><b>S11</b>BOM</span>
+        <span class="chip"><b>S12</b>TfNSW</span>
+        <span class="chip"><b>S13–16</b>经济、设施、骑行、贡献计划</span>
+      </div>
+    </div>
+  </div>
+  <div class="card" style="margin-top:12px;border-color:var(--gap)">
+    <h3>不能引用 <span class="tag t-gap">X1–X3</span></h3>
+    <p>Gemini Demo 里的 "+43 秒"、"19% 树荫"、"350 m"、"18,400 人次"、"n=142"、"4 Verified Data Layers" 在 S1–S5 里都找不到。"Wentworth Street City Square" 也不是来源里的名称。</p>
+  </div>
+</section>
+
+<section id="resident">
+  <div class="secnum">05</div>
+  <h2>居民端：三段 5 屏，约 3 分钟</h2>
+  <p class="sub">先讲清楚，再试着改，最后说出来。</p>
+  <div class="flow" role="list">
+    <div class="step" role="listitem"><div class="k">① 总规说了什么 · 屏 1</div><h3>我是谁、我在乎什么</h3><p>语言、身份、年龄段、邮编；选 3 个最在乎的维度作为权重。不问姓名 <span class="src">S5 p.30</span>。</p></div>
+    <div class="arrow" aria-hidden="true">→</div>
+    <div class="step" role="listitem"><div class="k">① 总规说了什么 · 屏 2</div><h3>三张卡片讲总规 + 你觉得呢</h3><p>按三项交付内容分卡片：安排了什么、排除了什么、还有什么没定。每条点开看原文；同屏做"总规说 vs 你觉得"。</p></div>
+    <div class="arrow" aria-hidden="true">→</div>
+    <div class="step" role="listitem"><div class="k">② 换一种分法 · 屏 3</div><h3>分配广场</h3><p>1,200 m² 平面，从基准方案 0"总规原样"开始；4 大类滑杆，可展开到 10 个模块。</p></div>
+    <div class="arrow" aria-hidden="true">→</div>
+    <div class="step" role="listitem"><div class="k">② 换一种分法 · 屏 4</div><h3>结果</h3><p>9 条区间条，都和方案 0 对比；时间轴、增长情景；AI 按身份翻译一句话。</p></div>
+    <div class="arrow" aria-hidden="true">→</div>
+    <div class="step" role="listitem"><div class="k">③ 你怎么看 · 屏 5</div><h3>谁说了算 + 提交</h3><p>D / P / A 分层；生活经验；不收姓名、邮箱、住址。</p></div>
+  </div>
+  <div class="grid g3" style="margin-top:14px">
+    <div class="card"><h3>屏 2 的硬规则</h3><p>来源里没有的数字，写"总规没有给出"或"待交通研究核实"，不让 AI 补。</p></div>
+    <div class="card"><h3>为什么不只做解读</h3><p>赛题要取舍、情景和残余影响 <span class="src">S1 p.12</span>；只重新发布规划内容会变成被禁止的"规划仪表盘"。</p></div>
+    <div class="card"><h3>语言</h3><p>56.4% 的居民在家说英语以外的语言 <span class="src">S5 p.16–17</span>；华人背景占 22.3% <span class="src">S3</span>。中文优先，再加其他语言。</p></div>
+  </div>
+</section>
+
+<section id="model">
+  <div class="secnum">06</div>
+  <h2>模块与模型：10 类用途 × 9 个维度</h2>
+  <p class="sub"><span class="tag t-design">我们的设计</span> 事实部分已标来源。</p>
+  <div class="scroll"><table>
+    <thead><tr><th>大类</th><th>模块</th><th>角色</th><th>战略行动</th><th>总规依据</th></tr></thead>
+    <tbody>
+      <tr><td>绿</td><td>1 树冠绿化（深土 / 种植池两档）</td><td>D</td><td>2.1.2</td><td>遮荫树、种植池 <span class="src">S2 p.45</span></td></tr>
+      <tr><td>绿</td><td>2 蓝绿基础设施</td><td>D；主干排水 P</td><td>2.1.4</td><td><span class="tag t-gap">总规未提</span></td></tr>
+      <tr><td>活</td><td>3 活动与夜市硬地</td><td>D + P</td><td>4.2.1</td><td>夜市、文化活动 <span class="src">S2 p.44–45</span> <span class="src">S3</span></td></tr>
+      <tr><td>活</td><td>4 文化表达</td><td>P</td><td>6.3.2</td><td>P5 <span class="src">S2 p.22</span>；公共艺术总体规划 <span class="src">S4</span></td></tr>
+      <tr><td>活</td><td>5 休憩与儿童游戏</td><td>D</td><td>—</td><td>座椅 <span class="src">S2 p.45</span>；儿童游戏 <span class="tag t-gap">总规未提</span></td></tr>
+      <tr><td>行</td><td>6 步行与无障碍</td><td>D；州道信号 A</td><td>3.1.2、6.2.2</td><td>Rivoli Way 连接 <span class="src">S2 p.50</span>；P4</td></tr>
+      <tr><td>行</td><td>7 自行车停放与微出行</td><td>D + P</td><td>3.1.3</td><td>骑行道不经过广场 <span class="src">S2 p.50</span></td></tr>
+      <tr><td>行</td><td>8 路缘接驳</td><td>D</td><td>—</td><td>单向通行、停车场入口 <span class="src">S2 p.43、49</span></td></tr>
+      <tr><td>智</td><td>9 智慧基础设施</td><td>D</td><td>4.1.2、4.2.1</td><td>照明 <span class="src">S2 p.45</span></td></tr>
+      <tr><td>智</td><td>10 循环经济节点</td><td>D + P</td><td>2.2.2</td><td><span class="tag t-gap">总规未提</span></td></tr>
+    </tbody>
+  </table></div>
+
+  <h3 style="margin-top:20px">9 个影响维度</h3>
+  <div class="chips">
+    <span class="chip">热舒适 °C</span><span class="chip">雨洪 m³</span><span class="chip">经济活力 人/座位</span><span class="chip">可达与通行 <span class="tag t-gap">待交通研究</span></span><span class="chip">安全感</span><span class="chip">包容</span><span class="chip">文化与社交</span><span class="chip">成本 $</span><span class="chip">碳与资源</span>
+  </div>
+  <p class="muted" style="font-size:14px;margin-top:8px">对照六瓣图 18 项特征 <span class="src">S5 p.18</span>：直接覆盖 9 项，部分覆盖 3 项，由工具流程实现 3 项（Governance），不受影响 3 项（绿色建筑、21 世纪教育、生产力）。</p>
+
+  <h3 style="margin-top:20px">透明公式（AI 不产生数字）</h3>
+  <div class="grid g2">
+    <div class="formula">I_j = Σ a_i × c_ij &nbsp;→&nbsp; [low, high]</div>
+    <div class="formula">S = Σ w_j × Î_j</div>
+  </div>
+  <div class="grid g3" style="margin-top:10px">
+    <div class="card"><h3>a · c · w</h3><p>a = 各模块面积；c = 10×9 系数矩阵，90 个值逐个标"文献"或"假设"；w = 居民权重。</p></div>
+    <div class="card"><h3>约束</h3><p>面积和 1,200 m² <span class="src">S2 p.23</span>；深土 <span class="tag t-infer">待核实</span>；畅通路径；预算。越界标红，不自动修正。</p></div>
+    <div class="card"><h3>情景与时间</h3><p>增长：低 / 中 / 高。时间轴：2026 → 2036 → 2041（总规 15 年 <span class="src">S2 p.54</span>）→ 2050。</p></div>
+  </div>
+</section>
+
+<section id="council">
+  <div class="secnum">07</div>
+  <h2>议会后台：报告上传与逐条核对</h2>
+  <p class="sub">这是居民端第 ① 段的数据来源，也是简报要求的人工问责点 <span class="src">S1 p.3</span>。</p>
+  <div class="flow" role="list">
+    <div class="step" role="listitem"><div class="k">1</div><h3>上传报告</h3><p>规划师上传 S2、S4 或专项研究 PDF。</p></div>
+    <div class="arrow" aria-hidden="true">→</div>
+    <div class="step" role="listitem"><div class="k">2</div><h3>AI 逐条提取</h3><p>每条附来源、页码和原文。<b>没有引用的不收录。</b></p></div>
+    <div class="arrow" aria-hidden="true">→</div>
+    <div class="step" role="listitem"><div class="k">3</div><h3>规划师核对</h3><p>批准、修改或驳回，记录批准人和时间。</p></div>
+    <div class="arrow" aria-hidden="true">→</div>
+    <div class="step" role="listitem"><div class="k">4</div><h3>发布给居民</h3><p><b>只有批准过的条目</b>进入居民端。</p></div>
+    <div class="arrow" aria-hidden="true">→</div>
+    <div class="step" role="listitem"><div class="k">5</div><h3>证据空白清单</h3><p>报告里没有的数字列出来，交给 Council。</p></div>
+  </div>
+  <div class="grid g3" style="margin-top:14px">
+    <div class="card"><h3>总规原则检查</h3><p>居民的方案是否仍满足 P1–P6 <span class="src">S2 p.22</span>，哪条被削弱。</p></div>
+    <div class="card"><h3>代表性与汇总</h3><p>对比 ABS 人口结构；只显示 10 人及以上的群体；D/P/A 分层汇总。</p></div>
+    <div class="card"><h3>倡导简报</h3><p>AI 起草、人工审批；附战略指标的基线候选。</p></div>
+  </div>
+</section>
+
+<section id="strategy">
+  <div class="secnum">08</div>
+  <h2>战略对齐</h2>
+  <p class="sub">战略自己的 6 项优先事项 <span class="src">S5 p.8–9</span>，不是第 18 页的六瓣图。</p>
+  <div class="scroll"><table>
+    <thead><tr><th>优先事项</th><th>挂靠行动</th><th>"基线待定"的指标 → 我们的成功指标</th></tr></thead>
+    <tbody>
+      <tr><td>1 数据驱动的组织</td><td>1.2.2 <span class="src">S5 p.32</span></td><td>—</td></tr>
+      <tr><td>2 气候适应与循环经济</td><td>2.1.1、2.1.2、2.1.4、2.2.2 <span class="src">S5 p.38</span></td><td>社区对气候适应措施的满意度 <span class="src">S5 p.39</span></td></tr>
+      <tr><td>3 智能互联的交通</td><td>3.1.2（A）、3.1.3 <span class="src">S5 p.44</span></td><td>对公共交通和主动出行的感受 <span class="src">S5 p.45</span></td></tr>
+      <tr><td>4 变革性城市技术</td><td>4.1.2、4.1.3、4.2.1 <span class="src">S5 p.50</span></td><td>含智慧基础设施的公共领域项目占比 <span class="src">S5 p.51</span></td></tr>
+      <tr><td>5 创新生态</td><td>5.1.3 创新挑战 <span class="src">S5 p.56</span></td><td>—</td></tr>
+      <tr><td>6 数字参与和体验</td><td>6.1.1、6.2.2、6.3.2 <span class="src">S5 p.62</span></td><td>寻路满意度、数字体验满意度 <span class="src">S5 p.63</span></td></tr>
+    </tbody>
+  </table></div>
+  <p class="muted" style="font-size:14px;margin-top:8px">战略没提 digital twin，所以 pitch 用"决策故事板"；简报的创意方向里也有 digital-twin storyboard <span class="src">S1 p.13</span>。</p>
+</section>
+
+<section id="ai">
+  <div class="secnum">09</div>
+  <h2>负责任 AI 与隐私</h2>
+  <div class="grid g2">
+    <div class="card"><h3>AI 做什么</h3><ul><li>从报告提取条目（必须带引用）</li><li>按身份改写讲解的措辞</li><li>起草倡导简报</li></ul></div>
+    <div class="card"><h3>AI 不做什么</h3><ul><li>不产生任何数字，数字只来自来源或透明公式</li><li>不替人做决定</li><li>不发布未经批准的内容</li></ul></div>
+    <div class="card"><h3>隐私</h3><ul><li>只收年龄段、邮编等最少必要数据 <span class="src">S5 p.30</span></li><li>不收姓名、邮箱、精确住址</li><li>汇总门槛 10 人</li></ul></div>
+    <div class="card"><h3>原则</h3><p>Community-first、Transparent、Collaborative、Experimental、Resourceful、Inclusive <span class="src">S5 p.8–9</span>，作为工具的行为规则。</p></div>
+  </div>
+</section>
+
+<section id="gaps">
+  <div class="secnum">10</div>
+  <h2>证据空白与待核实</h2>
+  <p class="sub">这些在原型里要明确标出来，不能用估算填上。</p>
+  <div class="grid g2">
+    <div class="card" style="border-color:var(--gap)"><h3><span class="tag t-gap">证据空白</span></h3><ul>
+      <li>交通模型还没做：要等第二期，FY27/28 才聘顾问 <span class="src">S2 p.54</span> <span class="src">S4</span></li>
+      <li>广场资金来源未定 <span class="src">S2 p.54</span></li>
+      <li>公示意见还没公开汇总 <span class="src">S3</span></li>
+      <li>广场各项功能的面积比例总规没给</li>
+    </ul></div>
+    <div class="card" style="border-color:var(--infer)"><h3><span class="tag t-infer">待核实</span></h3><ul>
+      <li>面积 1,200 还是 1,300 m² <span class="src">S2 p.23</span> <span class="src">S3</span></li>
+      <li>广场下方是否有停车场；种植池是否因为没有深土 <span class="src">S2 p.45</span></li>
+      <li>广场有多少来自原 Woodhouse Lane 道路用地 <span class="src">S2 p.43</span></li>
+      <li>DCP 深土和步行净宽数值（S8）</li>
+      <li>TfNSW 哪个数据集最接近车站人流（S12）</li>
+      <li>系数矩阵的文献来源</li>
+    </ul></div>
+  </div>
+</section>
+
+<section id="next">
+  <div class="secnum">11</div>
+  <h2>待定与下一步</h2>
+  <div class="decision">
+    <h3>待团队决定：路线 B 还是 C</h3>
+    <div class="grid g2" style="margin-top:8px">
+      <div><b>B · 只做广场分配</b><p style="font-size:14px">范围小，3 分钟内讲得完；楼栋方案只在屏 2 作为背景讲。</p></div>
+      <div><b>C · 两层结合</b><p style="font-size:14px">先选楼栋方案，再分广场。沿用总规自己的两步方法 <span class="src">S2 p.22–23</span>，但更难在 3 分钟内讲完。</p></div>
+    </div>
+  </div>
+  <h3 style="margin-top:20px">下一步</h3>
+  <ul class="check">
+    <li><span class="box" aria-hidden="true"></span><span>第 ① 段：用 S2、S3、S4 手工整理一批带页码和原文的条目，模拟"已批准"状态</span></li>
+    <li><span class="box" aria-hidden="true"></span><span>第 ② 段：把总规原样换算成基准方案 0（比例标"假设"），系数先用标明的假设值</span></li>
+    <li><span class="box" aria-hidden="true"></span><span>后台：上传和提取先做演示版，只处理 S2</span></li>
+    <li><span class="box" aria-hidden="true"></span><span>读 S6 中文摘要，统一中文术语；再读 S8 DCP 和 S9 ABS</span></li>
+    <li><span class="box" aria-hidden="true"></span><span>按提交清单准备 10 项材料 <span class="src">S1 p.23</span></span></li>
+    <li><span class="box" aria-hidden="true"></span><span>找非技术用户做 3 分钟测试 <span class="src">S1 p.12</span></span></li>
+  </ul>
+</section>
+
+<footer>
+  依据仓库 docs/CHAT_HANDOFF_2026-11-15.md 与 docs/SOURCES.md 整理，2026-11-15。来源：S1 挑战简报（2026-11-06）；S2 Draft CBD South Parramatta Precinct Master Plan；S3 participate.cityofparramatta.nsw.gov.au/cbd-south-master-plan；S4 Council 报告 OCM26-56（2026-04-28）；S5 Smart City &amp; Innovation Strategy 2024–2033。
+</footer>
+</div>

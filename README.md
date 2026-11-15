@@ -6,39 +6,111 @@ A decision storyboard for CBD South Parramatta. Built for Challenge 4, "Smarter 
 
 CivicAlign helps a resident or a decision-maker understand **one growth trade-off in one place**: what each choice would change, what evidence supports it, how uncertain it is, and who is responsible for acting on it.
 
-Council has already done the professional work. It is in the draft master plan, the Council report and the Smart City Strategy, but each of these PDFs runs to dozens of pages, and most residents will not read them. CivicAlign does three things:
-1. It turns these documents into visual explanations, organised by dimension.
-2. It lets residents try alternatives to the plan and see the trade-offs.
-3. It collects their feedback for Council.
+> **The full framework, as one page:** [`docs/framework.html`](docs/framework.html). Download it and open it in a browser; GitHub shows only its source code. The detailed working notes, in Chinese, are in [`docs/CHAT_HANDOFF_2026-11-15.md`](docs/CHAT_HANDOFF_2026-11-15.md).
 
-Every statement links back to its source document and page. The sources are listed in the [source register](docs/SOURCES.md).
+## 1. Why
 
-## The decision
+| Problem | Approach | Result |
+|---|---|---|
+| Council has already done the professional work in the draft master plan [S2], the Council report [S4] and the Smart City Strategy [S5]. Each runs to dozens of pages, so residents do not read them. | Turn the documents into visual explanations organised by dimension. Let residents try alternatives to the plan. Collect their feedback. | A non-technical user understands the trade-off, the evidence, the uncertainty and who is responsible within 3 minutes [S1 p.12]. Council receives feedback with a representativeness check, plus a list of evidence gaps. |
 
-The Draft CBD South Parramatta Precinct Master Plan (Phase 1, exhibited 11 May to 23 June 2026) proposes **Woodhouse Square**. It is a new 1,200 m² urban plaza on Council-owned land facing Wentworth Street, near Parramatta Station (plan p.23; the exhibition web page says 1,300 m², so this still needs checking against the final plan).
+The brief asks entries to build on Council's existing work, interpreting it and filling evidence gaps rather than duplicating it [S1 p.13].
 
-The plan describes it as a flexible paved square with:
-- shade trees, public art and lighting;
-- outdoor dining at its edges;
-- raised planters with seating;
-- room for night markets and cultural events.
+## 2. The source rule
 
-CivicAlign asks: **how should that plaza's space and budget be shared between competing uses?** The uses include tree canopy and cooling, markets and events, cultural expression, play, walking and cycling, kerb access and smart infrastructure.
+Every statement, question and number links back to a source document and page, written like **[S2 p.23]**. The sources are listed in the [source register](docs/SOURCES.md):
+
+| ID | Source |
+|---|---|
+| S1 | Parramatta Possibilities challenge brief (6 Nov 2026) |
+| S2 | Draft CBD South Parramatta Precinct Master Plan, Phase 1 |
+| S3 | [Participate Parramatta project page](https://participate.cityofparramatta.nsw.gov.au/cbd-south-master-plan) |
+| S4 | [Council report OCM26-56, 28 April 2026](https://docspublished.com.au/CityofParramatta/document/5bdbd20f-5ff3-43bc-97c4-1819402e9f6f) |
+| S5 | [Smart City & Innovation Strategy 2024–2033](https://www.cityofparramatta.nsw.gov.au/files/assets/public/v/1/publications/smart-city-and-innovation-strategy.pdf) |
+
+Inferences and team design choices are labelled as such. Any number without a source is marked as an assumption or placeholder, and is never shown as Council data [S1 p.3].
+
+## 3. The decision
+
+Council describes the master plan to residents through three deliverables [S3]:
+
+1. **New City Square.** This is the decision. The plan calls it **Woodhouse Square** (a provisional name [S2 p.54]): 1,200 m² on Council-owned land facing Wentworth Street [S2 p.23]. The exhibition page says 1,300 m² [S3], so the figure needs checking against the final plan.
+2. **Chinatown Nightlife Destination** [S2 p.33–41]. The square hosts its night markets and outdoor dining.
+3. **Traffic Changes for Pedestrian Amenity** [S2 p.48–50]. These shape the square's edges, crossings and car park entry.
+
+**Already decided by Council:**
+- In 2025, Council tested a large park, a small convention centre, and a dining and nightlife precinct with a civic square. It chose the third [S4].
+- Its options testing then picked a scheme with a plaza and put the plaza on Wentworth Street [S2 p.23].
+- Both choices were scored against six urban design principles, P1–P6 [S2 p.22].
+
+**Left open for residents:** how to share the square's space and budget. The plan lists the uses (shade trees, public art, lighting, flexible paving for night markets and events, outdoor dining at the edges, raised planters with seating [S2 p.44–45]) but not how much room each gets.
+
+## 4. Resident storyboard: three parts, five screens, about three minutes
+
+| Part | Screen | Content |
+|---|---|---|
+| 1. What the plan says | 1. Who I am and what I care about | Language, role, age band and postcode only [S5 p.30]. The resident picks three dimensions to weight. |
+| | 2. The plan, and what do you think? | One card per deliverable: what is planned, what Council ruled out, and what is still open. Every claim opens to its source page. |
+| 2. What if it were shared differently | 3. Share the square | Start from **baseline scenario 0, the plan as drawn**, then adjust 4 groups that open into 10 uses. |
+| | 4. Results | 9 impact ranges, each compared with scenario 0, over a 2026 → 2036 → 2041 → 2050 timeline and low, medium and high growth. |
+| 3. Your view and who decides | 5. Who decides, and submit | Council delivers, partners or advocates [S5 p.33]. The resident adds their own experience. No name, email or address. |
+
+If no source gives a number, the page says so ("the plan gives no figure", "awaiting the traffic study") and the AI does not fill it in.
+
+## 5. Uses, dimensions and model
+
+- **10 uses in 4 groups.**
+  - Green: canopy (deep soil or planters), blue-green infrastructure.
+  - Active: events and night markets, cultural expression, rest and play.
+  - Movement: walking and access, bike parking, kerb access.
+  - Smart: smart infrastructure, circular-economy point.
+- **9 dimensions:** heat comfort, stormwater, economic activity, access and movement, perceived safety, inclusion, culture and social life, cost, carbon and resources.
+- **Transparent formula:** `I_j = Σ a_i × c_ij`, given as a low–high range, and fit `S = Σ w_j × Î_j`.
+  - Each of the 90 coefficients is labelled literature or assumption.
+  - AI never produces numbers.
+- **Coverage:** the dimensions are checked against all 18 smart-city characteristics in the strategy's Figure 1 [S5 p.18]. 9 are covered, 3 partly covered, 3 handled by the tool's own process, and 3 are not affected by this decision.
+
+## 6. Council backend: report upload and claim review
+
+1. A planner uploads a Council PDF, such as S2, S4 or a technical study.
+2. AI extracts claims. Each claim must carry its source, page and quote, or it is dropped.
+3. The planner approves, edits or rejects each claim. The tool records who approved it and when.
+4. Only approved claims reach residents.
+5. Figures that no source provides go on an **evidence-gap list** for Council.
+
+The backend also does three more things:
+- checks resident proposals against P1–P6;
+- reports results only for groups of 10 or more, with a representativeness check against the ABS Census;
+- drafts advocacy briefs, which a person approves.
+
+## 7. Strategy alignment
+
+The tool links to actions under the strategy's six priorities [S5 p.8–9]: 1.2.2, 2.1.1, 2.1.2, 2.1.4, 2.2.2, 3.1.2, 3.1.3, 4.1.2, 4.1.3, 4.2.1, 5.1.3, 6.1.1, 6.2.2 and 6.3.2.
+
+Several of the strategy's indicators have the baseline "TBC" [S5 p.39–63], and resident input can help set them:
+- satisfaction with climate adaptation;
+- views on public and active transport;
+- smart infrastructure in public domain projects;
+- satisfaction with wayfinding.
+
+## 8. Evidence gaps and open questions
+
+- **No traffic model exists yet.** Traffic modelling comes after Phase 2, with consultant engagement planned for FY27/28 [S2 p.54][S4].
+- **Funding for the square is not settled** [S2 p.54].
+- **Two figures for the square's size:** 1,200 m² [S2 p.23] versus 1,300 m² [S3].
+- **Soil under the square is unknown.** It is not clear whether the new car park sits under it, or whether the raised planters mean there is no deep soil [S2 p.45].
+- **Undecided by the team:** route B (allocate the square only) or route C (choose the building scheme first, then allocate the square).
 
 ## What is in this repository
 
-This repository holds two things:
+| Path | What it is |
+|---|---|
+| `docs/framework.html` | The full framework as one page |
+| `docs/CHAT_HANDOFF_2026-11-15.md` | Detailed design notes with sources, in Chinese |
+| `docs/SOURCES.md` | Source register |
+| `src/`, `dist/`, `data/`, `scripts/` | Prototype v1 |
 
-1. **Prototype v1** (`src/`, `dist/`). A three.js big-screen view of the precinct in 3D. It compares two illustrative options on ten parcels across housing, heat, open space, car trips and jobs. Each result is tagged with who is responsible: Council controls, Shared, or Council advocates. It has English and Chinese text.
-2. **The v2 design** (`docs/CHAT_HANDOFF_2026-11-15.md`). This is the agreed framework for the plaza decision:
-   - 10 uses in 4 groups: green, active, movement and smart.
-   - 9 impact dimensions, shown as low–high ranges.
-   - A transparent 10 × 9 coefficient matrix. AI does not produce numbers.
-   - Resident weights, low, medium and high growth scenarios, and a 2026, 2036 and 2050 timeline.
-   - A 5-screen resident flow of about 3 minutes, and a Council backend.
-   - A mapping to all 18 characteristics in the City's Smart City & Innovation Strategy 2024–2033.
-
-v1 does not implement the v2 design yet.
+**Prototype v1** is a three.js big-screen view of the precinct in 3D. It compares two illustrative options on ten parcels across housing, heat, open space, car trips and jobs, and tags each result with who is responsible. It has English and Chinese text. **v1 does not implement the framework above yet.**
 
 ### Status of v1 data
 
@@ -56,8 +128,8 @@ v1 does not implement the v2 design yet.
 
 - Placeholder data is labelled as such. Nothing is shown as observed Council data unless it is.
 - Model output is a range under stated assumptions, not a forecast.
-- AI only drafts plain-language explanations. People make every decision, and a person approves anything Council would act on.
-- No names, emails or exact addresses are collected. Group results are shown only for groups of 10 or more.
+- AI extracts claims with citations, rewrites explanations and drafts briefs. It produces no numbers, makes no decisions and publishes nothing without a person's approval.
+- Only the minimum data is collected [S5 p.30]: no names, emails or exact addresses. Group results are shown only for groups of 10 or more.
 
 ## Run
 
@@ -91,12 +163,6 @@ python scripts/build_data.py data/raw.json data/precinct.json
 ```
 
 The precinct boundary polygon is `P` in `build_data.py`.
-
-## Sources
-
-- Draft CBD South Parramatta Precinct Master Plan: https://participate.cityofparramatta.nsw.gov.au/cbd-south-master-plan
-- City of Parramatta, Smart City & Innovation Strategy 2024–2033: https://www.cityofparramatta.nsw.gov.au/files/assets/public/v/1/publications/smart-city-and-innovation-strategy.pdf
-- Parramatta Possibilities challenge brief, Challenge 4
 
 ## Licence
 
