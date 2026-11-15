@@ -11,7 +11,7 @@
 
 本文件第 2、4 节的框架把决策定为"1,300 m² 新广场怎么在 10 类用途间分配"。这两条路线**还没有合并**，需要先定：
 
-- A. 保留现有的"三方案比选"作为主决策，把本文件的 8 个影响维度、权重、时间轴、D/P/A 和证据标注并进去；
+- A. 保留现有的"三方案比选"作为主决策，把本文件的 9 个影响维度、权重、时间轴、D/P/A 和证据标注并进去；
 - B. 改成"广场空间分配"；
 - C. 两层结合：先选方案（楼栋与开放空间总量），再分配广场内部用途。
 
@@ -66,15 +66,53 @@
 | 智 | 9 智慧基础设施 | Governance / Living | D |
 | 智 | 10 循环经济节点 | Environment | D + P |
 
-### 4.2 输出：8 个影响维度
+### 4.2 输出：9 个影响维度（2026-11-15 修订）
 
-热舒适（°C 区间）、雨洪（m³）、经济活力（人 / 座位）、可达与通行（秒、%）、安全感、包容与文化、成本（$）、碳与资源。
+热舒适（°C 区间）、雨洪（m³）、经济活力（人 / 座位）、可达与通行（秒、%）、安全感、**包容**、**文化与社交**、成本（$）、碳与资源。
+
+> 修订说明：原第 6 个维度"包容与文化"拆成两个。
+> - **包容**：不同人群能不能用，包括无障碍、儿童和老人（对应 People / Inclusive society）。
+> - **文化与社交**：文化表达、聚会和活动（对应 Living / Culturally vibrant、Connected communities，People / Embrace creativity）。
+>
+> 拆分原因："Connected communities"正是总规给广场定的用途（聚会、活动和日常使用），原来没有专门的维度。
+> 如果居民端维度太多，可以把"碳与资源"只放在议会后台，居民端显示 8 个。
+
+#### 4.2.1 与智慧城市六大领域 18 项特征的对照
+
+依据：Smart City & Innovation Strategy 2024–2033 第 18 页图 1（改编自 Giffinger et al., 2007）。
+
+原则：18 项都要逐一说明，但不全部做成输出维度。这个决策影响不到的子项，明确标"不影响"，不给它编系数。原型第 5 屏"谁说了算"和议会后台"战略对标"页显示这张对照表，居民端只显示上面的维度。
+
+状态说明：✅ 直接覆盖 / ◐ 部分覆盖 / ⚙ 由工具本身的流程实现 / — 这个决策不影响
+
+| 领域 | 特征 | 状态 | 对应维度或模块 |
+| --- | --- | --- | --- |
+| Environment | Green urban planning | ✅ | 热舒适、雨洪；模块 1、2 |
+| Environment | Renewable energy sources | ◐ | 碳与资源；模块 9（太阳能照明等） |
+| Environment | Green buildings | — | 广场没有建筑；如果采用路线 C，在方案层（楼栋）体现 |
+| Living | Safe places | ✅ | 安全感 |
+| Living | Culturally vibrant | ✅ | 文化与社交；模块 4 |
+| Living | Connected communities | ✅ | 文化与社交；模块 3、5 |
+| Mobility | Prioritise public & active transport | ✅ | 可达与通行；模块 6、7 |
+| Mobility | Mixed-modal access | ✅ | 可达与通行；模块 6、7、8 |
+| Mobility | Demand management | ◐ | 模块 8 路缘接驳；与新公共停车场有关 |
+| People | Inclusive society | ✅ | 包容；模块 5、6 |
+| People | Embrace creativity | ✅ | 文化与社交；模块 4（公共艺术） |
+| People | 21st century education | — | 不受广场用途分配影响 |
+| Economy | Entrepreneurship & innovation | ✅ | 经济活力；模块 3（夜市、快闪） |
+| Economy | Local & global connectedness | ◐ | 经济活力、文化与社交（唐人街、车站门户） |
+| Economy | Productivity | — | 不受广场用途分配影响 |
+| Governance | ICT & e-governance | ⚙ | 原型本身；模块 9 智慧基础设施 |
+| Governance | Transparency & open data | ⚙ | 公开公式、证据标注、数据登记表 |
+| Governance | Enabling community participation | ⚙ | 居民端流程、Participate Parramatta、现场 QR 牌 |
+
+合计：直接覆盖 9 项，部分覆盖 3 项，由流程实现 3 项，不影响 3 项。
 
 ### 4.3 计算模型（透明公式，AI 不产生数字）
 
-1. 影响区间：`I_j_low = Σ a_i × c_ij_low`，`I_j_high = Σ a_i × c_ij_high`（a_i = 用途 i 的面积，c = 10×8 系数矩阵）
+1. 影响区间：`I_j_low = Σ a_i × c_ij_low`，`I_j_high = Σ a_i × c_ij_high`（a_i = 用途 i 的面积，c = 10×9 系数矩阵）
 2. 约束检查：面积和 = 1,300 m²；深土区（地下室上方不能种大乔木，待核实）；畅通路径；预算。越界标红并说明原因，不自动修正。
-3. 契合度：`S = Σ w_j × Î_j`（w = 居民给 8 个维度的权重）
+3. 契合度：`S = Σ w_j × Î_j`（w = 居民给 9 个维度的权重）
 4. 增长情景：周边人口低 / 中 / 高
 5. 时间轴：2026 → 2036 → 2050（树冠降温随树龄增长，运维成本累加）
 
@@ -83,7 +121,7 @@
 1. 我是谁、我在乎什么（语言、身份、选出最在乎的 3 个维度 → 权重）
 2. 现状核对（"数据说" vs "你觉得"）
 3. 分配广场（1,300 m² 平面，4 大类滑杆可展开到 10 个模块，3 个示例方案）
-4. 结果（8 条区间条、时间轴、增长情景、AI 按身份翻译一句话、每个数字可查来源）
+4. 结果（9 条区间条、时间轴、增长情景、AI 按身份翻译一句话、每个数字可查来源）
 5. 谁说了算 + 提交（不收姓名、邮箱、精确住址）
 
 ### 4.5 议会后台
@@ -98,7 +136,7 @@
 4. 规划约束：Draft CBD South Master Plan；Parramatta DCP 2023
 5. 生活经验：标明的假数据 → 试点时用现场 QR 牌 + Participate Parramatta + 图书馆平板亭收集
 
-系数矩阵的 80 个值逐个标"文献"或"假设"。
+系数矩阵的 90 个值逐个标"文献"或"假设"。
 
 ## 5. Gemini Demo 评审（https://gemini.google.com/share/1f41a91482ea）
 
