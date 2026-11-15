@@ -132,7 +132,10 @@ th,td{text-align:left;padding:7px 8px;border-bottom:1px solid var(--line);vertic
 th{color:var(--muted);font-weight:500;background:var(--surface-2);white-space:nowrap}
 td.n{font-family:var(--f-mono);font-variant-numeric:tabular-nums;white-space:nowrap}
 .status{font-size:12px;border-radius:4px;padding:0 6px;white-space:nowrap}
-.st-ok{background:var(--fact-bg);color:var(--fact)} .st-gap{background:var(--gap-bg);color:var(--gap)}
+.st-ok{background:var(--fact-bg);color:var(--fact)} .st-gap{background:var(--infer-bg);color:var(--infer)}
+.st-rej{background:var(--gap-bg);color:var(--gap)} .st-edit{background:var(--design-bg);color:var(--design)}
+.strike{text-decoration:line-through;opacity:.7}
+.rej-ph{color:var(--muted);font-style:italic}
 ul.claims{list-style:none;margin:0;padding:0}
 ul.claims li{padding:6px 0;border-bottom:1px dashed var(--line);font-size:14px}
 ul.claims li:last-child{border-bottom:0}
