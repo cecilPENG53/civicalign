@@ -35,7 +35,12 @@ button,input,select,textarea{font:inherit;color:inherit}
 button{cursor:pointer}
 :focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 /* top bar */
-.bar{background:var(--surface);border-bottom:1px solid var(--line)}
+.bar{background:#11332a;color:#eef5f1;border-bottom:1px solid #0b241d}
+.bar .brand span{color:#a9c2b8}
+.bar .seg{background:#173f34;border-color:#2a5a4c}
+.bar .seg button{color:#dbe9e3}
+.bar .seg button[aria-pressed="true"]{background:#3fae8c;color:#06241b}
+.bar .logo{background:#3fae8c;color:#06241b}
 .bar .wrap{display:flex;flex-wrap:wrap;align-items:center;gap:10px 16px;padding-block:12px}
 .brand{display:flex;align-items:center;gap:10px;min-width:0;flex:1 1 300px}
 .logo{flex:0 0 36px;height:36px;border-radius:8px;background:var(--accent);color:var(--on-accent);display:grid;place-items:center;font-family:var(--f-display);font-weight:700}
@@ -126,6 +131,39 @@ ul.claims li:last-child{border-bottom:0}
 .plan{width:100%;aspect-ratio:3/2;max-width:100%;display:block;border-radius:8px;background:var(--surface-2)}
 .presets{display:flex;flex-wrap:wrap;gap:6px}
 .presets button{border:1px solid var(--line);background:var(--surface);border-radius:6px;padding:4px 10px;font-size:13px}
+/* studio */
+.studio{display:grid;grid-template-columns:minmax(0,.95fr) minmax(0,1.25fr);gap:16px;align-items:start}
+@media (max-width:880px){.studio{grid-template-columns:1fr}}
+.viz{position:sticky;top:8px}
+@media (max-width:880px){.viz{position:static}}
+.presets2{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin:6px 0 8px}
+.pz{border:1px solid var(--line);border-radius:8px;padding:8px 6px;font-size:12.5px;font-weight:500;background:var(--surface);text-align:center;line-height:1.3}
+.pz-base{background:var(--surface-2)} .pz-green{background:#e2f2e3;border-color:#a9d3ae;color:#245a2c} .pz-night{background:#fbeedb;border-color:#e6c08a;color:#7a4a0c}
+:root[data-theme="dark"] .pz-green{background:#1f3a25;color:#bfe5c4;border-color:#2f5a37} :root[data-theme="dark"] .pz-night{background:#3a2c14;color:#f2cf98;border-color:#5a4422}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .pz-green{background:#1f3a25;color:#bfe5c4;border-color:#2f5a37} :root:not([data-theme="light"]) .pz-night{background:#3a2c14;color:#f2cf98;border-color:#5a4422}}
+.gcards{display:grid;gap:10px}
+.gcard{border:1px solid color-mix(in srgb,var(--gc) 45%,var(--line));background:color-mix(in srgb,var(--gc) 9%,var(--surface));border-radius:10px;padding:10px 12px}
+.gtop{display:flex;align-items:center;gap:10px}
+.gic{flex:0 0 30px;height:30px;border-radius:8px;background:var(--gc);display:grid;place-items:center}
+.gname{flex:1;min-width:0} .gname b{display:block;font-size:15px} .gname small{color:var(--muted);font-size:12px}
+.gval{font-family:var(--f-display);font-size:22px;font-weight:700;color:var(--gc);font-variant-numeric:tabular-nums}
+.gcard input[type=range]{width:100%;accent-color:var(--gc);margin-top:6px}
+.gm{font-family:var(--f-mono);font-size:12px;color:var(--muted);text-align:right}
+details.more{margin-top:10px}
+.mic{display:inline-block;vertical-align:-3px;margin-right:6px}
+.vh{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;flex-wrap:wrap;margin-bottom:8px}
+.yrs{display:inline-flex;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.yrs button{border:0;background:var(--surface);padding:4px 10px;font-size:12.5px;font-family:var(--f-mono)}
+.yrs button[aria-pressed="true"]{background:var(--accent);color:var(--on-accent)}
+.abar{display:flex;height:22px;border-radius:6px;overflow:hidden;background:var(--surface-2);margin-bottom:8px}
+.abar span{display:flex;align-items:center;justify-content:center;color:#fff;font-size:11.5px;font-weight:600;white-space:nowrap;overflow:hidden;transition:width .2s}
+.plaza{width:100%;height:auto;display:block}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;margin-top:10px}
+.kpi{border:1px solid var(--line);border-radius:10px;padding:10px 12px;background:var(--surface)}
+.kh{display:flex;justify-content:space-between;gap:6px;font-size:12.5px;color:var(--muted)}
+.kv{font-family:var(--f-display);font-size:22px;font-weight:700;font-variant-numeric:tabular-nums;margin-top:2px}
+.kv small{font-size:12px;font-weight:500;color:var(--muted)}
+.kd{font-size:12.5px} .kn{font-size:12px;color:var(--muted);margin-top:2px}
 /* results */
 .res{display:grid;grid-template-columns:150px minmax(0,1fr) 190px;gap:10px;align-items:center;padding:8px 0;border-bottom:1px solid var(--line)}
 @media (max-width:640px){.res{grid-template-columns:1fr}}
@@ -474,57 +512,127 @@ function mapSVG(){
   return `<svg class="map" viewBox="-185 -200 440 530" role="img" aria-label="${L("CBD South 第一期范围底图","Base map of CBD South Phase 1")}">${g}</svg>`;
 }
 
-/* ---------- Screen 3 ---------- */
+/* ---------- Screen 3: live studio (controls left, picture + numbers right) ---------- */
+const GDESC={green:{zh:"降温、遮荫、留住雨水",en:"Cooling, shade, holding rain"},active:{zh:"唐人街夜市、活动、停留",en:"Night markets, events, places to stay"},move:{zh:"穿行、无障碍、接驳",en:"Getting through, access, drop-off"},smart:{zh:"夜间照明、回收",en:"Night lighting, recycling"}};
+const r10=v=>Math.round(v/10)*10;
+function normalise(){ // keep the total at exactly 1,200 m² after rounding
+  let d=TOTAL-sum(S.a); if(!d) return;
+  const ids=MODULES.map(m=>m.id).sort((x,y)=>S.a[y]-S.a[x]);
+  for(const id of ids){ const nv=Math.max(0,S.a[id]+d); d-=nv-S.a[id]; S.a[id]=nv; if(!d) break; }
+}
+function setModule(id,v){
+  v=Math.max(0,Math.min(TOTAL,r10(v)));
+  const others=MODULES.filter(m=>m.id!==id), rest=others.reduce((s,m)=>s+S.a[m.id],0), target=TOTAL-v;
+  others.forEach(m=>{S.a[m.id]= rest>0 ? r10(S.a[m.id]*target/rest) : r10(target/others.length);});
+  S.a[id]=v; normalise();
+}
+function setGroup(g,v){
+  v=Math.max(0,Math.min(TOTAL,r10(v)));
+  const inG=MODULES.filter(m=>m.g===g), outG=MODULES.filter(m=>m.g!==g);
+  const gt=inG.reduce((s,m)=>s+S.a[m.id],0), ot=outG.reduce((s,m)=>s+S.a[m.id],0);
+  inG.forEach(m=>{S.a[m.id]= gt>0 ? r10(S.a[m.id]*v/gt) : r10(v/inG.length);});
+  outG.forEach(m=>{S.a[m.id]= ot>0 ? r10(S.a[m.id]*(TOTAL-v)/ot) : r10((TOTAL-v)/outG.length);});
+  normalise();
+}
+const gsum=g=>MODULES.filter(m=>m.g===g).reduce((s,m)=>s+S.a[m.id],0);
+const pct=v=>Math.round(100*v/TOTAL);
+
 function s3(){
-  const left=TOTAL-sum(S.a);
-  const groups=Object.keys(GROUPS).map(gk=>{
-    const ms=MODULES.filter(m=>m.g===gk); const gs=ms.reduce((s,m)=>s+S.a[m.id],0);
-    return `<div class="grp"><h3><span><i class="sw" style="background:${GROUPS[gk].c}"></i>${T(GROUPS[gk])}</span><span class="okbad" id="gs_${gk}">${fmt(gs)} m²</span></h3>
-     ${ms.map(m=>`<div class="mod"><label class="nm" for="m_${m.id}">${T(m)}<small>${L("角色","Role")} ${m.role} · ${L("战略行动","Action")} ${m.act} · ${L("方案 0","Scen. 0")} ${m.base} m²</small></label>
-       <input type="range" id="m_${m.id}" data-mod="${m.id}" min="0" max="${TOTAL}" step="10" value="${S.a[m.id]}"><output for="m_${m.id}">${fmt(S.a[m.id])} m²</output></div>`).join("")}</div>`;
-  }).join("");
+  const gcards=Object.keys(GROUPS).map(g=>`<div class="gcard" style="--gc:${GROUPS[g].c}">
+     <div class="gtop"><span class="gic">${ICON[MODULES.find(m=>m.g===g).id]("#fff")}</span><div class="gname"><b>${T(GROUPS[g])}</b><small>${T(GDESC[g])}</small></div><span class="gval" id="gv_${g}">${pct(gsum(g))}%</span></div>
+     <input type="range" min="0" max="${TOTAL}" step="10" value="${gsum(g)}" data-grp="${g}" id="g_${g}" aria-label="${T(GROUPS[g])}">
+     <div class="gm" id="gm_${g}">${fmt(gsum(g))} m²</div></div>`).join("");
+  const mods=MODULES.map(m=>`<div class="mod"><label class="nm" for="m_${m.id}"><span class="mic" style="color:${GROUPS[m.g].c}">${ICON[m.id](GROUPS[m.g].c)}</span>${T(m)}<small>${L("角色","Role")} ${m.role} · ${L("战略行动","Action")} ${m.act} · ${L("方案 0","Scen. 0")} ${m.base} m²</small></label>
+       <input type="range" id="m_${m.id}" data-mod="${m.id}" min="0" max="${TOTAL}" step="10" value="${S.a[m.id]}"><output id="o_${m.id}">${fmt(S.a[m.id])} m²</output></div>`).join("");
   return `<div class="eyebrow">② ${L("换一种分法会怎样","What if it were shared differently")} · 3/5</div>
   <h1>${L("你会怎么分这 1,200 m²？","How would you share the 1,200 m²?")}</h1>
-  <p class="lede">${L("从“方案 0：总规原样”开始调整。方案 0 是我们按总规描述换算的面积比例，总规本身没有给出这些数字。","Start from Scenario 0, the plan as drawn. Scenario 0 is our reading of the plan's description; the plan itself gives no areas.")} ${chip("S2","p.45","sq2")} <span class="tag t-design">${L("假设","Assumption")}</span></p>
-  <div class="alloc">
-   <div class="card">${groups}</div>
-   <div class="total"><div class="card" id="totalBox">${totalBox()}</div></div>
-  </div>
-  <div class="nav"><button class="btn" data-go="2">${L("上一步","Back")}</button><button class="btn primary" id="toResults" data-go="4" ${left<0?"disabled":""}>${L("看结果","See results")}</button></div>`;
-}
-function totalBox(){
-  const tot=sum(S.a), left=TOTAL-tot;
-  const warns=[];
-  if(left<0) warns.push(L(`超出 ${fmt(-left)} m²：总面积只有 1,200 m²。`,`Over by ${fmt(-left)} m²: the square is only 1,200 m².`));
-  if(S.a.walk<180) warns.push(L("畅通步行少于 180 m²（15%）：总规要求无障碍和清晰动线〔S2 p.45〕。这个下限是我们的假设。","Clear walking is under 180 m² (15%). The plan asks for universal access and clear movement [S2 p.45]; this floor is our assumption."));
-  if(S.a.events<200) warns.push(L("活动硬地少于 200 m²：夜市和文化活动是总规写明的用途〔S2 p.45〕。这个下限是我们的假设。","Event paving is under 200 m². Night markets and events are named uses [S2 p.45]; this floor is our assumption."));
-  return `<h2>${L("面积合计","Total area")}</h2>
-     <p class="okbad" style="font-size:20px">${fmt(tot)} / ${fmt(TOTAL)} m² ${left===0?`<span class="tag t-fact">${L("刚好","Exact")}</span>`:left>0?`<span class="tag t-infer">${L("还剩","Left")} ${fmt(left)}</span>`:`<span class="tag t-gap">${L("超出","Over")} ${fmt(-left)}</span>`}</p>
-     <div class="meter" aria-hidden="true">${MODULES.map(m=>`<span style="width:${100*S.a[m.id]/Math.max(tot,TOTAL)}%;background:${GROUPS[m.g].c}"></span>`).join("")}</div>
-     ${planSVG()}
-     <div class="presets" style="margin-top:10px">${Object.entries(PRESETS).map(([k,p])=>`<button data-preset="${k}">${T(p)}</button>`).join("")}</div>
+  <p class="lede">${L("拉高一项，其他几项会按比例自动让出面积——这就是取舍。右边的广场图和数字会即时变化。","Raise one and the others give up space in proportion. That is the trade-off. The square and the numbers on the right update as you go.")}</p>
+  <div class="studio">
+   <div class="card ctrl">
+     <b class="small">${L("快速对比","Quick compare")}</b>
+     <div class="presets2">${Object.entries(PRESETS).map(([k,p])=>`<button data-preset="${k}" class="pz pz-${k}">${T(p)}</button>`).join("")}</div>
+     <p class="small muted">${L("方案 0 是我们按总规描述换算的比例，总规本身没给面积","Scenario 0 is our reading of the plan's description; the plan gives no areas")} ${chip("S2","p.45","sq2")} <span class="tag t-design">${L("假设","Assumption")}</span></p>
+     <div class="gcards">${gcards}</div>
+     <details class="more"><summary>${L("细分到 10 类用途","Fine-tune all 10 uses")}</summary>${mods}</details>
      <div style="margin-top:12px"><b class="small">${L("种树方式","Planting")}</b>
       <div class="choice" style="margin-top:4px"><button data-plant="planter" aria-pressed="${S.plant==="planter"}">${L("抬高种植池","Raised planters")}<small>${L("总规的写法","As in the plan")} 〔S2 p.45〕</small></button><button data-plant="deep" aria-pressed="${S.plant==="deep"}">${L("深土种植","Deep soil")}<small><span class="tag t-infer">${L("待核实","Unconfirmed")}</span> ${L("下方可能有停车场","car park may be below")}</small></button></div></div>
-     ${warns.map(w=>`<p class="warn">⚠ ${esc(w)}</p>`).join("")}`;
+   </div>
+   <div class="card viz" id="viz">${vizPanel()}</div>
+  </div>
+  <div class="nav"><button class="btn" data-go="2">${L("上一步","Back")}</button><button class="btn primary" data-go="4">${L("看全部 9 项结果","See all 9 results")}</button></div>`;
 }
-function planSVG(){
-  // squarified-ish strip layout of the 1,200 m² (60 m × 20 m strip is illustrative only)
-  const Wd=300,H=200; let x=0,html="";
-  const tot=Math.max(sum(S.a),TOTAL);
-  const rows=[["green"],["active"],["move","smart"]];
-  let y=0;
-  rows.forEach(gs=>{
-    const ms=MODULES.filter(m=>gs.includes(m.g)&&S.a[m.id]>0);
-    const rs=ms.reduce((s,m)=>s+S.a[m.id],0); if(!rs)return;
-    const h=H*rs/tot; x=0;
-    ms.forEach(m=>{const w=Wd*S.a[m.id]/rs;
-      html+=`<rect x="${x+1}" y="${y+1}" width="${Math.max(0,w-2)}" height="${Math.max(0,h-2)}" rx="3" fill="${GROUPS[m.g].c}" fill-opacity=".8"/>`;
-      if(w>48&&h>16) html+=`<text x="${x+6}" y="${y+14}" font-size="10" fill="#fff" font-weight="600">${esc(T(m).slice(0,S.lang==="zh"?6:14))}</text>`;
-      x+=w;});
-    y+=h;
+
+function vizPanel(){
+  const you=compute(S.a,S.plant,S.year), base=compute(PRESETS.base.a,"planter",S.year);
+  const bar=Object.keys(GROUPS).map(g=>{const p=pct(gsum(g));return p?`<span style="width:${100*gsum(g)/TOTAL}%;background:${GROUPS[g].c}">${p>=9?`${T(GROUPS[g])} ${p}%`:""}</span>`:"";}).join("");
+  const kpi=(id,label,val,unit,dec,note)=>{
+    const d=DIMS.find(x=>x.id===id), y=you[id], b=base[id];
+    const ym=(y[0]+y[1])/2, bm=(b[0]+b[1])/2, raw=(ym-bm)/Math.max(Math.abs(bm),1);
+    const good=(d.better==="low"?-raw:raw)>0.005, bad=(d.better==="low"?-raw:raw)<-0.005, p=Math.round(raw*100);
+    return `<div class="kpi"><div class="kh"><span>${label}</span><span class="tag t-design">${L("假设","Assumption")}</span></div>
+      <div class="kv">${val(y[0])}–${val(y[1])}<small> ${unit}</small></div>
+      <div class="kd ${good?"delta-up":bad?"delta-down":"muted"}">${p>0?"▲":p<0?"▼":"="} ${fmt(Math.abs(p))}% ${L("对比方案 0","vs Scenario 0")}${good?L("，更好",", better"):bad?L("，更差",", worse"):""}</div>
+      <div class="kn">${note}</div></div>`;
+  };
+  return `<div class="vh"><div><b>Woodhouse Square · 1,200 m²</b> ${chip("S2","p.23","sq1")}<div class="small muted">${L("你的分法","Your split")} · ${S.year} · ${S.plant==="planter"?L("种植池","planters"):L("深土","deep soil")}</div></div>
+    <div class="yrs">${[2026,2041,2050].map(y=>`<button data-year="${y}" aria-pressed="${S.year===y}">${y}</button>`).join("")}</div></div>
+   <div class="abar">${bar}</div>
+   ${plazaSVG()}
+   <div class="kpis">
+    ${kpi("shade",L("遮荫面积","Shaded area"),v=>fmt(v),"m²",0,L(`约占广场 ${pct((you.shade[0]+you.shade[1])/2)}%；树冠随年份长大`,`About ${pct((you.shade[0]+you.shade[1])/2)}% of the square; crowns grow over time`))}
+    ${kpi("econ",L("活动与市集容量","Event and market capacity"),v=>fmt(v),L("人","people"),0,L("同时能容纳的人数","People at one time"))}
+    ${kpi("access",L("畅通步行空间","Clear walking space"),v=>fmt(v),"%",0,`<span class="tag t-gap">${L("周边交通影响待官方研究","Wider traffic effects await Council's study")}</span>`)}
+    ${kpi("cost",L("建设 + 维护成本","Build + upkeep cost"),v=>fmt(v/1000,2),"$M",2,L(`到 ${S.year} 年累计`,`Total to ${S.year}`))}
+   </div>
+   <p class="small muted" style="margin-top:8px">${L("所有数值都是按团队假设系数算出的区间，不是预测。系数可在下一屏逐个查看。","All values are ranges from team-assumed coefficients, not forecasts. Every coefficient is listed on the next screen.")}</p>`;
+}
+
+/* icons: tiny pictograms drawn at 16×16 */
+const ICON={
+ canopy:c=>`<svg viewBox="0 0 16 16" width="16" height="16"><circle cx="8" cy="6.5" r="5.2" fill="${c}"/><rect x="7.2" y="10.5" width="1.6" height="4.5" rx=".6" fill="${c}"/></svg>`,
+ blue:c=>`<svg viewBox="0 0 16 16" width="16" height="16"><path d="M8 1.5C8 1.5 3.2 7 3.2 10a4.8 4.8 0 0 0 9.6 0C12.8 7 8 1.5 8 1.5z" fill="${c}"/></svg>`,
+ events:c=>`<svg viewBox="0 0 16 16" width="16" height="16"><path d="M1.5 6.5 8 2l6.5 4.5z" fill="${c}"/><rect x="3" y="7.5" width="10" height="6.5" rx="1" fill="none" stroke="${c}" stroke-width="1.6"/></svg>`,
+ culture:c=>`<svg viewBox="0 0 16 16" width="16" height="16"><rect x="7.3" y="1" width="1.4" height="2.5" fill="${c}"/><rect x="3.5" y="3.5" width="9" height="9.5" rx="4" fill="${c}"/><rect x="6" y="13" width="4" height="2" rx=".5" fill="${c}"/></svg>`,
+ rest:c=>`<svg viewBox="0 0 16 16" width="16" height="16"><rect x="1.5" y="6" width="13" height="2.4" rx="1" fill="${c}"/><rect x="1.5" y="3" width="13" height="1.8" rx=".9" fill="${c}"/><rect x="3" y="8.4" width="1.6" height="5" fill="${c}"/><rect x="11.4" y="8.4" width="1.6" height="5" fill="${c}"/></svg>`,
+ walk:c=>`<svg viewBox="0 0 16 16" width="16" height="16"><ellipse cx="5.5" cy="10" rx="2.2" ry="3.6" fill="${c}"/><ellipse cx="10.5" cy="5.5" rx="2.2" ry="3.6" fill="${c}"/></svg>`,
+ bike:c=>`<svg viewBox="0 0 16 16" width="16" height="16"><circle cx="4" cy="11" r="3" fill="none" stroke="${c}" stroke-width="1.6"/><circle cx="12" cy="11" r="3" fill="none" stroke="${c}" stroke-width="1.6"/><path d="M4 11 7 5h4l1 6M7 5 9 11" fill="none" stroke="${c}" stroke-width="1.5"/></svg>`,
+ kerb:c=>`<svg viewBox="0 0 16 16" width="16" height="16"><rect x="1.5" y="6" width="13" height="5.5" rx="1.5" fill="${c}"/><path d="M4 6 5.5 3h5L12 6z" fill="${c}"/><circle cx="4.5" cy="12" r="1.6" fill="var(--surface)"/><circle cx="11.5" cy="12" r="1.6" fill="var(--surface)"/></svg>`,
+ smart:c=>`<svg viewBox="0 0 16 16" width="16" height="16"><rect x="7.2" y="5" width="1.6" height="10" fill="${c}"/><path d="M4.5 5.5h7L10 2H6z" fill="${c}"/><circle cx="8" cy="7" r="1.4" fill="${c}" opacity=".5"/></svg>`,
+ circ:c=>`<svg viewBox="0 0 16 16" width="16" height="16"><path d="M8 2 13.5 12h-11z" fill="none" stroke="${c}" stroke-width="1.8" stroke-linejoin="round"/><circle cx="8" cy="9" r="1.6" fill="${c}"/></svg>`
+};
+
+function plazaSVG(){
+  // Indicative diagram. Edges from S2 p.45: heritage townhouse to the north, new Council building to the south and west,
+  // Wentworth St on the east with a raised crossing at Rivoli Way (S2 p.43). Not a layout design.
+  const X=56,Y=34,Wd=262,H=176; let g="";
+  g+=`<rect x="${X-8}" y="${Y-8}" width="${Wd+16}" height="${H+16}" rx="10" fill="var(--surface-2)" stroke="var(--line)"/>`;
+  // context edges
+  g+=`<rect x="${X}" y="4" width="${Wd}" height="22" rx="4" fill="var(--map-bld)"/><text x="${X+Wd/2}" y="19" text-anchor="middle" font-size="10" fill="var(--fg)">${esc(L("北：历史联排楼（保留餐饮）","North: heritage townhouse (dining)"))}</text>`;
+  g+=`<rect x="${X}" y="${Y+H+10}" width="${Wd}" height="22" rx="4" fill="var(--map-bld)"/><text x="${X+Wd/2}" y="${Y+H+25}" text-anchor="middle" font-size="10" fill="var(--fg)">${esc(L("南：Council 新楼（餐饮界面）","South: new Council building (active edge)"))}</text>`;
+  g+=`<rect x="4" y="${Y}" width="44" height="${H}" rx="4" fill="var(--map-bld)"/><text transform="translate(30 ${Y+H/2}) rotate(-90)" text-anchor="middle" font-size="10" fill="var(--fg)">${esc(L("西：Council 新楼 · 文化空间","West: Council building · cultural space"))}</text>`;
+  g+=`<rect x="${X+Wd+10}" y="${Y}" width="30" height="${H}" rx="4" fill="var(--map-road)" stroke="var(--map-road-edge)"/><text transform="translate(${X+Wd+29} ${Y+H/2}) rotate(90)" text-anchor="middle" font-size="10" font-weight="600" fill="var(--fg)">Wentworth St</text>`;
+  g+=`<g fill="var(--fg)" opacity=".55">${[0,1,2,3,4].map(i=>`<rect x="${X+Wd+12+i*5.5}" y="${Y+H/2-34}" width="3" height="16"/>`).join("")}</g>`;
+  g+=`<text x="${X+Wd+25}" y="${Y+H/2-40}" text-anchor="middle" font-size="8.5" fill="var(--muted)">${esc(L("新横道","crossing"))}</text>`;
+  g+=`<path d="M4 ${Y+H/2-26} h44" stroke="var(--accent)" stroke-width="12" stroke-opacity=".25"/><text x="26" y="${Y+H/2-30}" text-anchor="middle" font-size="8.5" font-weight="600" fill="var(--accent)">Rivoli Way</text>`;
+  // zones: columns west→east green | active | smart | move (walking along the Wentworth St frontage)
+  const order=["green","active","smart","move"]; let x=X;
+  order.forEach(gk=>{
+    const gt=gsum(gk); if(!gt) return; const w=Wd*gt/TOTAL; let y=Y;
+    MODULES.filter(m=>m.g===gk&&S.a[m.id]>0).forEach(m=>{
+      const h=H*S.a[m.id]/gt, c=GROUPS[gk].c;
+      g+=`<rect x="${x+1.5}" y="${y+1.5}" width="${Math.max(0,w-3)}" height="${Math.max(0,h-3)}" rx="5" fill="${c}" fill-opacity=".16" stroke="${c}" stroke-opacity=".55"/>`;
+      // icons: about one per 25 m², laid out on a grid that fits the zone
+      const n=Math.max(1,Math.round(S.a[m.id]/25)), step=19;
+      const cols=Math.max(1,Math.floor((w-6)/step)), rows=Math.max(1,Math.floor((h-6)/step)), cap=cols*rows, k=Math.min(n,cap);
+      const usedRows=Math.ceil(k/cols), ox=x+(w-Math.min(k,cols)*step)/2, oy=y+(h-usedRows*step)/2;
+      for(let i=0;i<k;i++){const cx=ox+(i%cols)*step+1.5, cy=oy+Math.floor(i/cols)*step+1.5;
+        g+=`<g transform="translate(${cx} ${cy})">${ICON[m.id](c).replace('<svg ','<svg x="0" y="0" ')}</g>`;}
+      y+=h;
+    });
+    x+=w;
   });
-  if(sum(S.a)<TOTAL) html+=`<text x="${Wd/2}" y="${H-6}" text-anchor="middle" font-size="10" fill="var(--muted)">${L("空白 = 未分配","Blank = unallocated")}</text>`;
-  return `<svg class="plan" viewBox="0 0 ${Wd} ${H}" role="img" aria-label="${L("面积分配示意","Area split diagram")}" style="margin-top:10px">${html}</svg><p class="small muted">${L("面积比例示意，不是平面设计。","Proportions only, not a layout design.")}</p>`;
+  return `<svg class="plaza" viewBox="0 0 360 248" role="img" aria-label="${L("广场用途示意图","Diagram of uses in the square")}">${g}</svg>
+  <p class="small muted" style="margin:2px 0 0">${L("示意图，不是设计方案。每个图标约 25 m²。周边关系依据","Diagram only, not a design. Each icon is about 25 m². Edges from")} ${chip("S2","p.45","sq5")} ${chip("S2","p.43","tr2")}</p>`;
 }
 
 /* ---------- Screen 4 ---------- */
@@ -656,6 +764,11 @@ function openDrawer(src,pg,cid){
 }
 function closeDrawer(){document.getElementById("drawerHost").innerHTML="";}
 
+function syncS3(active){
+  MODULES.forEach(m=>{const r=document.getElementById("m_"+m.id); if(r&&r!==active) r.value=S.a[m.id]; const o=document.getElementById("o_"+m.id); if(o) o.textContent=fmt(S.a[m.id])+" m²";});
+  for(const g in GROUPS){const r=document.getElementById("g_"+g); if(r&&r!==active) r.value=gsum(g); const v=document.getElementById("gv_"+g); if(v) v.textContent=pct(gsum(g))+"%"; const mm=document.getElementById("gm_"+g); if(mm) mm.textContent=fmt(gsum(g))+" m²";}
+  const vz=document.getElementById("viz"); if(vz) vz.innerHTML=vizPanel();
+}
 /* ---------- Render & events ---------- */
 function render(){
   chrome();
@@ -685,13 +798,9 @@ document.addEventListener("click",e=>{
 });
 document.addEventListener("input",e=>{
   const t=e.target;
-  if(t.dataset.mod){ // update in place so the slider keeps its drag
-    S.a[t.dataset.mod]=+t.value;
-    const o=t.parentElement.querySelector("output"); if(o) o.textContent=fmt(S.a[t.dataset.mod])+" m²";
-    for(const gk in GROUPS){const el=document.getElementById("gs_"+gk); if(el) el.textContent=fmt(MODULES.filter(m=>m.g===gk).reduce((s,m)=>s+S.a[m.id],0))+" m²";}
-    const tb=document.getElementById("totalBox"); if(tb) tb.innerHTML=totalBox();
-    const nb=document.getElementById("toResults"); if(nb) nb.disabled=sum(S.a)>TOTAL;
-    return;}
+  if(t.dataset.mod||t.dataset.grp){ // linked sliders: update in place so the drag continues
+    if(t.dataset.mod) setModule(t.dataset.mod,+t.value); else setGroup(t.dataset.grp,+t.value);
+    syncS3(t); return;}
   if(t.id==="pc"){S.postcode=t.value.replace(/\D/g,"").slice(0,4);return;}
   if(t.id==="exp"){S.exp=t.value;return;}
   if(t.id==="wish"){S.wish=t.value;return;}
