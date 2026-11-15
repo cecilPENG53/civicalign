@@ -128,7 +128,11 @@ What it shows, from top to bottom:
 - **Story:** the map reframes and highlights places as you scroll, then the three deliverables and Council's decision path.
 - **2.5D studio:** a game-style isometric Woodhouse Square. Its 48 tiles of about 25 m² change into trees, market stalls, benches and paths as you drag the linked sliders. Tree crowns grow by year. There is a night-market view.
 - **Results:** all nine dimensions against Scenario 0, as comparison bars or pictograms.
-- **Feedback:** who delivers each part (D/P/A), plus a feedback form.
+- **Your say (pick and vote, no typing needed):**
+  - *Council says vs you see.* Tick the situations you have run into, under three tabs: square, Chinatown and traffic. Each item pairs a team-written example (labelled as one, not a real resident report) with what Council says, cited to source and page. Where no source gives a figure, the item says "no official figure · evidence gap". You can add your own item by tapping a place and an issue.
+  - *Pick one of two.* Eight quick rounds of "which use should get 100 m² more?" across the 10 uses, which give you a ranking.
+  - Free-text feedback is still there as an optional extra. Vote counts start at 0 and come only from demo submissions in that browser. Items you add appear only to people using the same browser. The demo has no server.
+- **Council backend tab:** tallies per option, each with its source and its D/P/A role, behind the 10-submission privacy threshold. A demo preview button shows them earlier.
 - **Other tabs:** a demo Council backend and the evidence ledger.
 
 The square's layout is indicative, not a design. Model values are ranges from team assumptions, and every Council fact opens to its source.
