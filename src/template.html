@@ -1,0 +1,749 @@
+<title>CBD South Growth Sandbox</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..125,400..800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a control-room wall. The 3D precinct fills the centre; inputs dock left, results dock right. One deliberate dark look for both views. */
+:root{
+  color-scheme:dark;
+  --bg:#0A1220; --panel:#0F1B2E; --panel-2:#14233A; --line:#213754; --ink:#DCE7F5; --muted:#8196B0;
+  --chrome:#59C2F5; --a:#A78BFA; --b:#F2B33D; --park:#49A96B; --hot:#FF6B6B; --cool:#4DABF7; --warn:#F2D36B;
+  --display:"Archivo","Arial Narrow","PingFang SC","Microsoft YaHei","Noto Sans SC",Arial,sans-serif;
+  --body:"IBM Plex Sans","PingFang SC","Microsoft YaHei","Noto Sans SC","Segoe UI",system-ui,sans-serif;
+  --mono:"IBM Plex Mono","PingFang SC","Microsoft YaHei",ui-monospace,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:14px;line-height:1.5}
+h1,h2,h3{font-family:var(--display);margin:0;text-wrap:balance}
+h2{font-size:14px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--chrome)}
+h3{font-size:14px;font-weight:600}
+p{margin:0}
+.mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.muted{color:var(--muted)} .small{font-size:12px}
+
+#app{height:100%;display:grid;grid-template-rows:auto minmax(0,1fr)}
+.topbar{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px 16px;padding-block:10px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));border-bottom:1px solid var(--line);background:var(--panel)}
+.brand{display:flex;flex-direction:column;min-width:0}
+.brand h1{font-size:clamp(18px,2.4vw,24px);font-weight:800;font-stretch:88%;line-height:1.1}
+.brand span{font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:var(--muted)}
+.nav{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.nav .seg a{display:block;padding:6px 12px;border:1px solid var(--line);color:var(--ink);text-decoration:none;font-weight:500}
+.nav .seg a+a{border-left:0}
+.nav .seg a[aria-current="page"]{background:var(--chrome);border-color:var(--chrome);color:var(--bg)}
+.seg{display:flex}
+
+button{font:inherit;color:var(--ink);background:var(--panel-2);border:1px solid var(--line);padding:5px 10px;cursor:pointer;border-radius:2px}
+button:hover:not(:disabled){border-color:var(--chrome)}
+button:disabled{opacity:.4;cursor:not-allowed}
+button[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+:focus-visible{outline:2px solid var(--chrome);outline-offset:2px}
+a{color:var(--chrome)}
+
+/* ---- big screen ---- */
+#screen{min-height:0;overflow:auto;display:grid;grid-template-columns:290px minmax(0,1fr) 360px;gap:12px;padding-block:12px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.col{display:flex;flex-direction:column;gap:12px;min-height:0;overflow-y:auto;min-width:0}
+.panel{background:var(--panel);border:1px solid var(--line);padding:14px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.panel-head{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.facts{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.fact b{display:block;font-family:var(--display);font-size:22px;font-stretch:88%;line-height:1.1;font-variant-numeric:tabular-nums}
+.presets,.opts,.tools{display:flex;flex-wrap:wrap;gap:6px}
+.slider{display:flex;flex-direction:column;gap:2px}
+.slider-top{display:flex;justify-content:space-between;gap:8px;align-items:baseline}
+.slider output{font-family:var(--mono);font-size:12px;color:var(--muted)}
+input[type=range]{width:100%;accent-color:var(--chrome);margin:0}
+.seg button{flex:1;border-radius:0} .seg button+button{border-left:0}
+
+.viewport{position:relative;min-height:0;min-width:0;border:1px solid var(--line);overflow:hidden;background:var(--bg)}
+#gl{position:absolute;inset:0;width:100%;height:100%;display:block;touch-action:none}
+.ov{position:absolute;display:flex;flex-wrap:wrap;gap:8px;pointer-events:none}
+.ov>*{pointer-events:auto}
+.ov.top{top:10px;left:10px;right:10px;justify-content:space-between}
+.ov.bottom{bottom:10px;left:10px;right:10px}
+.tabs button{border-radius:0;font-family:var(--display);font-weight:700}
+.tabs button+button{border-left:0}
+.tabs .ta[aria-pressed="true"]{background:var(--a);border-color:var(--a);color:var(--bg)}
+.tabs .tb[aria-pressed="true"]{background:var(--b);border-color:var(--b);color:var(--bg)}
+.site-panel{background:rgba(15,27,46,.92);border:1px solid var(--line);padding:10px 12px;display:flex;flex-direction:column;gap:8px;max-width:560px}
+#labels{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.lbl{position:absolute;transform:translate(-50%,-50%);font-family:var(--mono);font-size:11px;color:var(--muted);white-space:nowrap;text-shadow:0 0 4px var(--bg),0 0 4px var(--bg)}
+.badge{position:absolute;transform:translate(-50%,-50%);width:24px;height:24px;padding:0;border-radius:50%;font-family:var(--mono);font-size:12px;font-weight:600;background:var(--panel);border:1.5px solid var(--ink);pointer-events:auto}
+.badge[aria-pressed="true"]{background:var(--ink);color:var(--bg);box-shadow:0 0 0 3px rgba(89,194,245,.5)}
+.glfail{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:24px;text-align:center;color:var(--muted)}
+.legend{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:12px;color:var(--muted);align-items:center}
+.sw{display:inline-block;width:10px;height:10px;margin-right:5px;vertical-align:-1px}
+
+.fitrow{display:flex;flex-direction:column;gap:4px;--c:var(--a)} .fitrow.b{--c:var(--b)}
+.fitrow .top{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.tag{font-family:var(--display);font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--c);font-size:13px}
+.fit-num{font-family:var(--display);font-weight:800;font-size:26px;font-stretch:85%;line-height:1;font-variant-numeric:tabular-nums}
+.track,.rtrack{position:relative;background:var(--panel-2);background-image:linear-gradient(to right,var(--line) 1px,transparent 1px);background-size:25% 100%}
+.track{height:12px} .track .bar{position:absolute;top:2px;bottom:2px;background:var(--c);transition:left .25s,width .25s}
+.verdict{border-left:3px solid var(--chrome);padding-left:10px;display:flex;flex-direction:column;gap:4px}
+.verdict strong{font-family:var(--display);font-size:15px}
+.irow{display:flex;flex-direction:column;gap:5px;padding-top:10px;border-top:1px solid var(--line)}
+.irow:first-child{border-top:0;padding-top:0}
+.ihead{display:flex;justify-content:space-between;gap:8px;align-items:flex-start}
+.rtrack{height:30px}
+.rtrack .bar{position:absolute;height:9px;min-width:3px;transition:left .25s,width .25s}
+.rtrack .bar.a{top:4px;background:var(--a)} .rtrack .bar.b{top:17px;background:var(--b)}
+.rtrack .zero{position:absolute;top:0;bottom:0;border-left:1.5px dashed var(--ink)}
+@media (prefers-reduced-motion:reduce){.bar{transition:none!important}}
+.ivals{display:flex;flex-wrap:wrap;gap:2px 12px;font-family:var(--mono);font-size:12px;font-variant-numeric:tabular-nums}
+.ivals .a{color:var(--a)} .ivals .b{color:var(--b)}
+.pill{font-size:10px;font-family:var(--mono);letter-spacing:.04em;text-transform:uppercase;padding:1px 6px;border:1.5px solid var(--ink);white-space:nowrap}
+.pill.controls{background:var(--ink);color:var(--bg)}
+.pill.advocate{border-style:dashed}
+.pill.dummy{border:1px dotted var(--warn);color:var(--warn)}
+.pill.obsd{border:1px solid var(--park);color:var(--park)}
+.pills{display:flex;flex-wrap:wrap;gap:6px}
+#ai-out{width:100%;font:inherit;line-height:1.55;color:var(--ink);background:var(--panel-2);border:1px solid var(--line);padding:8px 10px;resize:vertical;border-radius:2px}
+#ai-out[readonly]{border-style:dashed}
+
+/* ---- evidence view ---- */
+#evidence{min-height:0;overflow:auto}
+.wrap{max-width:1080px;margin:0 auto;padding-block:24px 56px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:28px}
+.wrap section{display:flex;flex-direction:column;gap:12px}
+.wrap h2{font-size:20px;letter-spacing:0;text-transform:none;color:var(--ink);font-stretch:92%}
+.lede{max-width:65ch;color:var(--muted);font-size:15px}
+.notice{border:1px solid var(--warn);background:rgba(242,211,107,.08);padding:10px 14px;max-width:86ch}
+.two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.panel.a{border-top:3px solid var(--a)} .panel.b{border-top:3px solid var(--b)}
+.items{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px}
+.items li{display:flex;flex-direction:column;gap:4px;align-items:flex-start}
+.obs{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+.ob q{font-size:15px;quotes:"\201C" "\201D"}
+.ob .stat{border-top:1px dashed var(--line);padding-top:8px;font-size:12px;color:var(--muted)}
+form{display:flex;flex-wrap:wrap;gap:8px;align-items:flex-end}
+form label{display:flex;flex-direction:column;gap:4px;font-size:12px;font-weight:500}
+select,input[type=text]{font:inherit;color:var(--ink);background:var(--panel-2);border:1px solid var(--line);padding:6px 8px;border-radius:2px}
+form .grow{flex:1 1 240px} form .grow input{width:100%}
+.tablewrap{overflow-x:auto;background:var(--panel);border:1px solid var(--line)}
+table{border-collapse:collapse;width:100%;min-width:720px;font-size:13px}
+th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-family:var(--mono);font-weight:500;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+tr:last-child td{border-bottom:0}
+
+@media (max-width:1100px){
+  #screen{display:flex;flex-direction:column}
+  .col{overflow:visible;flex:none}
+  .viewport{order:-1;flex:none;height:min(72vh,560px);min-height:360px}
+}
+@media (max-width:620px){ .two{grid-template-columns:minmax(0,1fr)} }
+</style>
+
+<div id="app">
+  <div class="topbar">
+    <div class="brand"><h1 data-t="title"></h1><span data-t="sub"></span></div>
+    <div class="nav">
+      <div class="seg"><a href="#screen" id="nav-screen" data-t="nav.screen"></a><a href="#evidence" id="nav-evidence" data-t="nav.evidence"></a></div>
+      <button type="button" id="lang" aria-label="Switch language / 切换语言"></button>
+    </div>
+  </div>
+
+  <main id="screen">
+    <div class="col">
+      <div class="panel">
+        <div class="panel-head"><h2 data-t="today"></h2><span class="pill obsd" data-t="observed"></span></div>
+        <div class="facts" id="facts"></div>
+        <div class="small muted" id="facts-src"></div>
+      </div>
+      <div class="panel">
+        <h2 data-t="pri"></h2>
+        <p class="small muted" data-t="pri.hint"></p>
+        <div class="presets" id="presets"></div>
+        <div id="sliders" style="display:flex;flex-direction:column;gap:12px"></div>
+      </div>
+      <div class="panel">
+        <h2 data-t="canopy"></h2>
+        <div class="seg" id="canopy"><button type="button" data-c="young" data-t="canopy.young"></button><button type="button" data-c="mature" data-t="canopy.mature"></button></div>
+        <p class="small muted" id="canopy-note"></p>
+      </div>
+    </div>
+
+    <div class="viewport" id="viewport">
+      <canvas id="gl"></canvas>
+      <div id="labels"></div>
+      <div class="ov top">
+        <div class="seg tabs" id="tabs"><button type="button" class="ta" data-s="A" data-t="edit.a"></button><button type="button" class="tb" data-s="B" data-t="edit.b"></button></div>
+        <div class="tools">
+          <button type="button" id="heat" data-t="tool.heat"></button>
+          <button type="button" id="spin" data-t="tool.spin"></button>
+          <button type="button" id="home" data-t="tool.home"></button>
+          <button type="button" id="reset" data-t="tool.reset"></button>
+        </div>
+      </div>
+      <div class="ov bottom"><div class="site-panel" id="site-panel"></div></div>
+    </div>
+
+    <div class="col">
+      <div class="panel">
+        <h2 data-t="fit"></h2>
+        <div class="fitrow a"><div class="top"><span class="tag" data-t="opt.a"></span><span class="fit-num" id="fitA"></span></div><div class="track"><div class="bar" id="fitbarA"></div></div><div class="small muted" id="sumA"></div></div>
+        <div class="fitrow b"><div class="top"><span class="tag" data-t="opt.b"></span><span class="fit-num" id="fitB"></span></div><div class="track"><div class="bar" id="fitbarB"></div></div><div class="small muted" id="sumB"></div></div>
+        <div class="verdict" id="verdict" aria-live="polite"></div>
+      </div>
+      <div class="panel" id="ai-panel">
+        <div class="panel-head"><h2 data-t="ai.title"></h2><span class="pill" id="ai-pill" hidden></span></div>
+        <p class="small muted" data-t="ai.hint"></p>
+        <textarea id="ai-out" rows="8" hidden></textarea>
+        <div class="small muted" id="ai-note"></div>
+        <div class="opts"><button type="button" id="ai-go" hidden></button><button type="button" id="ai-stop" hidden data-t="ai.stop"></button><button type="button" id="ai-approve" hidden data-t="ai.approve"></button><button type="button" id="ai-discard" hidden data-t="ai.discard"></button></div>
+      </div>
+      <div class="panel">
+        <h2 data-t="changes"></h2>
+        <p class="small muted" data-t="changes.hint"></p>
+        <div id="rows"></div>
+        <div class="legend"><span class="pill controls" data-t="resp.controls"></span><span class="pill shared" data-t="resp.shared"></span><span class="pill advocate" data-t="resp.advocate"></span></div>
+      </div>
+      <div class="panel"><div class="pills"><span class="pill dummy" data-t="dummy"></span></div><p class="small muted" data-t="screen.notice"></p></div>
+    </div>
+  </main>
+
+  <main id="evidence" hidden>
+    <div class="wrap">
+      <section>
+        <h2 data-t="ev.title"></h2>
+        <p class="lede" data-t="ev.lede"></p>
+        <p class="notice" data-t="ev.notice"></p>
+      </section>
+      <section>
+        <h2 data-t="res.title"></h2>
+        <p class="lede" data-t="res.lede"></p>
+        <div class="two">
+          <div class="panel a"><h3 data-t="res.a"></h3><ul class="items" id="resA"></ul></div>
+          <div class="panel b"><h3 data-t="res.b"></h3><ul class="items" id="resB"></ul></div>
+        </div>
+      </section>
+      <section>
+        <h2 data-t="obs.title"></h2>
+        <p class="lede" data-t="obs.lede"></p>
+        <div class="obs" id="obs"></div>
+        <form id="obs-form">
+          <label><span data-t="obs.topic"></span><select id="obs-topic"></select></label>
+          <label class="grow"><span data-t="obs.what"></span><input type="text" id="obs-text" maxlength="200"></label>
+          <button type="submit" data-t="obs.add"></button>
+        </form>
+        <p class="small muted" data-t="obs.note"></p>
+      </section>
+      <section>
+        <h2 data-t="reg.title"></h2>
+        <div class="tablewrap"><table><thead><tr id="reg-head"></tr></thead><tbody id="register"></tbody></table></div>
+        <p class="small muted" data-t="method"></p>
+      </section>
+    </div>
+  </main>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+<script>
+const D = __DATA__;
+const DATE = D.ts.slice(0, 10);
+
+/* ---------- language ---------- */
+const L = {
+en: {
+  title:'CBD South Growth Sandbox', sub:'PARRAMATTA POSSIBILITIES · CHALLENGE 4 · DRAFT PROTOTYPE',
+  'nav.screen':'Big screen', 'nav.evidence':'Evidence and method',
+  today:'The precinct today', observed:'Observed', dummy:'Dummy rates',
+  'f.area':'Precinct area, hand-traced edge', 'f.bld':'Mapped buildings', 'f.tall':'Tallest mapped building', 'f.park':'Mapped park land inside the edge',
+  storeys:n => n + ' storeys', src:'Source: OpenStreetMap, ' + DATE,
+  pri:'Your priorities', 'pri.hint':'Drag to say how much each one matters. Only the balance between them counts.',
+  'p.homes':'Housing supply', 'p.heat':'Cooling and shade', 'p.open':'Parks and open space', 'p.trips':'Less traffic and crowding', 'p.jobs':'Local shops and jobs',
+  presets:['Even balance','Renter looking for a home','Parent with young children','Local shop owner'],
+  canopy:'Tree canopy assumption', 'canopy.young':'Young trees', 'canopy.mature':'Mature canopy',
+  'canopy.n.young':'First 5 years or so after planting. Small crowns, little shade.', 'canopy.n.mature':'20 years or more after planting, if the trees survive and are maintained.',
+  'edit.a':'Editing Option A', 'edit.b':'Editing Option B', 'opt.a':'Option A', 'opt.b':'Option B',
+  'tool.heat':'Heat layer', 'tool.spin':'Auto-rotate', 'tool.home':'Reset view', 'tool.reset':'Reset option',
+  site:n => 'Site ' + n, 'site.meta':(a, lv) => `${a} m² footprint · ${lv} storeys today`,
+  'o.keep':'Keep as is', 'o.park':'Park', 'o.mid':'8-storey mixed use', 'o.tower':'30-storey tower', 'o.small':'Site is under 600 m²',
+  'site.fx':(k, h, p) => `In Option ${k} this site adds ${h || 'no'} homes and ${p} m² of park.`,
+  'site.hint':'Drag to orbit, scroll to zoom, click a numbered site.', to:' to ',
+  fit:'Fit with your priorities', outof:'/ 100',
+  sum:c => [c.tower && c.tower + (c.tower > 1 ? ' towers' : ' tower'), c.mid && c.mid + ' mid-rise', c.park && c.park + (c.park > 1 ? ' parks' : ' park'), c.keep && c.keep + ' kept'].filter(Boolean).join(', '),
+  'v.better':(x, y, lo, hi) => [`Option ${x} fits these priorities better.`, `Its lowest score (${lo}) is above Option ${y}'s highest (${hi}).`],
+  'v.tie':(a, b, n) => ['The evidence cannot separate the two options.', `The score ranges overlap (A ${a[0]}–${a[1]}, B ${b[0]}–${b[1]}). The biggest source of doubt under these priorities is "${n}". Better data there would narrow the gap.`],
+  'v.note':'Modelled ranges built on dummy rates. Not a prediction or a recommendation. A person makes the decision.',
+  'ai.title':'AI plain-language briefing', 'ai.hint':'Claude drafts a short briefing from the figures on this screen. A person edits and approves it before it counts as reviewed.',
+  'ai.go':'Draft with AI', 'ai.redo':'Redraft', 'ai.stop':'Stop', 'ai.approve':'Approve as reviewed', 'ai.discard':'Discard', 'ai.thinking':'Thinking\u2026', 'ai.label':'AI briefing draft',
+  'ai.s.thinking':'Drafting', 'ai.s.draft':'AI draft \u00B7 not reviewed', 'ai.s.approved':'Reviewed by a person', 'ai.s.stale':'Out of date',
+  'ai.stale':'The priorities, options or language changed after this was drafted. Redraft before approving.',
+  'ai.draft.note':'You can edit the text. It stays marked as an unreviewed AI draft until someone approves it.',
+  'ai.approved.note':x => `Approved in this session at ${x}. The approval is not saved or shared.`,
+  'ai.checking':'Checking whether AI drafting is available\u2026', 'ai.none':'AI drafting is not available in this view. It needs a signed-in Claude viewer who allows it.',
+  'ai.e.rate':'Too many requests, or a usage limit was reached. Try again later.', 'ai.e.refused':'Claude declined this request.', 'ai.e.session':'Sign in again to use AI drafting.', 'ai.e.other':'The draft was interrupted. Try again.', 'ai.e.trunc':'The draft was cut short.',
+  changes:'What each option changes', 'changes.hint':'Bars are modelled ranges, not predictions. The dashed line is today.',
+  'i.homes':'Homes added', 'u.homes':'homes', 'i.heat':'Summer afternoon surface temperature', 'u.heat':'°C, precinct average',
+  'i.open':'New park land', 'u.open':'m²', 'i.trips':'Extra trips in the busiest hour', 'u.trips':'trips per hour', 'i.jobs':'Street-level shop floor', 'u.jobs':'m², change from today',
+  'w.homes':'Council sets height and floor-space controls. NSW Government sets housing targets.', 'w.heat':'Council sets tree canopy rules and manages streets and parks.',
+  'w.open':'Council plans, funds and maintains local parks.', 'w.trips':'Transport for NSW runs State roads, trains and buses.', 'w.jobs':'Council zones the land. Private owners decide what is built.',
+  'resp.controls':'Council controls', 'resp.shared':'Shared', 'resp.advocate':'Council advocates',
+  'screen.notice':'Buildings, streets and rail are observed data from OpenStreetMap. The homes, heat, trips and shop-floor figures use dummy rates made up to test the concept. They are not Council data.',
+  'lbl.station':'Parramatta Station', glfail:'The 3D view could not start in this browser. The panels on either side still work.',
+  'ev.title':'Evidence and method', 'ev.lede':'What sits behind the big screen: what remains unsolved under each option, what people on the ground notice, and where every number comes from.',
+  'ev.notice':'<strong>What is real and what is not.</strong> Buildings, streets and rail are observed data from OpenStreetMap. The consequence figures are dummy rates, not Council data. The ten sites were picked by a simple rule and are not sites named in the Draft CBD South Parramatta Precinct Master Plan, which does not itself change development controls. The precinct edge is traced by hand from Council\'s description.',
+  'res.title':'What is left unsolved', 'res.lede':'Neither option removes the trade-off. This is the impact that remains after choosing, and who would need to act on it.',
+  'res.a':'If Option A is chosen', 'res.b':'If Option B is chosen',
+  'r.homes':(lo, hi, gap) => `Adds ${lo} to ${hi} homes. That is about ${gap} fewer than building as high as each site allows, and those homes would need to go elsewhere to meet NSW housing targets.`,
+  'r.trips':t => `Up to ${t} extra trips in the busiest hour on roads, trains and buses run by Transport for NSW. Council can present the evidence but cannot add the services itself.`,
+  'r.heat':h => `Surface temperature across the precinct may rise by up to ${h} °C. Street trees, awnings and lighter paving on Council streets would be needed to offset it.`,
+  'r.nopark':'No new park. OpenStreetMap shows no mapped park inside the precinct today, so residents would keep relying on parks outside it.',
+  'r.park':(a, lo, hi) => `${a} m² of new park needs Council to secure the land and fund its upkeep. Cooling arrives late: with young trees the change is only ${lo} to ${hi} °C.`,
+  'r.jobs':j => `Up to ${j} m² of street-level shop floor could be lost. Zoning allows shops, but private owners decide what is built.`,
+  'obs.title':'What people on the ground notice', 'obs.lede':'Aggregate statistics miss things. Each observation sits next to the statistic it challenges, so a planner can see where the two disagree.',
+  'obs.topic':'Topic', 'obs.what':'What did you notice, and where?', 'obs.ph':'No names or home addresses, please', 'obs.add':'Add observation',
+  'obs.note':'Observations added here stay on this screen only and are not saved. In a pilot, a Council officer would review each one before it is shown.',
+  'obs.sample':'Sample entry, not a real response', 'obs.new':'Added this session, not reviewed',
+  topics:['Heat and shade','Parks and open space','Getting around','Housing','Shops and jobs'],
+  samples:[
+    [1,'There is nowhere to sit with a toddler between the station and Parkes Street unless you buy a coffee.','Statistic it challenges: distance to the nearest park, measured in a straight line.'],
+    [0,'The bus stands have a roof but the walk to them along Argyle Street has no shade after 2 pm.','Statistic it challenges: average canopy cover for the whole precinct.'],
+    [4,'Ground-floor shops in the newer towers nearby have sat empty for more than a year.','Statistic it challenges: planned shop floor counted as delivered jobs.']],
+  'reg.title':'Data register', 'reg.head':['Layer','Status','In this draft','Real source for a pilot','Known limit'],
+  reg:[
+    ['Buildings, streets, rail','obsd','OpenStreetMap contributors, snapshot ' + DATE + ', ODbL licence. Heights from tagged storeys at 3.2 m each.','NSW Spatial Services building footprints and Council\'s own 3D model','Volunteer-mapped; storey counts can be out of date'],
+    ['Precinct edge','dummy','Traced by hand from Council\'s description: Church Street, Parkes Street and the rail line','Boundary in the Draft CBD South Parramatta Precinct Master Plan','Approximate; may not match the plan\'s boundary'],
+    ['Changeable sites','dummy','Rule: buildings in the precinct of 5 storeys or fewer and 300 m² or more, excluding the station, car park and heritage-tagged buildings','Sites and blocks named in the master plan','The rule ignores ownership, heritage and feasibility'],
+    ['Homes and shop floor','dummy','Dummy rates: 60% site cover, 85 m² gross per home, towers capped at a 900 m² floor plate, ±12%','Master plan yield tables; Parramatta LEP and DCP 2023','Real yields depend on controls this plan does not change'],
+    ['Surface temperature','dummy','Dummy local effect per site type, averaged over the precinct area','Western Sydney University Benchmarking Heat in Parramatta; NSW heat and canopy mapping','Surface temperature is not felt temperature'],
+    ['Trips in the busiest hour','dummy','Dummy rate: 0.25 to 0.45 trips per home','Transport for NSW Open Data Hub and trip generation guidance','A site next to a major station will differ from average rates'],
+    ['Community observations','dummy','Three sample entries written by the team','Structured intercept survey in the precinct, with consent; about 2 staff days per round','Small sample; misses people who do not pass through']],
+  method:'<strong>How the fit score works.</strong> Each result is placed on a fixed scale from the worst to the best outcome these ten sites could produce, multiplied by your priority share, and summed to a score out of 100. The low end assumes every result lands at its worst, the high end at its best, so the band is the widest plausible one. <strong>Human decision point.</strong> The tool compares options and does not recommend one. <strong>Where AI is used.</strong> Only in the plain-language briefing on the big screen. Claude receives the priority shares, the ranges and scores of both options, and the responsibility labels, and is told not to add numbers or recommend an option. It can still misstate a figure or overstate certainty, so every draft is labelled unreviewed until a person edits and approves it, and it is marked out of date when the inputs change. Drafting runs on the Claude account of the person viewing the page.'
+},
+zh: {
+  title:'CBD South 增长权衡沙盘', sub:'PARRAMATTA POSSIBILITIES · 挑战 4 · 原型草稿',
+  'nav.screen':'大屏', 'nav.evidence':'依据与方法',
+  today:'片区现状', observed:'观测数据', dummy:'假费率',
+  'f.area':'片区面积（手描边界）', 'f.bld':'已标注建筑', 'f.tall':'最高的已标注建筑', 'f.park':'边界内已标注公园用地',
+  storeys:n => n + ' 层', src:'来源：OpenStreetMap，' + DATE,
+  pri:'你的优先级', 'pri.hint':'拖动滑块表示每一项对你有多重要。只有各项之间的比例起作用。',
+  'p.homes':'住房供应', 'p.heat':'降温与遮荫', 'p.open':'公园与开放空间', 'p.trips':'减少交通拥挤', 'p.jobs':'本地商铺与就业',
+  presets:['均衡','找房的租客','带小孩的家长','本地店主'],
+  canopy:'树冠假设', 'canopy.young':'幼树', 'canopy.mature':'成熟树冠',
+  'canopy.n.young':'种植后头 5 年左右。树冠小，遮荫很少。', 'canopy.n.mature':'种植 20 年以上，前提是树木存活并得到养护。',
+  'edit.a':'编辑方案 A', 'edit.b':'编辑方案 B', 'opt.a':'方案 A', 'opt.b':'方案 B',
+  'tool.heat':'热力图层', 'tool.spin':'自动旋转', 'tool.home':'视角复位', 'tool.reset':'重置方案',
+  site:n => '地块 ' + n, 'site.meta':(a, lv) => `占地 ${a} m² · 现状 ${lv} 层`,
+  'o.keep':'保持现状', 'o.park':'公园', 'o.mid':'8 层混合用途', 'o.tower':'30 层塔楼', 'o.small':'地块小于 600 m²',
+  'site.fx':(k, h, p) => h ? `在方案 ${k} 中，该地块新增 ${h} 套住房、${p} m² 公园。` : `在方案 ${k} 中，该地块不新增住房，新增 ${p} m² 公园。`,
+  'site.hint':'拖动旋转，滚轮缩放，点击编号地块。', to:' 至 ',
+  fit:'与你的优先级的匹配度', outof:'/ 100',
+  sum:c => [c.tower && c.tower + ' 塔楼', c.mid && c.mid + ' 中层', c.park && c.park + ' 公园', c.keep && c.keep + ' 保留'].filter(Boolean).join('、'),
+  'v.better':(x, y, lo, hi) => [`方案 ${x} 更符合这组优先级。`, `它的最低分（${lo}）高于方案 ${y} 的最高分（${hi}）。`],
+  'v.tie':(a, b, n) => ['现有证据无法区分两个方案。', `分数区间重叠（A ${a[0]}–${a[1]}，B ${b[0]}–${b[1]}）。在这组优先级下，最大的不确定来源是“${n}”，改进这项数据可以缩小差距。`],
+  'v.note':'这是基于假费率的模型区间，不是预测，也不是建议。决定由人来做。',
+  'ai.title':'AI 通俗解读', 'ai.hint':'Claude 根据本屏的数字起草一段简短解读。经人编辑并批准后，才算已审核。',
+  'ai.go':'让 AI 起草', 'ai.redo':'重新起草', 'ai.stop':'停止', 'ai.approve':'批准为已审核', 'ai.discard':'丢弃', 'ai.thinking':'思考中\u2026', 'ai.label':'AI 解读草稿',
+  'ai.s.thinking':'起草中', 'ai.s.draft':'AI 草稿 \u00B7 未审核', 'ai.s.approved':'已由人审核', 'ai.s.stale':'已过时',
+  'ai.stale':'起草之后，优先级、方案或语言发生了变化。请重新起草后再批准。',
+  'ai.draft.note':'你可以直接修改文字。在有人批准之前，它始终标记为未审核的 AI 草稿。',
+  'ai.approved.note':x => `本次会话中于 ${x} 批准。批准状态不会保存，也不会共享。`,
+  'ai.checking':'正在检查 AI 起草是否可用\u2026', 'ai.none':'当前视图无法使用 AI 起草。需要已登录 Claude 的查看者并允许使用。',
+  'ai.e.rate':'请求过多，或已达到用量上限。请稍后再试。', 'ai.e.refused':'Claude 拒绝了这次请求。', 'ai.e.session':'请重新登录后再使用 AI 起草。', 'ai.e.other':'起草被中断，请重试。', 'ai.e.trunc':'草稿被截断。',
+  changes:'每个方案带来的变化', 'changes.hint':'色条是模型区间，不是预测。虚线为现状。',
+  'i.homes':'新增住房', 'u.homes':'套', 'i.heat':'夏季午后地表温度', 'u.heat':'°C，片区平均',
+  'i.open':'新增公园用地', 'u.open':'m²', 'i.trips':'最繁忙一小时新增出行', 'u.trips':'次/小时', 'i.jobs':'临街商铺面积', 'u.jobs':'m²，相对现状的变化',
+  'w.homes':'Council 制定高度和容积控制；新州政府制定住房目标。', 'w.heat':'Council 制定树冠规则并管理街道和公园。',
+  'w.open':'Council 规划、出资并养护本地公园。', 'w.trips':'州属道路、火车和公交由 Transport for NSW 运营。', 'w.jobs':'Council 划定用地性质；建什么由私人业主决定。',
+  'resp.controls':'Council 直接负责', 'resp.shared':'共同负责', 'resp.advocate':'Council 倡导争取',
+  'screen.notice':'建筑、街道和铁路是来自 OpenStreetMap 的观测数据。住房、温度、出行和商铺面积使用为验证概念而编造的假费率，不是 Council 数据。',
+  'lbl.station':'Parramatta 车站', glfail:'此浏览器无法启动 3D 视图。两侧面板仍可使用。',
+  'ev.title':'依据与方法', 'ev.lede':'大屏背后的内容：每个方案仍未解决的问题、现场的人注意到了什么，以及每个数字的来源。',
+  'ev.notice':'<strong>哪些是真实的，哪些不是。</strong>建筑、街道和铁路是来自 OpenStreetMap 的观测数据。后果指标使用假费率，不是 Council 数据。十个地块按一条简单规则挑选，并非《CBD South Parramatta 片区总体规划（草案）》点名的地块；该规划本身也不改变开发控制指标。片区边界依据 Council 的文字描述手工描绘。',
+  'res.title':'仍未解决的问题', 'res.lede':'两个方案都不能消除权衡。以下是做出选择后仍然存在的影响，以及需要由谁来处理。',
+  'res.a':'如果选择方案 A', 'res.b':'如果选择方案 B',
+  'r.homes':(lo, hi, gap) => `新增 ${lo} 至 ${hi} 套住房，比每个地块都建到允许的最高强度少约 ${gap} 套。这些住房需要在别处落实，才能达到新州住房目标。`,
+  'r.trips':t => `最繁忙一小时最多新增 ${t} 次出行，压在 Transport for NSW 运营的道路、火车和公交上。Council 可以提交证据，但无法自行增加服务。`,
+  'r.heat':h => `片区地表温度最多可能上升 ${h} °C，需要在 Council 管理的街道上增加行道树、雨棚和浅色铺装来抵消。`,
+  'r.nopark':'没有新增公园。OpenStreetMap 显示片区内目前没有已标注的公园，居民将继续依赖片区以外的公园。',
+  'r.park':(a, lo, hi) => `${a} m² 新公园需要 Council 取得土地并承担养护费用。降温效果来得晚：幼树阶段温度变化只有 ${lo} 至 ${hi} °C。`,
+  'r.jobs':j => `最多可能减少 ${j} m² 临街商铺面积。用地性质允许开店，但建什么由私人业主决定。`,
+  'obs.title':'现场的人注意到了什么', 'obs.lede':'汇总统计会漏掉一些东西。每条观察都与它所质疑的统计指标并列，规划人员可以看到两者在哪里不一致。',
+  'obs.topic':'主题', 'obs.what':'你注意到了什么？在哪里？', 'obs.ph':'请不要填写姓名或住址', 'obs.add':'添加观察',
+  'obs.note':'在此添加的观察只保留在当前页面，不会保存。试点时，每条观察会先由 Council 工作人员审核再展示。',
+  'obs.sample':'示例条目，非真实回复', 'obs.new':'本次添加，未经审核',
+  topics:['高温与遮荫','公园与开放空间','出行','住房','商铺与就业'],
+  samples:[
+    [1,'从车站到 Parkes Street 之间，带着小孩没有地方可以坐，除非买杯咖啡。','它质疑的统计：按直线距离计算的最近公园距离。'],
+    [0,'公交站台有顶棚，但下午两点以后沿 Argyle Street 走过去的路上没有任何遮荫。','它质疑的统计：整个片区的平均树冠覆盖率。'],
+    [4,'附近新塔楼的底层商铺已经空置一年多了。','它质疑的统计：把规划的商铺面积算作已实现的就业。']],
+  'reg.title':'数据登记表', 'reg.head':['图层','状态','本草稿中的做法','试点时的真实来源','已知局限'],
+  reg:[
+    ['建筑、街道、铁路','obsd','OpenStreetMap 贡献者，' + DATE + ' 快照，ODbL 许可。高度按标注层数每层 3.2 米计算。','NSW Spatial Services 建筑轮廓和 Council 自有的三维模型','志愿者测绘；层数可能过时'],
+    ['片区边界','dummy','依据 Council 的文字描述手工描绘：Church Street、Parkes Street 和铁路线','《CBD South Parramatta 片区总体规划（草案）》中的边界','仅为近似，可能与规划边界不一致'],
+    ['可改建地块','dummy','规则：片区内 5 层及以下、占地 300 m² 以上的建筑，排除车站、停车楼和带遗产标签的建筑','总体规划中点名的地块和街区','该规则未考虑产权、遗产和可行性'],
+    ['住房与商铺面积','dummy','假费率：建筑覆盖率 60%，每套住房建筑面积 85 m²，塔楼标准层上限 900 m²，±12%','总体规划的容量表；Parramatta LEP 和 DCP 2023','实际容量取决于该规划并未改变的控制指标'],
+    ['地表温度','dummy','按地块类型设定的假局部效应，在片区面积上取平均','西悉尼大学 Benchmarking Heat in Parramatta；新州高温与树冠测绘','地表温度不等于体感温度'],
+    ['最繁忙一小时出行','dummy','假费率：每套住房 0.25 至 0.45 次出行','Transport for NSW 开放数据平台和出行生成指引','紧邻大型车站的地块会与平均费率不同'],
+    ['社区观察','dummy','团队自行撰写的三条示例','在片区内经同意开展的结构化拦访调查；每轮约 2 个人日','样本小；漏掉不经过此地的人']],
+  method:'<strong>匹配度如何计算。</strong>每项结果放在一个固定刻度上，刻度两端是这十个地块可能产生的最差和最好结果；再乘以你的优先级占比，加总为百分制分数。低端假设所有结果都落在最差一端，高端假设都落在最好一端，因此这是最宽的合理区间。<strong>人的决策点。</strong>本工具只对比方案，不做推荐。<strong>AI 用在哪里。</strong>只用于大屏上的通俗解读。Claude 收到的是优先级占比、两个方案的区间和分数，以及责任标签，并被要求不得添加数字、不得推荐方案。它仍可能说错数字或夸大确定性，所以每份草稿在有人编辑并批准之前都标记为未审核，输入变化后会标记为已过时。起草使用查看者自己的 Claude 账户。'
+}};
+let lang = 'en';
+try { const s = localStorage.getItem('cbd-lang'); lang = s === 'zh' || s === 'en' ? s : (/^zh/i.test(navigator.language || '') ? 'zh' : 'en'); } catch (e) { lang = /^zh/i.test(navigator.language || '') ? 'zh' : 'en'; }
+const t = (k, ...a) => { const v = L[lang][k] !== undefined ? L[lang][k] : L.en[k]; return typeof v === 'function' ? v(...a) : v; };
+
+/* ---------- geometry and sites ---------- */
+const polyOf = f => { const o = []; for (let i = 0; i < f.length; i += 2) o.push([f[i], f[i+1]]); return o; };
+const areaOf = p => Math.abs(p.reduce((s, a, i) => { const b = p[(i || p.length) - 1]; return s + a[0]*b[1] - b[0]*a[1]; }, 0)) / 2;
+const cenOf = p => [p.reduce((s, q) => s + q[0], 0) / p.length, p.reduce((s, q) => s + q[1], 0) / p.length];
+function inPoly(x, y, p){ let c = false; for (let i = 0, j = p.length - 1; i < p.length; j = i++){ const a = p[i], b = p[j]; if ((a[1] > y) !== (b[1] > y) && x < (b[0]-a[0])*(y-a[1])/(b[1]-a[1]) + a[0]) c = !c; } return c; }
+const PRE = polyOf(D.P), AP = areaOf(PRE), PC = cenOf(PRE);
+const BLD = D.B.map(b => { const poly = polyOf(b.p); return {...b, poly, c: cenOf(poly)}; });
+const SITES = BLD.filter(b => b.in && !b.x && b.lv > 0 && b.lv <= 5 && b.a >= 300 && !/Westfield/.test(b.n)).sort((p, q) => q.a - p.a);
+SITES.forEach((s, i) => {
+  s.site = i + 1; s.canTower = s.a >= 600;
+  const k = Math.sqrt(Math.min(s.a * 0.5, 900) / s.a);
+  s.towerPoly = s.poly.map(p => [s.c[0] + (p[0]-s.c[0])*k, s.c[1] + (p[1]-s.c[1])*k]);
+  s.trees = [];
+  const xs = s.poly.map(p => p[0]), ys = s.poly.map(p => p[1]);
+  for (let x = Math.min(...xs) + 4, i2 = 0; x < Math.max(...xs); x += 9, i2++)
+    for (let y = Math.min(...ys) + 4 + (i2 % 2 ? 4 : 0); y < Math.max(...ys); y += 9)
+      if (inPoly(x, y, s.poly)) s.trees.push([x, y]);
+});
+const OPTS = ['keep','park','mid','tower'];
+const defaults = () => ({
+  A: Object.fromEntries(SITES.map(s => [s.site, s.canTower ? 'tower' : 'mid'])),
+  B: Object.fromEntries(SITES.map(s => [s.site, ({1:'park',2:'mid',3:'tower',4:'park',5:'mid',6:'park',7:'mid'})[s.site] || 'keep']))
+});
+
+/* ---------- state ---------- */
+const PRI = ['homes','heat','open','trips','jobs'];
+const PRESET_W = [{homes:5,heat:5,open:5,trips:5,jobs:5},{homes:10,heat:4,open:3,trips:5,jobs:3},{homes:4,heat:8,open:10,trips:5,jobs:2},{homes:6,heat:3,open:2,trips:6,jobs:10}];
+const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+let weights = {...PRESET_W[0]}, activePreset = 0, canopy = 'mature';
+let scen = defaults(), active = 'A', selected = 1;
+const view = {heat:false, spin:!reduced};
+let userObs = [];
+
+/* ---------- dummy consequence model ---------- */
+const LOCAL = { park:{mature:[-8,-3], young:[-1.5,0.5]}, mid:[0,1], tower:[0.5,2], keep:[0,0] };
+const localHeat = (o, c) => o === 'park' ? LOCAL.park[c] : LOCAL[o];
+function siteFx(s, o, c){
+  const h = o === 'mid' ? s.a*0.6*7*0.75/85 : o === 'tower' ? Math.min(s.a*0.5, 900)*28*0.75/85 : 0;
+  const j = o === 'tower' ? 0.6*s.a : o === 'park' ? -0.6*s.a : 0, lh = localHeat(o, c);
+  return { homes:[h*0.88, h*1.12], trips:[h*0.88*0.25, h*1.12*0.45], open: o === 'park' ? [s.a*0.9, s.a] : [0, 0],
+    jobs: j >= 0 ? [j*0.85, j*1.15] : [j*1.15, j*0.85], heat:[lh[0]*s.a/AP, lh[1]*s.a/AP] };
+}
+function calc(k, c){
+  const r = {homes:[0,0], heat:[0,0], open:[0,0], trips:[0,0], jobs:[0,0]};
+  SITES.forEach(s => { const f = siteFx(s, scen[k][s.site], c || canopy); for (const id in r){ r[id][0] += f[id][0]; r[id][1] += f[id][1]; } });
+  return r;
+}
+const IND = [
+  {id:'homes', better:'high', step:50, resp:'shared'}, {id:'heat', better:'low', step:0.1, dec:1, resp:'controls'},
+  {id:'open', better:'high', step:500, resp:'controls'}, {id:'trips', better:'low', step:50, resp:'advocate'}, {id:'jobs', better:'high', step:500, resp:'shared'}
+];
+IND.forEach(ind => {
+  let lo = 0, hi = 0;
+  SITES.forEach(s => { const r = []; OPTS.forEach(o => { if (o === 'tower' && !s.canTower) return; ['young','mature'].forEach(c => r.push(...siteFx(s, o, c)[ind.id])); }); lo += Math.min(...r); hi += Math.max(...r); });
+  ind.dom = [Math.floor(lo / ind.step) * ind.step, Math.ceil(hi / ind.step) * ind.step];
+});
+const indOf = id => IND.find(i => i.id === id);
+function fmt(ind, v){
+  const d = ind.dec || 0, r = +v.toFixed(d), s = Math.abs(r).toLocaleString('en-AU', {minimumFractionDigits:d, maximumFractionDigits:d});
+  return r < 0 ? '−' + s : r > 0 ? '+' + s : s;
+}
+const n0 = v => Math.round(v).toLocaleString('en-AU');
+const pos = (ind, v) => Math.min(1, Math.max(0, (v - ind.dom[0]) / (ind.dom[1] - ind.dom[0])));
+const good = (ind, v) => ind.better === 'high' ? pos(ind, v) : 1 - pos(ind, v);
+function shares(){ const tot = PRI.reduce((s, p) => s + weights[p], 0), o = {}; PRI.forEach(p => o[p] = tot ? weights[p] / tot : 1 / PRI.length); return o; }
+function fit(res){
+  const sh = shares(); let lo = 0, hi = 0;
+  IND.forEach(ind => { const g = res[ind.id].map(v => good(ind, v)); lo += sh[ind.id] * Math.min(...g); hi += sh[ind.id] * Math.max(...g); });
+  return [Math.round(lo * 100), Math.round(hi * 100)];
+}
+
+/* ---------- three.js scene ---------- */
+const $ = id => document.getElementById(id);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const G = {ok:false};
+const COL = {bg:0x0A1220, ground:0x0C1626, grid:0x15263C, precinct:0x12233A, road:0x253A56, rail:0x7088A8, green:0x1C4630,
+  ctx:0x18273C, ctxEdge:0x2A4262, pb:0x34496A, pbEdge:0x6E9CCB, site:0x5A7396, siteEdge:0xBFD9F2, a:0xA78BFA, b:0xF2B33D, park:0x2F7D4F, tree:0x55B87A, hot:0xFF6B6B, cool:0x4DABF7, chrome:0x59C2F5};
+function initGL(){
+  if (!window.THREE || !THREE.OrbitControls) throw new Error('three.js not loaded');
+  const cv = $('gl'), vp = $('viewport');
+  const renderer = new THREE.WebGLRenderer({canvas:cv, antialias:true});
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+  const scene = new THREE.Scene(); scene.background = new THREE.Color(COL.bg); scene.fog = new THREE.Fog(COL.bg, 700, 1900);
+  const camera = new THREE.PerspectiveCamera(38, 1, 5, 4000);
+  const target = new THREE.Vector3(PC[0], 0, -PC[1]);
+  const controls = new THREE.OrbitControls(camera, cv);
+  controls.enableDamping = true; controls.dampingFactor = 0.08; controls.minDistance = 120; controls.maxDistance = 1300; controls.maxPolarAngle = 1.45; controls.autoRotateSpeed = 0.5;
+  const home = () => { camera.position.set(target.x + 170, 330, target.z + 430); controls.target.copy(target); controls.update(); };
+  home();
+  scene.add(new THREE.HemisphereLight(0xBFD6F5, 0x0A1220, 0.7));
+  const sun = new THREE.DirectionalLight(0xFFFFFF, 0.55); sun.position.set(-300, 500, 250); scene.add(sun);
+
+  const shapeOf = poly => { const s = new THREE.Shape(); poly.forEach((p, i) => i ? s.lineTo(p[0], p[1]) : s.moveTo(p[0], p[1])); return s; };
+  const extrude = (poly, h) => { const g = new THREE.ExtrudeGeometry(shapeOf(poly), {depth:h, bevelEnabled:false}); g.rotateX(-Math.PI / 2); return g; };
+  const flat = poly => { const g = new THREE.ShapeGeometry(shapeOf(poly)); g.rotateX(-Math.PI / 2); return g; };
+  const basic = c => new THREE.MeshBasicMaterial({color:c, side:THREE.DoubleSide});
+  function ribbons(lines, y){
+    const v = [];
+    lines.forEach(({p, w}) => { for (let i = 0; i + 3 < p.length; i += 2){
+      let x1 = p[i], y1 = p[i+1], x2 = p[i+2], y2 = p[i+3]; const dx = x2 - x1, dy = y2 - y1, len = Math.hypot(dx, dy); if (len < 0.01) continue;
+      const ux = dx / len, uy = dy / len, nx = -uy * w / 2, ny = ux * w / 2, e = w * 0.3;
+      x1 -= ux * e; y1 -= uy * e; x2 += ux * e; y2 += uy * e;
+      const q = [[x1+nx, y1+ny], [x1-nx, y1-ny], [x2-nx, y2-ny], [x2+nx, y2+ny]];
+      [0,1,2,0,2,3].forEach(k => v.push(q[k][0], y, -q[k][1]));
+    } });
+    const g = new THREE.BufferGeometry(); g.setAttribute('position', new THREE.Float32BufferAttribute(v, 3)); return g;
+  }
+  const add = (g, m, y) => { const o = new THREE.Mesh(g, m); if (y) o.position.y = y; scene.add(o); return o; };
+
+  const ground = new THREE.PlaneGeometry(5000, 5000); ground.rotateX(-Math.PI / 2); add(ground, basic(COL.ground), -0.4);
+  const grid = new THREE.GridHelper(3000, 100, COL.grid, COL.grid); grid.position.y = -0.3; scene.add(grid);
+  add(flat(PRE), basic(COL.precinct), 0.02);
+  D.G.forEach(g => add(flat(polyOf(g.p)), basic(COL.green), 0.06));
+  add(ribbons(D.R, 0.1), basic(COL.road));
+  add(ribbons(D.RL.map(p => ({p, w:1.6})), 0.16), basic(COL.rail));
+  const edge = new THREE.Line(new THREE.BufferGeometry().setFromPoints(PRE.concat([PRE[0]]).map(p => new THREE.Vector3(p[0], 0.5, -p[1]))), new THREE.LineDashedMaterial({color:COL.chrome, dashSize:7, gapSize:5}));
+  edge.computeLineDistances(); scene.add(edge);
+
+  const mat = {
+    ctx:new THREE.MeshLambertMaterial({color:COL.ctx}), pb:new THREE.MeshLambertMaterial({color:COL.pb}), site:new THREE.MeshLambertMaterial({color:COL.site}),
+    a:new THREE.MeshLambertMaterial({color:COL.a, emissive:COL.a, emissiveIntensity:0.08}), b:new THREE.MeshLambertMaterial({color:COL.b, emissive:COL.b, emissiveIntensity:0.08}),
+    park:new THREE.MeshLambertMaterial({color:COL.park, side:THREE.DoubleSide}), tree:new THREE.MeshLambertMaterial({color:COL.tree}),
+    eCtx:new THREE.LineBasicMaterial({color:COL.ctxEdge}), ePb:new THREE.LineBasicMaterial({color:COL.pbEdge}), eSite:new THREE.LineBasicMaterial({color:COL.siteEdge}), eNew:new THREE.LineBasicMaterial({color:0xFFFFFF, transparent:true, opacity:0.7})
+  };
+  function block(parent, poly, h, m, em, y){
+    const g = extrude(poly, h), mesh = new THREE.Mesh(g, m), lines = new THREE.LineSegments(new THREE.EdgesGeometry(g, 30), em);
+    if (y) { mesh.position.y = y; lines.position.y = y; }
+    parent.add(mesh, lines); return mesh;
+  }
+  BLD.filter(b => !b.site).forEach(b => block(scene, b.poly, b.h, b.in ? mat.pb : mat.ctx, b.in ? mat.ePb : mat.eCtx));
+
+  const sphere = new THREE.SphereGeometry(1, 10, 8), pickable = [], tweens = [];
+  SITES.forEach(s => { s.group = new THREE.Group(); s.key = ''; scene.add(s.group); });
+  const heatGroup = new THREE.Group(); scene.add(heatGroup);
+  const gc = document.createElement('canvas'); gc.width = gc.height = 128;
+  { const x = gc.getContext('2d'), gr = x.createRadialGradient(64, 64, 0, 64, 64, 64); gr.addColorStop(0, 'rgba(255,255,255,1)'); gr.addColorStop(1, 'rgba(255,255,255,0)'); x.fillStyle = gr; x.fillRect(0, 0, 128, 128); }
+  const glow = new THREE.CanvasTexture(gc);
+
+  G.sync = () => {
+    const cur = scen[active], nm = active === 'A' ? mat.a : mat.b;
+    SITES.forEach(s => {
+      const o = cur[s.site], key = active + o + (o === 'park' ? canopy : '');
+      if (key === s.key) return;
+      const had = s.key !== ''; s.key = key;
+      s.group.children.slice().forEach(c => { s.group.remove(c); if (c.geometry !== sphere) c.geometry.dispose(); const i = pickable.indexOf(c); if (i >= 0) pickable.splice(i, 1); });
+      const pick = m => { m.userData.site = s.site; pickable.push(m); };
+      if (o === 'keep') { pick(block(s.group, s.poly, s.h, mat.site, mat.eSite)); s.top = s.h; }
+      else if (o === 'mid') { pick(block(s.group, s.poly, 25.6, nm, mat.eNew)); s.top = 25.6; }
+      else if (o === 'tower') { pick(block(s.group, s.poly, 6.4, nm, mat.eNew)); pick(block(s.group, s.towerPoly, 89.6, nm, mat.eNew, 6.4)); s.top = 96; }
+      else {
+        const lawn = new THREE.Mesh(flat(s.poly), mat.park); lawn.position.y = 0.3; s.group.add(lawn); pick(lawn);
+        const th = canopy === 'mature' ? 6 : 2.5, r = canopy === 'mature' ? 4 : 1.5;
+        s.trees.forEach(p => { const m = new THREE.Mesh(sphere, mat.tree); m.position.set(p[0], th, -p[1]); m.scale.set(r, r * 1.1, r); s.group.add(m); });
+        s.top = th + r;
+      }
+      if (had && o !== 'keep' && !reduced) { s.group.scale.y = 0.01; tweens.push({g:s.group, t0:performance.now()}); } else s.group.scale.y = 1;
+    });
+    heatGroup.children.slice().forEach(c => { heatGroup.remove(c); c.geometry.dispose(); c.material.dispose(); });
+    if (view.heat) SITES.forEach(s => {
+      const o = cur[s.site]; if (o === 'keep') return;
+      const lh = localHeat(o, canopy), m = (lh[0] + lh[1]) / 2; if (Math.abs(m) < 0.05) return;
+      const g = new THREE.CircleGeometry(Math.sqrt(s.a) * 1.5 + 30, 40); g.rotateX(-Math.PI / 2);
+      const c = new THREE.Mesh(g, new THREE.MeshBasicMaterial({map:glow, color:m > 0 ? COL.hot : COL.cool, transparent:true, opacity:Math.min(0.85, Math.abs(m) / 6 + 0.25), depthWrite:false}));
+      c.position.set(s.c[0], 0.6, -s.c[1]); heatGroup.add(c);
+    });
+    controls.autoRotate = view.spin;
+  };
+
+  /* overlay labels and site badges */
+  const lab = $('labels'), v3 = new THREE.Vector3();
+  const LABELS = [['Church St', -122, -40], ['Parkes St', 70, -152], ['Argyle St', -30, 118], [null, 20, 150], ['Wentworth St', 30, -60], ['Fitzwilliam St', -55, 62]];
+  LABELS.forEach(l => { const e = document.createElement('div'); e.className = 'lbl'; lab.appendChild(e); l.el = e; });
+  SITES.forEach(s => { const e = document.createElement('button'); e.type = 'button'; e.className = 'badge'; e.textContent = s.site; e.addEventListener('click', () => { selected = s.site; render(); }); lab.appendChild(e); s.el = e; });
+  G.relabel = () => { LABELS.forEach(l => l.el.textContent = l[0] || t('lbl.station')); SITES.forEach(s => { s.el.setAttribute('aria-pressed', s.site === selected); s.el.setAttribute('aria-label', t('site', s.site)); }); };
+  let W = 1, H = 1;
+  const place = (el, x, y, z) => { v3.set(x, y, z).project(camera); const vis = v3.z < 1 && Math.abs(v3.x) < 1.05 && Math.abs(v3.y) < 1.05; el.hidden = !vis; if (vis) { el.style.left = ((v3.x + 1) / 2 * W).toFixed(1) + 'px'; el.style.top = ((1 - v3.y) / 2 * H).toFixed(1) + 'px'; } };
+  function size(){ W = vp.clientWidth || 1; H = vp.clientHeight || 1; renderer.setSize(W, H, false); camera.aspect = W / H; camera.updateProjectionMatrix(); }
+  new ResizeObserver(size).observe(vp); size();
+
+  /* picking */
+  const ray = new THREE.Raycaster(), m2 = new THREE.Vector2(); let down = null;
+  cv.addEventListener('pointerdown', e => { down = [e.clientX, e.clientY]; view.spin = false; controls.autoRotate = false; $('spin').setAttribute('aria-pressed', 'false'); });
+  cv.addEventListener('pointerup', e => {
+    if (!down || Math.hypot(e.clientX - down[0], e.clientY - down[1]) > 5) return;
+    const r = cv.getBoundingClientRect(); m2.set((e.clientX - r.left) / r.width * 2 - 1, -((e.clientY - r.top) / r.height) * 2 + 1);
+    ray.setFromCamera(m2, camera); const hit = ray.intersectObjects(pickable)[0];
+    if (hit) { selected = hit.object.userData.site; render(); }
+  });
+
+  G.home = home; G.running = false;
+  const frame = now => {
+    if (!G.running) return; requestAnimationFrame(frame);
+    for (let i = tweens.length - 1; i >= 0; i--){ const k = Math.min(1, (now - tweens[i].t0) / 500); tweens[i].g.scale.y = Math.max(0.01, 1 - Math.pow(1 - k, 3)); if (k >= 1) tweens.splice(i, 1); }
+    controls.update(); renderer.render(scene, camera);
+    LABELS.forEach(l => place(l.el, l[1], 1, -l[2]));
+    SITES.forEach(s => place(s.el, s.c[0], (s.top || 0) * s.group.scale.y + 9, -s.c[1]));
+  };
+  G.start = () => { if (!G.running) { G.running = true; size(); requestAnimationFrame(frame); } };
+  G.stop = () => { G.running = false; };
+  G.ok = true;
+}
+
+/* ---------- page ---------- */
+function obHtml(topic, text, stat, tag){ return `<div class="panel ob"><div class="pills"><span class="pill shared">${esc(topic)}</span><span class="pill dummy">${tag}</span></div><q>${esc(text)}</q>${stat ? `<div class="stat">${stat}</div>` : ''}</div>`; }
+function buildStatic(){
+  document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
+  document.querySelectorAll('[data-t]').forEach(e => e.innerHTML = t(e.dataset.t));
+  $('lang').textContent = lang === 'en' ? '中文' : 'EN';
+  const inP = BLD.filter(b => b.in && b.a >= 50), tall = Math.max(...inP.map(b => b.lv));
+  const green = D.G.filter(g => { const c = cenOf(polyOf(g.p)); return inPoly(c[0], c[1], PRE); }).reduce((s, g) => s + g.a, 0);
+  $('facts').innerHTML = [[(AP / 10000).toFixed(1) + ' ha', 'f.area'], [inP.length, 'f.bld'], [t('storeys', tall), 'f.tall'], [n0(green) + ' m²', 'f.park']].map(f => `<div class="fact"><b>${f[0]}</b><span class="small muted">${t(f[1])}</span></div>`).join('');
+  $('facts-src').textContent = t('src');
+  $('presets').innerHTML = t('presets').map((p, i) => `<button type="button" data-p="${i}">${p}</button>`).join('');
+  $('sliders').innerHTML = PRI.map(p => `<div class="slider"><div class="slider-top"><label for="w-${p}">${t('p.' + p)}</label><output id="o-${p}" for="w-${p}"></output></div><input type="range" id="w-${p}" min="0" max="10" step="1" value="${weights[p]}"></div>`).join('');
+  $('rows').innerHTML = IND.map(ind => `<div class="irow">
+    <div class="ihead"><h3>${t('i.' + ind.id)}</h3><span class="pill ${ind.resp}" title="${esc(t('w.' + ind.id))}">${t('resp.' + ind.resp)}</span></div>
+    <div class="rtrack"><div class="zero" style="left:${pos(ind, 0) * 100}%"></div><div class="bar a" id="ba-${ind.id}"></div><div class="bar b" id="bb-${ind.id}"></div></div>
+    <div class="ivals"><span class="a" id="va-${ind.id}"></span><span class="b" id="vb-${ind.id}"></span><span class="muted">${t('u.' + ind.id)} · ${lang === 'zh' ? (ind.better === 'high' ? '越多越好' : '越少越好') : (ind.better === 'high' ? 'more is better' : 'less is better')}</span></div>
+    <div class="small muted">${t('w.' + ind.id)}</div></div>`).join('');
+  $('reg-head').innerHTML = t('reg.head').map(h => `<th>${h}</th>`).join('');
+  $('register').innerHTML = t('reg').map(r => `<tr><td>${r[0]}</td><td><span class="pill ${r[1]}">${t(r[1] === 'obsd' ? 'observed' : 'dummy')}</span></td><td>${r[2]}</td><td>${r[3]}</td><td>${r[4]}</td></tr>`).join('');
+  $('obs-topic').innerHTML = t('topics').map((o, i) => `<option value="${i}">${o}</option>`).join('');
+  $('obs-text').placeholder = t('obs.ph');
+  $('obs').innerHTML = t('samples').map(s => obHtml(t('topics')[s[0]], s[1], s[2], t('obs.sample'))).join('') + userObs.map(o => obHtml(t('topics')[o[0]], o[1], '', t('obs.new'))).join('');
+  if (G.ok) G.relabel();
+}
+function residual(k, r){
+  const out = [], maxH = SITES.reduce((s, x) => s + siteFx(x, x.canTower ? 'tower' : 'mid', canopy).homes[0], 0), hi = indOf('heat');
+  if (r.homes[0] < maxH * 0.98) out.push(['shared', t('r.homes', n0(r.homes[0]), n0(r.homes[1]), n0(maxH - r.homes[0]))]);
+  if (r.trips[1] > 0) out.push(['advocate', t('r.trips', n0(r.trips[1]))]);
+  if (r.heat[1] > 0.04) out.push(['controls', t('r.heat', fmt(hi, r.heat[1]))]);
+  if (r.open[1] === 0) out.push(['controls', t('r.nopark')]);
+  else { const y = calc(k, 'young').heat; out.push(['controls', t('r.park', n0(r.open[1]), fmt(hi, y[0]), fmt(hi, y[1]))]); }
+  if (r.jobs[0] < 0) out.push(['shared', t('r.jobs', n0(-r.jobs[0]))]);
+  return out.slice(0, 4).map(([c, s]) => `<li><span class="pill ${c}">${t('resp.' + c)}</span><span>${s}</span></li>`).join('');
+}
+function render(){
+  const sh = shares();
+  PRI.forEach(p => { $('w-' + p).value = weights[p]; $('o-' + p).textContent = Math.round(sh[p] * 100) + '%'; });
+  document.querySelectorAll('#presets button').forEach((b, i) => b.setAttribute('aria-pressed', i === activePreset));
+  document.querySelectorAll('#canopy button').forEach(b => b.setAttribute('aria-pressed', b.dataset.c === canopy));
+  document.querySelectorAll('#tabs button').forEach(b => b.setAttribute('aria-pressed', b.dataset.s === active));
+  $('canopy-note').textContent = t('canopy.n.' + canopy);
+  $('heat').setAttribute('aria-pressed', view.heat); $('spin').setAttribute('aria-pressed', view.spin);
+
+  const s = SITES.find(x => x.site === selected), o = scen[active][s.site], f = siteFx(s, o, canopy);
+  $('site-panel').innerHTML = `<div><strong>${t('site', s.site)}</strong> <span class="muted">· ${t('site.meta', n0(s.a), s.lv)}${s.n ? ' · ' + esc(s.n) : ''}</span></div>
+    <div class="opts">${OPTS.map(x => `<button type="button" data-opt="${x}" aria-pressed="${o === x}" ${x === 'tower' && !s.canTower ? `disabled title="${t('o.small')}"` : ''}>${t('o.' + x)}</button>`).join('')}</div>
+    <div class="small muted">${t('site.fx', active, f.homes[1] ? n0(f.homes[0]) + t('to') + n0(f.homes[1]) : '', n0(f.open[1]))} ${t('site.hint')}</div>`;
+
+  const res = {A: calc('A'), B: calc('B')}, F = {A: fit(res.A), B: fit(res.B)};
+  IND.forEach(ind => ['A','B'].forEach(k => {
+    const [lo, hi] = res[k][ind.id], bar = $('b' + k.toLowerCase() + '-' + ind.id), a = fmt(ind, lo), b = fmt(ind, hi);
+    bar.style.left = pos(ind, lo) * 100 + '%'; bar.style.width = (pos(ind, hi) - pos(ind, lo)) * 100 + '%';
+    $('v' + k.toLowerCase() + '-' + ind.id).textContent = k + ' ' + (a === b ? a : a + t('to') + b);
+  }));
+  ['A','B'].forEach(k => {
+    const c = {keep:0, park:0, mid:0, tower:0}; SITES.forEach(x => c[scen[k][x.site]]++);
+    $('sum' + k).textContent = t('sum', c);
+    $('fit' + k).innerHTML = F[k][0] + '–' + F[k][1] + ' <span class="small muted">' + t('outof') + '</span>';
+    $('fitbar' + k).style.left = F[k][0] + '%'; $('fitbar' + k).style.width = Math.max(F[k][1] - F[k][0], 1) + '%';
+    $('res' + k).innerHTML = residual(k, res[k]);
+  });
+  let v;
+  if (F.A[0] > F.B[1]) v = t('v.better', 'A', 'B', F.A[0], F.B[1]);
+  else if (F.B[0] > F.A[1]) v = t('v.better', 'B', 'A', F.B[0], F.A[1]);
+  else {
+    let top = IND[0], m = -1;
+    IND.forEach(ind => { const u = sh[ind.id] * ['A','B'].reduce((x, k) => x + Math.abs(pos(ind, res[k][ind.id][1]) - pos(ind, res[k][ind.id][0])), 0); if (u > m) { m = u; top = ind; } });
+    v = t('v.tie', F.A, F.B, t('i.' + top.id));
+  }
+  $('verdict').innerHTML = `<strong>${v[0]}</strong><span>${v[1]}</span><span class="small muted">${t('v.note')}</span>`;
+  if (G.ok) { G.sync(); G.relabel(); }
+  aiRender();
+}
+function route(){
+  const ev = location.hash === '#evidence';
+  $('screen').hidden = ev; $('evidence').hidden = !ev;
+  $('nav-screen').setAttribute('aria-current', ev ? 'false' : 'page'); $('nav-evidence').setAttribute('aria-current', ev ? 'page' : 'false');
+  if (G.ok) ev ? G.stop() : G.start();
+}
+
+
+/* ---------- AI briefing (sample capability) ---------- */
+let sample = null, sampleState = 'checking', aiCtl = null;
+const ai = {text:'', status:'idle', sig:'', err:'', at:''};
+const sig = () => JSON.stringify([weights, scen, canopy, lang]);
+function aiPrompt(){
+  const en = (k, ...a) => { const v = L.en[k]; return typeof v === 'function' ? v(...a) : v; };
+  const sh = shares(), res = {A: calc('A'), B: calc('B')};
+  const opt = k => {
+    const c = {keep:0, park:0, mid:0, tower:0}; SITES.forEach(x => c[scen[k][x.site]]++); const F = fit(res[k]);
+    return `Option ${k}: ${en('sum', c)} (of ${SITES.length} changeable sites). Fit with the reader's priorities: ${F[0]} to ${F[1]} out of 100.\n` +
+      IND.map(i => `- ${en('i.' + i.id)} (${en('u.' + i.id)}; ${i.better === 'high' ? 'more is better' : 'less is better'}): ${fmt(i, res[k][i.id][0])} to ${fmt(i, res[k][i.id][1])}`).join('\n');
+  };
+  return [
+    'You are drafting a short plain-language briefing for a community member about one planning trade-off. A Council planner will edit and approve it before anyone relies on it.',
+    lang === 'zh' ? 'Write in Simplified Chinese, 200 to 280 characters.' : 'Write in English, 110 to 150 words.',
+    'Plain sentences in two or three short paragraphs. No headings, no bullet points, no markdown.',
+    'Rules:',
+    '- Use only the figures given below. Do not add numbers, facts or place details that are not in the data.',
+    '- Every figure is a modelled range built on dummy test rates, not a prediction and not Council data. Say this once, briefly.',
+    '- Do not recommend an option. Describe what each option gains and gives up, given the reader\'s priorities.',
+    '- If the two fit ranges overlap, say the evidence cannot separate the options.',
+    '- For each option, name who is responsible for its largest remaining downside.',
+    '',
+    'DATA',
+    'Place: the CBD South Parramatta precinct, south of Parramatta Station between Church Street, Parkes Street and the rail line. All changes are relative to today.',
+    'Reader\'s priorities (share of the score): ' + PRI.map(p => `${en('p.' + p)} ${Math.round(sh[p] * 100)}%`).join(', ') + '.',
+    'Tree canopy assumption: ' + (canopy === 'mature' ? 'mature canopy, 20 years or more after planting.' : 'young trees, about the first 5 years after planting.'),
+    opt('A'), opt('B'),
+    'Who is responsible:',
+    IND.map(i => `- ${en('i.' + i.id)}: ${en('resp.' + i.resp)}. ${en('w.' + i.id)}`).join('\n')
+  ].join('\n');
+}
+function aiRender(){
+  const out = $('ai-out'), pill = $('ai-pill'), stale = !!ai.text && ai.status !== 'thinking' && ai.sig !== sig();
+  if (stale && ai.status === 'approved') ai.status = 'draft';
+  const st = ai.status === 'thinking' ? 'thinking' : stale ? 'stale' : ai.status;
+  pill.hidden = st === 'idle'; pill.className = 'pill ' + (st === 'approved' ? 'obsd' : 'dummy'); if (st !== 'idle') pill.textContent = t('ai.s.' + st);
+  out.hidden = !ai.text && ai.status !== 'thinking'; out.readOnly = ai.status !== 'draft'; out.placeholder = t('ai.thinking'); out.setAttribute('aria-label', t('ai.label'));
+  $('ai-go').hidden = !sample; $('ai-go').disabled = ai.status === 'thinking'; $('ai-go').textContent = t(ai.text ? 'ai.redo' : 'ai.go');
+  $('ai-stop').hidden = ai.status !== 'thinking';
+  $('ai-approve').hidden = !(ai.status === 'draft' && ai.text && !stale);
+  $('ai-discard').hidden = !ai.text || ai.status === 'thinking';
+  $('ai-note').textContent = ai.err ? t(ai.err) : stale ? t('ai.stale') : ai.status === 'approved' ? t('ai.approved.note', ai.at) : ai.status === 'draft' ? t('ai.draft.note') : sampleState === 'checking' ? t('ai.checking') : sampleState === 'none' ? t('ai.none') : '';
+}
+async function aiGo(){
+  if (!sample || ai.status === 'thinking') return;
+  const redo = !!ai.text, mine = sig(); aiCtl = new AbortController();
+  ai.status = 'thinking'; ai.err = ''; ai.text = ''; $('ai-out').value = ''; aiRender();
+  try {
+    const r = await sample(aiPrompt(), {modelTier:'quick', signal:aiCtl.signal, cache: !redo, onText: ({text}) => { ai.text = text; $('ai-out').value = text; }});
+    ai.text = r.text; ai.status = 'draft'; if (r.truncated) ai.err = 'ai.e.trunc';
+  } catch (e) {
+    const code = e && e.code;
+    if (['not_granted','sampling_disabled','not_declared','capability_disabled','capability_removed'].includes(code)) { sample = null; sampleState = 'none'; ai.text = ''; }
+    else { ai.text = code === 'refused' ? '' : (e && e.text) || ''; if (code !== 'cancelled') ai.err = code === 'rate_limited' ? 'ai.e.rate' : code === 'refused' ? 'ai.e.refused' : code === 'session_expired' ? 'ai.e.session' : 'ai.e.other'; }
+    ai.status = ai.text ? 'draft' : 'idle';
+  }
+  ai.sig = mine; $('ai-out').value = ai.text; aiRender();
+}
+(window.claude && typeof window.claude.use === 'function' ? window.claude.use('sample') : Promise.resolve(null))
+  .then(s => { sample = s || null; sampleState = s ? 'ready' : 'none'; aiRender(); }, () => { sampleState = 'none'; aiRender(); });
+$('ai-go').addEventListener('click', aiGo);
+$('ai-stop').addEventListener('click', () => { if (aiCtl) aiCtl.abort(); });
+$('ai-out').addEventListener('input', e => { if (ai.status === 'draft') ai.text = e.target.value; });
+$('ai-approve').addEventListener('click', () => { if (!ai.text.trim()) return; ai.status = 'approved'; ai.err = ''; ai.at = new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'}); aiRender(); });
+$('ai-discard').addEventListener('click', () => { ai.text = ''; ai.status = 'idle'; ai.err = ''; $('ai-out').value = ''; aiRender(); });
+
+try { initGL(); } catch (e) { const d = document.createElement('div'); d.className = 'glfail'; d.dataset.t = 'glfail'; $('viewport').appendChild(d); $('labels').hidden = true; }
+buildStatic(); render(); route();
+addEventListener('hashchange', route);
+$('lang').addEventListener('click', () => { lang = lang === 'en' ? 'zh' : 'en'; try { localStorage.setItem('cbd-lang', lang); } catch (e) {} buildStatic(); render(); });
+$('sliders').addEventListener('input', e => { weights[e.target.id.slice(2)] = +e.target.value; activePreset = -1; render(); });
+$('presets').addEventListener('click', e => { const b = e.target.closest('button'); if (!b) return; activePreset = +b.dataset.p; weights = {...PRESET_W[activePreset]}; render(); });
+$('canopy').addEventListener('click', e => { const b = e.target.closest('button'); if (!b) return; canopy = b.dataset.c; render(); });
+$('tabs').addEventListener('click', e => { const b = e.target.closest('button'); if (!b) return; active = b.dataset.s; render(); });
+$('site-panel').addEventListener('click', e => { const b = e.target.closest('button[data-opt]'); if (!b || b.disabled) return; scen[active][selected] = b.dataset.opt; render(); });
+$('heat').addEventListener('click', () => { view.heat = !view.heat; render(); });
+$('spin').addEventListener('click', () => { view.spin = !view.spin; render(); });
+$('home').addEventListener('click', () => { if (G.ok) G.home(); });
+$('reset').addEventListener('click', () => { scen[active] = defaults()[active]; render(); });
+$('obs-form').addEventListener('submit', e => { e.preventDefault(); const x = $('obs-text').value.trim(); if (!x) { $('obs-text').focus(); return; } userObs.push([+$('obs-topic').value, x]); $('obs-text').value = ''; buildStatic(); render(); });
+</script>
