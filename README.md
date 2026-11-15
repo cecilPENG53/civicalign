@@ -6,7 +6,7 @@ A decision storyboard for CBD South Parramatta. Built for Challenge 4, "Smarter 
 
 CivicAlign helps a resident or a decision-maker understand **one growth trade-off in one place**: what each choice would change, what evidence supports it, how uncertain it is, and who is responsible for acting on it.
 
-> **Live demo:** <https://civicalign.vercel.app> opens the resident demo in your browser, with nothing to download. The [design options](https://civicalign.vercel.app/variants/), [prototype v2](https://civicalign.vercel.app/civicalign) and the [first 3D prototype](https://civicalign.vercel.app/v1) are online too.
+> **Live demo:** <https://civicalign.vercel.app> opens the latest resident demo in your browser, with nothing to download. Every push to `main` redeploys it.
 
 > **The full framework, as one page:** [`docs/framework.html`](docs/framework.html). Download it and open it in a browser; GitHub shows only its source code. The detailed working notes, in Chinese, are in [`docs/CHAT_HANDOFF_2026-11-15.md`](docs/CHAT_HANDOFF_2026-11-15.md).
 
@@ -128,7 +128,11 @@ What it shows, from top to bottom:
 - **Story:** the map reframes and highlights places as you scroll, then the three deliverables and Council's decision path.
 - **2.5D studio:** a game-style isometric Woodhouse Square. Its 48 tiles of about 25 m² change into trees, market stalls, benches and paths as you drag the linked sliders. Tree crowns grow by year. There is a night-market view.
 - **Results:** all nine dimensions against Scenario 0, as comparison bars or pictograms.
-- **Feedback:** who delivers each part (D/P/A), plus a feedback form.
+- **Your say (pick and vote, no typing needed):**
+  - *Council says vs you see.* Tick the situations you have run into, under three tabs: square, Chinatown and traffic. Each item pairs a team-written example (labelled as one, not a real resident report) with what Council says, cited to source and page. Where no source gives a figure, the item says "no official figure · evidence gap". You can add your own item by tapping a place and an issue.
+  - *Pick one of two.* Eight quick rounds of "which use should get 100 m² more?" across the 10 uses, which give you a ranking.
+  - Free-text feedback is still there as an optional extra. Vote counts are **simulated** (source D1 in `docs/SOURCES.md`): 96 seeded synthetic respondents, labelled "Simulated" on every count, plus your own votes, marked "your vote". A toggle switches to "only my votes", which start at 0. "About this data" explains the method and how real data would be collected through Participate Parramatta, QR signs and library tablets. Items you add appear only to people using the same browser. The demo has no server.
+- **Council backend tab:** tallies by option and by role, and age-band counts, each with its source and its D/P/A role. The 10-person threshold applies to each group, so the 8 simulated visitors stay hidden. Every tally is labelled "Simulated".
 - **Other tabs:** a demo Council backend and the evidence ledger.
 
 The square's layout is indicative, not a design. Model values are ranges from team assumptions, and every Council fact opens to its source.
