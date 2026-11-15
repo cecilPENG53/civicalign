@@ -1,0 +1,14 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "buildCommand": "",
+  "installCommand": "",
+  "framework": null,
+  "outputDirectory": "dist",
+  "cleanUrls": true,
+  "redirects": [
+    { "source": "/", "destination": "/variants/a-studio", "permanent": false }
+  ],
+  "rewrites": [
+    { "source": "/v1", "destination": "/" }
+  ]
+}

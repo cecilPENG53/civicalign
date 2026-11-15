@@ -6,6 +6,8 @@ A decision storyboard for CBD South Parramatta. Built for Challenge 4, "Smarter 
 
 CivicAlign helps a resident or a decision-maker understand **one growth trade-off in one place**: what each choice would change, what evidence supports it, how uncertain it is, and who is responsible for acting on it.
 
+> **Live demo:** <https://civicalign.vercel.app> opens the resident demo in your browser, with nothing to download. The [design options](https://civicalign.vercel.app/variants/), [prototype v2](https://civicalign.vercel.app/civicalign) and the [first 3D prototype](https://civicalign.vercel.app/v1) are online too.
+
 > **The full framework, as one page:** [`docs/framework.html`](docs/framework.html). Download it and open it in a browser; GitHub shows only its source code. The detailed working notes, in Chinese, are in [`docs/CHAT_HANDOFF_2026-11-15.md`](docs/CHAT_HANDOFF_2026-11-15.md).
 
 > **Try the demo:** download [`dist/variants/a-studio.html`](dist/variants/a-studio.html) and double-click it. There is nothing to install. See [Open the demo](#open-the-demo) below.
