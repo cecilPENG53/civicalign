@@ -6,7 +6,7 @@ CBD South Parramatta 的决策故事板。参赛项目：City of Parramatta "Par
 
 CivicAlign 帮居民或决策者看懂**一个地点的一个增长取舍**：每种选择会改变什么，依据是什么，有多不确定，以及该由谁负责。
 
-> **在线演示：** <https://civicalign.vercel.app>，浏览器打开就是最新的居民演示，不用下载。每次推送到 `main` 都会自动重新部署。
+> **在线演示：** <https://civicalign.vvailabs.com>，浏览器打开就是最新的居民演示，不用下载。每次推送到 `main` 都会自动重新部署。
 
 > **完整思路框架（单页）：** [`docs/framework.html`](docs/framework.html)。下载后用浏览器打开，GitHub 上只显示源码。详细的设计记录见 [`docs/CHAT_HANDOFF_2026-11-15.md`](docs/CHAT_HANDOFF_2026-11-15.md)。
 
