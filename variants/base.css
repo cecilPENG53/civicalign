@@ -150,6 +150,11 @@ label.f{display:block;font-size:13px;color:var(--muted);margin-bottom:4px}
 .hl{transition:opacity .35s}
 footer.foot{border-top:1px solid var(--line);color:var(--muted);font-size:12.5px}
 footer.foot .wrap{padding-block:16px 28px}
+/* Acknowledgement of Country band: navy in both themes */
+.aoc{background:#002b49;color:#fff;font-size:13.5px;line-height:1.6;flex:0 0 auto}
+.aoc .wrap{display:flex;align-items:center;gap:14px;padding-block:18px calc(18px + env(safe-area-inset-bottom,0px))}
+.aoc-flag{flex:0 0 auto;width:44px;height:22px;display:block;box-shadow:0 0 0 1px rgba(255,255,255,.45)}
+.aoc p{margin:0;min-width:0;overflow-wrap:anywhere}
 .disc{background:var(--infer-bg);color:var(--fg);font-size:13px}
 .disc .wrap{padding-block:7px}
 .disc b{color:var(--infer)}

@@ -156,6 +156,11 @@ label.f{display:block;font-size:13px;color:var(--muted);margin-bottom:4px}
 .hl{transition:opacity .35s}
 footer.foot{border-top:1px solid var(--line);color:var(--muted);font-size:12.5px}
 footer.foot .wrap{padding-block:16px 28px}
+/* Acknowledgement of Country band: navy in both themes */
+.aoc{background:#002b49;color:#fff;font-size:13.5px;line-height:1.6;flex:0 0 auto}
+.aoc .wrap{display:flex;align-items:center;gap:14px;padding-block:18px calc(18px + env(safe-area-inset-bottom,0px))}
+.aoc-flag{flex:0 0 auto;width:44px;height:22px;display:block;box-shadow:0 0 0 1px rgba(255,255,255,.45)}
+.aoc p{margin:0;min-width:0;overflow-wrap:anywhere}
 .disc{background:var(--infer-bg);color:var(--fg);font-size:13px}
 .disc .wrap{padding-block:7px}
 .disc b{color:var(--infer)}
@@ -557,7 +562,22 @@ const TRAFFIC_WAIT=()=>`<span class="tag t-gap">${L("等待 Council 交通研究
 function noticeHTML(){return L(
   "<b>参赛原型。</b>Council 的事实都附来源和页码（点绿色标签看原文）。广场分配的系数和方案 0 的比例是团队假设，还没用文献核实。这里不收集、不发送任何个人信息。",
   "<b>Competition prototype.</b> Every Council fact carries its source and page (tap a green tag for the original). The square's coefficients and the Scenario 0 split are team assumptions, not yet checked against literature. Nothing personal is collected or sent.");}
-function footHTML(){return L(
+/* Acknowledgement of Country: a full-width navy band under the footer on every page.
+   The team's own words; it does not speak for City of Parramatta.
+   Fact: the Burramattagal and other Dharug people are the Traditional Owners of the land
+   called Parramatta 〔S2 p.2, "Recognition of & commitment to the Dharug People"〕. */
+const ACK=()=>L(
+  "我们承认 Dharug 人是 Parramatta 这片土地的传统守护者，并向过去和现在的长者致敬。我们也向所有使用本网站的原住民和托雷斯海峡岛民致以同样的敬意。",
+  "We acknowledge the Dharug people, the Traditional Custodians of the land of Parramatta, and pay our respects to Elders past and present. We extend that respect to all Aboriginal and Torres Strait Islander people using this site.");
+const ACK_LABEL=()=>L("致谢原住民土地","Acknowledgement of Country");
+const ACK_FLAG=`<svg class="aoc-flag" viewBox="0 0 40 20" aria-hidden="true" focusable="false"><rect width="40" height="10" fill="#000"/><rect y="10" width="40" height="10" fill="#cc0000"/><circle cx="20" cy="10" r="5" fill="#ffff00"/></svg>`;
+function mountAck(){const f=document.querySelector("footer.foot");if(!f)return;
+  let a=document.getElementById("aoc");
+  if(!a){a=document.createElement("section");a.id="aoc";a.className="aoc";f.after(a);}
+  a.setAttribute("aria-label",ACK_LABEL());
+  a.innerHTML=`<div class="wrap">${ACK_FLAG}<p>${ACK()}</p></div>`;}
+/* every page renders the footer with footHTML(), so the band follows the language switch */
+function footHTML(){mountAck();return L(
   `来源：S1 挑战简报；S2 总规草案；S3 Participate Parramatta 项目页；S4 Council 报告 OCM26-56；S5 智慧城市战略。底图 © OpenStreetMap contributors（ODbL），2026-11-10 快照。CivicAlign 是参赛原型，不代表 City of Parramatta。`,
   `Sources: S1 challenge brief; S2 draft master plan; S3 Participate Parramatta page; S4 Council report OCM26-56; S5 Smart City Strategy. Base map © OpenStreetMap contributors (ODbL), snapshot 10 Nov 2026. CivicAlign is a competition prototype and does not represent the City of Parramatta.`);}
 
