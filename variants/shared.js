@@ -1,7 +1,7 @@
 /* ===== variants/shared.js: UI pieces shared by the three variants ===== */
 const MEM={};
 const store={get(k){try{const v=localStorage.getItem(k);if(v!==null)return JSON.parse(v)}catch(e){}return k in MEM?MEM[k]:null},set(k,v){MEM[k]=v;try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
-const S={lang:"zh",role:"resident",age:null,postcode:"",pri:["shade","econ","access"],react:{},note:{},a:{...PRESETS.base.a},plant:"planter",year:2041,exp:"",wish:"",theme:null};
+const S={night:false,lang:"zh",role:"resident",age:null,postcode:"",pri:["shade","econ","access"],react:{},note:{},a:{...PRESETS.base.a},plant:"planter",year:2041,exp:"",wish:"",theme:null};
 (()=>{const l=store.get("cav_lang");if(l==="zh"||l==="en")S.lang=l;const t=store.get("cav_theme");if(t==="light"||t==="dark")S.theme=t;})();
 
 /* theme: system by default, the toggle sets data-theme */
@@ -44,9 +44,17 @@ function syncSliders(active){
 }
 function allocBar(){return `<div class="abar">${Object.keys(GROUPS).map(g=>{const p=pct(gsum(g));return p?`<span style="width:${100*gsum(g)/TOTAL}%;background:${GROUPS[g].c}">${p>=9?`${T(GROUPS[g])} ${p}%`:""}</span>`:"";}).join("")}</div>`;}
 
+/* ---------- computeV: compute() with proxy scores rescaled ----------
+   compute() clamps safety, inclusion and culture at 100, so strong splits read "100–100". Here they become a
+   relative index against Scenario 0: index = 100·raw/(raw + raw₀), so Scenario 0 ≈ 50 and the scale never clamps. */
+function proxyRaw(a,plant,year){const cr=CROWN[plant][year],sh=[0,1].map(i=>Math.min(TOTAL,a.canopy*cr[i]+a.rest*COEF.restShade[i])),sMid=(sh[0]+sh[1])/2;
+  const f=w=>{let t=0;for(const k in w)t+=(k==="shade"?sMid:a[k])*w[k];return t;};return {safety:f(W.safety),incl:f(W.incl),culture:f(W.culture)};}
+function computeV(a,plant,year){const o=compute(a,plant,year),r=proxyRaw(a,plant,year),r0=proxyRaw(PRESETS.base.a,"planter",year);
+  for(const k of ["safety","incl","culture"])o[k]=[0.85,1.15].map(f=>100*r[k]*f/(r[k]*f+r0[k]));return o;}
+
 /* ---------- KPI cards (all values are ranges from team-assumed coefficients) ---------- */
 function kpiData(id){
-  const you=compute(S.a,S.plant,S.year), base=compute(PRESETS.base.a,"planter",S.year);
+  const you=computeV(S.a,S.plant,S.year), base=computeV(PRESETS.base.a,"planter",S.year);
   const d=DIMS.find(x=>x.id===id), y=you[id], b=base[id];
   const ym=(y[0]+y[1])/2, bm=(b[0]+b[1])/2, raw=(ym-bm)/Math.max(Math.abs(bm),1), rel=d.better==="low"?-raw:raw;
   return {y,b,raw,good:rel>0.005,bad:rel<-0.005,p:Math.round(raw*100)};
@@ -64,14 +72,14 @@ function kpiCards(ids){return `<div class="kpis">${KPI_DEF().filter(d=>!ids||ids
 
 /* ---------- 9-dimension results, as in screen 4 of app/template.html ---------- */
 function resultsRows(){
-  const base=compute(PRESETS.base.a,"planter",S.year), you=compute(S.a,S.plant,S.year);
+  const base=computeV(PRESETS.base.a,"planter",S.year), you=computeV(S.a,S.plant,S.year);
   let ws=0,acc=0;
   const rows=DIMS.map(d=>{
     const b=base[d.id], y=you[d.id], max=Math.max(b[1],y[1],1)*1.1, bm=(b[0]+b[1])/2, ym=(y[0]+y[1])/2;
     const raw=(ym-bm)/Math.max(Math.abs(bm),1); let rel=d.better==="low"?-raw:raw; rel=Math.max(-1,Math.min(1,rel));
     const w=S.pri.includes(d.id)?3:1; ws+=w; acc+=w*rel;
     const dec=d.id==="storm"?1:0, p=Math.round(raw*100), good=rel>0.005, bad=rel<-0.005;
-    return `<div class="res"><div class="dn ${S.pri.includes(d.id)?"pri":""}">${T(d)}<small>${d.unit} · ${d.type==="proxy"?L("代理指标","Proxy score"):L("估算","Estimate")}${d.flag?` · ${TRAFFIC_WAIT()}`:""}</small></div>
+    return `<div class="res"><div class="dn ${S.pri.includes(d.id)?"pri":""}">${T(d)}<small>${d.type==="proxy"?L("相对指数，方案 0 ≈ 50","Index, Scenario 0 ≈ 50"):d.unit} · ${d.type==="proxy"?L("代理指标","Proxy score"):L("估算","Estimate")}${d.flag?` · ${TRAFFIC_WAIT()}`:""}</small></div>
       <div class="track" aria-hidden="true"><span class="rng r0" style="left:${100*b[0]/max}%;width:${Math.max(1,100*(b[1]-b[0])/max)}%"></span><span class="rng r1" style="left:${100*y[0]/max}%;width:${Math.max(1,100*(y[1]-y[0])/max)}%"></span></div>
       <div class="vals"><span class="muted">${L("方案 0","Scen. 0")} ${fmt(b[0],dec)}–${fmt(b[1],dec)}</span><br><span class="y">${L("你的","Yours")} ${fmt(y[0],dec)}–${fmt(y[1],dec)}</span> <span class="${good?"delta-up":bad?"delta-down":"muted"}">${p>0?"▲":p<0?"▼":"="}${fmt(Math.abs(p))}%</span></div></div>`;
   }).join("");
@@ -235,7 +243,7 @@ function subsPanel(){const subs=store.get("cav_subs")||[];
 /* ---------- shared events. ctx = {render(), live()} ---------- */
 function bindCommon(ctx,extra){
   document.addEventListener("click",e=>{
-    const b=e.target.closest("button,[data-close],[data-hot]"); if(!b) return;
+    const b=e.target.closest("button,[data-close],[data-hot],[data-quest]"); if(!b) return;
     if(extra&&extra(b,e)) return;
     const d=b.dataset;
     if(d.close){closeDrawer();return;}

@@ -42,14 +42,14 @@ ul.rules{margin:0;padding-left:18px;display:grid;gap:4px;font-size:14px}
 /*__CORE__*/
 const LINKS={a:"__URL_A__",b:"__URL_B__",c:"__URL_C__"};
 const OPTS=()=>[
- {id:"a",file:"a-studio.html",k:"A",t:L("互动工作台 Studio","Studio"),
-  th:`<i style="left:0;right:0;top:0;height:18px;background:var(--chrome);border-radius:0"></i><i style="left:8px;top:26px;width:38%;height:16px;background:#4f9a5b;opacity:.5"></i><i style="left:8px;top:46px;width:38%;height:16px;background:#d08a2c;opacity:.5"></i><i style="left:8px;top:66px;width:38%;height:16px;background:#3f7cc0;opacity:.5"></i><i style="left:8px;top:86px;width:38%;height:16px;background:#8a63b8;opacity:.5"></i><i style="right:8px;top:26px;width:50%;height:52px;background:var(--surface);border:1px solid var(--line)"></i><i style="right:8px;top:84px;width:24%;height:28px;background:var(--surface);border:1px solid var(--line)"></i><i style="right:calc(26% + 8px);top:84px;width:24%;height:28px;background:var(--surface);border:1px solid var(--line)"></i>`,
-  p:[L("一屏就是你喜欢的那种效果：左边四组彩色联动滑杆，右边带图标的广场平面和大号 KPI 卡。","One screen with the look you liked: four coloured linked sliders on the left, an iconographic plaza plan and big KPI cards on the right."),
-     L("三个大标签分开居民故事板、Council 后台、证据与 AI 台账，正好对应评审关心的三块。","Three big tabs split the resident storyboard, Council backend and evidence ledger, which match what judges look for."),
-     L("身份切换后，顶部“翻译”横幅马上换成那类人的说法。","Switching role changes the translation banner at once.")],
-  m:[L("没有真实底图，只有广场示意图；位置关系要靠口头讲。","No real base map, only the plaza diagram, so location has to be explained aloud."),
-     L("居民标签页较长，三件事、分配、结果、意见都在一页上往下排。","The resident tab is long: items, split, results and feedback stack down one page.")],
-  best:L("最适合：现场演示，评委自己点。","Best for: a live demo that judges click through themselves.")},
+ {id:"a",file:"a-studio.html",k:"A",t:L("A+B 互动工作台 · 2.5D","A+B Studio · 2.5D"),
+  th:`<i style="left:0;right:0;top:0;height:18px;background:var(--chrome);border-radius:0"></i><i style="left:8px;top:26px;width:30%;height:14px;background:#4f9a5b;opacity:.6"></i><i style="left:8px;top:44px;width:30%;height:14px;background:#d08a2c;opacity:.6"></i><i style="left:8px;top:62px;width:30%;height:14px;background:#3f7cc0;opacity:.6"></i><i style="left:8px;top:80px;width:30%;height:14px;background:#8a63b8;opacity:.6"></i><i style="right:8px;top:26px;width:58%;height:86px;background:linear-gradient(180deg,#dff0f7,#eef5e9);border:1px solid var(--line)"></i><i style="right:24%;top:46px;width:18%;height:34px;background:#d08a2c;transform:skewY(-26deg);opacity:.7"></i><i style="right:12%;top:40px;width:12%;height:40px;background:#4f9a5b;transform:skewY(-26deg);opacity:.7"></i>`,
+  p:[L("往下滑先讲故事（来自 B）：地图随滚动缩放高亮，再讲三件事和 Council 的决策经过。","It opens as a scroll story (from B): the map reframes and highlights as you scroll, then the three items and Council's decision path."),
+     L("然后进入 2.5D 游戏风格的广场：48 块地砖随滑杆实时换成树、夜市摊、座椅、步行道，树冠随年份长大，可切换夜市夜景。","Then a game-style 2.5D square: 48 tiles turn into trees, market stalls, benches and paths as you drag; crowns grow by year; a night-market view."),
+     L("结果可在“对比条”（和方案 0 比）和“图示”之间切换；三个大标签保留 Council 后台和证据台账。","Results switch between comparison bars against Scenario 0 and pictograms; the three big tabs keep the Council backend and evidence ledger.")],
+  m:[L("页面最长，现场演示要用顶部章节条跳转。","It is the longest page, so a live demo uses the chapter bar to jump."),
+     L("2.5D 广场是示意，不是设计方案；地块分区按比例自动排布。","The 2.5D square is indicative, not a design; zones are laid out automatically by share.")],
+  best:L("最适合：明天的 3 分钟演示，讲故事加动手。","Best for: tomorrow's 3-minute demo, story plus hands-on.")},
  {id:"b",file:"b-scroll.html",k:"B",t:L("故事卷轴 Scrollytelling","Scrollytelling"),
   th:`<i style="left:0;right:0;top:0;height:34px;background:var(--chrome);border-radius:0"></i><i style="left:8px;top:42px;width:52%;height:70px;background:var(--map-bld)"></i><i style="left:24%;top:62px;width:10%;height:18px;background:var(--accent)"></i><i style="right:8px;top:52px;width:36%;height:40px;background:var(--surface);border:1px solid var(--line)"></i>`,
   p:[L("按讲稿顺序走：在哪 → 三件事 → Council 已定了什么 → 留给你的 → 试分 → 意见，3 分钟刚好讲完。","Follows a pitch script: where, the three items, what Council decided, what is left, try a split, give feedback. It fits in 3 minutes."),
@@ -78,8 +78,8 @@ function render(){
      <div class="pc minus">${o.m.map(x=>`<div><b>−</b><span>${x}</span></div>`).join("")}</div>
      <p class="best">${o.best}</p>
      <div class="links">${/^https:/.test(LINKS[o.id])?`<a class="btn primary" href="${LINKS[o.id]}" target="_blank" rel="noopener">${L("打开在线版本","Open online version")} ↗</a>`:""}${location.protocol==="file:"?`<a class="btn" href="${o.file}">${L("打开本地文件","Open local file")}</a>`:""}</div></article>`).join("")}</section>
-   <section class="card rec"><h2>${L("建议：明天 3 分钟演示用 A","Recommendation: use A for tomorrow's 3-minute demo")}</h2>
-     <p>${L("A 最接近你喜欢的那种观感，最重要的“拉滑杆 → 广场图和 KPI 一起变”在同一屏里，30 秒就能演示完；三个标签让评委看到居民端、Council 后台和证据台账是一套东西。风险最低：它是在现有原型上打磨的，交互已经验证过。","A is closest to the look you liked. The key moment, drag a slider and watch the plaza and KPIs change together, happens on one screen in 30 seconds, and the three tabs show judges that the resident view, Council backend and evidence ledger are one system. It carries the least risk because it polishes the existing, tested prototype.")}</p>
+   <section class="card rec"><h2>${L("建议：3 分钟演示用 A+B 2.5D 版","Recommendation: use the A+B 2.5D version for the 3-minute demo")}</h2>
+     <p>${L("讲稿顺序：开场一句话（10 秒）→ 往下滑地图，讲在哪、Council 已定什么（50 秒）→ 到 2.5D 广场拉滑杆，切 2050 年看树长大、切夜市看灯光（60 秒）→ 切“对比条”看和方案 0 的差别（30 秒）→ 点一个黄色标记或绿色来源标签，展示原文出处，再切到 Council 后台（30 秒）。","Script: one opening line (10 s), scroll the map for where it is and what Council decided (50 s), drag sliders in the 2.5D square, switch to 2050 and to night (60 s), open the comparison bars against Scenario 0 (30 s), then tap a yellow marker or green source chip and switch to the Council backend (30 s).")}</p>
      <p style="margin:0">${L("如果要录视频，可以用 B 的顺序做讲稿；C 可以作为“下一步：接入 Council GIS”的展望截图。","If you record a video, use B's order as the script. C makes a good screenshot for a next step of connecting to Council GIS.")}</p></section>
    <section class="card"><h2 style="font-size:18px;margin-bottom:8px">${L("三个版本共同遵守的规则","Rules all three follow")}</h2><ul class="rules">
      <li>${L("每条 Council 事实都有来源标签（S1–S5 加页码），点开看原文。","Every Council fact has a source chip (S1–S5 plus page) that opens the original quote.")} ${chip("S2","p.23","sq1")}</li>
