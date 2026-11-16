@@ -62,6 +62,8 @@ Team 999，共 5 人：
 
 **角色更正（用户指示）：** 页面上 Cecil Peng 写作 Leader，Cathy Zhou 写作 Idea owner；其余三人仍是 Builder。和报名平台上的显示不同，以这里为准。
 
+**第二次更正（用户指示“leader 改成 cathy”）：** Leader 移给 Cathy Zhou，页面写作“Leader and idea owner”；Cecil Peng 改为 Builder。
+
 ## 第 4 轮：用户测试
 
 还没收到回答。页面先放 3 张占位卡片（橙色虚线框 "To fill"），只写测试内容〔S1 p.12〕，不写任何结果。

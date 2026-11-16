@@ -1,5 +1,5 @@
 /* ===== variants/iso.js: 2.5D isometric plaza for option D =====
-   The square is 48 tiles of 25 m² (8 west→east × 6 north→south). Tiles are handed to uses in proportion to
+   The square is 48 tiles of about 28 m² (TOTAL / 48) (8 west→east × 6 north→south). Tiles are handed to uses in proportion to
    S.a, filled column by column from the west, so trees sit at the back and walking + kerb face Wentworth St.
    Edges after Council's Woodhouse Square plan and Wentworth St section (S2 p.45, p.46), p.43 and p.48; item numbers from S2 p.7.
    Indicative only, not a layout design. */
@@ -107,25 +107,26 @@ function isoScene(){
   g+=[-3,-.6,2.6,5.2].map(r=>tree(8.47,r,.9)).join("")+[-4,0,4,8.6].map(r=>tree(11.1,r)).join("");
   g+=parked(9.05,-1.8)+parked(9.05,1.6)+parked(9.05,4.4)+parked(10.2,-3.2)+parked(10.2,2.8);
   g+=[-2.6,-1.8,-1].map(r=>umb(7.75,r)).join("");
-  g+=[-2.2,.4,3,5.6].map((c,i)=>umb(c,6.95,i%2?"#e2583e":"#e8912e")).join("");
+  g+=`<g id="p21">${plots21()}</g>`;
   // car driving south
   const car=`<g>${lbox(-.18,-.34,.18,.34,0,9,"#e8eef5","#c7d2de","#aab8c7")}${lbox(-.15,-.16,.15,.14,9,7,"#5f7d9c","#4b6886","#3e5872")}</g>`;
   g+= reduce?`<g transform="translate(${ip(9.63,0)[0]} ${ip(9.63,0)[1]})">${car}</g>`:`<g>${car}<animateMotion dur="8s" repeatCount="indefinite" path="M${ip(9.63,-5.5).join(",")} L${ip(9.63,10.5).join(",")}"/></g>`;
   // south: new Council development beyond Rivoli Way, cut away so the square stays visible
   g+=isoBox(-3.6,7.9,8.12,10.6,0,12,"#e6dccb","#cdbfa8","#b7a88f")+`<polygon points="${P([ip(-3.6,10.6,12),ip(8.12,10.6,12),ip(8.12,10.6,96),ip(-3.6,10.6,96)])}" fill="none" stroke="rgba(60,80,110,.35)" stroke-dasharray="5 4"/><polygon points="${P([ip(8.12,7.9,12),ip(8.12,10.6,12),ip(8.12,10.6,96),ip(8.12,7.9,96)])}" fill="none" stroke="rgba(60,80,110,.35)" stroke-dasharray="5 4"/>`;
+  g+=`<g id="p21s">${plots21S()}</g>`;
   // night
   g+=`<polygon id="nightVeil" points="${P([ip(-6,-6,200),ip(14,-6,200),ip(14,12),ip(-6,12)])}" fill="#0b1633" style="opacity:${S.night?.55:0}"/>`;
   g+=`<g id="glows" class="glow">${glows()}</g><g id="nameplates">${nameplates()}</g>`;
   // edge labels, the plan's item numbers (S2 p.7), and quests
   const lab=(t,[x,y],o="")=>`<text class="elab" x="${x}" y="${y}" text-anchor="middle" ${o}>${esc(t)}</text>`;
   g+=lab(L("北 · 历史联排楼（餐饮）","N · heritage townhouse (dining)"),ip(5.5,-1.9,70));
-  g+=lab(L("西 · Council 新楼 · 文化空间","W · Council building · cultural space"),ip(-2.4,2,132));
-  g+=lab(L("南 · Rivoli Way 延伸段，再往南是 Council 新楼","S · Rivoli Way extension, then new Council development"),ip(4.6,9.5,8));
+  g+=lab(L("21 号地 · 停车场换成混合用途新楼（层数按总规）","Site 21 · car park replaced by a mixed-use building (height set by the plan)"),ip(-1.2,2,132));
+  g+=lab(L("21 号地 · 新公共停车场和新楼（切开画，露出广场）","Site 21 · new public car park and building (cut away to show the square)"),ip(4.2,9.9,-4));
   g+=lab(L("Wentworth St · 单向南行","Wentworth St · one-way south"),ip(11.3,1.2,0),`transform="rotate(-26.6 ${ip(11.3,1.2)[0]} ${ip(11.3,1.2)[1]})"`);
   g+=lab(L("抬高横道 · 对齐 Rivoli Way","raised crossing · lines up with Rivoli Way"),ip(12.6,6.1,32));
   g+=lab("Fire Horse Lane",ip(-.66,-4.2,6),`font-size="10"`);
   const pkIso=(n,c,r,z)=>{const it=PLAN_ITEMS.find(x=>x.n===n),[x,y]=ip(c,r,z);return `<g class="pkiso" transform="translate(${x} ${y})"><title>${n} · ${esc(T(it))}</title><circle r="9" fill="#fff" stroke="#13202e" stroke-width="1.6"/><text y="3.6" text-anchor="middle" font-size="${n.length>1?9:10}" font-weight="800" fill="#13202e">${n}</text></g>`;};
-  g+=`<g class="pkisos">${[["13",.7,5.3,8],["10",-1.6,6.9,8],["11",-.66,-2.6,8],["14",9.63,-.6,6],["15",9.05,3,14],["17",8.47,-1.8,48],["16",10.6,-1.2,6],["18",9.63,6.9,8],["21",-2.4,5,64]].map(a=>pkIso(...a)).join("")}</g>`;
+  g+=`<g class="pkisos">${[["13",.7,5.3,8],["10",-1.6,6.9,8],["11",-.66,-2.6,8],["14",9.63,-.6,6],["15",9.05,3,14],["17",8.47,-1.8,48],["16",10.6,-1.2,6],["18",9.63,6.9,8],["21",-2.4,5,64],["21",1.2,9.3,16]].map(a=>pkIso(...a)).join("")}</g>`;
   g+=quest(...ip(4,3,96),1,"square",L("广场","The square"))+quest(...ip(9.6,.6,40),2,"street",L("街道","Street"))+quest(...ip(5.5,-1.9,96),3,"north",L("周边建筑","Buildings"))+quest(...ip(5.5,8.4,60),4,"below",L("地下","Below"));
   // where this is on the real map: a small locator (traced from S2 p.7)
   g+=`<g class="isoloc" transform="translate(296 -232)"><rect width="150" height="118" rx="8" fill="rgba(255,255,255,.92)" stroke="#9aa"/>${mapSVG2({vb:[-92,-10,190,150],noLabels:true,noKey:true,noChrome:true}).replace("<svg ",`<svg x="4" y="4" width="142" height="96" `)}<text x="12" y="18" font-size="10" font-weight="800" fill="#13202e">N↑</text><text x="75" y="112" text-anchor="middle" font-size="9.5" font-weight="700" fill="#13202e">${esc(L("在总规图上的位置 · S2 p.7","On Council's plan · S2 p.7"))}</text></g>`;
@@ -133,6 +134,26 @@ function isoScene(){
   const VBX=-395,VBY=-232,VBW=850,VBH=572, nx=VBX+34, ny=VBY+VBH-34;
   g+=`<g transform="translate(${nx} ${ny})"><circle r="16" fill="rgba(255,255,255,.85)" stroke="#9aa"/><path d="M0 0 ${(ISO.HW*.4).toFixed(1)} ${(-ISO.HH*.4).toFixed(1)}" stroke="#13202e" stroke-width="2.5" /><text x="18" y="-12" font-size="12" font-weight="800" fill="#13202e">N</text></g>`;
   return `<svg class="iso" id="isoSvg" viewBox="${VBX} ${VBY} ${VBW} ${VBH}" role="img" aria-label="${L("Woodhouse Square 2.5D 示意","Woodhouse Square 2.5D view")}">${g}</svg>`;
+}
+/* the two Council sites numbered 21 (S2 p.7): the buildings are drawn as the plan has them and do not change;
+   only what faces the square follows the mix. Counts are illustrative. */
+const p21n=()=>({shop:Math.max(0,Math.min(6,Math.round((S.a.events+S.a.culture)/110))),lamp:Math.max(0,Math.min(5,Math.round(S.a.smart/25))),tree:Math.max(0,Math.min(7,Math.round((S.a.canopy+S.a.blue)/60))),seat:Math.max(0,Math.min(5,Math.round(S.a.rest/50)))});
+function plots21(){ // west building's east face, and Rivoli Way in front of the south site
+  const n=p21n(); let s="";
+  for(let i=0;i<n.shop;i++){const r=.25+i*.98, col=i%2?"#e2583e":"#e8912e";
+    s+=`<polygon points="${P([ip(-1.2,r,20),ip(-1.2,r+.8,20),ip(-.72,r+.8,13),ip(-.72,r,13)])}" fill="${col}"/><polygon points="${P([ip(-1.2,r,12),ip(-1.2,r+.8,12),ip(-1.2,r+.8,3),ip(-1.2,r,3)])}" fill="#f7e9c8"/>`;}
+  for(let i=0;i<n.lamp;i++){const[x,y]=ip(-1.2,.6+i*1.2,27);s+=`<circle cx="${x}" cy="${y}" r="2.6" fill="#f7e9a8" stroke="#4b4f63" stroke-width=".8"/>`;}
+  const umb=(c,r,col)=>{const[x,y]=ip(c,r);return `<path d="M${x} ${y}v-15" stroke="#6b4a2a" stroke-width="1.4"/><ellipse cx="${x}" cy="${y-16}" rx="11" ry="5.5" fill="${col}"/><ellipse cx="${x}" cy="${y-17.5}" rx="6" ry="2.6" fill="rgba(255,255,255,.28)"/>`;};
+  for(let i=0;i<n.shop;i++)s+=umb(-2.4+i*1.9,6.95,i%2?"#e2583e":"#e8912e");
+  for(let i=0;i<n.seat;i++){const[x,y]=ip(-1.5+i*1.9,7.35);s+=`<g transform="translate(${x} ${y})">${lbox(-.22,-.05,.22,.05,0,5,"#b7884e","#946a38","#7d5a2e")}</g>`;}
+  return s;
+}
+function plots21S(){ // on the south site's podium
+  const n=p21n(); let s="";
+  for(let i=0;i<n.tree;i++){const[x,y]=ip(-2.6+i*1.6,9.2,12);s+=`<g transform="translate(${x} ${y}) scale(.8)"><ellipse cx="4" cy="2" rx="13" ry="6" fill="rgba(25,70,35,.22)"/><rect x="-1.4" y="-13" width="2.8" height="13" fill="#7a5a3a"/><circle cx="0" cy="-22" r="10" fill="#3f8f4e"/><circle cx="-4" cy="-19" r="7" fill="#4aa05a"/><circle cx="3" cy="-25" r="5" fill="#72c07a"/></g>`;}
+  const[px,py]=ip(6.6,8.6,12);
+  s+=`<g transform="translate(${px} ${py})"><rect x="-9" y="-20" width="18" height="18" rx="4" fill="#2f62a0" stroke="#fff" stroke-width="1.4"/><text y="-6.5" text-anchor="middle" font-size="13" font-weight="800" fill="#fff">P</text></g>`;
+  return s;
 }
 function walkers(reduce){
   const walkC=[];tileMap(S.a).forEach((u,t)=>{if(u==="walk"){const c=tileCR(t)[0];if(!walkC.includes(c))walkC.push(c);}});
@@ -149,7 +170,10 @@ function walkers(reduce){
 }
 function glows(){ // drawn above the night veil so lights read at night
   const G={events:[0,-20,24,"gWarm"],culture:[0,-28,22,"gRed"],smart:[11,-40,30,"gWarm"]};
-  return tileMap(S.a).map((u,t)=>{const q=G[u];if(!q)return"";const[c,r]=tileCR(t),[x,y]=ip(c+.5,r+.5);return `<circle cx="${(x+q[0]).toFixed(1)}" cy="${(y+q[1]).toFixed(1)}" r="${q[2]}" fill="url(#${q[3]})"/>`;}).join("");
+  const n=p21n(); let ex="";
+  for(let i=0;i<n.lamp;i++){const[x,y]=ip(-1.2,.6+i*1.2,27);ex+=`<circle cx="${x}" cy="${y}" r="18" fill="url(#gWarm)"/>`;}
+  for(let i=0;i<n.shop;i++){const[x,y]=ip(-2.4+i*1.9,6.95,14);ex+=`<circle cx="${x}" cy="${y}" r="16" fill="url(#gRed)"/>`;}
+  return ex+tileMap(S.a).map((u,t)=>{const q=G[u];if(!q)return"";const[c,r]=tileCR(t),[x,y]=ip(c+.5,r+.5);return `<circle cx="${(x+q[0]).toFixed(1)}" cy="${(y+q[1]).toFixed(1)}" r="${q[2]}" fill="url(#${q[3]})"/>`;}).join("");
 }
 function nameplates(){
   const tm=tileMap(S.a);let s="";
@@ -168,16 +192,17 @@ function isoUpdate(){
   document.getElementById("walkers").innerHTML=walkers(reduce);
   document.getElementById("nameplates").innerHTML=nameplates();
   document.getElementById("glows").innerHTML=glows();
+  const a=document.getElementById("p21"),b=document.getElementById("p21s"); if(a)a.innerHTML=plots21(); if(b)b.innerHTML=plots21S();
 }
 function isoGrow(){const s=crownScale();document.querySelectorAll("#isoSvg .crown,#isoSvg .shd").forEach(e=>e.style.transform=`scale(${s})`);}
 function isoNight(){const v=document.getElementById("nightVeil");if(v)v.style.opacity=S.night?.55:0;const svg=document.getElementById("isoSvg");if(svg)svg.classList.toggle("night",!!S.night);}
 
-/* ---------- pictogram results (values from computeV; Scenario 0 vs yours) ---------- */
+/* ---------- pictogram results (values from computeV; the baseline vs yours) ---------- */
 function costSplit(a,year){const yrs=year-2026;const b=[0,1].map(i=>MODULES.reduce((s,m)=>s+a[m.id]*COEF.capex[m.id][i],0)/1000),u=[0,1].map(i=>MODULES.reduce((s,m)=>s+a[m.id]*COEF.opex[m.id][i]*yrs,0)/1000);return {b,u};}
 function picto(id,v,opt={}){
   const c=opt.grey?"#8e9bab":opt.c||"var(--accent)", W=150,H=86; let g="";
   const lo=v[0],hi=v[1];
-  if(id==="shade"){const n=48,a=Math.round(lo/25),b=Math.round(hi/25);for(let t=0;t<n;t++){const col=Math.floor(t/6),row=t%6;const f=t<a?c:t<b?c:"var(--surface-2)";g+=`<rect x="${4+col*18}" y="${4+row*13}" width="16" height="11" rx="2" fill="${f}" fill-opacity="${t<a?1:t<b?.4:1}"/>`;}}
+  if(id==="shade"){const n=48,cell=TOTAL/n,a=Math.round(lo/cell),b=Math.round(hi/cell);for(let t=0;t<n;t++){const col=Math.floor(t/6),row=t%6;const f=t<a?c:t<b?c:"var(--surface-2)";g+=`<rect x="${4+col*18}" y="${4+row*13}" width="16" height="11" rx="2" fill="${f}" fill-opacity="${t<a?1:t<b?.4:1}"/>`;}}
   else if(id==="storm"){const max=opt.max||Math.max(hi,1);const hl=70*lo/max,hh=70*hi/max;g+=`<rect x="45" y="8" width="60" height="72" rx="8" fill="var(--surface-2)" stroke="var(--line)"/><rect x="47" y="${78-hh}" width="56" height="${hh}" rx="6" fill="${c}" fill-opacity=".35"/><rect x="47" y="${78-hl}" width="56" height="${hl}" rx="6" fill="${c}"/><path d="M118 30c0 0-8 9-8 14a8 8 0 0 0 16 0c0-5-8-14-8-14z" fill="${c}"/>`;}
   else if(id==="econ"){const unit=opt.unit||25,a=Math.round(lo/unit),b=Math.min(40,Math.round(hi/unit));for(let i=0;i<b;i++){const x=6+(i%10)*14,y=8+Math.floor(i/10)*20;g+=`<g opacity="${i<a?1:.3}"><circle cx="${x+5}" cy="${y+3}" r="3" fill="${c}"/><rect x="${x+1}" y="${y+7}" width="8" height="9" rx="3" fill="${c}"/></g>`;}}
   else if(id==="access"){g+=`<rect x="6" y="8" width="138" height="72" rx="6" fill="var(--surface-2)"/>`;const hl=72*lo/100,hh=72*hi/100;g+=`<rect x="6" y="${44-hh/2}" width="138" height="${hh}" fill="${c}" fill-opacity=".3"/><rect x="6" y="${44-hl/2}" width="138" height="${hl}" fill="${c}"/>`+[0,1,2,3].map(i=>person(28+i*30,50+(i%2?-6:4),"#fff",.8)).join("");}
@@ -188,4 +213,4 @@ function picto(id,v,opt={}){
   else if(id==="carbon"){const unit=20,a=Math.round(lo/unit),b=Math.min(18,Math.round(hi/unit));for(let i=0;i<b;i++){const x=8+(i%6)*23,y=14+Math.floor(i/6)*24;g+=`<path d="M${x} ${y+12}h16a5 5 0 0 0-1-10 7 7 0 0 0-13 1 5 5 0 0 0-2 9z" fill="${opt.grey?"#8e9bab":"#7d8794"}" opacity="${i<a?1:.3}"/>`;}}
   return `<svg class="pic" viewBox="0 0 ${W} ${H}" aria-hidden="true">${g}</svg>`;
 }
-const PIC_UNIT={shade:L=>L("1 格 = 25 m²","1 cell = 25 m²"),storm:L=>L("水位 = 低–高","Level = low–high"),econ:L=>L("1 人形 = 25 人","1 figure = 25 people"),access:L=>L("路带宽 = 畅通比例","Band = clear share"),safety:L=>L("相对指数，方案 0 = 50","Index, Scenario 0 = 50"),incl:L=>L("相对指数，方案 0 = 50","Index, Scenario 0 = 50"),culture:L=>L("相对指数，方案 0 = 50","Index, Scenario 0 = 50"),cost:L=>L("1 块 = $25 万（下排建设，上排维护）","1 block = $250k (build below, upkeep above)"),carbon:L=>L("1 朵 = 20 t CO₂e","1 cloud = 20 t CO₂e")};
+const PIC_UNIT={shade:L=>L("1 格 ≈ 28 m²","1 cell ≈ 28 m²"),storm:L=>L("水位 = 低–高","Level = low–high"),econ:L=>L("1 人形 = 25 人","1 figure = 25 people"),access:L=>L("路带宽 = 畅通比例","Band = clear share"),safety:L=>L("相对指数，基准 = 50","Index, baseline = 50"),incl:L=>L("相对指数，基准 = 50","Index, baseline = 50"),culture:L=>L("相对指数，基准 = 50","Index, baseline = 50"),cost:L=>L("1 块 = $25 万（下排建设，上排维护）","1 block = $250k (build below, upkeep above)"),carbon:L=>L("1 朵 = 20 t CO₂e","1 cloud = 20 t CO₂e")};

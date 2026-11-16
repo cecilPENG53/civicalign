@@ -43,7 +43,7 @@ function cbPipe(){const k=cbCounts();
 function cbStandard(){const k=cbCounts(),tag=(c,t)=>`<span class="tag ${c}">${t}</span>`,done=tag("t-fact",L("已做","Done")),part=tag("t-infer",L("部分","Partly")),todo=tag("t-gap",L("还没做","Not yet"));
   const rows=[
    [L("来源和日期","Source and date"),L("5 份来源都列了发布方和日期，见上方“来源”","All five sources list publisher and date: see Sources above"),done],
-   [L("分析单元和覆盖范围","Unit of analysis and coverage"),L("一个地点、一个决策：第一期范围里的一块 1,200 m² 广场","One place, one decision: a 1,200 m² square inside the Phase 1 area")+" "+chip("S2","p.23","sq1"),done],
+   [L("分析单元和覆盖范围","Unit of analysis and coverage"),L("一个地点、一个决策：第一期范围里的一块 1,350 m² 广场","One place, one decision: a 1,350 m² square inside the Phase 1 area")+" "+chip("S2","p.51","sq1"),done],
    [L("清洗过程","Cleaning"),L(`条目是人工摘录的，没有自动清洗；${k.nopage} 条 S4 条目还缺页码`,`Claims were extracted by hand with no automated cleaning; ${k.nopage} S4 claims still lack a page number`),part],
    [L("缺失或有偏的群体","Missing or biased groups"),L("演示没有真实提交；投票汇总用的是标明的模拟数据。代表性检查的版式在 Council 后台，ABS 数据还没读","The demo has no real submissions; the vote tally uses simulated data, labelled as such. The representativeness check is laid out in the Council backend; the ABS data is not read yet"),todo],
    [L("至少一个人工验证步骤","At least one human check"),L(`本清单逐条核对：${k.ok+k.edit} / ${k.sourced} 条通过。核对人是团队成员，不是 Council`,`This ledger, claim by claim: ${k.ok+k.edit} of ${k.sourced} passed. The reviewer is a team member, not Council`),done],
@@ -77,7 +77,7 @@ function cbSummary(subs){const n=subs.length,gsumOf=(a,g)=>MODULES.filter(m=>m.g
   return `<div class="cb-blk"><h3>${L("对总规三件事的态度","Views on the plan's three items")}</h3>${CARDS.map(cd=>cbReactRow(subs,cd)).join("")}</div>
    <div class="cb-blk"><h3>${L("提交的分法：四大类面积的中位数","Submitted splits: median area by group")}</h3>
     ${Object.keys(GROUPS).map(g=>{const md=cbMedian(subs.map(s=>gsumOf(s.a,g))),b0=gsumOf(PRESETS.base.a,g);
-      return `<div class="cb-line"><b style="color:${GROUPS[g].c}">${T(GROUPS[g])}</b> <span class="cb-mono">${L("方案 0","Scenario 0")} ${fmt(b0)} m² → ${L("中位数","median")} ${fmt(md)} m²</span></div>`;}).join("")}</div>
+      return `<div class="cb-line"><b style="color:${GROUPS[g].c}">${T(GROUPS[g])}</b> <span class="cb-mono">${L("基准","Baseline")} ${fmt(b0)} m² → ${L("中位数","median")} ${fmt(md)} m²</span></div>`;}).join("")}</div>
    <div class="cb-blk"><h3>${L("这些分法对总规原则的影响","What these splits do to the plan's principles")}</h3>
     ${pr.map(x=>`<div class="cb-line"><b>${x.r.id}</b> <span class="cb-mono">${L(`${n} 份里：削弱 ${x.weak} 份 · 不满足 ${x.fail} 份`,`Of ${n}: weakened in ${x.weak} · not met in ${x.fail}`)}</span></div>`).join("")}</div>
    <div class="cb-blk"><h3>${L("最在乎的维度","Dimensions people care about most")}</h3><p class="small">${pri.length?pri.map(x=>`${T(x.d)} ${x.k}`).join(" · "):"—"}</p></div>`;}

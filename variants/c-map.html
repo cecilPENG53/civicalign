@@ -149,11 +149,11 @@ function evidence(){
 function panel(){
   const tabs=[["alloc",L("分配广场","Share")],["res",L("9 项结果","Results")],["say",L("你的意见","Your say")]];
   let body="";
-  if(PTAB==="alloc") body=`<div><div class="lbl">${L("你会怎么分这 1,200 m²？","How would you share 1,200 m²?")}</div><p class="small muted" style="margin:4px 0 0">${L("拉高一项，其他几项按比例让出。","Raise one and the others give way.")}</p></div>
-    ${presetButtons()}<p class="small muted" style="margin:-4px 0 0">${L("方案 0 是我们对总规的解读","Scenario 0 is our reading of the plan")} ${chip("S2","p.45","sq2")} ${ASSUME()}</p>
+  if(PTAB==="alloc") body=`<div><div class="lbl">${L("你会怎么分这 1,350 m²？","How would you share 1,350 m²?")}</div><p class="small muted" style="margin:4px 0 0">${L("拉高一项，其他几项按比例让出。","Raise one and the others give way.")}</p></div>
+    ${presetButtons()}<p class="small muted" style="margin:-4px 0 0">${L("基准是我们按总规平面图量出的","The baseline is what we measured from the plan drawing")} ${chip("S2","p.45","sq2")} ${ASSUME()}</p>
     ${allocBar()}${groupCards()}${moduleRows()}
     <div><div class="lbl">${L("种树方式 · 年份","Planting · year")}</div><div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:6px">${plantButtons()}${yearButtons()}</div><p class="small muted" style="margin:6px 0 0">${L("深土是否可行待核实","Deep soil is unconfirmed")} ${chip("S2","p.49","tr8")}</p></div>`;
-  else if(PTAB==="res"){const r=resultsRows();body=`<div style="display:flex;justify-content:space-between;align-items:flex-end;gap:8px"><div><div class="lbl">${L("和方案 0 比","Against Scenario 0")}</div>${ASSUME()}</div><div style="text-align:right"><div class="fit ${r.fit>0?"delta-up":r.fit<0?"delta-down":""}">${r.fit>0?"+":""}${r.fit}%</div><div class="small muted">${L("优先项契合度","Priority fit")}</div></div></div>
+  else if(PTAB==="res"){const r=resultsRows();body=`<div style="display:flex;justify-content:space-between;align-items:flex-end;gap:8px"><div><div class="lbl">${L("和基准比","Against the baseline")}</div>${ASSUME()}</div><div style="text-align:right"><div class="fit ${r.fit>0?"delta-up":r.fit<0?"delta-down":""}">${r.fit>0?"+":""}${r.fit}%</div><div class="small muted">${L("优先项契合度","Priority fit")}</div></div></div>
     <div><div class="lbl" style="margin-bottom:4px">${L("我是","I am")}</div><div class="pill">${ROLES.map(x=>`<button data-role="${x.id}" aria-pressed="${S.role===x.id}">${T(x)}</button>`).join("")}</div></div>
     <div><div class="lbl" style="margin-bottom:4px">${L("最在乎的 3 项","Top 3")} · ${S.pri.length}/3</div><div class="pill">${DIMS.map(d=>`<button data-pri="${d.id}" aria-pressed="${S.pri.includes(d.id)}">${T(d)}</button>`).join("")}</div></div>
     <div id="resRows">${resultsKey()}${r.rows}</div>`;}

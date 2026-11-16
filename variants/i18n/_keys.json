@@ -116,8 +116,8 @@
   "zh": "等待 Council 交通研究"
  },
  {
-  "en": "<b>Competition prototype.</b> Every Council fact carries its source and page (tap a green tag for the original). The square's coefficients and the Scenario 0 split are team assumptions, not yet checked against literature. Nothing personal is collected or sent.",
-  "zh": "<b>参赛原型。</b>Council 的事实都附来源和页码（点绿色标签看原文）。广场分配的系数和方案 0 的比例是团队假设，还没用文献核实。这里不收集、不发送任何个人信息。"
+  "en": "<b>Competition prototype.</b> Every Council fact carries its source and page (tap a green tag for the original). The square's coefficients and the baseline split are team assumptions, not yet checked against literature. Nothing personal is collected or sent.",
+  "zh": "<b>参赛原型。</b>Council 的事实都附来源和页码（点绿色标签看原文）。广场分配的系数和基准的比例是团队假设，还没用文献核实。这里不收集、不发送任何个人信息。"
  },
  {
   "en": "We acknowledge the Dharug people, the Traditional Custodians of the land of Parramatta, and pay our respects to Elders past and present. We extend that respect to all Aboriginal and Torres Strait Islander people using this site.",
@@ -148,8 +148,8 @@
   "zh": "战略行动"
  },
  {
-  "en": "Scen. 0",
-  "zh": "方案 0"
+  "en": "Baseline",
+  "zh": "基准"
  },
  {
   "en": "Roles D/P/A and action numbers",
@@ -172,8 +172,8 @@
   "zh": "年份"
  },
  {
-  "en": "vs Scenario 0",
-  "zh": "对比方案 0"
+  "en": "vs baseline",
+  "zh": "对比基准"
  },
  {
   "en": ", better",
@@ -220,8 +220,8 @@
   "zh": "到 {0} 年累计；资金来源未定"
  },
  {
-  "en": "Index, Scenario 0 ≈ 50",
-  "zh": "相对指数，方案 0 ≈ 50"
+  "en": "Index, baseline ≈ 50",
+  "zh": "相对指数，基准 ≈ 50"
  },
  {
   "en": "Proxy score",
@@ -236,8 +236,8 @@
   "zh": "你的"
  },
  {
-  "en": "Scenario 0: plan as drawn (assumption)",
-  "zh": "方案 0：总规原样（假设）"
+  "en": "Baseline: measured from the plan drawing (assumption)",
+  "zh": "基准：按总规平面图量出（假设）"
  },
  {
   "en": "Your split",
@@ -384,8 +384,8 @@
   "zh": "方案比选"
  },
  {
-  "en": "Drops a 3,500 m² open space; picks Scheme 3 with a 1,200 m² plaza",
-  "zh": "3,500 m² 大开放空间被淘汰；选带 1,200 m² 广场的方案 3"
+  "en": "Drops a 3,500 m² open space; picks Scheme 3 with a 1,350 m² plaza",
+  "zh": "3,500 m² 大开放空间被淘汰；选带 1,350 m² 广场的方案 3"
  },
  {
   "en": "Location test",
@@ -564,8 +564,8 @@
   "zh": "最终版总规"
  },
  {
-  "en": "1,200 m², with the difference noted",
-  "zh": "用 1,200 m²，并注明两处说法不同"
+  "en": "1,350 m², the design guideline minimum, with the difference noted",
+  "zh": "用设计导则的下限 1,350 m²，并注明说法不同"
  },
  {
   "en": "Whether the car park basement extends under the square, and whether deep soil is possible",
@@ -592,8 +592,8 @@
   "zh": "广场设计阶段；来源未给时间"
  },
  {
-  "en": "Scenario 0 labelled “our reading”",
-  "zh": "方案 0 标“我们的解读”"
+  "en": "Baseline labelled “our measurement”",
+  "zh": "基准标“我们的量法”"
  },
  {
   "en": "Funding sources",
@@ -712,16 +712,16 @@
   "zh": "不评分"
  },
  {
-  "en": "Checked: the resident storyboard's <b>current split</b>, against Scenario 0 (plan as drawn, our reading). Principles from",
-  "zh": "检查对象：居民故事板的<b>当前分配</b>，对比方案 0（总规原样，我们的解读）。原则来自"
+  "en": "Checked: the resident storyboard's <b>current split</b>, against the baseline (measured from the plan drawing, our reading). Principles from",
+  "zh": "检查对象：居民故事板的<b>当前分配</b>，对比基准（按总规平面图量出，我们的量法）。原则来自"
  },
  {
-  "en": "Thresholds and “weakened” (over 10% below Scenario 0) are our assumptions",
-  "zh": "门槛和“削弱”（比方案 0 少 10% 以上）是我们的假设"
+  "en": "Thresholds and “weakened” (over 10% below the baseline) are our assumptions",
+  "zh": "门槛和“削弱”（比基准少 10% 以上）是我们的假设"
  },
  {
-  "en": "This tool fixes the total at 1,200 m², so this always holds and is not scored. The real risks are funding and the car park; see evidence gaps.",
-  "zh": "本工具把总面积固定在 1,200 m²，所以这条恒满足，不打分。真正的风险在资金和停车场，见证据空白。"
+  "en": "This tool fixes the total at 1,350 m², so this always holds and is not scored. The real risks are funding and the car park; see evidence gaps.",
+  "zh": "本工具把总面积固定在 1,350 m²，所以这条恒满足，不打分。真正的风险在资金和停车场，见证据空白。"
  },
  {
   "en": "Now",
@@ -780,8 +780,8 @@
   "zh": "Woodhouse Square（暂定名"
  },
  {
-  "en": "): how its 1,200 m²",
-  "zh": "）这 1,200 m²"
+  "en": "): how its 1,350 m²",
+  "zh": "）这 1,350 m²"
  },
  {
   "en": "is shared between uses. The plan gives no area for each use.",
@@ -868,12 +868,12 @@
   "zh": "达到 10 人门槛的群体"
  },
  {
-  "en": "W · Council building · cultural space",
-  "zh": "西 · Council 新楼 · 文化空间"
+  "en": "Site 21 · car park replaced by a mixed-use building (height set by the plan)",
+  "zh": "21 号地 · 停车场换成混合用途新楼（层数按总规）"
  },
  {
-  "en": "S · Rivoli Way extension, then new Council development",
-  "zh": "南 · Rivoli Way 延伸段，再往南是 Council 新楼"
+  "en": "Site 21 · new public car park and building (cut away to show the square)",
+  "zh": "21 号地 · 新公共停车场和新楼（切开画，露出广场）"
  },
  {
   "en": "Wentworth St · one-way south",
@@ -908,8 +908,8 @@
   "zh": "Woodhouse Square 2.5D 示意"
  },
  {
-  "en": "1 cell = 25 m²",
-  "zh": "1 格 = 25 m²"
+  "en": "1 cell ≈ 28 m²",
+  "zh": "1 格 ≈ 28 m²"
  },
  {
   "en": "Level = low–high",
@@ -924,8 +924,8 @@
   "zh": "路带宽 = 畅通比例"
  },
  {
-  "en": "Index, Scenario 0 = 50",
-  "zh": "相对指数，方案 0 = 50"
+  "en": "Index, baseline = 50",
+  "zh": "相对指数，基准 = 50"
  },
  {
   "en": "1 block = $250k (build below, upkeep above)",
@@ -1124,8 +1124,8 @@
   "zh": "分析单元和覆盖范围"
  },
  {
-  "en": "One place, one decision: a 1,200 m² square inside the Phase 1 area",
-  "zh": "一个地点、一个决策：第一期范围里的一块 1,200 m² 广场"
+  "en": "One place, one decision: a 1,350 m² square inside the Phase 1 area",
+  "zh": "一个地点、一个决策：第一期范围里的一块 1,350 m² 广场"
  },
  {
   "en": "Cleaning",
@@ -1238,10 +1238,6 @@
  {
   "en": "Submitted splits: median area by group",
   "zh": "提交的分法：四大类面积的中位数"
- },
- {
-  "en": "Scenario 0",
-  "zh": "方案 0"
  },
  {
   "en": "median",
@@ -1736,28 +1732,36 @@
   "zh": "要建什么"
  },
  {
-  "en": "Council will redevelop its own land at the station car park: two buildings (20 and 12 storeys), a new public car park, and a new 1,200 m² square, about the size of 3 basketball courts.",
-  "zh": "Council 要改造车站停车场这块自己的地：盖两栋楼（20 层和 12 层）、一个新的公共停车场，并留出一块 1,200 m² 的新广场，大约 3 个篮球场那么大。"
+  "en": "Three pieces of Council's own land. One is Woodhouse Square, a new square of at least 1,350 m², about the size of 3 basketball courts. The other two (number 21 on Council's plan) are the station car park today; a new public car park and mixed-use buildings of 20 and 12 storeys will replace it.",
+  "zh": "三块 Council 自己的地。一块是新广场 Woodhouse Square，至少 1,350 m²，大约 3 个篮球场那么大。另外两块（总规图上的 21 号）现在是车站停车场，将换成新的公共停车场和混合用途建筑（20 层和 12 层）。"
  },
  {
   "en": "The basketball courts are our own comparison: one full court is 420 m².",
   "zh": "篮球场是我们的换算：一个标准球场 420 m²。"
  },
  {
-  "en": "What is still open",
-  "zh": "还没定什么"
+  "en": "Yours to decide",
+  "zh": "需要你来决策"
  },
  {
-  "en": "The buildings and the car park are already set in the plan. What is open is how much of the square goes to shade, seating and event space: the plan does not say. That is what you are asked to share out.",
-  "zh": "楼和停车场已经定了方向。还没定的是广场里树荫、座位、活动场地各占多少，总规没有写。这就是请你来分的。"
+  "en": "How the space in the square is shared: how much goes to markets, the route to the station, shade, seating and lighting. And how the two sites beside it face the square. The plan lists the uses but gives no areas.",
+  "zh": "广场里的空间怎么分：市集、去车站的路、树荫、座椅、照明各要多少。还有旁边两块 21 号地朝向广场的一面做成什么样。总规列了用途，没有给面积。"
+ },
+ {
+  "en": "Building heights and positions follow the plan and are not changed here.",
+  "zh": "楼的层数和位置按总规，不在这里调整。"
  },
  {
   "en": "Woodhouse Square decision studio · CBD South Parramatta",
   "zh": "Woodhouse Square 决策工作台 · CBD South Parramatta"
  },
  {
-  "en": "One new square, <em>1,200&nbsp;m²</em>, and you share it out.",
-  "zh": "一块新广场，<em>1,200&nbsp;m²</em>，你来分。"
+  "en": "Community design explorer · Phase 1",
+  "zh": "社区设计探索 · 第一期"
+ },
+ {
+  "en": "What should Woodhouse Square <em>make room for</em>?",
+  "zh": "Woodhouse Square 该为什么<em>留出空间</em>？"
  },
  {
   "en": "Council has decided to build it, and where. How the space inside is shared is still open.",
@@ -1772,12 +1776,12 @@
   "zh": "第一期范围"
  },
  {
-  "en": "Station car park (Council land)",
-  "zh": "车站停车场（Council 用地）"
+  "en": "New square, Woodhouse Square",
+  "zh": "新广场 Woodhouse Square"
  },
  {
-  "en": "New square",
-  "zh": "新广场"
+  "en": "Sites 21: car park to be replaced (Council land)",
+  "zh": "21 号地：停车场将被替换（Council 用地）"
  },
  {
   "en": "Number on Council's plan",
@@ -1816,6 +1820,126 @@
   "zh": "看全部条目"
  },
  {
+  "en": "Build a new city square",
+  "zh": "建设新市民广场"
+ },
+ {
+  "en": "Create a Chinatown nightlife destination",
+  "zh": "打造唐人街夜生活目的地"
+ },
+ {
+  "en": "Change the streets for people on foot",
+  "zh": "为行人改造街道"
+ },
+ {
+  "en": "A new square of at least 1,350 m², with shade, seating and room for night markets.",
+  "zh": "一块至少 1,350 m² 的新广场，有树荫、座椅，能办夜市。"
+ },
+ {
+  "en": "Food, night markets, lighting and public art along Church St.",
+  "zh": "Church St 的餐饮、夜市、灯光和公共艺术。"
+ },
+ {
+  "en": "Streets go one-way, footpaths widen, and a raised crossing is added.",
+  "zh": "街道改单行，人行道加宽，新增抬高的人行横道。"
+ },
+ {
+  "en": "Three things Council will do, each with its own illustrated page",
+  "zh": "Council 要做的三件事，每件有一页图解"
+ },
+ {
+  "en": "See the page →",
+  "zh": "看图解 →"
+ },
+ {
+  "en": "Raised crossing · lines up with Rivoli Way",
+  "zh": "抬高的人行横道 · 对齐 Rivoli Way"
+ },
+ {
+  "en": "Wider footpath, 7.0 m",
+  "zh": "加宽的人行道 7.0 m"
+ },
+ {
+  "en": "New square",
+  "zh": "新广场"
+ },
+ {
+  "en": "2.5D view of Wentworth St after the change",
+  "zh": "Wentworth St 改造后的 2.5D 示意"
+ },
+ {
+  "en": "Arcade becomes small food tenancies",
+  "zh": "拱廊改成小开间餐饮"
+ },
+ {
+  "en": "Hawker food and night market",
+  "zh": "大排档和夜市"
+ },
+ {
+  "en": "Lanterns and Chinatown signage",
+  "zh": "灯笼和唐人街标识"
+ },
+ {
+  "en": "Outdoor dining",
+  "zh": "户外餐饮"
+ },
+ {
+  "en": "2.5D view of Church St as Chinatown",
+  "zh": "Church St 唐人街的 2.5D 示意"
+ },
+ {
+  "en": "Back to the main page",
+  "zh": "回到主页"
+ },
+ {
+  "en": "What the plan says",
+  "zh": "总规说了什么"
+ },
+ {
+  "en": "What it could look like",
+  "zh": "会是什么样"
+ },
+ {
+  "en": "Our sketch, not a design",
+  "zh": "我们画的示意，不是设计方案"
+ },
+ {
+  "en": "Day or night",
+  "zh": "昼夜"
+ },
+ {
+  "en": "Day",
+  "zh": "白天"
+ },
+ {
+  "en": "Night",
+  "zh": "夜晚"
+ },
+ {
+  "en": "Council's own artist impressions are in the master plan,",
+  "zh": "Council 自己的效果图在总规"
+ },
+ {
+  "en": "open the plan (PDF) ↗",
+  "zh": "打开总规 PDF ↗"
+ },
+ {
+  "en": "What it means for different people",
+  "zh": "对不同的人意味着什么"
+ },
+ {
+  "en": "The plan sets out",
+  "zh": "总规安排了"
+ },
+ {
+  "en": "No lines are marked open for this item.",
+  "zh": "这一项没有标为未定的条目。"
+ },
+ {
+  "en": "Share out the square →",
+  "zh": "去分配广场 →"
+ },
+ {
   "en": "Chapter 2 · How Council got here",
   "zh": "第 2 章 · Council 怎么走到这一步"
  },
@@ -1832,28 +1956,40 @@
   "zh": "留给你的"
  },
  {
-  "en": "The plan lists the uses: shade trees, public art, lighting, flexible paving for night markets, dining at the edges, planters with seating",
-  "zh": "总规列出了用途：遮荫树、公共艺术、照明、可办夜市的灵活铺地、边缘餐饮、带座椅的种植池"
+  "en": "Every square metre has to do a job. A market needs room to gather; a station route needs to stay clear; shade and seating make it easier to stay. Your priorities make these choices visible.",
+  "zh": "每一平方米都要派上用场。市集要有聚集的地方；去车站的路要保持通畅；树荫和座椅让人更愿意停留。你的优先项会让这些取舍看得见。"
+ },
+ {
+  "en": "0 · none",
+  "zh": "0 · 不办"
+ },
+ {
+  "en": "1 · monthly",
+  "zh": "1 · 每月一次"
+ },
+ {
+  "en": "2 · fortnightly",
+  "zh": "2 · 两周一次"
+ },
+ {
+  "en": "4 · weekly",
+  "zh": "4 · 每周"
+ },
+ {
+  "en": "8 · twice a week",
+  "zh": "8 · 每周两次"
+ },
+ {
+  "en": "and the two sites 21",
+  "zh": "和两块 21 号地"
  },
  {
   "en": "Indicative, not a design",
   "zh": "示意，不是设计方案"
  },
  {
-  "en": "Day or night",
-  "zh": "昼夜"
- },
- {
-  "en": "Day",
-  "zh": "白天"
- },
- {
-  "en": "Night",
-  "zh": "夜市"
- },
- {
-  "en": "1 tile ≈ 25 m², 48 tiles. Tap a yellow marker for its source. Crowns grow with the year and planting.",
-  "zh": "1 块地砖 ≈ 25 m²，共 48 块。点黄色标记看原文出处。树冠随年份和种植方式长大。"
+  "en": "1 tile ≈ 28 m², 48 tiles. The buildings on the two sites 21 are drawn as the plan has them; only the side facing the square follows your priorities. Tap a yellow marker for its source.",
+  "zh": "1 块地砖 ≈ 28 m²，共 48 块。两块 21 号地上的楼按总规画，只有朝广场的一面随你的优先项变化。点黄色标记看原文出处。"
  },
  {
   "en": "Chapter 3 · What if it were shared differently",
@@ -1864,12 +2000,28 @@
   "zh": "你来搭：多给一项，其他几项就要让"
  },
  {
-  "en": "Scenario 0 is our reading of the plan's description; the plan gives no areas",
-  "zh": "方案 0 是我们按总规描述换算的比例，总规本身没给面积"
+  "en": "Your design priorities",
+  "zh": "你的设计优先项"
  },
  {
-  "en": "100% = 1,200 m², four linked groups",
-  "zh": "100% = 1,200 m²，四组联动"
+  "en": "Move any slider. Other priorities adjust proportionally.",
+  "zh": "拖动任意一项，其他几项按比例让出。"
+ },
+ {
+  "en": "Allocated points",
+  "zh": "已分配点数"
+ },
+ {
+  "en": "Market days per month",
+  "zh": "每月市集天数"
+ },
+ {
+  "en": "The points describe your priorities. The estimates translate them into one illustrative design mix; they are not approved specifications. Market days change only the event and trade result.",
+  "zh": "点数表示你的优先顺序。估算把它们换成一个示意性的设计组合，不是已批准的设计指标。市集天数只影响“活动与经济容量”一项。"
+ },
+ {
+  "en": "The starting points give the baseline, what we measured from the plan drawing on p.45; the plan gives no areas",
+  "zh": "起始点数对应基准，也就是我们按总规第 45 页平面图量出的比例；总规本身没给面积"
  },
  {
   "en": "The plan says raised planters",
@@ -1884,16 +2036,16 @@
   "zh": "待核实"
  },
  {
-  "en": "Done? Compare with Scenario 0 ↓",
-  "zh": "分好了？和方案 0 对比 ↓"
+  "en": "Done? Compare with the baseline ↓",
+  "zh": "分好了？和基准对比 ↓"
  },
  {
   "en": "Chapter 3 · All 9 results",
   "zh": "第 3 章 · 9 项结果"
  },
  {
-  "en": "How does it compare with the plan as drawn (Scenario 0)?",
-  "zh": "和总规原样（方案 0）比，有什么不同？"
+  "en": "How does it compare with the baseline?",
+  "zh": "和基准比，有什么不同？"
  },
  {
   "en": "View",
@@ -1908,12 +2060,8 @@
   "zh": "图示"
  },
  {
-  "en": "Fit with your 3 priorities",
-  "zh": "与你 3 个优先项的契合度"
- },
- {
-  "en": "Ranges, not forecasts. All coefficients are team assumptions, listed under Evidence & AI ledger. Safety, inclusion and culture are proxy scores shown as an index where Scenario 0 ≈ 50.",
-  "zh": "区间，不是预测。所有系数都是团队假设，见“证据与 AI 台账”。安全感、包容、文化是代理指标，以方案 0 ≈ 50 的相对指数显示。"
+  "en": "Ranges, not forecasts. All coefficients are team assumptions, listed under Evidence & AI ledger. Safety, inclusion and culture are proxy scores shown as an index where the baseline ≈ 50.",
+  "zh": "区间，不是预测。所有系数都是团队假设，见“证据与 AI 台账”。安全感、包容、文化是代理指标，以基准 ≈ 50 的相对指数显示。"
  },
  {
   "en": "Proxy · relative index",
@@ -1924,8 +2072,8 @@
   "zh": "估算 · 假设"
  },
  {
-  "en": "All values are ranges from team-assumed coefficients, not forecasts. Safety, inclusion and culture are proxy scores shown as an index where Scenario 0 = 50. Coefficients are under Evidence & AI ledger.",
-  "zh": "所有数值都是按团队假设系数算出的区间，不是预测。安全感、包容、文化是代理指标，以方案 0 = 50 的相对指数显示。系数见“证据与 AI 台账”。"
+  "en": "All values are ranges from team-assumed coefficients, not forecasts. Safety, inclusion and culture are proxy scores shown as an index where the baseline = 50. Coefficients are under Evidence & AI ledger.",
+  "zh": "所有数值都是按团队假设系数算出的区间，不是预测。安全感、包容、文化是代理指标，以基准 = 50 的相对指数显示。系数见“证据与 AI 台账”。"
  },
  {
   "en": "Chapter 4 · Your view and who decides",
@@ -1934,6 +2082,14 @@
  {
   "en": "Tap to tell Council what you think",
   "zh": "点一点，告诉 Council 你的看法"
+ },
+ {
+  "en": "Which best describes you?",
+  "zh": "你是哪一类居民？"
+ },
+ {
+  "en": "Used only to group the results. No name is collected.",
+  "zh": "只用来分组统计，不收集姓名。"
  },
  {
   "en": "Outside the square's control",
@@ -2064,8 +2220,8 @@
   "zh": "Smart City & Innovation Strategy 2024–2033"
  },
  {
-  "en": "A new 1,200 m² urban plaza on Council-owned land, fronting Wentworth Street.",
-  "zh": "在 Council 自有土地上新建一个 1,200 m² 的城市广场，临 Wentworth Street。"
+  "en": "A new urban plaza of at least 1,350 m² on Council-owned land, fronting Wentworth Street.",
+  "zh": "在 Council 自有土地上新建一个至少 1,350 m² 的城市广场，临 Wentworth Street。"
  },
  {
   "en": "A flexible paved square with shade trees, public art and lighting, with outdoor dining at its edges.",
@@ -2292,8 +2448,8 @@
   "zh": "智"
  },
  {
-  "en": "Scenario 0: the plan as drawn (our reading)",
-  "zh": "方案 0：总规原样（我们的解读）"
+  "en": "Baseline: measured from the plan drawing on p.45 (our reading)",
+  "zh": "基准：按总规第 45 页平面图量出的比例（我们的量法）"
  },
  {
   "en": "Example: cooler and greener",
@@ -2416,12 +2572,12 @@
   "zh": "夜间照明、回收"
  },
  {
-  "en": "Scenario 0 · plan as drawn",
-  "zh": "方案 0 · 总规原样"
+  "en": "Baseline · measured from the plan",
+  "zh": "基准 · 按总规图量出"
  },
  {
-  "en": "Assumption: our reading",
-  "zh": "假设：我们对总规的解读"
+  "en": "Assumption: our measurement",
+  "zh": "假设：我们量图得出"
  },
  {
   "en": "Cooler and greener",
@@ -2578,6 +2734,30 @@
  {
   "en": "Nowhere to recycle",
   "zh": "垃圾没处分类回收"
+ },
+ {
+  "en": "Night market & cultural events",
+  "zh": "夜市与文化活动"
+ },
+ {
+  "en": "Easy, safe station access",
+  "zh": "去车站方便又安全"
+ },
+ {
+  "en": "Shade canopy & cooler places",
+  "zh": "树荫与更凉快的地方"
+ },
+ {
+  "en": "Seating & inclusive everyday use",
+  "zh": "座椅与人人都能用的日常空间"
+ },
+ {
+  "en": "Lighting & night-time safety",
+  "zh": "照明与夜间安全"
+ },
+ {
+  "en": "Flexible layout & event operations",
+  "zh": "灵活布局与活动运营"
  },
  {
   "en": "AI translation, not yet reviewed by a native speaker.",

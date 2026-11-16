@@ -122,7 +122,7 @@ const STEPS=()=>[
   b:`${L("Parramatta 车站南边的 CBD South。总规草案第一期覆盖虚线范围。","CBD South, just south of Parramatta Station. The draft master plan's Phase 1 covers the dashed area.")} ${chip("S2","")}<br>${L("Council 用三件事向居民介绍它：新市民广场、唐人街夜生活、为行人改造交通。","Council presents it to residents through three items: a new city square, a Chinatown nightlife destination, and traffic changes for pedestrians.")} ${chip("S3","")}`},
  {k:"council",n:"02",h:L("Council 自己的地","Council's own land"),
   b:`${claimsById(["tr3","tr8"])}`},
- {k:"square",n:"03",h:L("在这块地上：1,200 m² 新广场","On that land: a new 1,200 m² square"),
+ {k:"square",n:"03",h:L("在这块地上：1,350 m² 新广场","On that land: a new 1,350 m² square"),
   b:`${claimsById(["sq1","sq2","sq9"])}`},
  {k:"china",n:"04",h:L("Church St：唐人街","Church St: Chinatown"),
   b:`${claimsById(["ct1","ct2","ct4"])}`},
@@ -141,10 +141,10 @@ function chromeB(){
 }
 function hero(){return `<section class="hero"><div class="wrap">
   <div><div class="eyebrow" style="color:#8fe0c4">CBD South Parramatta · ${L("三分钟","3 minutes")}</div>
-   <h1>${L("一块新广场，<em>1,200&nbsp;m²</em>，你来分。","One new square, <em>1,200&nbsp;m²</em>, and you share it out.")}</h1>
+   <h1>${L("一块新广场，<em>1,350&nbsp;m²</em>，你来分。","One new square, <em>1,350&nbsp;m²</em>, and you share it out.")}</h1>
    <p class="lede">${L("Council 已经定了做广场、放在哪里。还没定的是广场里面怎么分。往下滑：先看总规说了什么，再试试你的分法。","Council has decided to build a square and where it goes. How the space inside is shared is still open. Scroll to see what the plan says, then try your own split.")}</p></div>
   <div class="facts">
-   <div class="fact"><b>1,200 m²</b>${L("新广场面积，临 Wentworth St","New square, fronting Wentworth St")} ${chip("S2","p.23","sq1")}</div>
+   <div class="fact"><b>1,350 m²</b>${L("新广场面积，临 Wentworth St","New square, fronting Wentworth St")} ${chip("S2","p.51","sq1")}</div>
    <div class="fact"><b>${L("3 件事","3 items")}</b>${L("广场、唐人街、交通","Square, Chinatown, traffic")} ${chip("S3","")}</div>
    <div class="fact"><b>${L("未给面积","No areas given")}</b>${L("总规列了用途，没给各占多少","The plan lists uses, not their sizes")} <span class="tag t-gap">${L("证据空白","Evidence gap")}</span></div>
   </div></div></section>`;}
@@ -162,8 +162,8 @@ function path(){const tl=TIMELINE();return `<section class="wrap ch" id="c-path"
   <ol class="tl">${tl.map((t,i)=>`<li class="${i===2||i===4?"dec":""}"><span class="d">${t[0]}</span>${t[1]} ${t[2]}</li>`).join("")}</ol>
   <div class="split"><div class="card"><h3>${L("Council 已经定了","Council has decided")}</h3>${claimsById(["sq6","sq7","sq8","ct5"])}</div>
    <div class="card yours"><h3>${L("留给你的","Left for you")}</h3><p>${T(CLAIMS.find(c=>c.id==="sq12"))} <span class="tag t-gap">${L("来源里没有","No source has this")}</span></p><p class="small muted">${L("总规列出了用途：遮荫树、公共艺术、照明、可办夜市的灵活铺地、边缘餐饮、带座椅的种植池","The plan lists the uses: shade trees, public art, lighting, flexible paving for night markets, dining at the edges, planters with seating")} ${chip("S2","p.45","sq2")} ${chip("S2","p.45","sq3")}</p></div></div></section>`;}
-function vizInner(){return `<div class="vh"><div><b>Woodhouse Square · 1,200 m²</b> ${chip("S2","p.23","sq1")}<div class="small muted">${L("你的分法","Your split")} · ${S.year}</div></div>${yearButtons()}</div>${allocBar()}${plazaSVG2()}${plazaCaption()}`;}
-function tryIt(){return `<section class="wrap ch" id="c-try"><div class="ch-h"><div class="eyebrow">${L("第 3 章 · 换一种分法会怎样","Chapter 3 · What if it were shared differently")}</div><h2>${L("拉一拉：多给一项，其他几项就要让","Drag it: give one use more and the others give way")}</h2><p>${L("从方案 0 开始。它是我们按总规描述换算的比例，总规本身没给面积。","Start from Scenario 0, our reading of the plan's description. The plan itself gives no areas.")} ${ASSUME()}</p></div>
+function vizInner(){return `<div class="vh"><div><b>Woodhouse Square · 1,350 m²</b> ${chip("S2","p.51","sq1")}<div class="small muted">${L("你的分法","Your split")} · ${S.year}</div></div>${yearButtons()}</div>${allocBar()}${plazaSVG2()}${plazaCaption()}`;}
+function tryIt(){return `<section class="wrap ch" id="c-try"><div class="ch-h"><div class="eyebrow">${L("第 3 章 · 换一种分法会怎样","Chapter 3 · What if it were shared differently")}</div><h2>${L("拉一拉：多给一项，其他几项就要让","Drag it: give one use more and the others give way")}</h2><p>${L("从基准开始。它是我们按总规第 45 页平面图量出的比例，总规本身没给面积。","Start from the baseline, what we measured from the plan drawing on p.45. The plan itself gives no areas.")} ${ASSUME()}</p></div>
   <div class="alloc"><div class="card ctrl">${presetButtons()}${groupCards()}${moduleRows()}<div><b class="small">${L("种树方式","Planting")}</b> <span class="tag t-infer">${L("深土待核实","Deep soil unconfirmed")}</span> ${chip("S2","p.49","tr8")}<div style="margin-top:6px">${plantButtons()}</div></div></div>
    <div class="viz"><div class="card" id="vizArt">${vizInner()}</div><div id="kpiBox">${kpiCards()}</div></div></div>
   <div class="card" style="margin-top:16px" id="resBox">${resInner()}</div></section>`;}

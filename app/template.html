@@ -231,9 +231,9 @@ const SOURCES = {
 /* ---------- Claims: every one carries source, page and the original wording ---------- */
 const CLAIMS = [
  // 1 New City Square
- {id:"sq1",card:"square",kind:"planned",src:"S2",pg:"p.23",
-  zh:"在 Council 自有土地上新建一个 1,200 m² 的城市广场，临 Wentworth Street。",en:"A new 1,200 m² urban plaza on Council-owned land, fronting Wentworth Street.",
-  q:"New Urban Plaza 1,200sqm … Option 3: Urban Plaza on Wentworth Street"},
+ {id:"sq1",card:"square",kind:"planned",src:"S2",pg:"p.51",
+  zh:"在 Council 自有土地上新建一个至少 1,350 m² 的城市广场，临 Wentworth Street。",en:"A new urban plaza of at least 1,350 m² on Council-owned land, fronting Wentworth Street.",
+  q:"Woodhouse Square must be delivered as a consolidated space with a minimum area of 1,350m² and a minimum width of 30m … (p.23) Option 3: Urban Plaza on Wentworth Street"},
  {id:"sq2",card:"square",kind:"planned",src:"S2",pg:"p.45",
   zh:"有遮荫树、公共艺术和照明的灵活硬地广场，边缘是户外餐饮。",en:"A flexible paved square with shade trees, public art and lighting, with outdoor dining at its edges.",
   q:"A community space with shade trees, public art and lighting in a flexible paved city square activated by outdoor dining at its edges."},
@@ -336,25 +336,36 @@ const CARDS = [
           visitor:{zh:"从车站走到唐人街和广场会更直接、更安全。",en:"Walking from the station to Chinatown and the square becomes more direct and safer."}}}
 ];
 
-/* ---------- Uses (10 modules). Areas in m². Scenario 0 is our reading of S2 p.44–45, an assumption. ---------- */
+/* ---------- Uses (10 modules). Areas in m². the baseline is our reading of S2 p.44–45, an assumption. ---------- */
 const MODULES = [
- {id:"canopy",g:"green",zh:"树冠绿化",en:"Tree canopy",role:"D",act:"2.1.2",base:180},
+ {id:"canopy",g:"green",zh:"树冠绿化",en:"Tree canopy",role:"D",act:"2.1.2",base:220},
  {id:"blue",g:"green",zh:"蓝绿基础设施（雨水花园）",en:"Rain gardens",role:"D",act:"2.1.4",base:40},
- {id:"events",g:"active",zh:"活动、夜市与户外餐饮",en:"Events, night markets, outdoor dining",role:"D+P",act:"4.2.1",base:500},
- {id:"culture",g:"active",zh:"文化表达与公共艺术",en:"Culture and public art",role:"P",act:"6.3.2",base:60},
- {id:"rest",g:"active",zh:"休憩座椅与儿童游戏",en:"Seating, rest and play",role:"D",act:"—",base:120},
- {id:"walk",g:"move",zh:"畅通步行与无障碍",en:"Clear walking and access",role:"D",act:"6.2.2",base:260},
+ {id:"events",g:"active",zh:"活动、夜市与户外餐饮",en:"Events, night markets, outdoor dining",role:"D+P",act:"4.2.1",base:650},
+ {id:"culture",g:"active",zh:"文化表达与公共艺术",en:"Culture and public art",role:"P",act:"6.3.2",base:40},
+ {id:"rest",g:"active",zh:"休憩座椅与儿童游戏",en:"Seating, rest and play",role:"D",act:"—",base:110},
+ {id:"walk",g:"move",zh:"畅通步行与无障碍",en:"Clear walking and access",role:"D",act:"6.2.2",base:240},
  {id:"bike",g:"move",zh:"自行车停放与微出行",en:"Bike and scooter parking",role:"D+P",act:"3.1.3",base:20},
  {id:"kerb",g:"move",zh:"路缘接驳（落客、装卸）",en:"Kerbside drop-off and loading",role:"D",act:"—",base:0},
- {id:"smart",g:"smart",zh:"智慧照明与传感器",en:"Smart lighting and sensors",role:"D",act:"4.1.2",base:20},
+ {id:"smart",g:"smart",zh:"智慧照明与传感器",en:"Smart lighting and sensors",role:"D",act:"4.1.2",base:30},
  {id:"circ",g:"smart",zh:"回收与循环点",en:"Recycling point",role:"D+P",act:"2.2.2",base:0}
 ];
 const GROUPS = {green:{zh:"绿",en:"Green",c:"#4f9a5b"},active:{zh:"活",en:"Active",c:"#d08a2c"},move:{zh:"行",en:"Movement",c:"#3f7cc0"},smart:{zh:"智",en:"Smart",c:"#8a63b8"}};
-const TOTAL = 1200; // S2 p.23
+const TOTAL = 1350; // S2 p.51: "a minimum area of 1,350m²". The options test on p.23 drew 1,350.
+/* The baseline split is MEASURED from the "Woodhouse Square Plan" drawing (S2 p.45), not given by the plan.
+   The drawing is indicative and has no dimensions, so this is our reading. Method (PDF points on that page):
+   - the square is taken as x 428–770, y 330–598 (heritage building to Rivoli Way, steps to the Wentworth St footpath),
+     91,656 pt², scaled so that it equals TOTAL (1,350 m²). The 3.5 m footpath in the p.46 section gives about the same scale.
+   - zones: north dining terrace 22,230; planter and seat band 6,840 (planters 2,852); west steps 3,111; main paved plaza 59,475,
+     of which a clear strip along Wentworth St 6,405 and along Rivoli Way 6,670.
+   - trees: 11 crowns, 30,360 pt². Half of each crown is counted as tree planting, the other half as the use under it
+     (seating under the feature tree, paving under the rest).
+   - result: events/markets/dining 736 m², walking 238, tree planting 224, seating 110, planters 42.
+   - public art, lighting and bike parking are named in the text but not drawn: 40 + 30 + 20 m² are set aside for them
+     out of the paved plaza (nominal allowances, our assumption). Rounded to 10 m². */
 const PRESETS = {
-  base:{zh:"方案 0：总规原样（我们的解读）",en:"Scenario 0: the plan as drawn (our reading)",a:{canopy:180,blue:40,events:500,culture:60,rest:120,walk:260,bike:20,kerb:0,smart:20,circ:0}},
-  green:{zh:"示例：更凉快、更绿",en:"Example: cooler and greener",a:{canopy:360,blue:120,events:330,culture:60,rest:120,walk:180,bike:10,kerb:0,smart:20,circ:0}},
-  night:{zh:"示例：活动和夜市优先",en:"Example: events and markets first",a:{canopy:120,blue:20,events:640,culture:90,rest:70,walk:220,bike:10,kerb:0,smart:30,circ:0}}
+  base:{zh:"基准：按总规第 45 页平面图量出的比例（我们的量法）",en:"Baseline: measured from the plan drawing on p.45 (our reading)",a:{canopy:220,blue:40,events:650,culture:40,rest:110,walk:240,bike:20,kerb:0,smart:30,circ:0}},
+  green:{zh:"示例：更凉快、更绿",en:"Example: cooler and greener",a:{canopy:400,blue:140,events:370,culture:70,rest:130,walk:200,bike:10,kerb:0,smart:30,circ:0}},
+  night:{zh:"示例：活动和夜市优先",en:"Example: events and markets first",a:{canopy:140,blue:20,events:720,culture:100,rest:80,walk:250,bike:10,kerb:0,smart:30,circ:0}}
 };
 
 /* ---------- Dimensions and coefficients: ALL are team assumptions until checked against literature ---------- */
@@ -436,8 +447,8 @@ function chrome(){
   vRes.setAttribute("aria-pressed",S.view==="res"); vCouncil.setAttribute("aria-pressed",S.view==="council");
   lZh.setAttribute("aria-pressed",S.lang==="zh"); lEn.setAttribute("aria-pressed",S.lang==="en");
   document.getElementById("notice").innerHTML=L(
-    "<b>原型演示。</b>Council 的事实都附来源和页码（点绿色标签看原文）。广场分配的系数和方案 0 的比例是团队假设，还没用文献核实；这里不收集、不发送任何个人信息。",
-    "<b>Prototype.</b> Every Council fact carries its source and page (tap a green tag to read the original). The square's coefficients and the Scenario 0 split are team assumptions, not yet checked against literature. Nothing personal is collected or sent.");
+    "<b>原型演示。</b>Council 的事实都附来源和页码（点绿色标签看原文）。广场分配的系数和基准的比例是团队假设，还没用文献核实；这里不收集、不发送任何个人信息。",
+    "<b>Prototype.</b> Every Council fact carries its source and page (tap a green tag to read the original). The square's coefficients and the baseline split are team assumptions, not yet checked against literature. Nothing personal is collected or sent.");
   const st=document.getElementById("steps");
   st.hidden = S.view!=="res";
   st.innerHTML=STEPS.map(s=>`<li><button data-step="${s.n}" ${S.step===s.n?'aria-current="step"':""}><span class="n">${s.n}</span><span><span class="part">${s.p}</span> ${T(s)}</span></button></li>`).join("");
@@ -485,12 +496,12 @@ function s2(){
   <p class="lede">${L("Council 用这三项向居民介绍总规","Council presents the plan to residents through these three items")} ${chip("S3","")}${L("。",". ")}${L("每条都能点开看原文。看完后告诉我们你的看法。","Every line opens to the original text. Tell us what you think after each card.")}</p>
   <div class="card mapcard" style="margin-bottom:12px">
     <div>${mapSVG()}<div class="legend"><span><i class="sw" style="background:var(--accent)"></i>${L("Woodhouse Square（大致位置）","Woodhouse Square (approximate)")}</span><span><i class="sw" style="background:var(--infer)"></i>${L("现有车站停车场（Council 用地）","Station car park today (Council land)")}</span><span><i class="sw" style="background:var(--map-green)"></i>Jubilee Park</span><span><i class="sw" style="border:1.5px dashed var(--fg)"></i>${L("第一期范围","Phase 1 area")}</span></div>
-    <p class="small muted" style="margin-top:6px">${L("底图：OpenStreetMap 2026-11-10。广场位置是示意，依据“临 Wentworth Street”","Base map: OpenStreetMap, 10 Nov 2026. The square's position is indicative, based on “fronting Wentworth Street”")} ${chip("S2","p.23","sq1")}${L("。",".")}</p></div>
+    <p class="small muted" style="margin-top:6px">${L("底图：OpenStreetMap 2026-11-10。广场位置是示意，依据“临 Wentworth Street”","Base map: OpenStreetMap, 10 Nov 2026. The square's position is indicative, based on “fronting Wentworth Street”")} ${chip("S2","p.51","sq1")}${L("。",".")}</p></div>
     <div><h2>${L("Council 怎么走到这一步","How Council got here")}</h2><ol class="timeline">
       <li><span class="d">2025-06</span>${L("决议编制总规","Decides to prepare a master plan")} ${chip("S4","")}</li>
       <li><span class="d">2025-08</span>${L("研究在 Church St 设唐人街","Studies a Chinatown on Church St")} ${chip("S4","")}</li>
       <li><span class="d">2025-07–11</span>${L("比较大公园、会展中心、餐饮夜生活 + 广场，选了第三种","Compares a park, a convention centre, and dining and nightlife with a square; picks the third")} ${chip("S4","","sq6")}</li>
-      <li><span class="d">${L("方案比选","Options test")}</span>${L("选带广场的方案 3，广场临 Wentworth St","Picks Scheme 3 with a plaza on Wentworth St")} ${chip("S2","p.23","sq1")}</li>
+      <li><span class="d">${L("方案比选","Options test")}</span>${L("选带广场的方案 3，广场临 Wentworth St","Picks Scheme 3 with a plaza on Wentworth St")} ${chip("S2","p.51","sq1")}</li>
       <li><span class="d">2026-04-28</span>${L("一致同意公示","Votes unanimously to exhibit")} ${chip("S3","")}</li>
       <li><span class="d">2026-05–06</span>${L("公示，意见在审阅中","Exhibition; submissions under review")} ${chip("S3","")}</li>
     </ol><p class="small"><b>${L("留给你的：","Left for you:")}</b>${L("广场内部怎么分。总规列了功能，但没给各占多少面积。","how the square is shared inside. The plan lists the uses but gives no areas.")}</p></div>
@@ -520,7 +531,7 @@ function mapSVG(){
 /* ---------- Screen 3: live studio (controls left, picture + numbers right) ---------- */
 const GDESC={green:{zh:"降温、遮荫、留住雨水",en:"Cooling, shade, holding rain"},active:{zh:"唐人街夜市、活动、停留",en:"Night markets, events, places to stay"},move:{zh:"穿行、无障碍、接驳",en:"Getting through, access, drop-off"},smart:{zh:"夜间照明、回收",en:"Night lighting, recycling"}};
 const r10=v=>Math.round(v/10)*10;
-function normalise(){ // keep the total at exactly 1,200 m² after rounding
+function normalise(){ // keep the total at exactly 1,350 m² after rounding
   let d=TOTAL-sum(S.a); if(!d) return;
   const ids=MODULES.map(m=>m.id).sort((x,y)=>S.a[y]-S.a[x]);
   for(const id of ids){ const nv=Math.max(0,S.a[id]+d); d-=nv-S.a[id]; S.a[id]=nv; if(!d) break; }
@@ -547,16 +558,16 @@ function s3(){
      <div class="gtop"><span class="gic">${ICON[MODULES.find(m=>m.g===g).id]("#fff")}</span><div class="gname"><b>${T(GROUPS[g])}</b><small>${T(GDESC[g])}</small></div><span class="gval" id="gv_${g}">${pct(gsum(g))}%</span></div>
      <input type="range" min="0" max="${TOTAL}" step="10" value="${gsum(g)}" data-grp="${g}" id="g_${g}" aria-label="${T(GROUPS[g])}">
      <div class="gm" id="gm_${g}">${fmt(gsum(g))} m²</div></div>`).join("");
-  const mods=MODULES.map(m=>`<div class="mod"><label class="nm" for="m_${m.id}"><span class="mic" style="color:${GROUPS[m.g].c}">${ICON[m.id](GROUPS[m.g].c)}</span>${T(m)}<small>${L("角色","Role")} ${m.role} · ${L("战略行动","Action")} ${m.act} · ${L("方案 0","Scen. 0")} ${m.base} m²</small></label>
+  const mods=MODULES.map(m=>`<div class="mod"><label class="nm" for="m_${m.id}"><span class="mic" style="color:${GROUPS[m.g].c}">${ICON[m.id](GROUPS[m.g].c)}</span>${T(m)}<small>${L("角色","Role")} ${m.role} · ${L("战略行动","Action")} ${m.act} · ${L("基准","Baseline")} ${m.base} m²</small></label>
        <input type="range" id="m_${m.id}" data-mod="${m.id}" min="0" max="${TOTAL}" step="10" value="${S.a[m.id]}"><output id="o_${m.id}">${fmt(S.a[m.id])} m²</output></div>`).join("");
   return `<div class="eyebrow">② ${L("换一种分法会怎样","What if it were shared differently")} · 3/5</div>
-  <h1>${L("你会怎么分这 1,200 m²？","How would you share the 1,200 m²?")}</h1>
+  <h1>${L("你会怎么分这 1,350 m²？","How would you share the 1,350 m²?")}</h1>
   <p class="lede">${L("拉高一项，其他几项会按比例自动让出面积——这就是取舍。右边的广场图和数字会即时变化。","Raise one and the others give up space in proportion. That is the trade-off. The square and the numbers on the right update as you go.")}</p>
   <div class="studio">
    <div class="card ctrl">
      <b class="small">${L("快速对比","Quick compare")}</b>
      <div class="presets2">${Object.entries(PRESETS).map(([k,p])=>`<button data-preset="${k}" class="pz pz-${k}">${T(p)}</button>`).join("")}</div>
-     <p class="small muted">${L("方案 0 是我们按总规描述换算的比例，总规本身没给面积","Scenario 0 is our reading of the plan's description; the plan gives no areas")} ${chip("S2","p.45","sq2")} <span class="tag t-design">${L("假设","Assumption")}</span></p>
+     <p class="small muted">${L("基准是我们按总规第 45 页平面图量出的比例，总规本身没给面积","The baseline is what we measured from the plan drawing on p.45; the plan gives no areas")} ${chip("S2","p.45","sq2")} <span class="tag t-design">${L("假设","Assumption")}</span></p>
      <div class="gcards">${gcards}</div>
      <details class="more"><summary>${L("细分到 10 类用途","Fine-tune all 10 uses")}</summary>${mods}</details>
      <div style="margin-top:12px"><b class="small">${L("种树方式","Planting")}</b>
@@ -576,10 +587,10 @@ function vizPanel(){
     const good=(d.better==="low"?-raw:raw)>0.005, bad=(d.better==="low"?-raw:raw)<-0.005, p=Math.round(raw*100);
     return `<div class="kpi"><div class="kh"><span>${label}</span><span class="tag t-design">${L("假设","Assumption")}</span></div>
       <div class="kv">${val(y[0])}–${val(y[1])}<small> ${unit}</small></div>
-      <div class="kd ${good?"delta-up":bad?"delta-down":"muted"}">${p>0?"▲":p<0?"▼":"="} ${fmt(Math.abs(p))}% ${L("对比方案 0","vs Scenario 0")}${good?L("，更好",", better"):bad?L("，更差",", worse"):""}</div>
+      <div class="kd ${good?"delta-up":bad?"delta-down":"muted"}">${p>0?"▲":p<0?"▼":"="} ${fmt(Math.abs(p))}% ${L("对比基准","vs baseline")}${good?L("，更好",", better"):bad?L("，更差",", worse"):""}</div>
       <div class="kn">${note}</div></div>`;
   };
-  return `<div class="vh"><div><b>Woodhouse Square · 1,200 m²</b> ${chip("S2","p.23","sq1")}<div class="small muted">${L("你的分法","Your split")} · ${S.year} · ${S.plant==="planter"?L("种植池","planters"):L("深土","deep soil")}</div></div>
+  return `<div class="vh"><div><b>Woodhouse Square · 1,350 m²</b> ${chip("S2","p.51","sq1")}<div class="small muted">${L("你的分法","Your split")} · ${S.year} · ${S.plant==="planter"?L("种植池","planters"):L("深土","deep soil")}</div></div>
     <div class="yrs">${[2026,2041,2050].map(y=>`<button data-year="${y}" aria-pressed="${S.year===y}">${y}</button>`).join("")}</div></div>
    <div class="abar">${bar}</div>
    ${plazaSVG()}
@@ -655,18 +666,18 @@ function s4(){
     const pct=Math.round(raw*100), good=rel>0.005, bad=rel<-0.005;
     return `<div class="res"><div class="dn ${S.pri.includes(d.id)?"pri":""}">${T(d)}<small>${U(d)} · ${d.type==="proxy"?L("代理指标","Proxy score"):L("估算","Estimate")}${d.flag?` · <span class="tag t-gap">${L("待交通研究","Awaits traffic study")}</span>`:""}</small></div>
       <div class="track" aria-hidden="true"><span class="rng r0" style="left:${100*b[0]/max}%;width:${Math.max(1,100*(b[1]-b[0])/max)}%"></span><span class="rng r1" style="left:${100*y[0]/max}%;width:${Math.max(1,100*(y[1]-y[0])/max)}%"></span></div>
-      <div class="vals"><span class="muted">${L("方案 0","Scen. 0")} ${fmt(b[0],dec)}–${fmt(b[1],dec)}</span><br><span class="y">${L("你的","Yours")} ${fmt(y[0],dec)}–${fmt(y[1],dec)}</span> <span class="${good?"delta-up":bad?"delta-down":"muted"}" title="${good?L("更好","Better"):bad?L("更差","Worse"):""}">${pct>0?"▲":pct<0?"▼":"="}${fmt(Math.abs(pct))}% ${good?L("更好","better"):bad?L("更差","worse"):""}</span></div></div>`;
+      <div class="vals"><span class="muted">${L("基准","Baseline")} ${fmt(b[0],dec)}–${fmt(b[1],dec)}</span><br><span class="y">${L("你的","Yours")} ${fmt(y[0],dec)}–${fmt(y[1],dec)}</span> <span class="${good?"delta-up":bad?"delta-down":"muted"}" title="${good?L("更好","Better"):bad?L("更差","Worse"):""}">${pct>0?"▲":pct<0?"▼":"="}${fmt(Math.abs(pct))}% ${good?L("更好","better"):bad?L("更差","worse"):""}</span></div></div>`;
   }).join("");
   const fit=Math.round(100*acc/ws);
   return `<div class="eyebrow">② ${L("换一种分法会怎样","What if it were shared differently")} · 4/5</div>
-  <h1>${L("你的分法和总规原样比，会有什么不同？","How does your split compare with the plan as drawn?")}</h1>
+  <h1>${L("你的分法和基准比，会有什么不同？","How does your split compare with the baseline?")}</h1>
   <p class="lede">${L("结果都是区间，不是预测。所有系数都是团队假设，可以在下面逐个查看。","Every result is a range, not a forecast. All coefficients are team assumptions, listed below.")} <span class="tag t-design">${L("假设","Assumption")}</span></p>
   <div class="grid g3" style="margin-bottom:12px">
-    <div class="card"><b class="small">${L("和你的 3 个优先项的契合度","Fit with your 3 priorities")}</b><div class="fit ${fit>0?"delta-up":fit<0?"delta-down":""}">${fit>0?"+":""}${fit}%</div><p class="small muted">${L("相对方案 0，★ 项权重 ×3。","Relative to Scenario 0; ★ items weigh ×3.")}</p></div>
+    <div class="card"><b class="small">${L("和你的 3 个优先项的契合度","Fit with your 3 priorities")}</b><div class="fit ${fit>0?"delta-up":fit<0?"delta-down":""}">${fit>0?"+":""}${fit}%</div><p class="small muted">${L("相对基准，★ 项权重 ×3。","Relative to the baseline; ★ items weigh ×3.")}</p></div>
     <div class="card"><b class="small">${L("看哪一年","Year")}</b><div class="choice" style="margin-top:6px">${[2026,2036,2041,2050].map(y=>`<button data-year="${y}" aria-pressed="${S.year===y}">${y}<small>${y===2041?L("总规 15 年期限","Plan's 15-year horizon"):y===2050?L("战略目标年","Strategy target year"):y===2026?L("刚建成","At opening"):"&nbsp;"}</small></button>`).join("")}</div><p class="small muted">${L("树冠随年份长大，维护费逐年累加","Tree crowns grow and upkeep adds up over time")} ${chip("S2","p.54")}</p></div>
-    <div class="card"><b class="small">${L("种树方式","Planting")}</b><p style="margin:4px 0 0">${S.plant==="planter"?L("抬高种植池","Raised planters"):L("深土种植","Deep soil")}</p><p class="small muted">${L("方案 0 按种植池计算。深土是否可行待核实。","Scenario 0 assumes planters. Whether deep soil is possible is unconfirmed.")}</p></div>
+    <div class="card"><b class="small">${L("种树方式","Planting")}</b><p style="margin:4px 0 0">${S.plant==="planter"?L("抬高种植池","Raised planters"):L("深土种植","Deep soil")}</p><p class="small muted">${L("基准按种植池计算。深土是否可行待核实。","The baseline assumes planters. Whether deep soil is possible is unconfirmed.")}</p></div>
   </div>
-  <div class="card"><div class="keyrow"><span><i class="sw" style="background:var(--base)"></i>${L("方案 0：总规原样","Scenario 0: plan as drawn")}</span><span><i class="sw" style="background:var(--accent)"></i>${L("你的方案","Your split")}</span><span>★ ${L("你的优先项","Your priority")}</span></div>${rows}</div>
+  <div class="card"><div class="keyrow"><span><i class="sw" style="background:var(--base)"></i>${L("基准：按总规平面图量出","Baseline: measured from the plan drawing")}</span><span><i class="sw" style="background:var(--accent)"></i>${L("你的方案","Your split")}</span><span>★ ${L("你的优先项","Your priority")}</span></div>${rows}</div>
   <details><summary>${L("查看全部系数（90 个假设值）","See every coefficient (team assumptions)")}</summary>${coefTable()}</details>
   <div class="nav"><button class="btn" data-go="3">${L("上一步：再调整","Back: adjust")}</button><button class="btn primary" data-go="5">${L("下一步：谁说了算","Next: who decides")}</button></div>`;
 }
@@ -744,7 +755,7 @@ function council(){
       ["P3",L("改善街道与公共空间的连接","Better links between streets and public space"),a.walk>=180,L(`畅通步行 ${sh(a.walk)}%（≥15%）`,`Clear walking ${sh(a.walk)}% (≥15%)`)],
       ["P4",L("让步行和骑行更容易、更安全、更舒适","Easier, safer, more comfortable walking and cycling"),a.walk>=180&&a.canopy>=120,L(`步行 ${sh(a.walk)}%，树冠 ${sh(a.canopy)}%（≥10%）`,`Walking ${sh(a.walk)}%, canopy ${sh(a.canopy)}% (≥10%)`)],
       ["P5",L("唐人街成为文化目的地","Chinatown as a cultural destination"),a.culture>=36&&a.events>=200,L(`文化 ${sh(a.culture)}%（≥3%），活动 ${sh(a.events)}%`,`Culture ${sh(a.culture)}% (≥3%), events ${sh(a.events)}%`)],
-      ["P6",L("用 Council 用地提供公共便利","Council land delivering public amenity"),sum(a)===TOTAL,L("1,200 m² 全部作为公共空间","All 1,200 m² kept as public space")]];
+      ["P6",L("用 Council 用地提供公共便利","Council land delivering public amenity"),sum(a)===TOTAL,L("1,350 m² 全部作为公共空间","All 1,350 m² kept as public space")]];
     body=`<p class="lede">${L("检查当前分配是否仍符合总规的 6 条城市设计原则","Checks whether the current split still meets the plan's six urban design principles")} ${chip("S2","p.22")}${L("。",". ")}<span class="tag t-design">${L("阈值是我们的假设","Thresholds are our assumptions")}</span></p>
     <div class="card"><ul class="claims pcheck">${P.map(p=>`<li><b>${p[0]}</b> ${p[1]} — <span class="${p[2]?"ok":"bad"}">${p[2]?"✓":"✗"} ${p[3]}</span></li>`).join("")}</ul></div>`;
   } else {
