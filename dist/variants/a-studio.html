@@ -235,6 +235,49 @@ button.cb-step:hover{border-color:var(--accent)}
 .cb-doc ol,.cb-doc ul{margin:0;padding-left:20px}
 .cb-doc li{margin-bottom:8px}
 
+/* home board: smart-city wheel */
+.cbw{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:24px;align-items:center}
+@media (max-width:900px){.cbw{grid-template-columns:1fr}}
+.cbw-fig,.cbw-side{min-width:0}
+.cbw-svg{display:block;width:100%;max-width:640px;margin:0 auto;direction:ltr;font-family:var(--f-display)}
+.cbw-w{cursor:pointer;outline:0}
+.cbw-w text{font-size:13px;font-weight:600;fill:var(--muted);pointer-events:none}
+.cbw-f{stroke:var(--surface);stroke-width:1.5;fill:var(--surface-2)}
+.cbw-w>text{fill:var(--fg)} .cbw-w.dk>text{fill:var(--on-accent)} .cbw-w.na>text{fill:var(--muted)}
+.cbw-w:hover .cbw-f,.cbw-w:focus-visible .cbw-f{stroke:var(--fg)}
+.cbw-w.on .cbw-f{stroke:var(--fg);stroke-width:4}
+.cbw-ring{fill:var(--chrome)}
+.cbw-p{fill:var(--chrome-3)}
+.cbw-pt text{font-size:12px;font-weight:600;fill:var(--chrome-fg)}
+.cbw-c{fill:var(--surface)}
+.cbw-svg .cbw-hit{font-size:17px;font-weight:700;letter-spacing:.06em;fill:var(--fg)}
+.cbw-svg .cbw-w .cbw-n{font-family:var(--f-mono);font-size:13.5px;font-weight:700;fill:var(--fg)}
+.cbw-scale{width:90px;height:12px;border-radius:3px;background:linear-gradient(90deg,color-mix(in srgb,var(--accent) 12%,var(--surface)),var(--accent))}
+.cbw-svg .cbw-of{font-family:var(--f-mono);font-size:14px;font-weight:500;fill:var(--muted)}
+.cbw-key{display:flex;flex-wrap:wrap;align-items:center;gap:4px 8px;justify-content:center;font-size:12.5px;color:var(--muted);margin-top:6px}
+.cbw-key span{display:inline-flex;align-items:center;gap:6px}
+.cbw-sw{width:14px;height:14px;border-radius:3px;display:inline-block}
+.cbw-sw.na{background:var(--surface-2);border:1px solid var(--line)}
+/* one petal opened */
+.cbw-det{border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.cbw-dh{display:flex;align-items:center;gap:10px}
+.cbw-dh>div{flex:1;min-width:0;text-align:center}
+.cbw-dh h3{font-size:18px}
+.cbw-nav{font-size:20px;line-height:1;padding:6px 12px}
+.cbw-big{display:flex;align-items:baseline;gap:6px;justify-content:center;margin:10px 0 6px}
+.cbw-big b{font-family:var(--f-display);font-size:46px;line-height:1}
+.cbw-big span{font-family:var(--f-mono);color:var(--muted)}
+.cbw-uses{margin-top:12px !important}
+.cbw-pic{display:block;width:100%;max-width:330px;margin:4px auto 0}
+.cbw-cap{text-align:center;font-size:11.5px;color:var(--muted);margin:2px 0 0}
+.cbw-uses{list-style:none;margin:0;padding:0;font-size:13px}
+.cbw-uses li{display:grid;grid-template-columns:22px minmax(0,1.6fr) minmax(40px,1fr) 26px;gap:8px;align-items:center;padding:3px 0}
+.cbw-un{overflow-wrap:anywhere;line-height:1.3}
+.cbw-uses .dic{width:22px;height:22px}
+.cbw-ub{height:8px;border-radius:4px;background:var(--surface-2);overflow:hidden}
+.cbw-ub span{display:block;height:100%;border-radius:4px;background:var(--infer)}
+.cbw-uses .cb-mono{text-align:right}
+
 /* band at the end of the resident story */
 .cb-hand{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;border-left:4px solid var(--accent)}
 .cb-hand>div{flex:1 1 280px;min-width:0}
@@ -454,9 +497,6 @@ svg.iso .plate{filter:drop-shadow(0 2px 3px rgba(0,0,0,.25))}
 .banner{border-radius:12px;padding:12px 14px;background:var(--design-bg);color:var(--fg);font-size:14px}
 .cgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
 @media (max-width:820px){.cgrid{grid-template-columns:1fr}}
-.thr{display:flex;align-items:center;gap:12px;margin:8px 0}
-.thrn{font-family:var(--f-display);font-size:36px;font-weight:700;line-height:1}.thrn small{font-size:15px;color:var(--muted)}
-.thrbar{flex:1;height:10px;border-radius:5px;background:var(--surface-2);overflow:hidden}.thrbar span{display:block;height:100%;background:var(--accent)}
 .pipe{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
 @media (max-width:760px){.pipe{grid-template-columns:repeat(2,minmax(0,1fr))}}
 .pipe div{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px;font-size:13.5px}
@@ -519,89 +559,50 @@ select.rvb{width:auto}
 .srcs li{font-size:14px}
 .srcs a{color:var(--accent)}
 /* chapter 4: pick and vote (variants/vote.js) */
-.vgrid{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:14px;align-items:start}
-@media (max-width:900px){.vgrid{grid-template-columns:1fr}}
 .vcard{display:grid;gap:10px}
+/* one vote block: 10 tiles, pick up to 3 */
+.vp-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}
+@media (max-width:900px){.vp-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (max-width:520px){.vp-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.vp{position:relative;border:2px solid var(--line);background:var(--surface);border-radius:14px;padding:16px 8px 12px;display:grid;justify-items:center;align-content:start;gap:6px;min-height:150px;transition:transform .15s,border-color .15s,background .15s}
+.vp:hover{border-color:var(--gc)} .vp:active{transform:scale(.97)}
+.vp b{font-size:14.5px;line-height:1.3;text-align:center;text-wrap:balance}
+.vp small{font-size:12px;color:var(--muted);text-align:center;line-height:1.3}
+.vp.on{border-color:var(--accent);background:var(--accent-soft);box-shadow:0 0 0 1px var(--accent)}
+.vp[aria-disabled="true"]{opacity:.45;cursor:not-allowed}
+.vp-n{position:absolute;top:6px;right:8px;font-family:var(--f-mono);font-size:12.5px;font-weight:600;color:var(--infer);border:1px dashed var(--infer);border-radius:999px;padding:0 7px;line-height:1.5}
+.vp.on .vp-n{background:var(--accent);border:1px solid var(--accent);color:var(--on-accent)}
 .vh{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
 .vh{align-items:center}
 .vq{font-size:17px;line-height:1.35;margin:-4px 0 0;text-wrap:pretty}
-.vtabs button{font-size:14px;padding:5px 14px}
-.vdot{display:inline-grid;place-items:center;min-width:18px;height:18px;border-radius:9px;background:var(--surface);color:var(--accent);font-size:11px;font-weight:700;padding:0 4px}
 .vnote{margin:0}
-.obs-l{display:grid;gap:8px}
-.obs{border:1px solid var(--line);border-radius:12px;padding:10px 12px;background:var(--surface);transition:border-color .2s,background .2s}
-.obs.on{border-color:var(--accent);background:var(--accent-soft);box-shadow:0 0 0 1px var(--accent)}
-.ob-r{display:flex;gap:10px;align-items:flex-start}
-.ob-t{flex:1;min-width:0;display:flex;gap:10px;align-items:flex-start;text-align:left;background:none;border:0;padding:0;line-height:1.4}
-.ob-t b{font-size:15px;font-weight:600;display:block}
-.ob-t .tag{margin-top:4px}
-.ob-c{flex:0 0 22px;height:22px;border-radius:6px;border:2px solid var(--muted);display:grid;place-items:center;font-size:14px;font-weight:700;color:var(--on-accent);margin-top:1px}
-.obs.on .ob-c{background:var(--accent);border-color:var(--accent)}
-.ob-n{flex:0 0 auto;min-width:48px;text-align:center;border:1px solid var(--line);border-radius:999px;padding:2px 10px;font-family:var(--f-mono);font-weight:600;font-variant-numeric:tabular-nums;background:var(--surface)}
-.ob-n small{font-size:10.5px;color:var(--muted);margin-left:3px;font-weight:400}
-.obs.on .ob-n{border-color:var(--accent);color:var(--accent)}
-.ob-s{font-size:13px;color:var(--muted);margin:6px 0 0 32px;line-height:1.5}
-.ob-s b{color:var(--fg);font-weight:600;margin-right:2px}
-.ob-s .sep{color:var(--muted)}
-.ob-g{margin-top:2px}
-.obs.on .src{background:var(--surface)}
-.ob-f{margin:4px 0 0 32px;display:flex;gap:6px;align-items:center;flex-wrap:wrap}
-.vrole{background:var(--surface-2);color:var(--fg);font-family:var(--f-mono)}
-.vmore{justify-self:start}
-.vadd,.vfree{border:1px dashed var(--line);border-radius:12px;padding:10px 12px}
-.vadd summary,.vfree summary{cursor:pointer;font-weight:600;color:var(--accent)}
-.vadd .pill button{font-size:13px}
-.vprev{margin-top:8px}.vprev .ob-s{margin-left:0}
+.vfree{border:1px dashed var(--line);border-radius:12px;padding:10px 12px}
+.vfree summary{cursor:pointer;font-weight:600;color:var(--accent)}
 .btn[aria-disabled="true"]{opacity:.55}
 .dprog{display:flex;gap:4px;flex:0 0 auto}
 .dprog i{width:8px;height:8px;border-radius:50%;background:var(--line)}
 .dprog i.d{background:var(--accent)}.dprog i.c{background:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
-.duel{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:8px;align-items:start}
-.vs{align-self:center;font-family:var(--f-display);font-weight:700;color:var(--muted);font-size:14px;margin-top:-30px}
-.dside{display:grid;gap:6px;min-width:0}
-.dpick{border:2px solid var(--line);background:var(--surface);border-radius:14px;padding:14px 8px 12px;display:grid;justify-items:center;gap:6px;min-height:118px;transition:transform .15s,border-color .15s}
-.dpick:hover{border-color:var(--gc)}
-.dpick:active{transform:scale(.97)}
-.dpick b{font-size:14.5px;line-height:1.3;text-align:center}
 .dic{display:inline-grid;place-items:center;width:52px;height:52px;border-radius:50%;background:var(--surface-2)}
 .dic svg{width:30px;height:30px}
 .dic.sm{width:26px;height:26px}.dic.sm svg{width:16px;height:16px}
-.dcap{font-size:12px;color:var(--muted);text-align:center;line-height:1.5}
-.drank{display:grid;gap:6px;padding:0;margin:0}
-.drank li{list-style:none;display:grid;grid-template-columns:20px 26px minmax(0,1fr) minmax(50px,.8fr) 48px;gap:8px;align-items:center;font-size:13.5px}
-.drank .dn{font-family:var(--f-mono);color:var(--muted);text-align:right}
-.drank .db{height:8px;border-radius:4px;background:var(--surface-2);overflow:hidden}.drank .db span{display:block;height:100%}
-.drank .dp{font-family:var(--f-mono);font-variant-numeric:tabular-nums;text-align:right;font-size:12.5px}
-.drank .dp small{display:block;color:var(--muted);font-size:10.5px}
 @media (max-width:420px){.drank li{grid-template-columns:18px 26px minmax(0,1fr) 44px}.drank .db{display:none}}
 .sendbar{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
 .vfree label.f{display:block;margin-top:8px}
 .vwide{grid-column:1/-1}
-.vgate{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:space-between}
-.vt{font-size:15px;margin:14px 0 6px}
 .tally{display:grid;gap:8px;padding:0;margin:0}
 .tally li{list-style:none;border:1px solid var(--line);border-radius:10px;padding:8px 10px}
-.tally .ob-s,.tally .ob-f{margin-left:0}
 .tl2{display:flex;align-items:center;gap:8px;margin-top:4px}
 .tbar{flex:1;height:8px;border-radius:4px;background:var(--surface-2);overflow:hidden}.tbar span{display:block;height:100%;background:var(--accent)}
 .tn{font-family:var(--f-mono);font-variant-numeric:tabular-nums;font-weight:600}.tn small{color:var(--muted);font-weight:400}
 /* simulated votes (D1) */
 .t-sim{background:transparent;border:1px dashed var(--infer);color:var(--infer);line-height:1.35}
-.t-mine{background:var(--accent);color:var(--on-accent)}
-.ob-n.sim{display:grid;justify-items:center;line-height:1.15;padding:3px 10px;border-style:dashed;border-color:var(--infer)}
-.ob-n i{font-style:normal;font-size:10px;color:var(--infer);font-family:var(--f-body);font-weight:500}
-.ob-mix{display:inline-flex;gap:6px;align-items:center;flex-wrap:wrap;margin-left:auto}
-.vsimrow .pill button{font-size:12.5px;padding:3px 10px}
 .vabout{border:1px dashed var(--infer);border-radius:12px;padding:8px 12px;font-size:13.5px;background:var(--infer-bg)}
 .vabout summary{cursor:pointer;font-weight:600;color:var(--infer)}
 .vabout p{margin:8px 0 0}
 .vlean{margin:8px 0 0;padding-left:18px;display:grid;gap:4px}
-.vlast{margin:8px 0 0;text-align:center}
-.thr .t-sim{flex:0 0 auto}
 .trole{display:flex;flex-wrap:wrap;gap:4px 12px;font-size:12.5px;margin-top:4px}
 .trole b{font-family:var(--f-mono)}
 .gh{color:var(--muted)}.gh small{font-size:11px}
-.vgroups{margin:0;padding-left:18px;display:grid;gap:4px;font-size:13.5px}
 .sendbtns{display:flex;gap:8px;flex-wrap:wrap}
 </style>
 
@@ -1323,7 +1324,7 @@ function feedbackHTML(){const subs=store.get("cav_subs")||[];
   <label class="f" for="wish" style="margin-top:8px">${L("这个广场怎样才对你有用？","What would make this square work for you?")}</label><textarea id="wish">${esc(S.wish)}</textarea>
   <p class="small muted">${L("请不要写姓名、电话或住址。按“最少必要数据”原则，我们只问身份和可选的年龄段、邮编","Please leave out names, phone numbers and addresses. Under the minimum-data rule we only ask your role, and optionally age band and postcode")} ${chip("S5","p.30")}${L("。",".")}</p>
   <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap"><button class="btn primary" id="submit">${L("提交（演示）","Submit (demo)")}</button><span class="small muted" id="subMsg">${subs.length?L(`本浏览器已保存 ${subs.length} 份演示提交，没有发送给 Council。`,`${subs.length} demo submission(s) saved in this browser only. Nothing was sent to Council.`):L("演示版只保存在你的浏览器里，不会发送给任何人。","In this demo your answers stay in your browser and are not sent anywhere.")}</span></div>`;}
-function submitDemo(){const subs=store.get("cav_subs")||[];subs.push({t:Date.now(),role:S.role,pri:S.pri,react:S.react,a:S.a,exp:S.exp,wish:S.wish,seen:(S.seen||[]).slice(),duel:S.duel?S.duel.res.slice():[]});store.set("cav_subs",subs);}
+function submitDemo(){const subs=store.get("cav_subs")||[];subs.push({t:Date.now(),role:S.role,pri:S.pri,react:S.react,a:S.a,exp:S.exp,wish:S.wish,pick:(S.pick||[]).slice()});store.set("cav_subs",subs);}
 const TEAM_CHECKED=()=>L("本演示里的条目由团队人工整理和核对，<b>不是 Council 批准的</b>。","In this demo the team extracted and checked every entry by hand; <b>Council has not approved them</b>.");
 let RV_EDIT=null;
 function statusCell(c){
@@ -1660,53 +1661,34 @@ function picto(id,v,opt={}){
 const PIC_UNIT={shade:L=>L("1 格 = 25 m²","1 cell = 25 m²"),storm:L=>L("水位 = 低–高","Level = low–high"),econ:L=>L("1 人形 = 25 人","1 figure = 25 people"),access:L=>L("路带宽 = 畅通比例","Band = clear share"),safety:L=>L("相对指数，方案 0 = 50","Index, Scenario 0 = 50"),incl:L=>L("相对指数，方案 0 = 50","Index, Scenario 0 = 50"),culture:L=>L("相对指数，方案 0 = 50","Index, Scenario 0 = 50"),cost:L=>L("1 块 = $25 万（下排建设，上排维护）","1 block = $250k (build below, upkeep above)"),carbon:L=>L("1 朵 = 20 t CO₂e","1 cloud = 20 t CO₂e")};
 
 
-/* ===== variants/vote.js: resident feedback by picking and voting =====
-   A · "Council says vs you see": team-written example observations, each paired with a cited CLAIM
-       or an explicit evidence gap. Residents tick "me too" and can add their own from chips.
-   C · Pairwise duel: "if the square had 100 m² more, which use gets it?" over the 10 MODULES.
-   Votes = a seeded set of SIMULATED respondents (D1, labelled everywhere, can be switched off)
+/* ===== variants/vote.js: resident feedback in one block =====
+   One question, one tap per answer: "What should the square fix first? Pick up to 3."
+   Each tile is one of the 10 MODULES, shown as the everyday situation it answers (team-written,
+   VOTE_WHY) with the use's name underneath. This replaces the two earlier blocks
+   ("Council says vs you see" and the pick-one-of-two rounds).
+   Votes = a seeded set of SIMULATED respondents (D1, labelled everywhere)
    + this browser's own demo submissions. Nothing is sent anywhere. */
+const VOTE_MAX=3;
+/* team-written prompts, NOT resident reports: the situation each use answers */
+const VOTE_WHY={
+ canopy:{zh:"下午找不到树荫",en:"No shade in the afternoon"},
+ blue:{zh:"下大雨路面积水",en:"Puddles after heavy rain"},
+ events:{zh:"想要夜市和户外餐饮",en:"Want night markets and outdoor dining"},
+ culture:{zh:"想看到唐人街的文化和艺术",en:"Want Chinatown's culture and art on show"},
+ rest:{zh:"没地方坐下歇脚",en:"Nowhere to sit and rest"},
+ walk:{zh:"轮椅、婴儿车不好走",en:"Hard going with a wheelchair or pram"},
+ bike:{zh:"没地方停自行车",en:"Nowhere to park a bike"},
+ kerb:{zh:"接送的车挡住人行道",en:"Drop-off cars block the footpath"},
+ smart:{zh:"晚上觉得暗",en:"Feels dark at night"},
+ circ:{zh:"垃圾没处分类回收",en:"Nowhere to recycle"}};
+const V={preview:false,sent:""};
+S.pick=S.pick||[];
 
-/* A · team-written example observations. These are NOT resident reports. Each "says" id is a CLAIM;
-   "gap" means no source we hold gives that figure. role = who would act (team reading of S5 p.33). */
-const OBS=[
- {id:"o1",card:"square",role:"D",zh:"下午沿 Wentworth St 走，很难找到树荫",en:"Hard to find shade along Wentworth St in the afternoon",says:["sq2"],gap:{zh:"现在这一带的树冠覆盖率",en:"Current tree canopy cover here"}},
- {id:"o2",card:"square",role:"D",zh:"带孩子或老人出门，附近没地方坐下歇脚",en:"Out with kids or older people, there is nowhere nearby to sit",says:["sq3"]},
- {id:"o3",card:"square",role:"D",zh:"坐轮椅或推婴儿车，路线断断续续",en:"With a wheelchair or pram, the route keeps breaking up",says:["sq4"]},
- {id:"o4",card:"square",role:"D",zh:"担心广场下面是停车场，种不了大树",en:"Worried a car park underneath means no big trees",says:["tr8","sq3"]},
- {id:"o5",card:"china",role:"D",zh:"晚上从车站走到 Church St，有几段觉得暗",en:"Walking from the station to Church St at night, some stretches feel dark",says:["ct6"],gap:{zh:"现在的照明水平",en:"Current lighting levels"}},
- {id:"o6",card:"china",role:"D+P",zh:"夜间活动多了，担心噪音和垃圾",en:"More night-time activity: worried about noise and litter",says:["ct4"]},
- {id:"o7",card:"china",role:"P",zh:"希望华人社团和老店能参与决定唐人街怎么做",en:"Chinese community groups and long-time shops should help shape Chinatown",says:["ct7"]},
- {id:"o8",card:"china",role:"D",zh:"Church St 的围栏让过街、逛店都要绕路",en:"Fences on Church St make crossing and browsing a detour",says:["ct2"]},
- {id:"o9",card:"traffic",role:"D",zh:"过 Fitzwilliam St 或 Wentworth St 要等很久，车也多",en:"Crossing Fitzwilliam St or Wentworth St means a long wait and heavy traffic",says:["tr2","tr6"],gap:{zh:"现在的过街等候时间",en:"Current crossing wait times"}},
- {id:"o10",card:"traffic",role:"D",zh:"车站附近接送的车停在路边，挡住人行道",en:"Drop-off cars near the station block the footpath",says:["tr5"]},
- {id:"o11",card:"traffic",role:"D+P",zh:"骑车去车站，没有安全的车道",en:"Cycling to the station, there is no safe lane",says:["tr4"]},
- {id:"o12",card:"traffic",role:"A",zh:"公交和火车之间怎么换乘不清楚",en:"Changing between bus and train is confusing",says:["tr7"]}
-];
-/* chips for "add your own": a place and an issue, no typing */
-const VPLACES=()=>[["sq",L("广场","The square")],["went","Wentworth St"],["church","Church St"],["lane",L("小巷和拱廊","Laneways and arcades")],["fitz","Fitzwilliam St"],["stn",L("车站一带","Around the station")]];
-const VISSUES=()=>[
- ["shade",L("树荫不够","Not enough shade"),"square","D",["sq2"]],
- ["seat",L("没地方坐","Nowhere to sit"),"square","D",["sq3"]],
- ["access",L("轮椅、婴儿车难走","Hard with a wheelchair or pram"),"square","D",["sq4"]],
- ["dark",L("晚上太暗","Too dark at night"),"china","D",["ct6"]],
- ["noise",L("噪音或垃圾","Noise or litter"),"china","D+P",["ct4"]],
- ["cross",L("过街难","Hard to cross"),"traffic","D",["tr2","tr6"]],
- ["kerb",L("接送、装卸挡路","Drop-off or loading in the way"),"traffic","D",["tr5"]],
- ["bike",L("骑车不安全","Unsafe to cycle"),"traffic","D+P",["tr4"]],
- ["other",L("其他","Something else"),null,"D",[]]];
-const VCARD={sq:"square",went:"square",church:"china",lane:"china",fitz:"traffic",stn:"traffic"};
-const V={tab:"square",more:false,place:null,issue:null,preview:false,msg:"",sent:"",sim:store.get("cav_sim")!==false};
-S.seen=S.seen||[]; S.duel=S.duel||null;
-
-/* ---------- D1 · simulated respondents (docs/SOURCES.md D1). Seeded, so every visitor sees the same set. ----------
-   Only the votes are simulated. Every "Council says" line stays a real cited claim or an explicit evidence gap. */
+/* ---------- D1 · simulated respondents (docs/SOURCES.md D1). Seeded, so every visitor sees the same set. ---------- */
 const SIM_SEED=20261116;
 const SIM_ROLES={resident:44,commuter:28,business:16,visitor:8}; // visitor < 10 on purpose: shows the per-group threshold
 const SIM_AGE={resident:[.06,.30,.32,.22,.10],commuter:[.04,.52,.32,.11,.01],business:[0,.40,.42,.16,.02],visitor:[.08,.42,.30,.16,.04]}; // over AGES
-const SIM_P={base:.12,lean:.5,tie:.12,skip:.08};
-const SIM_LEAN={resident:["o1","o2","o3","o4","o6"],commuter:["o1","o9","o10","o11","o12"],business:["o5","o7","o8","o10"],visitor:["o5","o7","o8","o12"]};
-const SIM_W={ // pick one of two: P(a beats b) = w_a / (w_a + w_b)
+const SIM_W={ // each simulated respondent draws 3 different uses with these weights
  resident:{canopy:3,rest:3,walk:2,blue:2,culture:1.5,smart:1.5,events:1,bike:1,circ:1,kerb:.5},
  commuter:{walk:3,bike:2.5,kerb:2,canopy:2,smart:1.5,rest:1,events:1,blue:1,culture:1,circ:.7},
  business:{events:3,kerb:2.5,smart:2,culture:2,walk:1.5,canopy:1.5,rest:1,bike:.7,blue:.7,circ:.7},
@@ -1716,178 +1698,67 @@ let SIMC=null;
 function simPool(){if(SIMC)return SIMC;const rnd=mulberry32(SIM_SEED),out=[];
   for(const role in SIM_ROLES)for(let k=0;k<SIM_ROLES[role];k++){
     const aw=SIM_AGE[role];let u=rnd(),ai=0;while(ai<aw.length-1&&u>=aw[ai]){u-=aw[ai];ai++;}
-    const seen=OBS.filter(o=>rnd()<(SIM_LEAN[role].includes(o.id)?SIM_P.lean:SIM_P.base)).map(o=>o.id);
-    const duel=makePairs(rnd).map(([a,b])=>{const v=rnd();if(v<SIM_P.skip)return{a,b,w:"skip"};if(v<SIM_P.skip+SIM_P.tie)return{a,b,w:"tie"};
-      const wa=SIM_W[role][a],wb=SIM_W[role][b];return{a,b,w:rnd()<wa/(wa+wb)?a:b};});
-    out.push({sim:true,role,age:AGES[ai],seen,duel});}
+    const left={...SIM_W[role]},pick=[];
+    while(pick.length<VOTE_MAX){let x=rnd()*Object.values(left).reduce((a,b)=>a+b,0),id;for(id in left){x-=left[id];if(x<0)break;}pick.push(id);delete left[id];}
+    out.push({sim:true,role,age:AGES[ai],pick});}
   return SIMC=out;}
 const SIMTAG=()=>`<span class="tag t-sim">${L("模拟数据","Simulated")}</span>`;
 const simN=()=>Object.values(SIM_ROLES).reduce((a,b)=>a+b,0);
-
 const subsAll=()=>store.get("cav_subs")||[];
-const addedAll=()=>store.get("cav_added")||[];
 /* this browser's saved demo submissions, in the same shape as a simulated respondent */
-const mineAll=()=>subsAll().map(s=>({role:s.role,age:s.age||null,seen:s.seen||[],duel:s.duel||[]}));
-const pool=()=>(V.sim?simPool():[]).concat(mineAll());
-const cntIn=(id,rs)=>rs.filter(r=>r.seen.includes(id)).length;
-function addedObs(){return addedAll().map(a=>{const p=VPLACES().find(x=>x[0]===a.place),i=VISSUES().find(x=>x[0]===a.issue);
-  return {id:a.id,card:i[2]||VCARD[a.place],role:i[3],says:i[4],added:true,zh:`${p[1]}：${i[1]}`,en:`${p[1]}: ${i[1]}`,label:`${p[1]} · ${i[1]}`};});}
-const allObs=()=>OBS.concat(addedObs());
-const obsText=o=>o.added?o.label:T(o);
-const roleTag=r=>`<span class="tag vrole" title="${esc(roleName(r))}">${r}</span>`;
-function roleName(r){return {D:L("Council 直接负责","Council delivers"),"D+P":L("Council 牵头，与伙伴合作","Council leads with partners"),P:L("主要靠伙伴","Mainly partners"),A:L("Council 向州政府等争取","Council advocates to others such as the State")}[r];}
-function saysLine(o){const cl=o.says.map(id=>CLAIMS.find(c=>c.id===id)).filter(Boolean);
-  const parts=cl.map(c=>isRejected(c.id)?`<span class="rej-ph">${L("此条未通过核对，暂不向居民显示。","This line did not pass review and is hidden from residents.")}</span>`:`${claimTxt(c)} ${chip(c.src,c.pg,c.id)}`);
-  const gap=o.gap?`<div class="ob-g">${T(o.gap)}${L("：",": ")}<span class="tag t-gap">${L("没有官方数字 · 证据空白","No official figure · evidence gap")}</span></div>`:"";
-  if(!parts.length&&!gap) parts.push(`<span class="tag t-gap">${L("我们整理的 Council 条目里没有对应内容 · 证据空白","No matching Council claim in our ledger · evidence gap")}</span>`);
-  return `<div class="ob-s"><b>${L("Council 说","Council says")}</b> ${parts.join(`<span class="sep"> · </span>`)}${gap}</div>`;}
-function simToggle(){return `<div class="pill vsim" role="group" aria-label="${L("票数来源","Vote source")}"><button data-vsim="1" aria-pressed="${V.sim}">${L("显示模拟票","Show simulated votes")}</button><button data-vsim="0" aria-pressed="${!V.sim}">${L("只看我的票","Only my votes")}</button></div>`;}
+const mineAll=()=>subsAll().map(s=>({role:s.role,age:s.age||null,pick:s.pick||[]}));
+const pool=()=>simPool().concat(mineAll());
+const cntIn=(id,rs)=>rs.filter(r=>r.pick.includes(id)).length;
 function aboutData(){const rl=r=>T(ROLES.find(x=>x.id===r)),N=simN();
   return `<details class="vabout"><summary>${L("关于这些数据","About this data")} ${SIMTAG()}</summary>
-   <p>${L(`这里的票是<b>模拟的</b>，不是真实居民的意见，也不是 Council 的数据。我们用固定的随机种子（${SIM_SEED}）生成 ${N} 位模拟受访者，所以每次打开结果都一样。身份分布是：附近居民 44、通勤者 28、商户 / 员工 16、访客 8，各身份的年龄段比例不同。每人按下面的倾向勾选情况：倾向项被勾的概率是 50%，其他是 12%。然后做 8 轮二选一，按各身份对用途的权重抽选，12% 选“差不多”，8% 跳过。访客只有 8 人，故意低于 10 人的门槛，用来演示隐私规则。赛题允许使用标明的模拟数据`,
-     `These votes are <b>simulated</b>. They are not real residents' views and not Council data. A fixed random seed (${SIM_SEED}) generates ${N} simulated respondents, so the set is the same every time: 44 local residents, 28 commuters, 16 business owners or workers and 8 visitors, with different age-band mixes per role. Each one ticks situations by the leanings below: a 50% chance for a leaning item, 12% for the rest. Each then does 8 pick-one-of-two rounds, choosing by their role's weights for each use, with 12% "about the same" and 8% skipped. Visitors are only 8, below the 10-person threshold on purpose, to show the privacy rule. The brief allows clearly labelled simulated data`)} ${chip("S1","p.3")}${L("。每条“Council 说”仍是真实引用或证据空白，只有票数是模拟的。",". Every \"Council says\" line is still a real citation or an evidence gap; only the votes are simulated.")}</p>
-   <ul class="vlean">${Object.keys(SIM_ROLES).map(r=>`<li><b>${rl(r)} (${SIM_ROLES[r]})</b> ${L("常勾：","ticks more often: ")}${SIM_LEAN[r].map(id=>esc(T(OBS.find(o=>o.id===id)))).join(L("；","; "))}${L("。二选一偏向：",". Leans to: ")}${Object.entries(SIM_W[r]).sort((a,b)=>b[1]-a[1]).slice(0,3).map(([id])=>T(MODULES.find(m=>m.id===id))).join(L("、",", "))}</li>`).join("")}</ul>
+   <p>${L(`这里的票是<b>模拟的</b>，不是真实居民的意见，也不是 Council 的数据。我们用固定的随机种子（${SIM_SEED}）生成 ${N} 位模拟受访者，所以每次打开结果都一样：附近居民 44、通勤者 28、商户 / 员工 16、访客 8，各身份的年龄段比例不同。每人按所属身份的权重，从 10 项里选 ${VOTE_MAX} 项。访客只有 8 人，故意低于 10 人的门槛，用来演示隐私规则。赛题允许使用标明的模拟数据`,
+     `These votes are <b>simulated</b>. They are not real residents' views and not Council data. A fixed random seed (${SIM_SEED}) generates ${N} simulated respondents, so the set is the same every time: 44 local residents, 28 commuters, 16 business owners or workers and 8 visitors, with different age-band mixes per role. Each one picks ${VOTE_MAX} of the 10 options, drawn by their role's weights. Visitors are only 8, below the 10-person threshold on purpose, to show the privacy rule. The brief allows clearly labelled simulated data`)} ${chip("S1","p.3")}${L("。",".")}</p>
+   <ul class="vlean">${Object.keys(SIM_ROLES).map(r=>`<li><b>${rl(r)} (${SIM_ROLES[r]})</b> ${L("更常选：","picks more often: ")}${Object.entries(SIM_W[r]).sort((a,b)=>b[1]-a[1]).slice(0,3).map(([id])=>T(MODULES.find(m=>m.id===id))).join(L("、",", "))}</li>`).join("")}</ul>
    <p><b>${L("正式版怎么拿到真实数据：","How the full version gets real data:")}</b> ${L("在 Council 已有的 Participate Parramatta 上收集（2020 年以来超过 196,000 名独立访客","collect on Council's existing Participate Parramatta (more than 196,000 unique visitors since 2020")} ${chip("S5","p.16–17")}${L("），再加现场二维码标牌和图书馆平板，照顾不常上网的人。只问身份和可选的年龄段、邮编",") plus on-site QR signs and library tablets for people who rarely go online. It asks only for role, and optionally age band and postcode")} ${chip("S5","p.30")}${L("。再用 ABS 人口普查检查各群体的代表性。平台和场地都是 Council 已有的，成本主要是标牌和平板。",". The ABS Census is used to check how representative each group is. The platform and venues already exist, so the main costs are signs and tablets.")}</p></details>`;}
 
-/* ---------- A · Council says vs you see ---------- */
-function voteA(){const cards=[["square",L("广场","Square")],["china",L("唐人街","Chinatown")],["traffic",L("交通","Traffic")]];
-  const list=allObs().filter(o=>o.card===V.tab), team=list.filter(o=>!o.added), mine=list.filter(o=>o.added);
-  const shown=V.more?team:team.slice(0,3), hidden=team.length-shown.length;
-  const cnt=k=>allObs().filter(o=>o.card===k&&S.seen.includes(o.id)).length;
-  return `<div class="vh"><div class="eyebrow">A · ${L("Council 说 vs 你看到","Council says vs you see")}</div><span class="tag t-infer">${L("亲身体验","Lived experience")}</span></div>
-   <h3 class="vq">${L("哪些情况你也遇到过？点一下就算一票","Which of these have you run into? One tap is one vote")}</h3>
-   <div class="pill vtabs" role="group" aria-label="${L("分类","Category")}">${cards.map(([k,t])=>`<button data-vtab="${k}" aria-pressed="${V.tab===k}">${t}${cnt(k)?` <span class="vdot">${cnt(k)}</span>`:""}</button>`).join("")}</div>
-   <p class="small muted vnote"><span class="tag t-design">${L("团队示例","Team-written example")}</span> ${L("下面的说法是团队写的提示，不是真实居民的报告。","These prompts are written by the team, not real resident reports.")}
-     ${V.sim?L(`右边的数字 = ${simN()} 位模拟受访者的票 + 你的票。`,`The number on the right = votes from ${simN()} simulated respondents + yours.`):L("右边的数字只算你在本浏览器投的票，从 0 开始。","The number on the right counts only your votes in this browser, starting at 0.")}</p>
-   <div class="vsimrow">${simToggle()}</div>${V.sim?aboutData():""}
-   <div class="obs-l">${shown.concat(mine).map(obsCard).join("")}</div>
-   ${hidden?`<button class="btn vmore" id="vMore">${L(`再给我 ${hidden} 条`,`Show ${hidden} more`)}</button>`:""}
-   ${composer()}`;}
-function obsCard(o){const on=S.seen.includes(o.id),sn=V.sim?cntIn(o.id,simPool()):0,mn=cntIn(o.id,mineAll())+(on?1:0),n=sn+mn;
-  return `<article class="obs${on?" on":""}"><div class="ob-r"><button class="ob-t" data-vo="${o.id}" aria-pressed="${on}"><span class="ob-c" aria-hidden="true">${on?"✓":""}</span><span><b>${esc(obsText(o))}</b>
-     ${o.added?`<span class="tag t-design">${L("你添加的 · 只在本浏览器","Added by you · this browser only")}</span>`:""}</span></button>
-     <span class="ob-n${sn?" sim":""}" aria-label="${L(`${n} 票，其中模拟 ${sn}`,`${n} votes, ${sn} simulated`)}">${n}<small>${L("票",n===1?"vote":"votes")}</small>${sn?`<i>${L("模拟","simulated")}</i>`:""}</span></div>
-    ${saysLine(o)}<div class="ob-f">${roleTag(o.role)} <span class="small muted">${esc(roleName(o.role))}</span>
-     <span class="ob-mix">${sn?`${SIMTAG()} <span class="small">${sn}</span>`:""}${mn?` <span class="tag t-mine">${L(`你的 ${mn} 票`,mn===1?"your vote":`your ${mn} votes`)}</span>`:""}</span></div></article>`;}
-function composer(){const iss=VISSUES().find(x=>x[0]===V.issue);
-  return `<details class="vadd"${V.place||V.issue?" open":""}><summary>+ ${L("加一条你遇到的问题（点选，不用打字）","Add something you've run into (tap, no typing)")}</summary>
-   <div class="lbl" style="margin-top:8px">1 · ${L("在哪里","Where")}</div><div class="pill">${VPLACES().map(([k,t])=>`<button data-vplace="${k}" aria-pressed="${V.place===k}">${esc(t)}</button>`).join("")}</div>
-   <div class="lbl" style="margin-top:8px">2 · ${L("什么问题","What")}</div><div class="pill">${VISSUES().map(([k,t])=>`<button data-vissue="${k}" aria-pressed="${V.issue===k}">${esc(t)}</button>`).join("")}</div>
-   ${iss?`<div class="vprev">${saysLine({says:iss[4]})}</div>`:""}
-   <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:8px"><button class="btn primary" id="vAdd"${V.place&&V.issue?"":` aria-disabled="true"`}>${L("加入清单并投一票","Add to the list and vote")}</button>
-   <span class="small muted" id="vAddMsg">${esc(V.msg)||L("加进去以后，用这个浏览器的人都能看到并投票（演示没有服务器）。新加的条目没有模拟票。","Once added, anyone using this browser can see it and vote (the demo has no server). New items have no simulated votes.")}</span></div></details>`;}
-
-/* ---------- C · pairwise duel over the 10 uses ---------- */
-const DROUNDS=8;
-/* which uses the plan itself lists (S2 p.45); the rest are team additions from the Smart City Strategy actions */
-const MOD_SRC={canopy:"sq2",culture:"sq2",smart:"sq2",events:"sq3",rest:"sq3",walk:"sq4"};
-function shuffle(a,rnd=Math.random){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(rnd()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
-function makePairs(rnd=Math.random){const ids=MODULES.map(m=>m.id),seen=new Set(),pairs=[];
-  for(let t=0;pairs.length<DROUNDS&&t<12;t++){const s=shuffle(ids,rnd);for(let i=0;i+1<s.length&&pairs.length<DROUNDS;i+=2){const k=[s[i],s[i+1]].sort().join("|");if(!seen.has(k)){seen.add(k);pairs.push([s[i],s[i+1]]);}}}
-  return pairs;}
-function newDuel(){S.duel={pairs:makePairs(),i:0,res:[]};}
-function duelRank(res){const sc={};MODULES.forEach(m=>sc[m.id]={w:0,n:0});
-  res.forEach(r=>{if(r.w==="skip")return;sc[r.a].n++;sc[r.b].n++;if(r.w==="tie"){sc[r.a].w+=.5;sc[r.b].w+=.5;}else sc[r.w].w++;});
-  return MODULES.map(m=>({m,w:sc[m.id].w,n:sc[m.id].n,p:sc[m.id].n?sc[m.id].w/sc[m.id].n:null})).filter(x=>x.n).sort((x,y)=>y.p-x.p||y.n-x.n);}
-const duelsOf=rs=>[].concat(...rs.map(r=>r.duel));
-const modSrc=id=>MOD_SRC[id]?(()=>{const c=CLAIMS.find(x=>x.id===MOD_SRC[id]);return `${L("总规列出","Listed in the plan")} ${chip(c.src,c.pg,c.id)}`;})():`<span class="tag t-design">${L("团队补充的用途","Use added by the team")}</span>`;
-const fmtW=w=>Number.isInteger(w)?w:w.toFixed(1);
-const modName=id=>T(MODULES.find(m=>m.id===id));
-function rankList(r){return `<ol class="drank">${r.map((x,i)=>`<li><span class="dn">${i+1}</span><span class="dic sm" aria-hidden="true">${ICON[x.m.id](GROUPS[x.m.g].c)}</span><span class="dl">${T(x.m)} ${roleTag(x.m.role)}</span><span class="db"><span style="width:${Math.round(100*x.p)}%;background:${GROUPS[x.m.g].c}"></span></span><span class="dp">${Math.round(100*x.p)}%<small>${L(`赢 ${fmtW(x.w)}/${x.n}`,`won ${fmtW(x.w)}/${x.n}`)}</small></span></li>`).join("")}</ol>`;}
-function duelSide(id){const m=MODULES.find(x=>x.id===id),c=GROUPS[m.g].c;
-  return `<div class="dside"><button class="dpick" data-duel="${id}" style="--gc:${c}"><span class="dic" aria-hidden="true">${ICON[id](c)}</span><b>${T(m)}</b></button>
-   <div class="dcap">${roleTag(m.role)} ${modSrc(id)}</div></div>`;}
-/* how the simulated respondents split on the pair you just answered */
-function lastRoundNote(){const d=S.duel;if(!V.sim||!d||!d.i)return "";const last=d.res[d.i-1];
-  const rs=duelsOf(simPool()).filter(r=>r.w!=="skip"&&((r.a===last.a&&r.b===last.b)||(r.a===last.b&&r.b===last.a)));
-  if(rs.length<5) return `<p class="small muted vlast">${L("上一轮这一对的模拟数据太少，不显示比例。","Too few simulated answers for the last pair to show a split.")} ${SIMTAG()}</p>`;
-  const pa=Math.round(100*rs.filter(r=>r.w===last.a).length/rs.length),pb=Math.round(100*rs.filter(r=>r.w===last.b).length/rs.length);
-  const you=last.w===last.a||last.w===last.b?L(`你选了「${modName(last.w)}」。`,`You picked ${modName(last.w)}. `):"";
-  return `<p class="small vlast">${L("上一轮","Last round")}${L("：",": ")}${you}${L(`模拟受访者里 ${pa}% 选「${modName(last.a)}」，${pb}% 选「${modName(last.b)}」（n=${rs.length}）`,`${pa}% of simulated respondents picked ${modName(last.a)}, ${pb}% ${modName(last.b)} (n=${rs.length})`)} ${SIMTAG()}</p>`;}
-function duelC(){if(!S.duel)newDuel();const d=S.duel,done=d.i>=d.pairs.length;
-  const head=`<div class="vh"><div class="eyebrow">C · ${L("二选一","Pick one of two")}</div>
-   <span class="dprog" aria-label="${L(`第 ${Math.min(d.i+1,DROUNDS)} / ${DROUNDS} 轮`,`Round ${Math.min(d.i+1,DROUNDS)} of ${DROUNDS}`)}">${d.pairs.map((_,k)=>`<i class="${k<d.i?"d":k===d.i?"c":""}"></i>`).join("")}</span></div><h3 class="vq">${L("如果广场多出 100 m²，你更想给哪一个？","If the square had 100 m² more, which use should get it?")}</h3>`;
-  if(!done){const [a,b]=d.pairs[d.i];
-    return head+`<div class="duel">${duelSide(a)}<span class="vs" aria-hidden="true">VS</span>${duelSide(b)}</div>
-     <div class="pill" style="justify-content:center;margin-top:10px"><button data-duel="tie">${L("差不多","About the same")}</button><button data-duel="skip">${L("跳过","Skip")}</button></div>
-     <p class="small muted" style="margin:8px 0 0;text-align:center">${L(`第 ${d.i+1} / ${DROUNDS} 轮 · 1,200 m² 的总面积不变`,`Round ${d.i+1} of ${DROUNDS} · the total stays 1,200 m²`)} ${chip("S2","p.23","sq1")}</p>${lastRoundNote()}`;}
-  const r=duelRank(d.res),sr=V.sim?duelRank(duelsOf(simPool())).slice(0,3):[];
-  return head+lastRoundNote()+`<p class="small" style="margin:4px 0 8px">${L("你的排序（按赢的比例）：","Your order (share of matchups won):")}</p>
-   ${r.length?rankList(r):`<p class="small muted">${L("你都跳过了。","You skipped every round.")}</p>`}
-   ${sr.length?`<p class="small" style="margin:8px 0 0">${L(`${simN()} 位模拟受访者的前三：`,`Top three among ${simN()} simulated respondents: `)}${sr.map(x=>T(x.m)).join(L("、",", "))} ${SIMTAG()}</p>`:""}
-   <p class="small muted" style="margin:8px 0 0">${L("排序只说明你更想要哪个，不是面积。每次比的组合是从 10 项用途里随机抽的。","The order shows what you'd rather have, not areas. Pairs are drawn at random from the 10 uses.")}</p>
-   <button class="btn" id="duelNew" style="margin-top:8px">↻ ${L("换一批再比","New pairs")}</button>`;}
+/* ---------- the one vote block: 10 tiles, pick up to 3 ---------- */
+function voteTile(m,P){const on=S.pick.includes(m.id),full=S.pick.length>=VOTE_MAX&&!on,c=GROUPS[m.g].c,n=cntIn(m.id,P)+(on?1:0);
+  return `<button class="vp${on?" on":""}" data-vp="${m.id}" aria-pressed="${on}"${full?` aria-disabled="true"`:""} style="--gc:${c}"><span class="vp-n" aria-label="${L(`${n} 票`,`${n} votes`)}">${n}</span><span class="dic" aria-hidden="true">${ICON[m.id](c)}</span><b>${T(VOTE_WHY[m.id])}</b><small>${T(m)}</small></button>`;}
+function votePick(){const P=pool(),n=S.pick.length;
+  return `<div class="vh"><h3 class="vq" style="margin:0">${L(`广场最该解决什么？最多选 ${VOTE_MAX} 项`,`What should the square fix first? Pick up to ${VOTE_MAX}`)}</h3><span class="dprog" aria-label="${n} / ${VOTE_MAX}">${Array.from({length:VOTE_MAX},(_,k)=>`<i class="${k<n?"d":""}"></i>`).join("")}</span></div>
+   <div class="vp-grid">${MODULES.map(m=>voteTile(m,P)).join("")}</div>
+   <p class="small muted vnote">${L("数字 = 票数。","The number = votes.")} ${SIMTAG()} <span class="tag t-design">${L("团队示例","Team-written example")}</span></p>${aboutData()}`;}
 
 /* ---------- send bar and free text (secondary) ---------- */
-function sendBar(){const n=S.seen.length,dn=S.duel?S.duel.res.filter(r=>r.w!=="skip").length:0,subs=subsAll();
-  return `<div class="sendbar"><div><b>${L(`你勾了 ${n} 条，比了 ${dn} 轮`,`You ticked ${n} and compared ${dn} pairs`)}</b><div class="small muted">${V.sent?esc(V.sent):subs.length?L(`本浏览器已保存 ${subs.length} 份演示提交，没有发送给 Council。`,`${subs.length} demo submission(s) saved in this browser only. Nothing was sent to Council.`):L("演示版只保存在你的浏览器里，不会发送给任何人。","In this demo your answers stay in your browser and are not sent anywhere.")}</div></div>
+function sendBar(){const n=S.pick.length,subs=subsAll();
+  return `<div class="sendbar"><div><b>${L(`你选了 ${n} 项`,`You picked ${n}`)}</b><div class="small muted">${V.sent?esc(V.sent):subs.length?L(`本浏览器已保存 ${subs.length} 份演示提交，没有发送给 Council。`,`${subs.length} demo submission(s) saved in this browser only. Nothing was sent to Council.`):L("演示版只保存在你的浏览器里，不会发送给任何人。","In this demo your answers stay in your browser and are not sent anywhere.")}</div></div>
    <div class="sendbtns">${V.sent?`<button class="btn" data-tab="council">${L("看 Council 会收到什么 →","See what Council would receive →")}</button>`:""}<button class="btn primary" id="submit">${L("提交（演示）","Submit (demo)")}</button></div></div>`;}
 function freeText(){return `<details class="vfree"><summary>${L("还想补充？写几句（可选）","Anything else? Write a few words (optional)")}</summary>
    <label class="f" for="exp">${L("你现在在这一带的体验是什么？比如晚上走、等车、带孩子、做生意。","What is it like around here now? Walking at night, waiting for a bus, with kids, running a shop.")}</label><textarea id="exp">${esc(S.exp)}</textarea>
    <label class="f" for="wish" style="margin-top:8px">${L("这个广场怎样才对你有用？","What would make this square work for you?")}</label><textarea id="wish">${esc(S.wish)}</textarea>
    <p class="small muted">${L("请不要写姓名、电话或住址。按“最少必要数据”原则，我们只问身份和可选的年龄段、邮编","Please leave out names, phone numbers and addresses. Under the minimum-data rule we only ask your role, and optionally age band and postcode")} ${chip("S5","p.30")}${L("。",".")}</p></details>`;}
-function voteSection(){return `<div class="vgrid"><div class="card vcard" id="voteA">${voteA()}</div><div class="card vcard" id="duelC">${duelC()}</div></div>
-  <div class="card vcard" style="margin-top:14px"><div id="sendBox">${sendBar()}</div>${freeText()}</div>`;}
-function voteRefresh(which){const m={voteA,duelC,sendBox:sendBar,tallyBox:tallyPanel};(which||Object.keys(m)).forEach(k=>{const e=document.getElementById(k);if(e)e.innerHTML=m[k]();});}
+function voteSection(){return `<div class="card vcard"><div id="votePick" style="display:grid;gap:10px">${votePick()}</div><div id="sendBox">${sendBar()}</div>${freeText()}</div>`;}
+function voteRefresh(which){const m={votePick,sendBox:sendBar,tallyBox:tallyPanel};(which||Object.keys(m)).forEach(k=>{const e=document.getElementById(k);if(e)e.innerHTML=m[k]();});}
 
 /* returns true when it handled the click */
 function voteClick(b){const d=b.dataset;
-  if(d.vtab){V.tab=d.vtab;V.more=false;voteRefresh(["voteA"]);return true;}
-  if(d.vo){const i=S.seen.indexOf(d.vo);if(i>=0)S.seen.splice(i,1);else S.seen.push(d.vo);V.sent="";voteRefresh(["voteA","sendBox"]);return true;}
-  if(d.vsim){V.sim=d.vsim==="1";store.set("cav_sim",V.sim);voteRefresh(["voteA","duelC","tallyBox"]);return true;}
-  if(b.id==="vMore"){V.more=true;voteRefresh(["voteA"]);return true;}
-  if(d.vplace){V.place=V.place===d.vplace?null:d.vplace;V.msg="";voteRefresh(["voteA"]);return true;}
-  if(d.vissue){V.issue=V.issue===d.vissue?null:d.vissue;V.msg="";voteRefresh(["voteA"]);return true;}
-  if(b.id==="vAdd"){if(!V.place||!V.issue){V.msg=L("先选地点和问题。","Pick a place and an issue first.");voteRefresh(["voteA"]);return true;}
-    const ad=addedAll();let it=ad.find(a=>a.place===V.place&&a.issue===V.issue);
-    if(!it){it={id:"u"+Date.now().toString(36),place:V.place,issue:V.issue};ad.push(it);store.set("cav_added",ad);}
-    if(!S.seen.includes(it.id))S.seen.push(it.id);
-    V.tab=addedObs().find(o=>o.id===it.id).card;V.place=V.issue=null;V.msg="";V.sent="";voteRefresh(["voteA","sendBox"]);return true;}
-  if(d.duel){const D=S.duel;if(!D||D.i>=D.pairs.length)return true;const [a,b2]=D.pairs[D.i];D.res.push({a,b:b2,w:d.duel});D.i++;V.sent="";voteRefresh(["duelC","sendBox"]);return true;}
-  if(b.id==="duelNew"){newDuel();voteRefresh(["duelC","sendBox"]);return true;}
+  if(d.vp){const i=S.pick.indexOf(d.vp);if(i>=0)S.pick.splice(i,1);else if(S.pick.length<VOTE_MAX)S.pick.push(d.vp);else return true;V.sent="";voteRefresh(["votePick","sendBox"]);return true;}
   if(b.id==="vPreview"){V.preview=!V.preview;voteRefresh(["tallyBox"]);return true;}
-  if(b.id==="clearVotes"){store.set("cav_subs",[]);store.set("cav_added",[]);S.seen=[];V.preview=false;V.sent="";voteRefresh(["tallyBox"]);return true;}
+  if(b.id==="clearVotes"){store.set("cav_subs",[]);S.pick=[];V.preview=false;V.sent="";voteRefresh(["tallyBox"]);return true;}
   return false;}
 /* called after submitDemo() saved the votes: start fresh so votes are not counted twice */
-function voteAfterSubmit(){const n=subsAll().length;S.seen=[];S.duel=null;V.sent=L(`已保存为本浏览器第 ${n} 份演示提交，没有发送给 Council。可以换个身份再投一次。`,`Saved as demo submission ${n} in this browser. Nothing was sent to Council. You can vote again as another role.`);}
+function voteAfterSubmit(){const n=subsAll().length;S.pick=[];V.sent=L(`已保存为本浏览器第 ${n} 份演示提交，没有发送给 Council。可以换个身份再投一次。`,`Saved as demo submission ${n} in this browser. Nothing was sent to Council. You can vote again as another role.`);}
 
-/* ---------- Council view: tallies by option and by group, 10-person threshold per group ---------- */
+/* ---------- Council view: tally by option and by group, 10-person threshold per group ---------- */
 const PRIV_N=10;
 const pctOf=(a,b)=>b?Math.round(100*a/b):0;
 function groupCell(label,g,f){return g.length<PRIV_N?`<span class="gh">${label} <small>${L("少于 10，隐藏","under 10, hidden")}</small></span>`:`<span>${label} <b>${f(g)}</b></span>`;}
-function tallyList(rows,P,cards){if(!rows.length)return "";
-  return `<ul class="tally">${rows.map(({o,c,s})=>`<li><div class="tl1"><span class="tag t-fact">${cards[o.card]}</span> <b>${esc(obsText(o))}</b> ${o.added?`<span class="tag t-design">${L("在本浏览器添加","Added in this browser")}</span>`:`<span class="tag t-design">${L("团队示例","Team example")}</span>`}</div>
-     <div class="tl2"><span class="tbar"><span style="width:${pctOf(c,P.length)}%"></span></span><span class="tn">${c}<small>/${P.length}</small></span>${s?SIMTAG():""}</div>
-     <div class="trole">${ROLES.map(r=>groupCell(T(r),P.filter(x=>x.role===r.id),g=>pctOf(cntIn(o.id,g),g.length)+"%")).join("")}</div>
-     ${saysLine(o)}<div class="ob-f">${roleTag(o.role)} <span class="small muted">${esc(roleName(o.role))}</span></div></li>`).join("")}</ul>`;}
-function tallyPanel(){const P=pool(),n=P.length,mine=mineAll().length,show=n>=PRIV_N||V.preview,ST=V.sim?SIMTAG():"";
-  const head=`<div class="vsimrow">${simToggle()}</div>
-   <p class="small muted">${V.sim?L(`共 ${n} 份：${n-mine} 份模拟 + ${mine} 份本浏览器的演示提交。`,`${n} in all: ${n-mine} simulated + ${mine} demo submission(s) from this browser.`):L("只算本浏览器里的演示提交，从 0 开始。","Only demo submissions from this browser, starting at 0.")} ${L("每条选项都保留“Council 说”的出处和分工。","Every option keeps its Council source and who delivers it.")}</p>
-   ${V.sim?aboutData():""}
-   <div class="thr"><div class="thrn">${n}<small>/${PRIV_N}</small></div><div class="thrbar"><span style="width:${Math.min(100,n*10)}%"></span></div>${ST}</div>`;
-  if(!n) return head+`<p>${L("还没有演示提交。到“居民故事板”第 4 章勾几条、比几轮，再点“提交（演示）”。","No demo submissions yet. In the resident storyboard, chapter 4, tick a few items, compare a few pairs, then press Submit (demo).")}</p>`;
-  const gate=n<PRIV_N?`<div class="banner vgate"><b>${L("少于 10 份。","Fewer than 10.")}</b> ${L("正式版在这之前不显示任何汇总，免得能认出个人。","The full version shows no summary before this, so no one can be singled out.")}
-     <button class="btn" id="vPreview">${V.preview?L("隐藏演示预览","Hide demo preview"):L("看演示预览","Show demo preview")}</button></div>`:"";
-  if(!show) return head+gate;
-  const cards={square:L("广场","Square"),china:L("唐人街","Chinatown"),traffic:L("交通","Traffic")};
-  const S0=V.sim?simPool():[];
-  const rows=allObs().map(o=>({o,c:cntIn(o.id,P),s:cntIn(o.id,S0)})).sort((x,y)=>y.c-x.c);
-  const roles=ROLES.map(r=>[r,P.filter(x=>x.role===r.id)]);
+function tallyPanel(){const P=pool(),n=P.length,mine=mineAll().length;
+  const rows=MODULES.map(m=>({m,c:cntIn(m.id,P)})).sort((x,y)=>y.c-x.c);
   const ages=AGES.map(a=>[a,P.filter(x=>x.age===a)]).concat([[L("未填","Not given"),P.filter(x=>!x.age)]]).filter(([,g])=>g.length);
-  return head+gate+`${V.preview&&n<PRIV_N?`<p class="small"><span class="tag t-gap">${L("预览：正式版不会显示","Preview: the full version would hide this")}</span></p>`:""}
-   <h3 class="vt">A · ${L("“我也遇到过”：按选项和身份","“Me too”: by option and role")} ${ST}</h3>
-   <p class="small muted">${L("身份那一行是该身份里勾选的比例。每个身份满 10 人才显示。","The role line shows the share of each role that ticked it. A role shows only once it has 10 or more people.")}</p>
-   ${tallyList(rows.filter(r=>r.c),P,cards)||`<p class="small muted">${L("还没有人勾选。","Nothing ticked yet.")}</p>`}
-   ${rows.some(r=>!r.c)?`<details class="vfree" style="margin-top:8px"><summary>${L(`另外 ${rows.filter(r=>!r.c).length} 条还是 0 票`,`${rows.filter(r=>!r.c).length} more with 0 votes`)}</summary>${tallyList(rows.filter(r=>!r.c),P,cards)}</details>`:""}
-   <h3 class="vt">C · ${L("二选一：各用途赢的比例","Pick one of two: share of matchups won")} ${ST}</h3>
-   ${(()=>{const rk=duelRank(duelsOf(P));return rk.length?rankList(rk):`<p class="small muted">${L("还没有二选一结果。","No pairwise results yet.")}</p>`;})()}
-   <h3 class="vt">${L("按身份：二选一前三","By role: top three uses")} ${ST}</h3>
-   <ul class="vgroups">${roles.map(([r,g])=>`<li>${groupCell(`${T(r)} (${g.length<PRIV_N?"<10":g.length})`,g,gg=>duelRank(duelsOf(gg)).slice(0,3).map(x=>T(x.m)).join(L("、",", "))||"—")}</li>`).join("")}</ul>
-   <h3 class="vt">${L("按年龄段","By age band")} ${ST}</h3>
-   <p class="small">${ages.map(([a,g])=>g.length<PRIV_N?`${esc(a)} <span class="muted">&lt;10</span>`:`${esc(a)} <b>${g.length}</b>`).join(" · ")}</p>
-   <p class="small muted">${L("少于 10 人的组只显示“<10”，不给具体数字或票数。","Groups under 10 show only “<10”, with no exact count or votes.")}</p>
-   <p class="small muted">${L("分工 D / D+P / P / A 是团队按 Smart City Strategy 的分类做的判断","D / D+P / P / A is the team's reading of the Smart City Strategy's split")} ${chip("S5","p.33")} <span class="tag t-design">${L("假设","Assumption")}</span></p>
-   ${mine?`<button class="btn" id="clearVotes">${L("清除本浏览器的演示票和添加项","Clear demo votes and added items in this browser")}</button>`:""}`;}
+  return `<p class="small muted">${L(`共 ${n} 份：${n-mine} 份模拟 + ${mine} 份本浏览器的演示提交。每人最多选 ${VOTE_MAX} 项。`,`${n} in all: ${n-mine} simulated + ${mine} demo submission(s) from this browser. Each person picks up to ${VOTE_MAX}.`)} ${SIMTAG()}</p>
+   ${aboutData()}
+   <ul class="tally" style="margin-top:10px">${rows.map(({m,c})=>`<li><div class="tl1"><span class="dic sm" aria-hidden="true">${ICON[m.id](GROUPS[m.g].c)}</span> <b>${T(VOTE_WHY[m.id])}</b> <span class="small muted">${T(m)}</span></div>
+     <div class="tl2"><span class="tbar"><span style="width:${pctOf(c,n)}%;background:${GROUPS[m.g].c}"></span></span><span class="tn">${c}<small>/${n}</small></span></div>
+     <div class="trole">${ROLES.map(r=>groupCell(T(r),P.filter(x=>x.role===r.id),g=>pctOf(cntIn(m.id,g),g.length)+"%")).join("")}</div></li>`).join("")}</ul>
+   <p class="small muted" style="margin-top:8px">${L("身份那一行是该身份里选这一项的比例。少于 10 人的组不显示。","The role line is the share of each role that picked it. Groups under 10 are hidden.")}</p>
+   <p class="small">${L("年龄段","Age band")}${L("：",": ")}${ages.map(([a,g])=>g.length<PRIV_N?`${esc(a)} <span class="muted">&lt;10</span>`:`${esc(a)} <b>${g.length}</b>`).join(" · ")}</p>
+   ${mine?`<button class="btn" id="clearVotes">${L("清除本浏览器的演示票","Clear demo votes in this browser")}</button>`:""}`;}
 
 
 /* ===== variants/council.js: Council backend extras (demo) =====
@@ -1898,9 +1769,10 @@ function tallyPanel(){const P=pool(),n=P.length,mine=mineAll().length,show=n>=PR
    and an evidence-standard self-check.
    Everything is demo state saved in this browser. No figure comes from outside S1–S5: every count here is
    counted by the page or comes from demo submissions in this browser. The simulated votes (D1, vote.js)
-   stay in their own card and are never used here. Names start with cb / CB. */
+   stay in their own card and are used in one other place only: the outer bars of the wheel on the home
+   board (cbWheelCard), where they are labelled as simulated. Names start with cb / CB. */
 const CB_MIN=10;                       // privacy threshold: a group is shown only at 10 or more
-const CB={filter:"all",preview:false};
+const CB={filter:"all",preview:false,feat:""};
 const cbSubs=()=>store.get("cav_subs")||[];
 const cbWhen=t=>new Date(t).toLocaleString(langInfo(S.lang)[1],{year:"numeric",month:"short",day:"numeric",hour:"2-digit",minute:"2-digit"});
 const cbClaim=id=>CLAIMS.find(c=>c.id===id);
@@ -2050,6 +1922,89 @@ function cbIndicators(){const subs=cbSubs(),n=subs.length,show=n>=CB_MIN||(CB.pr
    <div class="cb-kv h"><span>${L("战略指标（基线待定）","Strategy indicator (baseline TBC)")}</span><span>${L("可用的居民输入","Resident input that could feed it")}</span><span>${L("现在","Now")}</span></div>
    ${rows.map(r=>`<div class="cb-kv"><span>${r[0]} ${chip("S5",r[1])}</span><span>${r[2]}</span><span>${r[3]}</span></div>`).join("")}`;}
 
+/* ---------- home board: the smart-city wheel, after Figure 1 of the strategy (S5 p.18) ----------
+   One question: where do residents' votes land on the strategy's 18 features?
+   Residents pick up to 3 of the 10 square uses (vote.js). A person votes for a feature when they picked
+   at least one use that sits behind it. The greener a wedge, the larger the share of people who did.
+   The pool is the SIMULATED set (D1, vote.js) plus this browser's demo submissions, under the 10-person
+   threshold. Which use sits behind which feature is the team's reading
+   (docs/CHAT_HANDOFF_2026-11-15.md 4.2.1), not Council's.
+   Feature names are Council's wording and stay in English in every language. */
+const CB_DOMS=[["Smart","Governance"],["Smart","Environment"],["Smart","Living"],["Smart","Mobility"],["Smart","People"],["Smart","Economy"]];
+/* id, domain index, Council wording (| = line break on the wheel), Chinese gloss, square uses behind it */
+const CB_FEATS=[
+ ["ict",0,"ICT &|e-governance",{zh:"信息通信与电子政务"},["smart"]],
+ ["open",0,"Transparency &|open data",{zh:"透明与开放数据"},[]],
+ ["part",0,"Enabling community|participation",{zh:"促进社区参与"},[]],
+ ["gbld",1,"Green buildings",{zh:"绿色建筑"},[]],
+ ["renew",1,"Renewable|energy sources",{zh:"可再生能源"},["smart"]],
+ ["gplan",1,"Green urban|planning",{zh:"绿色城市规划"},["canopy","blue"]],
+ ["safe",2,"Safe places",{zh:"安全的场所"},["smart","events"]],
+ ["vib",2,"Culturally|vibrant",{zh:"文化活力"},["culture"]],
+ ["conn",2,"Connected|communities",{zh:"有联结的社区"},["events","rest"]],
+ ["modal",3,"Mixed-modal|access",{zh:"多方式可达"},["walk","bike","kerb"]],
+ ["pat",3,"Prioritise public &|active transport",{zh:"公共交通和主动出行优先"},["walk","bike"]],
+ ["dem",3,"Demand|management",{zh:"需求管理"},["kerb"]],
+ ["crea",4,"Embrace|creativity",{zh:"拥抱创意"},["culture"]],
+ ["incl",4,"Inclusive society",{zh:"包容的社会"},["rest","walk"]],
+ ["edu",4,"21st century|education",{zh:"21 世纪教育"},[]],
+ ["glob",5,"Local & global|connectedness",{zh:"本地与全球联结"},["events","culture"]],
+ ["prod",5,"Productivity",{zh:"生产力"},[]],
+ ["ent",5,"Entrepreneurship|& innovation",{zh:"创业与创新"},["events"]]
+].map(([id,dom,nm,zh,mods])=>({id,dom,lines:nm.split("|"),name:nm.replace("|"," "),zh:zh.zh,mods}));
+const cbGloss=f=>{const z=L(f.zh,"");return z?` <span class="muted">${z}</span>`:"";};
+/* people who voted for each feature; n = null when no use sits behind it or the pool is under the threshold */
+function cbFeatRows(){const P=pool(),ok=P.length>=CB_MIN;
+  return {P,ok,rows:CB_FEATS.map(f=>({...f,n:ok&&f.mods.length?P.filter(r=>r.pick.some(id=>f.mods.includes(id))).length:null}))};}
+const cbPt=(r,a)=>{const t=a*Math.PI/180;return (r*Math.sin(t)).toFixed(1)+" "+(-r*Math.cos(t)).toFixed(1);};
+const cbSector=(r0,r1,a0,a1)=>`M${cbPt(r1,a0)}A${r1} ${r1} 0 0 1 ${cbPt(r1,a1)}L${cbPt(r0,a1)}A${r0} ${r0} 0 0 0 ${cbPt(r0,a0)}Z`;
+const cbTint=s=>`color-mix(in srgb,var(--accent) ${Math.round(12+88*s)}%,var(--surface))`;   // share 0..1 → pale to full green
+function cbWheelSvg(rows,N,sel){
+  const wedges=rows.map((f,i)=>{const am=-20+20*i,flip=(am+360)%360>180,n=f.lines.length,s=f.n!=null?f.n/N:null;
+    return `<g class="cbw-w${s==null?" na":s>.5?" dk":""}${sel===f.id?" on":""}" data-cb="feat" data-val="${f.id}" role="button" tabindex="0" aria-pressed="${sel===f.id}" aria-label="${esc(f.name)}${f.n!=null?`: ${f.n} / ${N}`:""}">
+     <path class="cbw-f" d="${cbSector(156,300,am-9.3,am+9.3)}"${s!=null?` style="fill:${cbTint(s)}"`:""}/>
+     <text transform="rotate(${flip?am+90:am-90}) translate(${flip?-228:228} 0)" text-anchor="middle">${f.lines.map((t,k)=>`<tspan x="0" dy="${k?14:-(n-1)*7+4.5}">${esc(t)}</tspan>`).join("")}</text>
+     ${s!=null?`<text class="cbw-n" text-anchor="middle" transform="translate(${cbPt(320,am)})" dy="5">${Math.round(100*s)}%</text>`:""}</g>`;}).join("");
+  const petals=CB_DOMS.map((d,i)=>`<g class="cbw-pt" transform="translate(${cbPt(104,60*i)})"><circle r="42" class="cbw-p"/><text text-anchor="middle"><tspan x="0" dy="-2">${d[0]}</tspan><tspan x="0" dy="14">${d[1]}</tspan></text></g>`).join("");
+  return `<svg class="cbw-svg" viewBox="-346 -346 692 692" role="group" aria-label="${L("智慧城市六大领域的 18 项特征","The 18 features of the six smart-city domains")}">
+   ${wedges}<circle r="150" class="cbw-ring"/>${petals}
+   <circle r="56" class="cbw-c"/><text text-anchor="middle" class="cbw-hit"><tspan x="0" dy="-2">SMART</tspan><tspan x="0" dy="20">CITY</tspan></text></svg>`;}
+/* one petal opened: a picture of its vote share. Every form shows the same number (share of people who
+   voted for the feature); the form changes with the subject so the petals do not all look alike. */
+const CB_PIC={ict:["bars","#8a63b8"],renew:["batt","#4f9a5b"],gplan:["iso","#4f9a5b","canopy"],safe:["gauge","#c9a227"],vib:["iso","#d43c32","culture"],conn:["ppl","#d08a2c",0],
+  modal:["road","#3f7cc0"],pat:["iso","#3f7cc0","bike"],dem:["iso","#3f7cc0","kerb"],crea:["iso","#d0658a","star"],incl:["ppl","#d0658a",1],glob:["ring","#d08a2c"],ent:["iso","#d08a2c","events"]};
+const cbPicUnit=f=>["iso","ppl"].includes(CB_PIC[f.id][0]);   // forms made of 20 symbols, each worth 5%
+function cbPic(f,s){const [k,c,x]=CB_PIC[f.id],off="var(--line)",n=Math.round(s*20);let g="";
+  const glyph=(id,col,X,Y,sz)=>ICON[id](col).replace('width="16" height="16"',`x="${X}" y="${Y}" width="${sz}" height="${sz}"`);
+  if(k==="iso"){for(let i=0;i<20;i++){const X=12+(i%10)*28,Y=12+Math.floor(i/10)*50,col=i<n?c:off;
+    g+=x==="star"?`<path transform="translate(${X+12} ${Y+13}) scale(1.25)" d="M0-10 2.9-3.1 10-3.1 4.2 1.6 6.2 9 0 4.6-6.2 9-4.2 1.6-10-3.1-2.9-3.1Z" fill="${col}"/>`:glyph(x,col,X,Y,24);}}
+  else if(k==="ppl"){[Math.min(n,10),Math.max(0,n-10)].forEach((m,r)=>{if(!x&&m>1)g+=`<path d="M24 ${40+r*54}H${24+28*(m-1)}" stroke="${c}" stroke-width="4" stroke-linecap="round"/>`;});   // linked hands for "connected"
+    for(let i=0;i<20;i++){const X=24+(i%10)*28,Y=54+Math.floor(i/10)*54,col=i<n?c:off,h=x&&i%3===1?.68:1;   // mixed sizes for "inclusive"
+      g+=`<g transform="translate(${X} ${Y}) scale(${h})"><circle cy="-31" r="6.5" fill="${col}"/><rect x="-6.5" y="-23" width="13" height="23" rx="6.5" fill="${col}"/></g>`;}}
+  else if(k==="gauge"){const pt=(p,r)=>(150-r*Math.cos(Math.PI*p)).toFixed(1)+" "+(110-r*Math.sin(Math.PI*p)).toFixed(1);
+    g=`<path d="M${pt(0,84)}A84 84 0 0 1 ${pt(1,84)}" stroke="${off}" stroke-width="20" fill="none" stroke-linecap="round"/><path d="M${pt(0,84)}A84 84 0 0 1 ${pt(s,84)}" stroke="${c}" stroke-width="20" fill="none" stroke-linecap="round"/><path d="M150 110L${pt(s,62)}" stroke="var(--fg)" stroke-width="4" stroke-linecap="round"/><circle cx="150" cy="110" r="7" fill="var(--fg)"/>`;}
+  else if(k==="batt"){g=`<rect x="58" y="26" width="174" height="68" rx="12" fill="none" stroke="${off}" stroke-width="4"/><rect x="236" y="46" width="10" height="28" rx="3" fill="${off}"/><rect x="66" y="34" width="${(158*s).toFixed(1)}" height="52" rx="6" fill="${c}"/><path d="M152 38l-18 26h14l-6 20 22-28h-14z" fill="var(--fg)"/>`;}
+  else if(k==="bars"){for(let i=0;i<5;i++){const h=24+i*20,X=45+i*44,fl=Math.max(0,Math.min(1,s*5-i))*h;
+    g+=`<rect x="${X}" y="${112-h}" width="30" height="${h}" rx="5" fill="${off}"/><rect x="${X}" y="${(112-fl).toFixed(1)}" width="30" height="${fl.toFixed(1)}" rx="5" fill="${c}"/>`;}}
+  else if(k==="road"){g=`<rect x="16" y="76" width="268" height="22" rx="11" fill="${off}"/><rect x="16" y="76" width="${(268*s).toFixed(1)}" height="22" rx="11" fill="${c}"/><path d="M28 87H272" stroke="var(--surface)" stroke-width="2" stroke-dasharray="10 9"/>`
+    +[["walk",.2],["bike",.5],["kerb",.8]].map(([id,p])=>glyph(id,s>=p?c:off,16+268*p-18,28,36)).join("");}
+  else if(k==="ring"){const C=2*Math.PI*46;g=`<circle cx="150" cy="60" r="46" fill="none" stroke="${off}" stroke-width="18"/><circle cx="150" cy="60" r="46" fill="none" stroke="${c}" stroke-width="18" stroke-dasharray="${(C*s).toFixed(1)} ${C.toFixed(1)}" transform="rotate(-90 150 60)"/>
+    <g fill="none" stroke="var(--muted)" stroke-width="2"><circle cx="150" cy="60" r="26"/><ellipse cx="150" cy="60" rx="11" ry="26"/><path d="M124 60H176"/></g>`;}
+  return `<svg class="cbw-pic" viewBox="0 0 300 120" role="img" aria-label="${Math.round(100*s)}%">${g}</svg>`;}
+function cbFeatDetail(f,P,ok){const dom=CB_DOMS[f.dom],N=P.length,nav=d=>`<button class="btn cb-sm cbw-nav" data-cb="featstep" data-val="${d}" aria-label="${d<0?L("上一瓣","Previous"):L("下一瓣","Next")}">${d<0?"‹":"›"}</button>`;
+  return `<div class="cbw-det"><div class="cbw-dh">${nav(-1)}<div><div class="small muted">${dom[0]} ${dom[1]}</div><h3>${esc(f.name)}${cbGloss(f)}</h3></div>${nav(1)}</div>
+   ${!ok?`<p class="cb-ghost">${L(`投票不足 ${CB_MIN} 份`,`Fewer than ${CB_MIN} responses`)}</p>`
+    :f.n==null?`<p class="cb-ghost" style="text-align:center">${L("投票里没有对应这一瓣的选项","No vote option points here")}</p>`
+    :`<div class="cbw-big"><b>${Math.round(100*f.n/N)}%</b><span>${f.n} / ${N}</span></div>${cbPic(f,f.n/N)}${cbPicUnit(f)?`<p class="cbw-cap">${L("1 个 = 5%","1 symbol = 5%")}</p>`:""}
+      <ul class="cbw-uses">${f.mods.map(id=>{const m=MODULES.find(k=>k.id===id),c=GROUPS[m.g].c,k=cntIn(id,P);return `<li><span class="dic sm" aria-hidden="true">${ICON[id](c)}</span><span class="cbw-un">${T(VOTE_WHY[id])}</span><span class="cbw-ub"><span style="width:${Math.round(100*k/N)}%;background:${c}"></span></span><span class="cb-mono">${k}</span></li>`;}).join("")}</ul>`}</div>`;}
+function cbWheelCard(){const {P,ok,rows}=cbFeatRows(),top=rows.slice().sort((a,b)=>(b.n||0)-(a.n||0))[0],sel=rows.find(f=>f.id===CB.feat)||top;
+  return `<section class="card" id="cb-wheel"><div class="sec-h"><h2 class="ch2">${L("居民的票落在战略的哪几瓣","Where residents' votes land on the strategy wheel")}</h2>
+    <span>${SIMTAG()} ${chip("S5","p.18")}</span></div>
+   <div class="cbw"><div class="cbw-fig">${cbWheelSvg(rows,P.length,sel.id)}
+     <div class="cbw-key"><span>${L("票少","Fewer")}</span><i class="cbw-scale"></i><span>${L("票多","More votes")}</span><span><i class="cbw-sw na"></i>${L("没有对应选项","No vote option")}</span></div></div>
+    <div class="cbw-side">${cbFeatDetail(sel,P,ok)}</div></div>
+   <p class="small muted" style="margin:10px 0 0">${L("哪项选择对应哪一瓣是团队的设定。","Which choice points at which feature is the team's reading.")} <span class="tag t-design">${L("我们的设计","Our design")}</span></p></section>`;}
+
 /* a band at the end of the resident story that leads into the backend; the send bar offers the same link after a submission */
 function cbHandoff(){if(typeof V!=="undefined"&&V.sent)return "";
   return `<section class="wrap" style="padding-bottom:40px"><div class="card cb-hand"><div><b>${L("你的意见到了 Council 那边，会变成什么？","What becomes of your feedback on Council's side?")}</b>
@@ -2064,6 +2019,8 @@ function cbClick(b){const d=b.dataset;
   if(d.cb==="go"){cbGo(d.val);return;}
   if(d.cb==="filter"){CB.filter=d.val;
     if(typeof goTab==="function"&&!document.getElementById("ledger"))goTab("ledger","ledger");else cbRedraw();return;}
+  if(d.cb==="feat"||d.cb==="featstep"){if(d.cb==="feat")CB.feat=d.val;else{const cur=document.querySelector(".cbw-w.on"),i=CB_FEATS.findIndex(f=>f.id===(cur?cur.dataset.val:CB.feat));CB.feat=CB_FEATS[(i+ +d.val+CB_FEATS.length)%CB_FEATS.length].id;}
+    cbRedraw();const w=document.querySelector(d.cb==="feat"?`.cbw-w[data-val="${CB.feat}"]`:`.cbw-nav[data-val="${d.val}"]`);if(w)w.focus({preventScroll:true});return;}
   if(d.cb==="preview"){CB.preview=!CB.preview;cbRedraw();return;}
   if(d.cb==="brief"){
     if(d.val==="make")store.set("cav_brief",{st:"draft",at:Date.now()});
@@ -2077,6 +2034,7 @@ document.addEventListener("click",e=>{
   if(e.target.closest("#submit"))setTimeout(cbAfterSubmit,0);
   if(e.target.closest("#clearVotes")&&document.getElementById("cb-triage"))setTimeout(cbRedraw,0); // the other cards count the same submissions
   const b=e.target.closest("[data-cb]");if(b)cbClick(b);});
+document.addEventListener("keydown",e=>{const w=e.target.closest&&e.target.closest(".cbw-w");if(w&&(e.key==="Enter"||e.key===" ")){e.preventDefault();cbClick(w);}});
 document.addEventListener("change",e=>{const t=e.target;if(t&&t.dataset&&t.dataset.cbroute!==undefined){const r=cbRoutes();if(t.value)r[t.dataset.cbroute]=t.value;else delete r[t.dataset.cbroute];store.set("cav_triage",r);cbRedraw();}});
 
 
@@ -2205,7 +2163,7 @@ function resultsInner(){const r=resultsRows();
 function results(){return `<section class="wrap ch" id="c-res"><div class="card enter" id="resBox">${resultsInner()}</div></section>`;}
 function decide(){
   const adv=["tr6","tr7","ct6","ct7","sq10"];
-  return `<section class="wrap ch" id="c-say" style="padding-bottom:40px"><div class="ch-h"><div class="eyebrow">${L("第 4 章 · 你怎么看、谁负责","Chapter 4 · Your view and who decides")}</div><h2>${L("点一点、比一比，告诉 Council 你的看法","Tap and compare to tell Council what you think")}</h2><p>${L("不用打字：勾选你也遇到过的情况，再做几轮二选一。每条“Council 说”都能点开原文。","No typing needed: tick what you've run into, then do a few pick-one-of-two rounds. Every \"Council says\" line opens to the original.")}</p></div>
+  return `<section class="wrap ch" id="c-say" style="padding-bottom:40px"><div class="ch-h"><div class="eyebrow">${L("第 4 章 · 你怎么看、谁负责","Chapter 4 · Your view and who decides")}</div><h2>${L("点一点，告诉 Council 你的看法","Tap to tell Council what you think")}</h2></div>
    ${voteSection()}
    <div class="card" style="margin-top:14px"><div id="dpaBox">${dpaCards()}</div>
      <h3 style="font-size:15px;margin:14px 0 4px">${L("广场本身决定不了、要等别人的事","Outside the square's control")}</h3>${claimsById(adv)}</div></section>`;
@@ -2218,6 +2176,7 @@ function openQuest(id){const [t,ids]=QUESTS()[id];
 /* ---------- Council and ledger tabs ---------- */
 function councilTab(){
   return `<div class="wrap tabpage"><div class="banner"><b>${L("演示后台。","Demo backend.")}</b> ${TEAM_CHECKED()} ${L("居民端的分配会实时反映到下面的原则检查。","The resident's split feeds the principle check below live.")}</div>
+   ${cbWheelCard()}
    ${decisionCard()}
    ${statusStrip()}
    <section class="card" id="cb-todo"><h2 class="ch2">${L("需要处理","Needs attention")}</h2>${cbTodo()}</section>

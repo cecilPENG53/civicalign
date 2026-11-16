@@ -936,100 +936,20 @@
   "zh": "1 朵 = 20 t CO₂e"
  },
  {
-  "en": "Laneways and arcades",
-  "zh": "小巷和拱廊"
- },
- {
-  "en": "Around the station",
-  "zh": "车站一带"
- },
- {
-  "en": "Not enough shade",
-  "zh": "树荫不够"
- },
- {
-  "en": "Nowhere to sit",
-  "zh": "没地方坐"
- },
- {
-  "en": "Hard with a wheelchair or pram",
-  "zh": "轮椅、婴儿车难走"
- },
- {
-  "en": "Too dark at night",
-  "zh": "晚上太暗"
- },
- {
-  "en": "Noise or litter",
-  "zh": "噪音或垃圾"
- },
- {
-  "en": "Hard to cross",
-  "zh": "过街难"
- },
- {
-  "en": "Drop-off or loading in the way",
-  "zh": "接送、装卸挡路"
- },
- {
-  "en": "Unsafe to cycle",
-  "zh": "骑车不安全"
- },
- {
-  "en": "Something else",
-  "zh": "其他"
- },
- {
   "en": "Simulated",
   "zh": "模拟数据"
- },
- {
-  "en": "Council advocates to others such as the State",
-  "zh": "Council 向州政府等争取"
- },
- {
-  "en": "No official figure · evidence gap",
-  "zh": "没有官方数字 · 证据空白"
- },
- {
-  "en": "No matching Council claim in our ledger · evidence gap",
-  "zh": "我们整理的 Council 条目里没有对应内容 · 证据空白"
- },
- {
-  "en": "Council says",
-  "zh": "Council 说"
- },
- {
-  "en": "Vote source",
-  "zh": "票数来源"
- },
- {
-  "en": "Show simulated votes",
-  "zh": "显示模拟票"
- },
- {
-  "en": "Only my votes",
-  "zh": "只看我的票"
  },
  {
   "en": "About this data",
   "zh": "关于这些数据"
  },
  {
-  "en": "These votes are <b>simulated</b>. They are not real residents' views and not Council data. A fixed random seed ({0}) generates {1} simulated respondents, so the set is the same every time: 44 local residents, 28 commuters, 16 business owners or workers and 8 visitors, with different age-band mixes per role. Each one ticks situations by the leanings below: a 50% chance for a leaning item, 12% for the rest. Each then does 8 pick-one-of-two rounds, choosing by their role's weights for each use, with 12% \"about the same\" and 8% skipped. Visitors are only 8, below the 10-person threshold on purpose, to show the privacy rule. The brief allows clearly labelled simulated data",
-  "zh": "这里的票是<b>模拟的</b>，不是真实居民的意见，也不是 Council 的数据。我们用固定的随机种子（{0}）生成 {1} 位模拟受访者，所以每次打开结果都一样。身份分布是：附近居民 44、通勤者 28、商户 / 员工 16、访客 8，各身份的年龄段比例不同。每人按下面的倾向勾选情况：倾向项被勾的概率是 50%，其他是 12%。然后做 8 轮二选一，按各身份对用途的权重抽选，12% 选“差不多”，8% 跳过。访客只有 8 人，故意低于 10 人的门槛，用来演示隐私规则。赛题允许使用标明的模拟数据"
+  "en": "These votes are <b>simulated</b>. They are not real residents' views and not Council data. A fixed random seed ({0}) generates {1} simulated respondents, so the set is the same every time: 44 local residents, 28 commuters, 16 business owners or workers and 8 visitors, with different age-band mixes per role. Each one picks {2} of the 10 options, drawn by their role's weights. Visitors are only 8, below the 10-person threshold on purpose, to show the privacy rule. The brief allows clearly labelled simulated data",
+  "zh": "这里的票是<b>模拟的</b>，不是真实居民的意见，也不是 Council 的数据。我们用固定的随机种子（{0}）生成 {1} 位模拟受访者，所以每次打开结果都一样：附近居民 44、通勤者 28、商户 / 员工 16、访客 8，各身份的年龄段比例不同。每人按所属身份的权重，从 10 项里选 {2} 项。访客只有 8 人，故意低于 10 人的门槛，用来演示隐私规则。赛题允许使用标明的模拟数据"
  },
  {
-  "en": ". Every \"Council says\" line is still a real citation or an evidence gap; only the votes are simulated.",
-  "zh": "。每条“Council 说”仍是真实引用或证据空白，只有票数是模拟的。"
- },
- {
-  "en": "ticks more often: ",
-  "zh": "常勾："
- },
- {
-  "en": ". Leans to: ",
-  "zh": "。二选一偏向："
+  "en": "picks more often: ",
+  "zh": "更常选："
  },
  {
   "en": "How the full version gets real data:",
@@ -1048,160 +968,24 @@
   "zh": "。再用 ABS 人口普查检查各群体的代表性。平台和场地都是 Council 已有的，成本主要是标牌和平板。"
  },
  {
-  "en": "Square",
-  "zh": "广场"
+  "en": "{0} votes",
+  "zh": "{0} 票"
  },
  {
-  "en": "Chinatown",
-  "zh": "唐人街"
+  "en": "What should the square fix first? Pick up to {0}",
+  "zh": "广场最该解决什么？最多选 {0} 项"
  },
  {
-  "en": "Traffic",
-  "zh": "交通"
- },
- {
-  "en": "Council says vs you see",
-  "zh": "Council 说 vs 你看到"
- },
- {
-  "en": "Lived experience",
-  "zh": "亲身体验"
- },
- {
-  "en": "Which of these have you run into? One tap is one vote",
-  "zh": "哪些情况你也遇到过？点一下就算一票"
- },
- {
-  "en": "Category",
-  "zh": "分类"
+  "en": "The number = votes.",
+  "zh": "数字 = 票数。"
  },
  {
   "en": "Team-written example",
   "zh": "团队示例"
  },
  {
-  "en": "These prompts are written by the team, not real resident reports.",
-  "zh": "下面的说法是团队写的提示，不是真实居民的报告。"
- },
- {
-  "en": "The number on the right = votes from {0} simulated respondents + yours.",
-  "zh": "右边的数字 = {0} 位模拟受访者的票 + 你的票。"
- },
- {
-  "en": "The number on the right counts only your votes in this browser, starting at 0.",
-  "zh": "右边的数字只算你在本浏览器投的票，从 0 开始。"
- },
- {
-  "en": "Show {0} more",
-  "zh": "再给我 {0} 条"
- },
- {
-  "en": "Added by you · this browser only",
-  "zh": "你添加的 · 只在本浏览器"
- },
- {
-  "en": "{0} votes, {1} simulated",
-  "zh": "{0} 票，其中模拟 {1}"
- },
- {
-  "en": "simulated",
-  "zh": "模拟"
- },
- {
-  "en": "Add something you've run into (tap, no typing)",
-  "zh": "加一条你遇到的问题（点选，不用打字）"
- },
- {
-  "en": "Where",
-  "zh": "在哪里"
- },
- {
-  "en": "What",
-  "zh": "什么问题"
- },
- {
-  "en": "Add to the list and vote",
-  "zh": "加入清单并投一票"
- },
- {
-  "en": "Once added, anyone using this browser can see it and vote (the demo has no server). New items have no simulated votes.",
-  "zh": "加进去以后，用这个浏览器的人都能看到并投票（演示没有服务器）。新加的条目没有模拟票。"
- },
- {
-  "en": "Listed in the plan",
-  "zh": "总规列出"
- },
- {
-  "en": "Use added by the team",
-  "zh": "团队补充的用途"
- },
- {
-  "en": "won {0}/{1}",
-  "zh": "赢 {0}/{1}"
- },
- {
-  "en": "Too few simulated answers for the last pair to show a split.",
-  "zh": "上一轮这一对的模拟数据太少，不显示比例。"
- },
- {
-  "en": "You picked {0}. ",
-  "zh": "你选了「{0}」。"
- },
- {
-  "en": "Last round",
-  "zh": "上一轮"
- },
- {
-  "en": "{0}% of simulated respondents picked {1}, {2}% {3} (n={4})",
-  "zh": "模拟受访者里 {0}% 选「{1}」，{2}% 选「{3}」（n={4}）"
- },
- {
-  "en": "Pick one of two",
-  "zh": "二选一"
- },
- {
-  "en": "Round {0} of {1}",
-  "zh": "第 {0} / {1} 轮"
- },
- {
-  "en": "If the square had 100 m² more, which use should get it?",
-  "zh": "如果广场多出 100 m²，你更想给哪一个？"
- },
- {
-  "en": "About the same",
-  "zh": "差不多"
- },
- {
-  "en": "Skip",
-  "zh": "跳过"
- },
- {
-  "en": "Round {0} of {1} · the total stays 1,200 m²",
-  "zh": "第 {0} / {1} 轮 · 1,200 m² 的总面积不变"
- },
- {
-  "en": "Your order (share of matchups won):",
-  "zh": "你的排序（按赢的比例）："
- },
- {
-  "en": "You skipped every round.",
-  "zh": "你都跳过了。"
- },
- {
-  "en": "Top three among {0} simulated respondents: ",
-  "zh": "{0} 位模拟受访者的前三："
- },
- {
-  "en": "The order shows what you'd rather have, not areas. Pairs are drawn at random from the 10 uses.",
-  "zh": "排序只说明你更想要哪个，不是面积。每次比的组合是从 10 项用途里随机抽的。"
- },
- {
-  "en": "New pairs",
-  "zh": "换一批再比"
- },
- {
-  "en": "You ticked {0} and compared {1} pairs",
-  "zh": "你勾了 {0} 条，比了 {1} 轮"
+  "en": "You picked {0}",
+  "zh": "你选了 {0} 项"
  },
  {
   "en": "See what Council would receive →",
@@ -1212,10 +996,6 @@
   "zh": "还想补充？写几句（可选）"
  },
  {
-  "en": "Pick a place and an issue first.",
-  "zh": "先选地点和问题。"
- },
- {
   "en": "Saved as demo submission {0} in this browser. Nothing was sent to Council. You can vote again as another role.",
   "zh": "已保存为本浏览器第 {0} 份演示提交，没有发送给 Council。可以换个身份再投一次。"
  },
@@ -1224,100 +1004,32 @@
   "zh": "少于 10，隐藏"
  },
  {
-  "en": "Added in this browser",
-  "zh": "在本浏览器添加"
- },
- {
-  "en": "Team example",
-  "zh": "团队示例"
- },
- {
-  "en": "{0} in all: {1} simulated + {2} demo submission(s) from this browser.",
-  "zh": "共 {0} 份：{1} 份模拟 + {2} 份本浏览器的演示提交。"
- },
- {
-  "en": "Only demo submissions from this browser, starting at 0.",
-  "zh": "只算本浏览器里的演示提交，从 0 开始。"
- },
- {
-  "en": "Every option keeps its Council source and who delivers it.",
-  "zh": "每条选项都保留“Council 说”的出处和分工。"
- },
- {
-  "en": "No demo submissions yet. In the resident storyboard, chapter 4, tick a few items, compare a few pairs, then press Submit (demo).",
-  "zh": "还没有演示提交。到“居民故事板”第 4 章勾几条、比几轮，再点“提交（演示）”。"
- },
- {
-  "en": "Fewer than 10.",
-  "zh": "少于 10 份。"
- },
- {
-  "en": "The full version shows no summary before this, so no one can be singled out.",
-  "zh": "正式版在这之前不显示任何汇总，免得能认出个人。"
- },
- {
-  "en": "Hide demo preview",
-  "zh": "隐藏演示预览"
- },
- {
-  "en": "Show demo preview",
-  "zh": "看演示预览"
- },
- {
   "en": "Not given",
   "zh": "未填"
  },
  {
-  "en": "Preview: the full version would hide this",
-  "zh": "预览：正式版不会显示"
+  "en": "{0} in all: {1} simulated + {2} demo submission(s) from this browser. Each person picks up to {3}.",
+  "zh": "共 {0} 份：{1} 份模拟 + {2} 份本浏览器的演示提交。每人最多选 {3} 项。"
  },
  {
-  "en": "“Me too”: by option and role",
-  "zh": "“我也遇到过”：按选项和身份"
+  "en": "The role line is the share of each role that picked it. Groups under 10 are hidden.",
+  "zh": "身份那一行是该身份里选这一项的比例。少于 10 人的组不显示。"
  },
  {
-  "en": "The role line shows the share of each role that ticked it. A role shows only once it has 10 or more people.",
-  "zh": "身份那一行是该身份里勾选的比例。每个身份满 10 人才显示。"
+  "en": "Age band",
+  "zh": "年龄段"
  },
  {
-  "en": "Nothing ticked yet.",
-  "zh": "还没有人勾选。"
- },
- {
-  "en": "{0} more with 0 votes",
-  "zh": "另外 {0} 条还是 0 票"
- },
- {
-  "en": "Pick one of two: share of matchups won",
-  "zh": "二选一：各用途赢的比例"
- },
- {
-  "en": "No pairwise results yet.",
-  "zh": "还没有二选一结果。"
- },
- {
-  "en": "By role: top three uses",
-  "zh": "按身份：二选一前三"
- },
- {
-  "en": "By age band",
-  "zh": "按年龄段"
- },
- {
-  "en": "Groups under 10 show only “<10”, with no exact count or votes.",
-  "zh": "少于 10 人的组只显示“<10”，不给具体数字或票数。"
- },
- {
-  "en": "D / D+P / P / A is the team's reading of the Smart City Strategy's split",
-  "zh": "分工 D / D+P / P / A 是团队按 Smart City Strategy 的分类做的判断"
- },
- {
-  "en": "Clear demo votes and added items in this browser",
-  "zh": "清除本浏览器的演示票和添加项"
+  "en": "Clear demo votes in this browser",
+  "zh": "清除本浏览器的演示票"
  },
  {
   "en": "Fewer than {0}: not shown",
   "zh": "不足 {0} 份，不显示"
+ },
+ {
+  "en": "Preview: the full version would hide this",
+  "zh": "预览：正式版不会显示"
  },
  {
   "en": "All",
@@ -1912,6 +1624,50 @@
   "zh": "可用的居民输入"
  },
  {
+  "en": "The 18 features of the six smart-city domains",
+  "zh": "智慧城市六大领域的 18 项特征"
+ },
+ {
+  "en": "Previous",
+  "zh": "上一瓣"
+ },
+ {
+  "en": "Next",
+  "zh": "下一瓣"
+ },
+ {
+  "en": "Fewer than {0} responses",
+  "zh": "投票不足 {0} 份"
+ },
+ {
+  "en": "No vote option points here",
+  "zh": "投票里没有对应这一瓣的选项"
+ },
+ {
+  "en": "1 symbol = 5%",
+  "zh": "1 个 = 5%"
+ },
+ {
+  "en": "Where residents' votes land on the strategy wheel",
+  "zh": "居民的票落在战略的哪几瓣"
+ },
+ {
+  "en": "Fewer",
+  "zh": "票少"
+ },
+ {
+  "en": "More votes",
+  "zh": "票多"
+ },
+ {
+  "en": "No vote option",
+  "zh": "没有对应选项"
+ },
+ {
+  "en": "Which choice points at which feature is the team's reading.",
+  "zh": "哪项选择对应哪一瓣是团队的设定。"
+ },
+ {
   "en": "What becomes of your feedback on Council's side?",
   "zh": "你的意见到了 Council 那边，会变成什么？"
  },
@@ -2176,12 +1932,8 @@
   "zh": "第 4 章 · 你怎么看、谁负责"
  },
  {
-  "en": "Tap and compare to tell Council what you think",
-  "zh": "点一点、比一比，告诉 Council 你的看法"
- },
- {
-  "en": "No typing needed: tick what you've run into, then do a few pick-one-of-two rounds. Every \"Council says\" line opens to the original.",
-  "zh": "不用打字：勾选你也遇到过的情况，再做几轮二选一。每条“Council 说”都能点开原文。"
+  "en": "Tap to tell Council what you think",
+  "zh": "点一点，告诉 Council 你的看法"
  },
  {
   "en": "Outside the square's control",
@@ -2788,64 +2540,44 @@
   "zh": "重建公共停车场，混合用途建筑"
  },
  {
-  "en": "Hard to find shade along Wentworth St in the afternoon",
-  "zh": "下午沿 Wentworth St 走，很难找到树荫"
+  "en": "No shade in the afternoon",
+  "zh": "下午找不到树荫"
  },
  {
-  "en": "Current tree canopy cover here",
-  "zh": "现在这一带的树冠覆盖率"
+  "en": "Puddles after heavy rain",
+  "zh": "下大雨路面积水"
  },
  {
-  "en": "Out with kids or older people, there is nowhere nearby to sit",
-  "zh": "带孩子或老人出门，附近没地方坐下歇脚"
+  "en": "Want night markets and outdoor dining",
+  "zh": "想要夜市和户外餐饮"
  },
  {
-  "en": "With a wheelchair or pram, the route keeps breaking up",
-  "zh": "坐轮椅或推婴儿车，路线断断续续"
+  "en": "Want Chinatown's culture and art on show",
+  "zh": "想看到唐人街的文化和艺术"
  },
  {
-  "en": "Worried a car park underneath means no big trees",
-  "zh": "担心广场下面是停车场，种不了大树"
+  "en": "Nowhere to sit and rest",
+  "zh": "没地方坐下歇脚"
  },
  {
-  "en": "Walking from the station to Church St at night, some stretches feel dark",
-  "zh": "晚上从车站走到 Church St，有几段觉得暗"
+  "en": "Hard going with a wheelchair or pram",
+  "zh": "轮椅、婴儿车不好走"
  },
  {
-  "en": "Current lighting levels",
-  "zh": "现在的照明水平"
+  "en": "Nowhere to park a bike",
+  "zh": "没地方停自行车"
  },
  {
-  "en": "More night-time activity: worried about noise and litter",
-  "zh": "夜间活动多了，担心噪音和垃圾"
+  "en": "Drop-off cars block the footpath",
+  "zh": "接送的车挡住人行道"
  },
  {
-  "en": "Chinese community groups and long-time shops should help shape Chinatown",
-  "zh": "希望华人社团和老店能参与决定唐人街怎么做"
+  "en": "Feels dark at night",
+  "zh": "晚上觉得暗"
  },
  {
-  "en": "Fences on Church St make crossing and browsing a detour",
-  "zh": "Church St 的围栏让过街、逛店都要绕路"
- },
- {
-  "en": "Crossing Fitzwilliam St or Wentworth St means a long wait and heavy traffic",
-  "zh": "过 Fitzwilliam St 或 Wentworth St 要等很久，车也多"
- },
- {
-  "en": "Current crossing wait times",
-  "zh": "现在的过街等候时间"
- },
- {
-  "en": "Drop-off cars near the station block the footpath",
-  "zh": "车站附近接送的车停在路边，挡住人行道"
- },
- {
-  "en": "Cycling to the station, there is no safe lane",
-  "zh": "骑车去车站，没有安全的车道"
- },
- {
-  "en": "Changing between bus and train is confusing",
-  "zh": "公交和火车之间怎么换乘不清楚"
+  "en": "Nowhere to recycle",
+  "zh": "垃圾没处分类回收"
  },
  {
   "en": "AI translation, not yet reviewed by a native speaker.",

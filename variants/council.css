@@ -66,6 +66,49 @@ button.cb-step:hover{border-color:var(--accent)}
 .cb-doc ol,.cb-doc ul{margin:0;padding-left:20px}
 .cb-doc li{margin-bottom:8px}
 
+/* home board: smart-city wheel */
+.cbw{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:24px;align-items:center}
+@media (max-width:900px){.cbw{grid-template-columns:1fr}}
+.cbw-fig,.cbw-side{min-width:0}
+.cbw-svg{display:block;width:100%;max-width:640px;margin:0 auto;direction:ltr;font-family:var(--f-display)}
+.cbw-w{cursor:pointer;outline:0}
+.cbw-w text{font-size:13px;font-weight:600;fill:var(--muted);pointer-events:none}
+.cbw-f{stroke:var(--surface);stroke-width:1.5;fill:var(--surface-2)}
+.cbw-w>text{fill:var(--fg)} .cbw-w.dk>text{fill:var(--on-accent)} .cbw-w.na>text{fill:var(--muted)}
+.cbw-w:hover .cbw-f,.cbw-w:focus-visible .cbw-f{stroke:var(--fg)}
+.cbw-w.on .cbw-f{stroke:var(--fg);stroke-width:4}
+.cbw-ring{fill:var(--chrome)}
+.cbw-p{fill:var(--chrome-3)}
+.cbw-pt text{font-size:12px;font-weight:600;fill:var(--chrome-fg)}
+.cbw-c{fill:var(--surface)}
+.cbw-svg .cbw-hit{font-size:17px;font-weight:700;letter-spacing:.06em;fill:var(--fg)}
+.cbw-svg .cbw-w .cbw-n{font-family:var(--f-mono);font-size:13.5px;font-weight:700;fill:var(--fg)}
+.cbw-scale{width:90px;height:12px;border-radius:3px;background:linear-gradient(90deg,color-mix(in srgb,var(--accent) 12%,var(--surface)),var(--accent))}
+.cbw-svg .cbw-of{font-family:var(--f-mono);font-size:14px;font-weight:500;fill:var(--muted)}
+.cbw-key{display:flex;flex-wrap:wrap;align-items:center;gap:4px 8px;justify-content:center;font-size:12.5px;color:var(--muted);margin-top:6px}
+.cbw-key span{display:inline-flex;align-items:center;gap:6px}
+.cbw-sw{width:14px;height:14px;border-radius:3px;display:inline-block}
+.cbw-sw.na{background:var(--surface-2);border:1px solid var(--line)}
+/* one petal opened */
+.cbw-det{border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.cbw-dh{display:flex;align-items:center;gap:10px}
+.cbw-dh>div{flex:1;min-width:0;text-align:center}
+.cbw-dh h3{font-size:18px}
+.cbw-nav{font-size:20px;line-height:1;padding:6px 12px}
+.cbw-big{display:flex;align-items:baseline;gap:6px;justify-content:center;margin:10px 0 6px}
+.cbw-big b{font-family:var(--f-display);font-size:46px;line-height:1}
+.cbw-big span{font-family:var(--f-mono);color:var(--muted)}
+.cbw-uses{margin-top:12px !important}
+.cbw-pic{display:block;width:100%;max-width:330px;margin:4px auto 0}
+.cbw-cap{text-align:center;font-size:11.5px;color:var(--muted);margin:2px 0 0}
+.cbw-uses{list-style:none;margin:0;padding:0;font-size:13px}
+.cbw-uses li{display:grid;grid-template-columns:22px minmax(0,1.6fr) minmax(40px,1fr) 26px;gap:8px;align-items:center;padding:3px 0}
+.cbw-un{overflow-wrap:anywhere;line-height:1.3}
+.cbw-uses .dic{width:22px;height:22px}
+.cbw-ub{height:8px;border-radius:4px;background:var(--surface-2);overflow:hidden}
+.cbw-ub span{display:block;height:100%;border-radius:4px;background:var(--infer)}
+.cbw-uses .cb-mono{text-align:right}
+
 /* band at the end of the resident story */
 .cb-hand{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;border-left:4px solid var(--accent)}
 .cb-hand>div{flex:1 1 280px;min-width:0}

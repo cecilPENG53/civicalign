@@ -6,9 +6,10 @@
    and an evidence-standard self-check.
    Everything is demo state saved in this browser. No figure comes from outside S1–S5: every count here is
    counted by the page or comes from demo submissions in this browser. The simulated votes (D1, vote.js)
-   stay in their own card and are never used here. Names start with cb / CB. */
+   stay in their own card and are used in one other place only: the outer bars of the wheel on the home
+   board (cbWheelCard), where they are labelled as simulated. Names start with cb / CB. */
 const CB_MIN=10;                       // privacy threshold: a group is shown only at 10 or more
-const CB={filter:"all",preview:false};
+const CB={filter:"all",preview:false,feat:""};
 const cbSubs=()=>store.get("cav_subs")||[];
 const cbWhen=t=>new Date(t).toLocaleString(langInfo(S.lang)[1],{year:"numeric",month:"short",day:"numeric",hour:"2-digit",minute:"2-digit"});
 const cbClaim=id=>CLAIMS.find(c=>c.id===id);
@@ -158,6 +159,89 @@ function cbIndicators(){const subs=cbSubs(),n=subs.length,show=n>=CB_MIN||(CB.pr
    <div class="cb-kv h"><span>${L("战略指标（基线待定）","Strategy indicator (baseline TBC)")}</span><span>${L("可用的居民输入","Resident input that could feed it")}</span><span>${L("现在","Now")}</span></div>
    ${rows.map(r=>`<div class="cb-kv"><span>${r[0]} ${chip("S5",r[1])}</span><span>${r[2]}</span><span>${r[3]}</span></div>`).join("")}`;}
 
+/* ---------- home board: the smart-city wheel, after Figure 1 of the strategy (S5 p.18) ----------
+   One question: where do residents' votes land on the strategy's 18 features?
+   Residents pick up to 3 of the 10 square uses (vote.js). A person votes for a feature when they picked
+   at least one use that sits behind it. The greener a wedge, the larger the share of people who did.
+   The pool is the SIMULATED set (D1, vote.js) plus this browser's demo submissions, under the 10-person
+   threshold. Which use sits behind which feature is the team's reading
+   (docs/CHAT_HANDOFF_2026-11-15.md 4.2.1), not Council's.
+   Feature names are Council's wording and stay in English in every language. */
+const CB_DOMS=[["Smart","Governance"],["Smart","Environment"],["Smart","Living"],["Smart","Mobility"],["Smart","People"],["Smart","Economy"]];
+/* id, domain index, Council wording (| = line break on the wheel), Chinese gloss, square uses behind it */
+const CB_FEATS=[
+ ["ict",0,"ICT &|e-governance",{zh:"信息通信与电子政务"},["smart"]],
+ ["open",0,"Transparency &|open data",{zh:"透明与开放数据"},[]],
+ ["part",0,"Enabling community|participation",{zh:"促进社区参与"},[]],
+ ["gbld",1,"Green buildings",{zh:"绿色建筑"},[]],
+ ["renew",1,"Renewable|energy sources",{zh:"可再生能源"},["smart"]],
+ ["gplan",1,"Green urban|planning",{zh:"绿色城市规划"},["canopy","blue"]],
+ ["safe",2,"Safe places",{zh:"安全的场所"},["smart","events"]],
+ ["vib",2,"Culturally|vibrant",{zh:"文化活力"},["culture"]],
+ ["conn",2,"Connected|communities",{zh:"有联结的社区"},["events","rest"]],
+ ["modal",3,"Mixed-modal|access",{zh:"多方式可达"},["walk","bike","kerb"]],
+ ["pat",3,"Prioritise public &|active transport",{zh:"公共交通和主动出行优先"},["walk","bike"]],
+ ["dem",3,"Demand|management",{zh:"需求管理"},["kerb"]],
+ ["crea",4,"Embrace|creativity",{zh:"拥抱创意"},["culture"]],
+ ["incl",4,"Inclusive society",{zh:"包容的社会"},["rest","walk"]],
+ ["edu",4,"21st century|education",{zh:"21 世纪教育"},[]],
+ ["glob",5,"Local & global|connectedness",{zh:"本地与全球联结"},["events","culture"]],
+ ["prod",5,"Productivity",{zh:"生产力"},[]],
+ ["ent",5,"Entrepreneurship|& innovation",{zh:"创业与创新"},["events"]]
+].map(([id,dom,nm,zh,mods])=>({id,dom,lines:nm.split("|"),name:nm.replace("|"," "),zh:zh.zh,mods}));
+const cbGloss=f=>{const z=L(f.zh,"");return z?` <span class="muted">${z}</span>`:"";};
+/* people who voted for each feature; n = null when no use sits behind it or the pool is under the threshold */
+function cbFeatRows(){const P=pool(),ok=P.length>=CB_MIN;
+  return {P,ok,rows:CB_FEATS.map(f=>({...f,n:ok&&f.mods.length?P.filter(r=>r.pick.some(id=>f.mods.includes(id))).length:null}))};}
+const cbPt=(r,a)=>{const t=a*Math.PI/180;return (r*Math.sin(t)).toFixed(1)+" "+(-r*Math.cos(t)).toFixed(1);};
+const cbSector=(r0,r1,a0,a1)=>`M${cbPt(r1,a0)}A${r1} ${r1} 0 0 1 ${cbPt(r1,a1)}L${cbPt(r0,a1)}A${r0} ${r0} 0 0 0 ${cbPt(r0,a0)}Z`;
+const cbTint=s=>`color-mix(in srgb,var(--accent) ${Math.round(12+88*s)}%,var(--surface))`;   // share 0..1 → pale to full green
+function cbWheelSvg(rows,N,sel){
+  const wedges=rows.map((f,i)=>{const am=-20+20*i,flip=(am+360)%360>180,n=f.lines.length,s=f.n!=null?f.n/N:null;
+    return `<g class="cbw-w${s==null?" na":s>.5?" dk":""}${sel===f.id?" on":""}" data-cb="feat" data-val="${f.id}" role="button" tabindex="0" aria-pressed="${sel===f.id}" aria-label="${esc(f.name)}${f.n!=null?`: ${f.n} / ${N}`:""}">
+     <path class="cbw-f" d="${cbSector(156,300,am-9.3,am+9.3)}"${s!=null?` style="fill:${cbTint(s)}"`:""}/>
+     <text transform="rotate(${flip?am+90:am-90}) translate(${flip?-228:228} 0)" text-anchor="middle">${f.lines.map((t,k)=>`<tspan x="0" dy="${k?14:-(n-1)*7+4.5}">${esc(t)}</tspan>`).join("")}</text>
+     ${s!=null?`<text class="cbw-n" text-anchor="middle" transform="translate(${cbPt(320,am)})" dy="5">${Math.round(100*s)}%</text>`:""}</g>`;}).join("");
+  const petals=CB_DOMS.map((d,i)=>`<g class="cbw-pt" transform="translate(${cbPt(104,60*i)})"><circle r="42" class="cbw-p"/><text text-anchor="middle"><tspan x="0" dy="-2">${d[0]}</tspan><tspan x="0" dy="14">${d[1]}</tspan></text></g>`).join("");
+  return `<svg class="cbw-svg" viewBox="-346 -346 692 692" role="group" aria-label="${L("智慧城市六大领域的 18 项特征","The 18 features of the six smart-city domains")}">
+   ${wedges}<circle r="150" class="cbw-ring"/>${petals}
+   <circle r="56" class="cbw-c"/><text text-anchor="middle" class="cbw-hit"><tspan x="0" dy="-2">SMART</tspan><tspan x="0" dy="20">CITY</tspan></text></svg>`;}
+/* one petal opened: a picture of its vote share. Every form shows the same number (share of people who
+   voted for the feature); the form changes with the subject so the petals do not all look alike. */
+const CB_PIC={ict:["bars","#8a63b8"],renew:["batt","#4f9a5b"],gplan:["iso","#4f9a5b","canopy"],safe:["gauge","#c9a227"],vib:["iso","#d43c32","culture"],conn:["ppl","#d08a2c",0],
+  modal:["road","#3f7cc0"],pat:["iso","#3f7cc0","bike"],dem:["iso","#3f7cc0","kerb"],crea:["iso","#d0658a","star"],incl:["ppl","#d0658a",1],glob:["ring","#d08a2c"],ent:["iso","#d08a2c","events"]};
+const cbPicUnit=f=>["iso","ppl"].includes(CB_PIC[f.id][0]);   // forms made of 20 symbols, each worth 5%
+function cbPic(f,s){const [k,c,x]=CB_PIC[f.id],off="var(--line)",n=Math.round(s*20);let g="";
+  const glyph=(id,col,X,Y,sz)=>ICON[id](col).replace('width="16" height="16"',`x="${X}" y="${Y}" width="${sz}" height="${sz}"`);
+  if(k==="iso"){for(let i=0;i<20;i++){const X=12+(i%10)*28,Y=12+Math.floor(i/10)*50,col=i<n?c:off;
+    g+=x==="star"?`<path transform="translate(${X+12} ${Y+13}) scale(1.25)" d="M0-10 2.9-3.1 10-3.1 4.2 1.6 6.2 9 0 4.6-6.2 9-4.2 1.6-10-3.1-2.9-3.1Z" fill="${col}"/>`:glyph(x,col,X,Y,24);}}
+  else if(k==="ppl"){[Math.min(n,10),Math.max(0,n-10)].forEach((m,r)=>{if(!x&&m>1)g+=`<path d="M24 ${40+r*54}H${24+28*(m-1)}" stroke="${c}" stroke-width="4" stroke-linecap="round"/>`;});   // linked hands for "connected"
+    for(let i=0;i<20;i++){const X=24+(i%10)*28,Y=54+Math.floor(i/10)*54,col=i<n?c:off,h=x&&i%3===1?.68:1;   // mixed sizes for "inclusive"
+      g+=`<g transform="translate(${X} ${Y}) scale(${h})"><circle cy="-31" r="6.5" fill="${col}"/><rect x="-6.5" y="-23" width="13" height="23" rx="6.5" fill="${col}"/></g>`;}}
+  else if(k==="gauge"){const pt=(p,r)=>(150-r*Math.cos(Math.PI*p)).toFixed(1)+" "+(110-r*Math.sin(Math.PI*p)).toFixed(1);
+    g=`<path d="M${pt(0,84)}A84 84 0 0 1 ${pt(1,84)}" stroke="${off}" stroke-width="20" fill="none" stroke-linecap="round"/><path d="M${pt(0,84)}A84 84 0 0 1 ${pt(s,84)}" stroke="${c}" stroke-width="20" fill="none" stroke-linecap="round"/><path d="M150 110L${pt(s,62)}" stroke="var(--fg)" stroke-width="4" stroke-linecap="round"/><circle cx="150" cy="110" r="7" fill="var(--fg)"/>`;}
+  else if(k==="batt"){g=`<rect x="58" y="26" width="174" height="68" rx="12" fill="none" stroke="${off}" stroke-width="4"/><rect x="236" y="46" width="10" height="28" rx="3" fill="${off}"/><rect x="66" y="34" width="${(158*s).toFixed(1)}" height="52" rx="6" fill="${c}"/><path d="M152 38l-18 26h14l-6 20 22-28h-14z" fill="var(--fg)"/>`;}
+  else if(k==="bars"){for(let i=0;i<5;i++){const h=24+i*20,X=45+i*44,fl=Math.max(0,Math.min(1,s*5-i))*h;
+    g+=`<rect x="${X}" y="${112-h}" width="30" height="${h}" rx="5" fill="${off}"/><rect x="${X}" y="${(112-fl).toFixed(1)}" width="30" height="${fl.toFixed(1)}" rx="5" fill="${c}"/>`;}}
+  else if(k==="road"){g=`<rect x="16" y="76" width="268" height="22" rx="11" fill="${off}"/><rect x="16" y="76" width="${(268*s).toFixed(1)}" height="22" rx="11" fill="${c}"/><path d="M28 87H272" stroke="var(--surface)" stroke-width="2" stroke-dasharray="10 9"/>`
+    +[["walk",.2],["bike",.5],["kerb",.8]].map(([id,p])=>glyph(id,s>=p?c:off,16+268*p-18,28,36)).join("");}
+  else if(k==="ring"){const C=2*Math.PI*46;g=`<circle cx="150" cy="60" r="46" fill="none" stroke="${off}" stroke-width="18"/><circle cx="150" cy="60" r="46" fill="none" stroke="${c}" stroke-width="18" stroke-dasharray="${(C*s).toFixed(1)} ${C.toFixed(1)}" transform="rotate(-90 150 60)"/>
+    <g fill="none" stroke="var(--muted)" stroke-width="2"><circle cx="150" cy="60" r="26"/><ellipse cx="150" cy="60" rx="11" ry="26"/><path d="M124 60H176"/></g>`;}
+  return `<svg class="cbw-pic" viewBox="0 0 300 120" role="img" aria-label="${Math.round(100*s)}%">${g}</svg>`;}
+function cbFeatDetail(f,P,ok){const dom=CB_DOMS[f.dom],N=P.length,nav=d=>`<button class="btn cb-sm cbw-nav" data-cb="featstep" data-val="${d}" aria-label="${d<0?L("上一瓣","Previous"):L("下一瓣","Next")}">${d<0?"‹":"›"}</button>`;
+  return `<div class="cbw-det"><div class="cbw-dh">${nav(-1)}<div><div class="small muted">${dom[0]} ${dom[1]}</div><h3>${esc(f.name)}${cbGloss(f)}</h3></div>${nav(1)}</div>
+   ${!ok?`<p class="cb-ghost">${L(`投票不足 ${CB_MIN} 份`,`Fewer than ${CB_MIN} responses`)}</p>`
+    :f.n==null?`<p class="cb-ghost" style="text-align:center">${L("投票里没有对应这一瓣的选项","No vote option points here")}</p>`
+    :`<div class="cbw-big"><b>${Math.round(100*f.n/N)}%</b><span>${f.n} / ${N}</span></div>${cbPic(f,f.n/N)}${cbPicUnit(f)?`<p class="cbw-cap">${L("1 个 = 5%","1 symbol = 5%")}</p>`:""}
+      <ul class="cbw-uses">${f.mods.map(id=>{const m=MODULES.find(k=>k.id===id),c=GROUPS[m.g].c,k=cntIn(id,P);return `<li><span class="dic sm" aria-hidden="true">${ICON[id](c)}</span><span class="cbw-un">${T(VOTE_WHY[id])}</span><span class="cbw-ub"><span style="width:${Math.round(100*k/N)}%;background:${c}"></span></span><span class="cb-mono">${k}</span></li>`;}).join("")}</ul>`}</div>`;}
+function cbWheelCard(){const {P,ok,rows}=cbFeatRows(),top=rows.slice().sort((a,b)=>(b.n||0)-(a.n||0))[0],sel=rows.find(f=>f.id===CB.feat)||top;
+  return `<section class="card" id="cb-wheel"><div class="sec-h"><h2 class="ch2">${L("居民的票落在战略的哪几瓣","Where residents' votes land on the strategy wheel")}</h2>
+    <span>${SIMTAG()} ${chip("S5","p.18")}</span></div>
+   <div class="cbw"><div class="cbw-fig">${cbWheelSvg(rows,P.length,sel.id)}
+     <div class="cbw-key"><span>${L("票少","Fewer")}</span><i class="cbw-scale"></i><span>${L("票多","More votes")}</span><span><i class="cbw-sw na"></i>${L("没有对应选项","No vote option")}</span></div></div>
+    <div class="cbw-side">${cbFeatDetail(sel,P,ok)}</div></div>
+   <p class="small muted" style="margin:10px 0 0">${L("哪项选择对应哪一瓣是团队的设定。","Which choice points at which feature is the team's reading.")} <span class="tag t-design">${L("我们的设计","Our design")}</span></p></section>`;}
+
 /* a band at the end of the resident story that leads into the backend; the send bar offers the same link after a submission */
 function cbHandoff(){if(typeof V!=="undefined"&&V.sent)return "";
   return `<section class="wrap" style="padding-bottom:40px"><div class="card cb-hand"><div><b>${L("你的意见到了 Council 那边，会变成什么？","What becomes of your feedback on Council's side?")}</b>
@@ -172,6 +256,8 @@ function cbClick(b){const d=b.dataset;
   if(d.cb==="go"){cbGo(d.val);return;}
   if(d.cb==="filter"){CB.filter=d.val;
     if(typeof goTab==="function"&&!document.getElementById("ledger"))goTab("ledger","ledger");else cbRedraw();return;}
+  if(d.cb==="feat"||d.cb==="featstep"){if(d.cb==="feat")CB.feat=d.val;else{const cur=document.querySelector(".cbw-w.on"),i=CB_FEATS.findIndex(f=>f.id===(cur?cur.dataset.val:CB.feat));CB.feat=CB_FEATS[(i+ +d.val+CB_FEATS.length)%CB_FEATS.length].id;}
+    cbRedraw();const w=document.querySelector(d.cb==="feat"?`.cbw-w[data-val="${CB.feat}"]`:`.cbw-nav[data-val="${d.val}"]`);if(w)w.focus({preventScroll:true});return;}
   if(d.cb==="preview"){CB.preview=!CB.preview;cbRedraw();return;}
   if(d.cb==="brief"){
     if(d.val==="make")store.set("cav_brief",{st:"draft",at:Date.now()});
@@ -185,4 +271,5 @@ document.addEventListener("click",e=>{
   if(e.target.closest("#submit"))setTimeout(cbAfterSubmit,0);
   if(e.target.closest("#clearVotes")&&document.getElementById("cb-triage"))setTimeout(cbRedraw,0); // the other cards count the same submissions
   const b=e.target.closest("[data-cb]");if(b)cbClick(b);});
+document.addEventListener("keydown",e=>{const w=e.target.closest&&e.target.closest(".cbw-w");if(w&&(e.key==="Enter"||e.key===" ")){e.preventDefault();cbClick(w);}});
 document.addEventListener("change",e=>{const t=e.target;if(t&&t.dataset&&t.dataset.cbroute!==undefined){const r=cbRoutes();if(t.value)r[t.dataset.cbroute]=t.value;else delete r[t.dataset.cbroute];store.set("cav_triage",r);cbRedraw();}});
