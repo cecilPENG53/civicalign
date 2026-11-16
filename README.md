@@ -136,6 +136,7 @@ See [`variants/i18n/README.md`](variants/i18n/README.md).
 What it shows, from top to bottom:
 
 - **Story:** the map reframes and highlights places as you scroll, then the three deliverables and Council's decision path.
+- **Map:** the precinct boundary, Woodhouse Square and the 21 numbered items (Parramatta Station entry, one-way streets, cycleways, arcades, the redeveloped car park and so on) are traced from Council's site plan 〔S2 p.7; the same plan is on p.26〕 and fitted to the OpenStreetMap base, so streets line up within a few metres. Each step lists the items it shows, in Council's legend wording. The traced square measures about 1,220 m², close to the plan's 1,200 m² 〔S2 p.23〕. Positions are indicative, not survey.
 - **2.5D studio:** a game-style isometric Woodhouse Square. Its 48 tiles of about 25 m² change into trees, market stalls, benches and paths as you drag the linked sliders. Tree crowns grow by year. There is a night-market view.
 - **Results:** all nine dimensions against Scenario 0, as comparison bars or pictograms.
 - **Your say (pick and vote, no typing needed):**

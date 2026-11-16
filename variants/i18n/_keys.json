@@ -276,6 +276,38 @@
   "zh": "示意图，不是设计方案。每个图标约 25 m²，树冠大小随年份和种植方式变化。周边关系依据"
  },
  {
+  "en": "Fitzwilliam Street",
+  "zh": "Fitzwilliam St"
+ },
+ {
+  "en": "Church Street",
+  "zh": "Church St"
+ },
+ {
+  "en": "Laneways and Arcades",
+  "zh": "小巷和拱廊"
+ },
+ {
+  "en": "Wentworth Street",
+  "zh": "Wentworth St"
+ },
+ {
+  "en": "Valentine Avenue",
+  "zh": "Valentine Ave"
+ },
+ {
+  "en": "Council-owned land",
+  "zh": "Council 拥有的土地"
+ },
+ {
+  "en": "Numbered on Council's plan",
+  "zh": "Council 总规图上的编号"
+ },
+ {
+  "en": "All 21 numbered items on the map",
+  "zh": "全部 21 项（地图上的编号）"
+ },
+ {
   "en": "↑ Station",
   "zh": "↑ 车站"
  },
@@ -840,12 +872,16 @@
   "zh": "西 · Council 新楼 · 文化空间"
  },
  {
+  "en": "S · Rivoli Way extension, then new Council development",
+  "zh": "南 · Rivoli Way 延伸段，再往南是 Council 新楼"
+ },
+ {
   "en": "Wentworth St · one-way south",
   "zh": "Wentworth St · 单向南行"
  },
  {
-  "en": "raised crossing · Rivoli Way",
-  "zh": "抬高横道 · Rivoli Way"
+  "en": "raised crossing · lines up with Rivoli Way",
+  "zh": "抬高横道 · 对齐 Rivoli Way"
  },
  {
   "en": "The square",
@@ -862,6 +898,10 @@
  {
   "en": "Below",
   "zh": "地下"
+ },
+ {
+  "en": "On Council's plan · S2 p.7",
+  "zh": "在总规图上的位置 · S2 p.7"
  },
  {
   "en": "Woodhouse Square 2.5D view",
@@ -2008,8 +2048,12 @@
   "zh": "车站停车场（Council 用地）"
  },
  {
-  "en": "Square (approximate; colours show your split)",
-  "zh": "广场（大致位置，色块是你的分法）"
+  "en": "Square, traced from Council's plan (colours show your split)",
+  "zh": "广场：按 Council 总规图描出（色块是你的分法）"
+ },
+ {
+  "en": "Number on Council's plan",
+  "zh": "总规图上的编号"
  },
  {
   "en": "Explained for your role",
@@ -2342,6 +2386,10 @@
  {
   "en": "The plan gives no area for each use. That is what this tool asks you to try.",
   "zh": "总规没有给出各项功能各占多少面积——这正是本工具请你来试的部分。"
+ },
+ {
+  "en": "The plan's site map numbers 21 changes: 13 is Woodhouse Square, and 21 is the redeveloped public car park with mixed-use buildings. The same map and legend are on p.26.",
+  "zh": "总规的场地平面图给 21 项改造编了号：13 号是 Woodhouse Square，21 号是重建的公共停车场和混合用途建筑。同一张图和图例也在 p.26。"
  },
  {
   "en": "Restaurants on Church St; hawker-style food, art and lighting in laneways and arcades; night markets and outdoor dining.",
@@ -2682,6 +2730,90 @@
  {
   "en": "Station car park",
   "zh": "车站停车场"
+ },
+ {
+  "en": "Parramatta Station entry",
+  "zh": "Parramatta 车站入口"
+ },
+ {
+  "en": "One-way on Fitzwilliam St",
+  "zh": "Fitzwilliam St 改为单行"
+ },
+ {
+  "en": "Firehorse Lane Plaza",
+  "zh": "Firehorse Lane 广场"
+ },
+ {
+  "en": "Separated cycle track",
+  "zh": "分隔式自行车道"
+ },
+ {
+  "en": "Widened public domain",
+  "zh": "加宽公共空间"
+ },
+ {
+  "en": "Taxi pick-up/drop-off",
+  "zh": "出租车上下客"
+ },
+ {
+  "en": "Kiss and ride",
+  "zh": "临时接送（Kiss and ride）"
+ },
+ {
+  "en": "New pedestrian crossing",
+  "zh": "新人行横道"
+ },
+ {
+  "en": "Upgraded public domain - lighting, public art, paving",
+  "zh": "升级公共空间：照明、公共艺术、铺装"
+ },
+ {
+  "en": "New street trees",
+  "zh": "新行道树"
+ },
+ {
+  "en": "Realigned and upgraded Rivoli Way",
+  "zh": "Rivoli Way 改线并升级"
+ },
+ {
+  "en": "Upgraded Firehorse Lane",
+  "zh": "升级 Firehorse Lane"
+ },
+ {
+  "en": "Arcades",
+  "zh": "拱廊"
+ },
+ {
+  "en": "Woodhouse Square - new urban public space",
+  "zh": "Woodhouse Square：新的城市公共空间"
+ },
+ {
+  "en": "One-way on Wentworth St",
+  "zh": "Wentworth St 改为单行"
+ },
+ {
+  "en": "On-street car parking",
+  "zh": "路边停车"
+ },
+ {
+  "en": "Upgraded public domain - widened footpath",
+  "zh": "升级公共空间：加宽人行道"
+ },
+ {
+  "en": "New Pedestrian crossing",
+  "zh": "新人行横道"
+ },
+ {
+  "en": "One way on Valentine Ave",
+  "zh": "Valentine Ave 改为单行"
+ },
+ {
+  "en": "Separated cycle way",
+  "zh": "分隔式自行车道"
+ },
+ {
+  "en": "Redeveloped public car park, mixed-use buildings",
+  "zh": "重建公共停车场，混合用途建筑"
  },
  {
   "en": "Hard to find shade along Wentworth St in the afternoon",

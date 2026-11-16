@@ -127,7 +127,7 @@ function chromeC(){
 }
 function drawMap(){
   VBC=fitView();
-  document.getElementById("mapbox").innerHTML=mapSVG2({vb:VBC,hl:HL[SEL],alloc:true,hots:true,sel:SEL,slice:true,noChrome:true});
+  document.getElementById("mapbox").innerHTML=mapSVG2({vb:VBC,hl:HL[SEL],alloc:true,hots:true,sel:SEL,slice:true,noChrome:true,noKey:true});
   fitLabels();
 }
 function svgEl(){return document.querySelector("#mapbox svg");}

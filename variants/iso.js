@@ -1,7 +1,8 @@
 /* ===== variants/iso.js: 2.5D isometric plaza for option D =====
    The square is 48 tiles of 25 m² (8 west→east × 6 north→south). Tiles are handed to uses in proportion to
    S.a, filled column by column from the west, so trees sit at the back and walking + kerb face Wentworth St.
-   Edges after S2 p.45 / p.43 and S4 (one-way southbound). Indicative only, not a layout design. */
+   Edges after Council's Woodhouse Square plan and Wentworth St section (S2 p.45, p.46), p.43 and p.48; item numbers from S2 p.7.
+   Indicative only, not a layout design. */
 const ISO={C:8,R:6,HW:36,HH:18};
 const ISO_ORDER=["canopy","blue","culture","rest","events","smart","circ","bike","walk","kerb"];
 const ip=(c,r,z=0)=>[(c-r)*ISO.HW,(c+r)*ISO.HH-z];
@@ -60,20 +61,39 @@ function quest(x,y,n,id,label){return `<g class="quest" data-quest="${id}" role=
 function isoScene(){
   const reduce=window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches;
   let g=ISO_DEFS;
-  // ground plane and back edges
-  g+=`<polygon points="${P([ip(-4,-4),ip(12,-4),ip(12,10),ip(-4,10)])}" fill="#cfd8c6"/>`;
-  // north: heritage townhouse (low, brick, pitched roof) S2 p.45
-  g+=isoBox(.6,-2.4,6.6,-.4,0,34,"#d99a77","#b86f4f","#9b5a3e",windows(.6,6.6,-.4,4,2,6,28));
-  g+=`<polygon points="${P([ip(.6,-2.4,34),ip(6.6,-2.4,34),ip(6.6,-1.4,48),ip(.6,-1.4,48)])}" fill="#7d4a3a"/><polygon points="${P([ip(.6,-1.4,48),ip(6.6,-1.4,48),ip(6.6,-.4,34),ip(.6,-.4,34)])}" fill="#a35f47"/>`;
-  // west: new Council building with cultural space (tall, glass)
-  g+=isoBox(-3.4,-2.4,-.4,6.4,0,118,"#c8d6e6","url(#gGlass)","#5b7ea3",windowsE(-2.4,6.4,-.4,8,7,8,104)+windows(-3.4,-.4,6.4,8,7,3,104));
-  // east: Wentworth St, one-way southbound (S4), raised crossing aligned to Rivoli Way (S2 p.43)
-  g+=`<polygon points="${P([ip(8,-4),ip(8.4,-4),ip(8.4,10),ip(8,10)])}" fill="#d9d4ca"/><polygon points="${P([ip(8.4,-4),ip(11,-4),ip(11,10),ip(8.4,10)])}" fill="#59626d"/>`;
-  g+=[0,1,2,3,4,5,6].map(i=>{const r=1.1+i*.12;return `<polygon points="${P([ip(8.5,r),ip(10.9,r),ip(10.9,r+.06),ip(8.5,r+.06)])}" fill="#f4f4f4"/>`;}).join("");
-  g+=[-3,0,3,6].map(r=>`<polygon points="${P([ip(9.6,r),ip(9.8,r),ip(9.8,r+1.2),ip(9.6,r+1.2)])}" fill="#f2d24b"/>`).join("");
-  // car driving south
-  const car=`<g>${lbox(-.18,-.34,.18,.34,0,9,"#e8eef5","#c7d2de","#aab8c7")}${lbox(-.15,-.16,.15,.14,9,7,"#5f7d9c","#4b6886","#3e5872")}</g>`;
-  g+= reduce?`<g transform="translate(${ip(9.7,4)[0]} ${ip(9.7,4)[1]})">${car}</g>`:`<g>${car}<animateMotion dur="7s" repeatCount="indefinite" path="M${ip(9.7,-3.5).join(",")} L${ip(9.7,9.5).join(",")}"/></g>`;
+  // ground plane
+  g+=`<polygon points="${P([ip(-4,-6),ip(12.4,-6),ip(12.4,11),ip(-4,11)])}" fill="#cfd8c6"/>`;
+  /* Edges follow Council's Woodhouse Square plan and Wentworth Street section (S2 p.45, p.46):
+     north = heritage townhouse on the north-east with outdoor dining, Fire Horse Lane reaching the north-west corner;
+     west = Council's redeveloped building (item 21, S2 p.7); south = the Rivoli Way extension, then new Council
+     development; east = Wentworth St, one-way southbound (S2 p.48), 18.5 m: 3.5 footpath | 2.3 parking |
+     3.5 lane | 2.2 parking | 7.0 footpath, with the raised crossing lined up with Rivoli Way (S2 p.43). 1 tile = 5 m. */
+  // north: the block beyond (faded, not part of the plan) and the north-west forecourt
+  g+=isoBox(-1,-8,8,-3.7,0,16,"#e3e0d8","#d3cfc5","#c4bfb4");
+  g+=`<polygon points="${P([ip(-1.2,-3.6),ip(3.6,-3.6),ip(3.6,-.12),ip(-1.2,-.12)])}" fill="#e6ddcd"/>`;
+  // Fire Horse Lane (item 11) comes down past the west building to the square's north-west corner
+  g+=`<polygon points="${P([ip(-1.2,-6),ip(-.12,-6),ip(-.12,6.12),ip(-1.2,6.12)])}" fill="#cfc6b6"/>`;
+  g+=[.2,.45,.7].map(d=>`<polyline points="${P([ip(-.12-d*.4,.3),ip(-.12-d*.4,5.8)])}" stroke="rgba(90,70,40,.35)" stroke-width="1"/>`).join(""); // steps at the level change
+  // north-east: heritage townhouse (hospitality), hipped tiled roof, umbrellas on its Wentworth St side
+  const hx0=3.7,hx1=7.3,hy0=-3.3,hy1=-.5,hz=30,rz=50;
+  g+=isoBox(hx0,hy0,hx1,hy1,0,hz,"#e9e1d2","#e4d8c4","#cbbca4",windows(hx0,hx1,hy1,5,2,5,hz-6));
+  g+=`<polygon points="${P([ip(hx0,hy0,hz),ip(hx1,hy0,hz),ip(hx1-.9,(hy0+hy1)/2,rz),ip(hx0+.9,(hy0+hy1)/2,rz)])}" fill="#8e3f2c"/>`
+    +`<polygon points="${P([ip(hx1,hy0,hz),ip(hx1,hy1,hz),ip(hx1-.9,(hy0+hy1)/2,rz)])}" fill="#a24a33"/>`
+    +`<polygon points="${P([ip(hx0,hy1,hz),ip(hx1,hy1,hz),ip(hx1-.9,(hy0+hy1)/2,rz),ip(hx0+.9,(hy0+hy1)/2,rz)])}" fill="#b85a3e"/>`;
+  const umb=(c,r,col="#d9766a")=>{const[x,y]=ip(c,r);return `<path d="M${x} ${y}v-15" stroke="#6b4a2a" stroke-width="1.4"/><ellipse cx="${x}" cy="${y-16}" rx="11" ry="5.5" fill="${col}"/><ellipse cx="${x}" cy="${y-17.5}" rx="6" ry="2.6" fill="rgba(255,255,255,.28)"/>`;};
+  // west: Council's redeveloped mixed-use building with cultural space (S2 p.45; item 21 on S2 p.7)
+  g+=isoBox(-3.6,-5,-1.2,6.1,0,118,"#c8d6e6","url(#gGlass)","#5b7ea3",windowsE(-5,6.1,-1.2,8,7,10,104)+windows(-3.6,-1.2,6.1,8,7,3,104));
+  // east: Wentworth St cross-section, west to east (S2 p.46)
+  const WS=[[8.12,8.82,"#d9d4ca"],[8.82,9.28,"#6c7580"],[9.28,9.98,"#59626d"],[9.98,10.42,"#6c7580"],[10.42,11.82,"#d9d4ca"]];
+  g+=WS.map(([a,b,f])=>`<polygon points="${P([ip(a,-6),ip(b,-6),ip(b,11),ip(a,11)])}" fill="${f}"/>`).join("");
+  g+=[8.82,10.42].map(c=>`<polyline points="${P([ip(c,-6),ip(c,11)])}" stroke="#eee" stroke-width="1.2"/>`).join("");
+  // painted arrow: southbound
+  g+=`<polygon points="${P([ip(9.6,-2.6),ip(9.66,-2.6),ip(9.66,-1.7),ip(9.6,-1.7)])}" fill="#fff"/><polygon points="${P([ip(9.63,-1.3),ip(9.48,-1.75),ip(9.78,-1.75)])}" fill="#fff"/>`;
+  // raised crossing lined up with Rivoli Way (item 18)
+  g+=`<polygon points="${P([ip(8.82,6.2),ip(10.42,6.2),ip(10.42,7.6),ip(8.82,7.6)])}" fill="#e8e2d6"/>`;
+  g+=[...Array(7)].map((_,i)=>{const c=8.9+i*.22;return `<polygon points="${P([ip(c,6.3),ip(c+.11,6.3),ip(c+.11,7.5),ip(c,7.5)])}" fill="#ffffff"/>`;}).join("");
+  // south: the Rivoli Way extension, a shared lane with dining at the square's south edge
+  g+=`<polygon points="${P([ip(-3.6,6.12),ip(8.12,6.12),ip(8.12,7.7),ip(-3.6,7.7)])}" fill="#d6ccbb"/><polyline points="${P([ip(-3.6,7.7),ip(8.12,7.7)])}" stroke="rgba(90,70,40,.3)"/>`;
   // plaza base slab
   g+=`<polygon points="${P([ip(-.12,-.12),ip(8.12,-.12),ip(8.12,6.12),ip(-.12,6.12)])}" fill="#bfae95"/>`;
   // tiles, back to front
@@ -81,21 +101,36 @@ function isoScene(){
   g+=`<g id="tiles">${order.map(t=>{const[c,r]=tileCR(t),[x,y]=ip(c+.5,r+.5);return `<g id="tl_${t}" data-u="${tm[t]}" transform="translate(${x.toFixed(1)} ${y.toFixed(1)})"><g class="tc">${tileArt(tm[t],t)}</g></g>`;}).join("")}</g>`;
   // walkers along the Wentworth St frontage and across from the crossing
   g+=`<g id="walkers">${walkers(reduce)}</g>`;
-  // south: new Council building, cut away so the square stays visible
-  g+=isoBox(-3.4,6.5,8,8.4,0,12,"#e6dccb","#cdbfa8","#b7a88f")+`<polygon points="${P([ip(-3.4,8.4,12),ip(8,8.4,12),ip(8,8.4,96),ip(-3.4,8.4,96)])}" fill="none" stroke="rgba(60,80,110,.35)" stroke-dasharray="5 4"/><polygon points="${P([ip(8,6.5,12),ip(8,8.4,12),ip(8,8.4,96),ip(8,6.5,96)])}" fill="none" stroke="rgba(60,80,110,.35)" stroke-dasharray="5 4"/>`;
+  // things with height on the street and lane, drawn over the square's front tiles
+  const tree=(c,r,s=1)=>{const[x,y]=ip(c,r);return `<g transform="translate(${x} ${y}) scale(${s})"><ellipse cx="5" cy="3" rx="16" ry="8" fill="rgba(25,70,35,.25)"/><rect x="-1.6" y="-16" width="3.2" height="16" fill="#7a5a3a"/><circle cx="0" cy="-27" r="12" fill="#3f8f4e"/><circle cx="-5" cy="-23" r="8" fill="#4aa05a"/><circle cx="4" cy="-31" r="6" fill="#72c07a"/></g>`;};
+  const parked=(c,r)=>`<g transform="translate(${ip(c,r)[0]} ${ip(c,r)[1]})">${lbox(-.16,-.34,.16,.34,0,8,"#dfe6ee","#bfcad6","#a3b2c2")}${lbox(-.13,-.15,.13,.13,8,6,"#5f7d9c","#4b6886","#3e5872")}</g>`;
+  g+=[-3,-.6,2.6,5.2].map(r=>tree(8.47,r,.9)).join("")+[-4,0,4,8.6].map(r=>tree(11.1,r)).join("");
+  g+=parked(9.05,-1.8)+parked(9.05,1.6)+parked(9.05,4.4)+parked(10.2,-3.2)+parked(10.2,2.8);
+  g+=[-2.6,-1.8,-1].map(r=>umb(7.75,r)).join("");
+  g+=[-2.2,.4,3,5.6].map((c,i)=>umb(c,6.95,i%2?"#e2583e":"#e8912e")).join("");
+  // car driving south
+  const car=`<g>${lbox(-.18,-.34,.18,.34,0,9,"#e8eef5","#c7d2de","#aab8c7")}${lbox(-.15,-.16,.15,.14,9,7,"#5f7d9c","#4b6886","#3e5872")}</g>`;
+  g+= reduce?`<g transform="translate(${ip(9.63,0)[0]} ${ip(9.63,0)[1]})">${car}</g>`:`<g>${car}<animateMotion dur="8s" repeatCount="indefinite" path="M${ip(9.63,-5.5).join(",")} L${ip(9.63,10.5).join(",")}"/></g>`;
+  // south: new Council development beyond Rivoli Way, cut away so the square stays visible
+  g+=isoBox(-3.6,7.9,8.12,10.6,0,12,"#e6dccb","#cdbfa8","#b7a88f")+`<polygon points="${P([ip(-3.6,10.6,12),ip(8.12,10.6,12),ip(8.12,10.6,96),ip(-3.6,10.6,96)])}" fill="none" stroke="rgba(60,80,110,.35)" stroke-dasharray="5 4"/><polygon points="${P([ip(8.12,7.9,12),ip(8.12,10.6,12),ip(8.12,10.6,96),ip(8.12,7.9,96)])}" fill="none" stroke="rgba(60,80,110,.35)" stroke-dasharray="5 4"/>`;
   // night
   g+=`<polygon id="nightVeil" points="${P([ip(-6,-6,200),ip(14,-6,200),ip(14,12),ip(-6,12)])}" fill="#0b1633" style="opacity:${S.night?.55:0}"/>`;
   g+=`<g id="glows" class="glow">${glows()}</g><g id="nameplates">${nameplates()}</g>`;
-  // edge labels and quests
+  // edge labels, the plan's item numbers (S2 p.7), and quests
   const lab=(t,[x,y],o="")=>`<text class="elab" x="${x}" y="${y}" text-anchor="middle" ${o}>${esc(t)}</text>`;
-  g+=lab(L("北 · 历史联排楼（餐饮）","N · heritage townhouse (dining)"),ip(3.6,-1.4,64));
-  g+=lab(L("西 · Council 新楼 · 文化空间","W · Council building · cultural space"),ip(-1.9,2,132));
-  g+=lab(L("南 · Council 新楼（餐饮界面）","S · new Council building (active edge)"),ip(2.3,7.5,28));
-  g+=lab(L("Wentworth St · 单向南行","Wentworth St · one-way south"),ip(10.75,4.6,0),`transform="rotate(-26.6 ${ip(10.75,4.6)[0]} ${ip(10.75,4.6)[1]})"`);
-  g+=lab(L("抬高横道 · Rivoli Way","raised crossing · Rivoli Way"),ip(10.2,1.5,-16));
-  g+=quest(...ip(4,3,96),1,"square",L("广场","The square"))+quest(...ip(9.6,.6,40),2,"street",L("街道","Street"))+quest(...ip(3.6,-1.4,96),3,"north",L("周边建筑","Buildings"))+quest(...ip(5.5,7.4,60),4,"below",L("地下","Below"));
+  g+=lab(L("北 · 历史联排楼（餐饮）","N · heritage townhouse (dining)"),ip(5.5,-1.9,70));
+  g+=lab(L("西 · Council 新楼 · 文化空间","W · Council building · cultural space"),ip(-2.4,2,132));
+  g+=lab(L("南 · Rivoli Way 延伸段，再往南是 Council 新楼","S · Rivoli Way extension, then new Council development"),ip(4.6,9.5,8));
+  g+=lab(L("Wentworth St · 单向南行","Wentworth St · one-way south"),ip(11.3,1.2,0),`transform="rotate(-26.6 ${ip(11.3,1.2)[0]} ${ip(11.3,1.2)[1]})"`);
+  g+=lab(L("抬高横道 · 对齐 Rivoli Way","raised crossing · lines up with Rivoli Way"),ip(12.6,6.1,32));
+  g+=lab("Fire Horse Lane",ip(-.66,-4.2,6),`font-size="10"`);
+  const pkIso=(n,c,r,z)=>{const it=PLAN_ITEMS.find(x=>x.n===n),[x,y]=ip(c,r,z);return `<g class="pkiso" transform="translate(${x} ${y})"><title>${n} · ${esc(T(it))}</title><circle r="9" fill="#fff" stroke="#13202e" stroke-width="1.6"/><text y="3.6" text-anchor="middle" font-size="${n.length>1?9:10}" font-weight="800" fill="#13202e">${n}</text></g>`;};
+  g+=`<g class="pkisos">${[["13",.7,5.3,8],["10",-1.6,6.9,8],["11",-.66,-2.6,8],["14",9.63,-.6,6],["15",9.05,3,14],["17",8.47,-1.8,48],["16",10.6,-1.2,6],["18",9.63,6.9,8],["21",-2.4,5,64]].map(a=>pkIso(...a)).join("")}</g>`;
+  g+=quest(...ip(4,3,96),1,"square",L("广场","The square"))+quest(...ip(9.6,.6,40),2,"street",L("街道","Street"))+quest(...ip(5.5,-1.9,96),3,"north",L("周边建筑","Buildings"))+quest(...ip(5.5,8.4,60),4,"below",L("地下","Below"));
+  // where this is on the real map: a small locator (traced from S2 p.7)
+  g+=`<g class="isoloc" transform="translate(296 -232)"><rect width="150" height="118" rx="8" fill="rgba(255,255,255,.92)" stroke="#9aa"/>${mapSVG2({vb:[-92,-10,190,150],noLabels:true,noKey:true,noChrome:true}).replace("<svg ",`<svg x="4" y="4" width="142" height="96" `)}<text x="12" y="18" font-size="10" font-weight="800" fill="#13202e">N↑</text><text x="75" y="112" text-anchor="middle" font-size="9.5" font-weight="700" fill="#13202e">${esc(L("在总规图上的位置 · S2 p.7","On Council's plan · S2 p.7"))}</text></g>`;
   // compass: north points up-right in this view
-  const VBX=-395,VBY=-240,VBW=850,VBH=520, nx=VBX+34, ny=VBY+VBH-34;
+  const VBX=-395,VBY=-232,VBW=850,VBH=572, nx=VBX+34, ny=VBY+VBH-34;
   g+=`<g transform="translate(${nx} ${ny})"><circle r="16" fill="rgba(255,255,255,.85)" stroke="#9aa"/><path d="M0 0 ${(ISO.HW*.4).toFixed(1)} ${(-ISO.HH*.4).toFixed(1)}" stroke="#13202e" stroke-width="2.5" /><text x="18" y="-12" font-size="12" font-weight="800" fill="#13202e">N</text></g>`;
   return `<svg class="iso" id="isoSvg" viewBox="${VBX} ${VBY} ${VBW} ${VBH}" role="img" aria-label="${L("Woodhouse Square 2.5D 示意","Woodhouse Square 2.5D view")}">${g}</svg>`;
 }
@@ -108,8 +143,8 @@ function walkers(reduce){
     const a=ip(c,-.1),b=ip(c,6.1),from=down?a:b,to=down?b:a,[sx,sy]=ip(c,1+i*.8);
     s+=reduce?person(sx,sy,cols[i%6]):`<g>${person(0,0,cols[i%6])}<animateMotion dur="${9+i*1.7}s" begin="-${i*2.3}s" repeatCount="indefinite" path="M${from.join(",")} L${to.join(",")}"/></g>`;
   }
-  // one person crossing from the raised crossing into the square
-  if(!reduce){const a=ip(10.4,1.5),b=ip(1,1.5);s+=`<g>${person(0,0,"#e2583e")}<animateMotion dur="14s" repeatCount="indefinite" path="M${a.join(",")} L${b.join(",")}"/></g>`;}
+  // one person comes over the raised crossing and along Rivoli Way
+  if(!reduce){const a=ip(10.6,6.9),b=ip(-3.4,6.9);s+=`<g>${person(0,0,"#e2583e")}<animateMotion dur="14s" repeatCount="indefinite" path="M${a.join(",")} L${b.join(",")}"/></g>`;}
   return s;
 }
 function glows(){ // drawn above the night veil so lights read at night

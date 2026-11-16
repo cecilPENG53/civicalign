@@ -153,17 +153,66 @@ const plazaCaption=()=>`<p class="small muted" style="margin:4px 0 0">${L("示�
 
 /* ---------- base map from data/precinct.json (OSM, 10 Nov 2026) ---------- */
 const HOTS=[
-  {id:"square",x:1,y:64,zh:"Woodhouse Square",en:"Woodhouse Square",claims:["sq1","sq2","sq3","sq4","sq5","sq7","sq8","sq9","sq10","sq11","sq12"]},
+  {id:"square",x:2,y:54,zh:"Woodhouse Square",en:"Woodhouse Square",claims:["sq1","sq2","sq3","sq4","sq5","sq7","sq8","sq9","sq10","sq11","sq12"]},
   {id:"china",x:-104,y:4,zh:"Church St · 唐人街",en:"Church St · Chinatown",claims:["ct1","ct2","ct3","ct4","ct5","ct6","ct7"]},
   {id:"went",x:30,y:128,zh:"Wentworth St",en:"Wentworth St",claims:["tr1","tr2","sq1","tr6"]},
   {id:"fitz",x:-24,y:-50,zh:"Fitzwilliam St",en:"Fitzwilliam St",claims:["tr1","tr4","tr5","tr6"]},
   {id:"park",x:-38,y:96,zh:"车站停车场",en:"Station car park",claims:["tr3","tr8","tr7"]}
 ];
+/* ---------- Council's numbered site plan (S2 p.7; the same plan and legend are on S2 p.26) ----------
+   Traced from the plan image and fitted to the OSM base map: about 2.43 plan pixels per metre, and Church,
+   Wentworth, Parkes, Fitzwilliam and Valentine line up within a few metres. Coordinates are metres, north up.
+   Indicative positions, not survey. The legend wording (en) is Council's; zh is the team's translation. */
+const PLAN_REF=["S2","p.7"];
+const PLAN_GROUPS=()=>[["fitz",L("Fitzwilliam St","Fitzwilliam Street")],["church",L("Church St","Church Street")],["lanes",L("小巷和拱廊","Laneways and Arcades")],["went",L("Wentworth St","Wentworth Street")],["val",L("Valentine Ave","Valentine Avenue")],["council",L("Council 拥有的土地","Council-owned land")]];
+// st = map steps where the item is relevant (it is always shown on the overview step)
+const PLAN_ITEMS=[
+ {n:"T",g:"fitz",zh:"Parramatta 车站入口",en:"Parramatta Station entry",at:[[-33,78]],st:["traffic"]},
+ {n:"1",g:"fitz",zh:"Fitzwilliam St 改为单行",en:"One-way on Fitzwilliam St",at:[[-42,62]],st:["traffic"]},
+ {n:"2",g:"fitz",zh:"Firehorse Lane 广场",en:"Firehorse Lane Plaza",at:[[-52,53]],st:["china"]},
+ {n:"3",g:"fitz",zh:"分隔式自行车道",en:"Separated cycle track",at:[[-87,90]],st:["traffic"]},
+ {n:"4",g:"fitz",zh:"加宽公共空间",en:"Widened public domain",at:[[-30,60]],st:["traffic"]},
+ {n:"5",g:"fitz",zh:"出租车上下客",en:"Taxi pick-up/drop-off",at:[[7,32]],st:["traffic"]},
+ {n:"6",g:"fitz",zh:"临时接送（Kiss and ride）",en:"Kiss and ride",at:[[-35,50]],st:["traffic"]},
+ {n:"7",g:"fitz",zh:"新人行横道",en:"New pedestrian crossing",at:[[20,16]],st:["traffic"]},
+ {n:"8",g:"church",zh:"升级公共空间：照明、公共艺术、铺装",en:"Upgraded public domain - lighting, public art, paving",at:[[-104,30],[-109,-35]],st:["china"]},
+ {n:"9",g:"church",zh:"新行道树",en:"New street trees",at:[[-110,59],[-102,-103]],st:["china"]},
+ {n:"10",g:"lanes",zh:"Rivoli Way 改线并升级",en:"Realigned and upgraded Rivoli Way",at:[[-67,-72]],st:["china","square"]},
+ {n:"11",g:"lanes",zh:"升级 Firehorse Lane",en:"Upgraded Firehorse Lane",at:[[-44,2]],st:["china"]},
+ {n:"12",g:"lanes",zh:"拱廊",en:"Arcades",at:[[-41,82],[-75,27],[-71,-10],[28,34],[-66,-104],[-63,-124],[-43,-143]],st:["china"]},
+ {n:"13",g:"went",zh:"Woodhouse Square：新的城市公共空间",en:"Woodhouse Square - new urban public space",at:[[4,-56]],st:["square","council"]},
+ {n:"14",g:"went",zh:"Wentworth St 改为单行",en:"One-way on Wentworth St",at:[[24,-8]],st:["traffic","square"]},
+ {n:"15",g:"went",zh:"路边停车",en:"On-street car parking",at:[[34,-52]],st:["traffic","square"]},
+ {n:"16",g:"went",zh:"升级公共空间：加宽人行道",en:"Upgraded public domain - widened footpath",at:[[34,-29]],st:["square"]},
+ {n:"17",g:"went",zh:"新行道树",en:"New street trees",at:[[23,-21]],st:["square"]},
+ {n:"18",g:"went",zh:"新人行横道",en:"New Pedestrian crossing",at:[[32,-68]],st:["traffic","square"]},
+ {n:"19",g:"val",zh:"Valentine Ave 改为单行",en:"One way on Valentine Ave",at:[[121,-66]],st:["traffic"]},
+ {n:"20",g:"val",zh:"分隔式自行车道",en:"Separated cycle way",at:[[96,-40]],st:["traffic"]},
+ {n:"21",g:"council",zh:"重建公共停车场，混合用途建筑",en:"Redeveloped public car park, mixed-use buildings",at:[[-34,-45],[-4,-91]],st:["council"]}];
+// outlines traced from the same plan (x, y pairs, metres)
+const PLAN_GEO={
+ bound:[-153.5,76.8,-130.1,85.4,-83.2,96.5,-64.2,88.7,-33.4,64,-16.9,54.6,5.3,85.4,9,83.8,34.5,64.8,58.8,46.7,86,25.3,104.9,3.1,127.1,-20.7,144.4,-45,158,-63.5,173.6,-98.1,182.3,-110,190.9,-131.4,107.8,-148.7,48.5,-152.8,16,-159,-6.6,-173.4,-23.9,-183.7,-34.2,-194.4,-44.5,-201.8,-104.1,-201.8,-104.5,-194.4,-105.4,-177.1,-95.9,-175.1,-99.2,-133.9,-104.5,-117,-107,-82.1,-155.2,-69.3,-147.3,-38,-145.7,-7.2,-160.9,-3.9,-149.8,40.2], // the plan crops the south edge; closed along Parkes St
+ square:[-19.4,-40.1,19.7,-37.2,23,-67.3,-17.3,-71], // item 13; traced area about 1,220 m² (the plan text says 1,200 m², S2 p.23)
+ b21:[[-50.2,-23.2,-22.2,-21.2,-18.1,-64.8,-45.3,-67.3],[-44.1,-73.8,23.8,-68.9,25.5,-116.6,-43.2,-118.7]],
+ went:[23,9,30,-17,36,-67,37,-137], fitz:[17,18,-7,39,-30,59,-53,74,-77,82], val:[157,-116,124,-75,96,-38,58,-9,26,15],
+ cyc3:[-109,87,-86,90,-65,89], cyc20:[24,19,58,-2,100,-44,124,-77,155,-114], church:[-106,90,-101,-77]};
+const SQ_C=[1.5,53.9]; // centre of the square in SVG units (y flipped)
+const svgPts=a=>{let s="";for(let i=0;i<a.length;i+=2)s+=`${a[i]},${-a[i+1]} `;return s.trim();};
+const planOn=(it,k)=>!k||k==="phase"||it.st.includes(k);
+function planMarkers(hl){return PLAN_ITEMS.map(it=>it.at.map(([x,y])=>{const t=it.n==="T";
+  return `<g class="pk" data-st="${it.st.join(" ")}" transform="translate(${x} ${-y})" style="opacity:${planOn(it,hl)?1:.18}"><title>${it.n} · ${esc(T(it))}</title><circle r="5.4" fill="${t?"#f39a2b":"var(--surface)"}" stroke="${t?"#f39a2b":"var(--fg)"}" stroke-width="1.2"/><text y="2.2" text-anchor="middle" font-size="${it.n.length>1?5.4:6.2}" font-weight="700" fill="${t?"#fff":"var(--fg)"}" style="pointer-events:none">${it.n}</text></g>`;}).join("")).join("");}
+// a list of the plan's numbered items, for the map step cards
+function planList(step){const its=PLAN_ITEMS.filter(it=>step==="phase"||it.st.includes(step));
+  const li=it=>`<li><b class="pkn${it.n==="T"?" pkt":""}">${it.n}</b>${esc(T(it))}</li>`;
+  const body=step==="phase"?PLAN_GROUPS().map(([g,t])=>`<li class="pkg">${t}</li>${its.filter(it=>it.g===g).map(li).join("")}`).join(""):its.map(li).join("");
+  const head=`${L("Council 总规图上的编号","Numbered on Council's plan")} ${chip(PLAN_REF[0],PLAN_REF[1],"pk")}`;
+  return step==="phase"?`<details class="pkl"><summary>${L("全部 21 项（地图上的编号）","All 21 numbered items on the map")}</summary><p class="small muted">${head}</p><ul>${body}</ul></details>`:`<div class="pkl"><p class="small muted">${head}</p><ul>${body}</ul></div>`;}
 function sqInner(o){
-  const on=k=>o.hl===k; let sx=-14; const sq=[];
-  if(o.alloc){["green","active","smart","move"].forEach(k=>{const w=30*gsum(k)/TOTAL;if(w>0)sq.push(`<rect x="${sx}" y="44" width="${w}" height="40" fill="${GROUPS[k].c}"/>`);sx+=w;});}
-  return (o.alloc?`<clipPath id="sqc"><rect x="-14" y="44" width="30" height="40" rx="3"/></clipPath><g clip-path="url(#sqc)">${sq.join("")}</g><rect x="-14" y="44" width="30" height="40" rx="3" fill="none" stroke="var(--fg)" stroke-width="1.2"/>`:`<rect x="-14" y="44" width="30" height="40" rx="3" fill="var(--accent)" fill-opacity=".9"/>`)
-   +`<circle cx="1" cy="64" r="${on("square")?26:22}" fill="none" stroke="var(--accent)" stroke-width="${on("square")?2.5:1.5}" stroke-dasharray="3 3"/>`;
+  const on=k=>o.hl===k, sq=[], P=PLAN_GEO.square, xs=P.filter((_,i)=>i%2===0), x0=Math.min(...xs), w0=Math.max(...xs)-x0;
+  let sx=x0;
+  if(o.alloc){["green","active","smart","move"].forEach(k=>{const w=w0*gsum(k)/TOTAL;if(w>0)sq.push(`<rect x="${sx}" y="30" width="${w}" height="50" fill="${GROUPS[k].c}"/>`);sx+=w;});}
+  return (o.alloc?`<clipPath id="sqc"><polygon points="${svgPts(P)}"/></clipPath><g clip-path="url(#sqc)">${sq.join("")}</g><polygon points="${svgPts(P)}" fill="none" stroke="var(--fg)" stroke-width="1.2" stroke-linejoin="round"/>`:`<polygon points="${svgPts(P)}" fill="var(--accent)" fill-opacity=".9"/>`)
+   +`<circle cx="${SQ_C[0]}" cy="${SQ_C[1]}" r="${on("square")?31:27}" fill="none" stroke="var(--accent)" stroke-width="${on("square")?2.5:1.5}" stroke-dasharray="3 3"/>`;
 }
 function mapSVG2(o={}){
   const vb=o.vb||[-185,-200,440,530];
@@ -178,18 +227,24 @@ function mapSVG2(o={}){
   g+=MAP.B.filter(b=>inView(b.p)).map(b=>{const cp=/Carpark/.test(b.n||"");return `<polygon points="${pts(b.p)}" fill="${cp?"var(--infer)":"var(--map-bld)"}" ${cp?'fill-opacity=".5" data-cp="1"':""}/>`;}).join("");
   const on=k=>o.hl===k?1:0;
   // highlight layers (positions read off the OSM base map; indicative)
-  g+=`<g class="hl" data-k="phase" style="opacity:${o.hl&&o.hl!=="phase"?.35:1}"><polygon points="${pts(MAP.P)}" fill="${on("phase")?"var(--accent)":"none"}" fill-opacity=".08" stroke="var(--fg)" stroke-width="${on("phase")?2.5:1.5}" stroke-dasharray="5 4"/></g>`;
-  g+=`<g class="hl" data-k="china" style="opacity:${on("china")}"><path d="M-110 -60 L-101 150" stroke="#d0453a" stroke-width="16" stroke-opacity=".35" stroke-linecap="round" fill="none"/>${[...Array(6)].map((_,i)=>`<circle cx="${-108+i*1.5}" cy="${-40+i*36}" r="4" fill="#d0453a"/>`).join("")}</g>`;
-  const arrow=(x1,y1,x2,y2,c)=>{const a=Math.atan2(y2-y1,x2-x1),hx=x2-11*Math.cos(a),hy=y2-11*Math.sin(a),px=6*Math.sin(a),py=-6*Math.cos(a);return `<line x1="${x1}" y1="${y1}" x2="${hx}" y2="${hy}" stroke="${c}" stroke-width="5" stroke-linecap="round"/><polygon points="${x2},${y2} ${hx+px},${hy+py} ${hx-px},${hy-py}" fill="${c}"/>`;};
-  g+=`<g class="hl" data-k="traffic" style="opacity:${on("traffic")}">${arrow(26,2,30,150,"#3f7cc0")}${arrow(60,-52,-95,-58,"#3f7cc0")}<path d="M-95 -48 L60 -42" stroke="#4f9a5b" stroke-width="3" stroke-dasharray="4 4" fill="none"/></g>`;
-  g+=`<g class="hl" data-k="council" style="opacity:${on("council")}"><circle cx="-18" cy="66" r="58" fill="none" stroke="var(--infer)" stroke-width="2.5" stroke-dasharray="6 4"/></g>`;
+  // the precinct boundary, traced from Council's site plan (S2 p.7)
+  g+=`<g class="hl" data-k="phase" style="opacity:${o.hl&&o.hl!=="phase"?.35:1}"><polygon points="${svgPts(PLAN_GEO.bound)}" fill="${on("phase")?"var(--accent)":"none"}" fill-opacity=".08" stroke="var(--fg)" stroke-width="${on("phase")?2.5:1.5}" stroke-dasharray="5 4" stroke-linejoin="round"/></g>`;
+  const PG=PLAN_GEO, cps=a=>{const r=[];for(let i=0;i<a.length;i+=2)r.push([a[i],-a[i+1]]);return r;};
+  g+=`<g class="hl" data-k="china" style="opacity:${on("china")}"><polyline points="${svgPts(PG.church)}" stroke="#d0453a" stroke-width="16" stroke-opacity=".35" stroke-linecap="round" fill="none"/></g>`;
+  // one-way arrows run in the direction the plan gives: Wentworth southbound, Fitzwilliam westbound (S4), Valentine as drawn on S2 p.7
+  const arrowP=(a,c)=>{const p=cps(a),[x1,y1]=p[p.length-2],[x2,y2]=p[p.length-1],an=Math.atan2(y2-y1,x2-x1),hx=x2-11*Math.cos(an),hy=y2-11*Math.sin(an),px=6*Math.sin(an),py=-6*Math.cos(an);
+    return `<polyline points="${p.slice(0,-1).map(q=>q.join(",")).join(" ")} ${hx},${hy}" stroke="${c}" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"/><polygon points="${x2},${y2} ${hx+px},${hy+py} ${hx-px},${hy-py}" fill="${c}"/>`;};
+  g+=`<g class="hl" data-k="traffic" style="opacity:${on("traffic")}">${arrowP(PG.went,"#3f7cc0")}${arrowP(PG.fitz,"#3f7cc0")}${arrowP(PG.val,"#3f7cc0")}${[PG.cyc3,PG.cyc20].map(a=>`<polyline points="${svgPts(a)}" stroke="#4f9a5b" stroke-width="3" stroke-dasharray="4 4" fill="none"/>`).join("")}</g>`;
+  g+=`<g class="hl" data-k="council" style="opacity:${on("council")}">${PG.b21.map(a=>`<polygon points="${svgPts(a)}" fill="var(--infer)" fill-opacity=".18" stroke="var(--infer)" stroke-width="2" stroke-dasharray="6 4"/>`).join("")}</g>`;
   // the square: tinted by the current allocation, west→east
   g+=`<g id="sqg">${sqInner(o)}</g>`;
-  const lab=(t,x,y,anchor="middle",w=600,s=11)=>`<text class="lab" x="${x}" y="${-y}" text-anchor="${anchor}" font-size="${s}" font-weight="${w}">${esc(t)}</text>`;
-  if(!o.noLabels){
-    g+=lab("Church St",-122,-40)+lab("Parkes St",70,-152)+lab("Wentworth St",52,-40)+lab("Fitzwilliam St",-55,62)+lab("Jubilee Park",80,-225,"middle",500)+(o.hots?"":lab("Woodhouse Sq",34,-92,"start",700));
-    g+=lab(L("↑ 车站","↑ Station"),-40,175,"middle",500);
+  const lab=(t,x,y,anchor="middle",w=600,s=11,rot=0)=>`<text class="lab" x="${x}" y="${-y}" text-anchor="${anchor}" font-size="${s}" font-weight="${w}"${rot?` transform="rotate(${rot} ${x} ${-y})"`:""}>${esc(t)}</text>`;
+  if(!o.noLabels){ // street names placed where Council's site plan (S2 p.7) prints them
+    g+=lab("Church St",-98,-140,"middle",600,10,90)+lab("Parkes St",10,-150)+lab("Wentworth St",42,-104,"start")+lab("Fitzwilliam St",-2,44,"middle",600,8,40)+lab("Valentine Ave",72,-12,"middle",600,9,43)
+      +lab("Aird St",-150,50,"start",500,8)+lab("Campbell St",-150,-63,"start",500,8)+lab("Rivoli Way",-68,-85,"start",500,7.5)+lab("Jubilee Park",85,-182,"middle",500)+(o.hots?"":lab("Woodhouse Sq",-1,-81,"middle",700,9));
+    g+=lab(L("↑ 车站","↑ Station"),-45,112,"middle",500);
   }
+  if(!o.noKey) g+=`<g class="pks">${planMarkers(o.hl)}</g>`;
   if(o.hots){g+=HOTS.map((h,i)=>{const sel=o.sel===h.id;return `<g class="hot" data-hot="${h.id}" role="button" tabindex="0" aria-label="${esc(T(h))}" aria-pressed="${sel}" transform="translate(${h.x} ${h.y})"><g class="hs">
      <circle class="pulse" r="15" fill="var(--accent)" fill-opacity=".22"/><circle r="${sel?12:10}" fill="${sel?"var(--fg)":"var(--accent)"}" stroke="var(--surface)" stroke-width="2.5"/>
      <text y="4.5" text-anchor="middle" font-size="12" font-weight="700" fill="var(--surface)" style="pointer-events:none">${i+1}</text>
@@ -379,7 +434,8 @@ function bindCommon(ctx,extra){
 }
 
 /* toggle highlight layers without re-rendering the map */
-function setMapHL(svg,k){if(!svg)return;svg.querySelectorAll(".hl").forEach(gr=>{const kk=gr.dataset.k;gr.style.opacity=kk==="phase"?(k&&k!=="phase"?.35:1):(kk===k?1:0);});}
+function setMapHL(svg,k){if(!svg)return;svg.querySelectorAll(".hl").forEach(gr=>{const kk=gr.dataset.k;gr.style.opacity=kk==="phase"?(k&&k!=="phase"?.35:1):(kk===k?1:0);});
+  svg.querySelectorAll(".pk").forEach(m=>{m.style.opacity=(!k||k==="phase"||m.dataset.st.split(" ").includes(k))?1:.18;});}
 /* tween the map's viewBox */
 function tweenVB(svg,to,ms=650,onF){if(!svg)return;const from=svg.getAttribute("viewBox").split(" ").map(Number);if(svg._raf)cancelAnimationFrame(svg._raf);
   const reduce=window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches;if(reduce){svg.setAttribute("viewBox",to.join(" "));onF&&onF();return;}
