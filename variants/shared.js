@@ -225,6 +225,7 @@ function mapSVG2(o={}){
   g+=MAP.R.filter(x=>inView(x.p)).map(x=>`<polyline points="${pts(x.p)}" fill="none" stroke="var(--map-road)" stroke-width="${x.w}" stroke-linecap="round" stroke-linejoin="round"/>`).join("");
   g+=MAP.RL.filter(inView).map(p=>`<polyline points="${pts(p)}" fill="none" stroke="var(--map-rail)" stroke-width="2" stroke-dasharray="6 3"/>`).join("");
   g+=MAP.B.filter(b=>inView(b.p)).map(b=>{const cp=/Carpark/.test(b.n||"");return `<polygon points="${pts(b.p)}" fill="${cp?"var(--infer)":"var(--map-bld)"}" ${cp?'fill-opacity=".5" data-cp="1"':""}/>`;}).join("");
+  if(o.fade) g=`<defs><clipPath id="mclip"><polygon points="${svgPts(PLAN_GEO.bound)}"/></clipPath><filter id="mblur" x="-10%" y="-10%" width="120%" height="120%"><feGaussianBlur stdDeviation="2.4"/></filter></defs><g filter="url(#mblur)" opacity=".45"><g id="mbase">${g}</g></g><use href="#mbase" clip-path="url(#mclip)"/>`;
   const on=k=>o.hl===k?1:0;
   // highlight layers (positions read off the OSM base map; indicative)
   // the precinct boundary, traced from Council's site plan (S2 p.7)
@@ -251,9 +252,9 @@ function mapSVG2(o={}){
      <text class="hlab" x="18" y="4.5" font-size="13" font-weight="700" fill="var(--fg)" paint-order="stroke" stroke="var(--map-bg)" stroke-width="4" stroke-linejoin="round">${esc(T(h))}</text></g></g>`;}).join("");}
   // compass and scale (1 map unit = 1 m in the OSM projection)
   if(!o.noChrome){const cx=vb[0]+vb[2]-22, cyy=vb[1]+24;
-  g+=`<g transform="translate(${cx} ${cyy})"><circle r="12" fill="var(--surface)" stroke="var(--line)"/><path d="M0 -9 4.5 4.5 0 1 -4.5 4.5z" fill="var(--fg)"/><text class="lab" y="-15" text-anchor="middle" font-size="10" font-weight="700">N</text></g>`;
+  g+=`<g class="mcomp" transform="translate(${cx} ${cyy})"><circle r="12" fill="var(--surface)" stroke="var(--line)"/><path d="M0 -9 4.5 4.5 0 1 -4.5 4.5z" fill="var(--fg)"/><text class="lab" y="-15" text-anchor="middle" font-size="10" font-weight="700">N</text></g>`;
   const bx=vb[0]+14, by=vb[1]+vb[3]-16;
-  g+=`<g><rect x="${bx}" y="${by-3}" width="100" height="4" fill="var(--fg)"/><rect x="${bx+50}" y="${by-3}" width="50" height="4" fill="var(--surface)" stroke="var(--fg)" stroke-width=".8"/><text class="lab" x="${bx}" y="${by-7}" font-size="9">0</text><text class="lab" x="${bx+100}" y="${by-7}" font-size="9" text-anchor="middle">100 m</text></g>`;}
+  g+=`<g class="mscale" transform="translate(${bx} ${by})"><rect x="0" y="-3" width="100" height="4" fill="var(--fg)"/><rect x="50" y="-3" width="50" height="4" fill="var(--surface)" stroke="var(--fg)" stroke-width=".8"/><text class="lab" x="0" y="-7" font-size="9">0</text><text class="lab" x="100" y="-7" font-size="9" text-anchor="middle">100 m</text></g>`;}
   return `<svg class="basemap" viewBox="${vb.join(" ")}" preserveAspectRatio="xMidYMid ${o.slice?"slice":"meet"}" ${o.hots?"":'role="img"'} aria-label="${L("CBD South 第一期范围底图","Base map of CBD South Phase 1")}">${g}</svg>`;
 }
 
@@ -436,6 +437,9 @@ function bindCommon(ctx,extra){
 /* toggle highlight layers without re-rendering the map */
 function setMapHL(svg,k){if(!svg)return;svg.querySelectorAll(".hl").forEach(gr=>{const kk=gr.dataset.k;gr.style.opacity=kk==="phase"?(k&&k!=="phase"?.35:1):(kk===k?1:0);});
   svg.querySelectorAll(".pk").forEach(m=>{m.style.opacity=(!k||k==="phase"||m.dataset.st.split(" ").includes(k))?1:.18;});}
+/* keep the compass and the scale bar in the corners of the current view box */
+function placeChrome(svg){if(!svg)return;const v=svg.getAttribute("viewBox").split(" ").map(Number),c=svg.querySelector(".mcomp"),s=svg.querySelector(".mscale");
+  if(c)c.setAttribute("transform",`translate(${v[0]+v[2]-22} ${v[1]+24})`);if(s)s.setAttribute("transform",`translate(${v[0]+14} ${v[1]+v[3]-16})`);}
 /* tween the map's viewBox */
 function tweenVB(svg,to,ms=650,onF){if(!svg)return;const from=svg.getAttribute("viewBox").split(" ").map(Number);if(svg._raf)cancelAnimationFrame(svg._raf);
   const reduce=window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches;if(reduce){svg.setAttribute("viewBox",to.join(" "));onF&&onF();return;}
