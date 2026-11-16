@@ -92,7 +92,7 @@ Team 999，共 5 人：
 - **GitHub 链接：** 放。用公开仓库 https://github.com/cecilPENG53/civicalign（`gh` 确认是 PUBLIC；org 仓库 WSTI2026Project/cbd-south-growth-sandbox 是 PRIVATE，所以不用它）。放在结尾卡片和页脚。
 - **名字写法：** “Shijie Zhao” 确认。
 - **测试细节：** 用户原话“测试细节不要太多了，就先前我说的这些，你去优化润色一下”。所以去掉了“测了几个人”的占位，第 02 节改成两条经验，每条分“听到 / 看到了什么”和“我们改了什么”。页面上没写测试人数，也没写任何个人原话。
-- **PRT：** 用户反问指的是哪个 PRT。这个词出自第 3 轮的原话“Cathy、Grace 这两个人去创建 PRT”，已经回问用户，确认前页面上不写。
+- **PRT：** 用户反问指的是哪个 PRT。这个词出自第 3 轮的原话“Cathy、Grace 这两个人去创建 PRT”，已经回问用户。用户确认是 **PRD**（产品需求文档），已写进 Cathy、Grace 的分工。
 
 ## 页面上还没填的内容
 
