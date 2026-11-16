@@ -60,6 +60,8 @@ Team 999，共 5 人：
 - Cecil Peng、Edmund Dai、Shijie Zhao：前后端搭建和部署，交互设计反馈，AI 功能（部署 AI，把想法和需求变成可用的功能），可视化分析。
 - 名字大小写：页面上写 “Shijie Zhao”，待用户确认。
 
+**角色更正（用户指示）：** 页面上 Cecil Peng 写作 Leader，Cathy Zhou 写作 Idea owner；其余三人仍是 Builder。和报名平台上的显示不同，以这里为准。
+
 ## 第 4 轮：用户测试
 
 还没收到回答。页面先放 3 张占位卡片（橙色虚线框 "To fill"），只写测试内容〔S1 p.12〕，不写任何结果。
