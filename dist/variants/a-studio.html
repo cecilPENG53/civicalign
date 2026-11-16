@@ -1584,7 +1584,7 @@ function isoScene(){
   g+=lab(L("西 · Council 新楼 · 文化空间","W · Council building · cultural space"),ip(-2.4,2,132));
   g+=lab(L("南 · Rivoli Way 延伸段，再往南是 Council 新楼","S · Rivoli Way extension, then new Council development"),ip(4.6,9.5,8));
   g+=lab(L("Wentworth St · 单向南行","Wentworth St · one-way south"),ip(11.3,1.2,0),`transform="rotate(-26.6 ${ip(11.3,1.2)[0]} ${ip(11.3,1.2)[1]})"`);
-  g+=lab(L("抬高横道 · 对齐 Rivoli Way","raised crossing · lines up with Rivoli Way"),ip(11.7,6.3,30));
+  g+=lab(L("抬高横道 · 对齐 Rivoli Way","raised crossing · lines up with Rivoli Way"),ip(12.6,6.1,32));
   g+=lab("Fire Horse Lane",ip(-.66,-4.2,6),`font-size="10"`);
   const pkIso=(n,c,r,z)=>{const it=PLAN_ITEMS.find(x=>x.n===n),[x,y]=ip(c,r,z);return `<g class="pkiso" transform="translate(${x} ${y})"><title>${n} · ${esc(T(it))}</title><circle r="9" fill="#fff" stroke="#13202e" stroke-width="1.6"/><text y="3.6" text-anchor="middle" font-size="${n.length>1?9:10}" font-weight="800" fill="#13202e">${n}</text></g>`;};
   g+=`<g class="pkisos">${[["13",.7,5.3,8],["10",-1.6,6.9,8],["11",-.66,-2.6,8],["14",9.63,-.6,6],["15",9.05,3,14],["17",8.47,-1.8,48],["16",10.6,-1.2,6],["18",9.63,6.9,8],["21",-2.4,5,64]].map(a=>pkIso(...a)).join("")}</g>`;
