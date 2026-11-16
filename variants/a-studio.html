@@ -427,7 +427,7 @@ function path(){const tl=TIMELINE();return `<section class="wrap ch" id="c-path"
 
 /* ---------- 2.5D studio ---------- */
 function stageHUD(){
-  return `<div class="hud"><div class="hud-t"><b>Woodhouse Square · 1,200 m²</b> ${chip("S2","p.23","sq1")}<span class="tag t-design">${L("示意，不是设计方案","Indicative, not a design")}</span></div>
+  return `<div class="hud"><div class="hud-t"><b>Woodhouse Square · 1,200 m²</b> ${chip("S2","p.23","sq1")} ${chip("S2","p.45","sq2")}<span class="tag t-design">${L("示意，不是设计方案","Indicative, not a design")}</span></div>
    <div class="hud-c">${yearButtons()}<div class="pill" role="group" aria-label="${L("昼夜","Day or night")}"><button data-night="0" aria-pressed="${!S.night}">☀ ${L("白天","Day")}</button><button data-night="1" aria-pressed="${!!S.night}">☾ ${L("夜市","Night")}</button></div></div></div>`;
 }
 function vizInner(){
