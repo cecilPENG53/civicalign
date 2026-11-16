@@ -556,8 +556,8 @@
   "zh": "标“等待 Council 交通研究”"
  },
  {
-  "en": "Square size: 1,200 m² or 1,300 m²",
-  "zh": "广场面积：1,200 m² 还是 1,300 m²"
+  "en": "Square size: 1,200, 1,300 or 1,350 m²",
+  "zh": "广场面积：1,200、1,300 还是 1,350 m²"
  },
  {
   "en": "Final master plan",
@@ -568,8 +568,8 @@
   "zh": "用 1,200 m²，并注明两处说法不同"
  },
  {
-  "en": "Whether a car park sits under the square, and whether deep soil is possible",
-  "zh": "广场下方是否有停车场、能否深土种树"
+  "en": "Whether the car park basement extends under the square, and whether deep soil is possible",
+  "zh": "停车场的地下部分是否延伸到广场下方、能否深土种树"
  },
  {
   "en": "Car park feasibility work; no date in the sources",
@@ -2148,8 +2148,8 @@
   "zh": "总规写的是抬高种植池"
  },
  {
-  "en": "; whether a car park sits below is unsettled, so deep soil is",
-  "zh": "。广场下方是否有停车场还没定，深土"
+  "en": "; no source says whether the car park basement extends under the square, so deep soil is",
+  "zh": "。停车场的地下部分是否延伸到广场下方，来源里没有说，所以深土"
  },
  {
   "en": "unconfirmed",
@@ -2372,8 +2372,8 @@
   "zh": "把广场放在地块内部的两个位置被否决：远离街道、日照很少。"
  },
  {
-  "en": "The size differs: the exhibition page says 1,300 m², the plan says 1,200 m².",
-  "zh": "面积说法不一：公示页面写 1,300 m²，总规正文写 1,200 m²。"
+  "en": "The size differs: the exhibition page says 1,300 m²; the plan's options test says 1,200 m² (p.23) and its design guideline says at least 1,350 m² (p.51).",
+  "zh": "面积说法不一：公示页面写 1,300 m²；总规的方案比选写 1,200 m²（p.23），设计导则写至少 1,350 m²（p.51）。"
  },
  {
   "en": "Funding is not settled: Council budget, developer contributions, grants or joint ventures.",
@@ -2412,12 +2412,12 @@
   "zh": "名称定为 “Chinatown Precinct”，不用 “Asian Food and Nightlife Precinct”。"
  },
  {
-  "en": "Public art, lighting and signage wait for a Public Art Master Plan.",
-  "zh": "公共艺术、照明和标识要等之后的公共艺术总体规划。"
+  "en": "A Public Art Master Plan, prepared after the plan is endorsed, will guide public art, lighting and signage in the precinct.",
+  "zh": "总规获批后要编制公共艺术总体规划，用来指导片区里的公共艺术、照明和标识。"
  },
  {
   "en": "Council will work with local Chinese community groups, businesses and residents on the Chinatown precinct.",
-  "zh": "要和本地华人社团、商家和居民沟通，共同确定唐人街的做法。"
+  "zh": "Council 会听取本地华人社团、商家和居民的意见，来指导唐人街片区的做法。"
  },
  {
   "en": "Fitzwilliam St and Wentworth St become one-way; Woodhouse Lane and the roundabout are removed.",
@@ -2448,8 +2448,8 @@
   "zh": "车站和 Argyle St 公交换乘站留到第二期总规再看。"
  },
  {
-  "en": "The car park still needs feasibility work; no source says whether it sits under the square.",
-  "zh": "停车场还要做可行性研究；它是否在广场正下方，来源里没有说。"
+  "en": "The car park is still subject to feasibility and design. The indicative map draws it beside the square, not on it; no source says whether its basement extends under the square.",
+  "zh": "停车场仍取决于进一步的可行性研究和设计。示意图把停车场画在广场旁边，没有画在广场上；它的地下部分会不会延伸到广场下方，来源里没有说。"
  },
  {
   "en": "New City Square",

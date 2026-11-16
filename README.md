@@ -38,7 +38,7 @@ Inferences and team design choices are labelled as such. Any number without a so
 
 Council describes the master plan to residents through three deliverables [S3]:
 
-1. **New City Square.** This is the decision. The plan calls it **Woodhouse Square** (a provisional name [S2 p.54]): 1,200 m² on Council-owned land facing Wentworth Street [S2 p.23]. The exhibition page says 1,300 m² [S3], so the figure needs checking against the final plan.
+1. **New City Square.** This is the decision. The plan calls it **Woodhouse Square** (a provisional name [S2 p.54]): 1,200 m² on Council-owned land facing Wentworth Street [S2 p.23]. The exhibition page says 1,300 m² [S3] and the plan's design guidelines say a minimum of 1,350 m² [S2 p.51], so the figure needs checking against the final plan.
 2. **Chinatown Nightlife Destination** [S2 p.33–41]. The square hosts its night markets and outdoor dining.
 3. **Traffic Changes for Pedestrian Amenity** [S2 p.48–50]. These shape the square's edges, crossings and car park entry.
 
@@ -101,8 +101,8 @@ Several of the strategy's indicators have the baseline "TBC" [S5 p.39–63], and
 
 - **No traffic model exists yet.** Traffic modelling comes after Phase 2, with consultant engagement planned for FY27/28 [S2 p.54][S4].
 - **Funding for the square is not settled** [S2 p.54].
-- **Two figures for the square's size:** 1,200 m² [S2 p.23] versus 1,300 m² [S3].
-- **Soil under the square is unknown.** It is not clear whether the new car park sits under it, or whether the raised planters mean there is no deep soil [S2 p.45].
+- **Three figures for the square's size:** 1,200 m² in the options test [S2 p.23], 1,300 m² on the exhibition page [S3], and a minimum of 1,350 m² in the design guidelines [S2 p.51].
+- **Soil under the square is unknown.** The new public car park is part underground, part sleeved above-ground [S2 p.49], with a basement entry on Wentworth Street [S2 p.43]. Its design still waits on a feasibility study for Council's sites [S2 p.54]. The indicative map draws it beside the square, not on it [S2 p.49], but no source says whether the basement extends under the square, so it is unclear whether deep soil is possible. The plan specifies raised planters [S2 p.45].
 - **Undecided by the team:** route B (allocate the square only) or route C (choose the building scheme first, then allocate the square).
 
 ## Prototype v2 (built 15 Nov 2026)

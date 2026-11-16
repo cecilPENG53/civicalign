@@ -256,7 +256,7 @@ const CLAIMS = [
   zh:"把广场放在地块内部的两个位置被否决：远离街道、日照很少。",en:"Two plaza locations inside the block were rejected: cut off from streets, very little sun.",
   q:"The location is not suitable due to isolation from public streets, very low solar access…"},
  {id:"sq9",card:"square",kind:"open",src:"S3",pg:"",
-  zh:"面积说法不一：公示页面写 1,300 m²，总规正文写 1,200 m²。",en:"The size differs: the exhibition page says 1,300 m², the plan says 1,200 m².",
+  zh:"面积说法不一：公示页面写 1,300 m²；总规的方案比选写 1,200 m²（p.23），设计导则写至少 1,350 m²（p.51）。",en:"The size differs: the exhibition page says 1,300 m²; the plan's options test says 1,200 m² (p.23) and its design guideline says at least 1,350 m² (p.51).",
   q:"Delivery of a new 1,300 square metre city square…"},
  {id:"sq10",card:"square",kind:"open",src:"S2",pg:"p.54",
   zh:"建设资金还没定，可能来自 Council 预算、开发贡献、政府拨款或合资。",en:"Funding is not settled: Council budget, developer contributions, grants or joint ventures.",
@@ -286,10 +286,10 @@ const CLAIMS = [
   zh:"名称定为 “Chinatown Precinct”，不用 “Asian Food and Nightlife Precinct”。",en:"The name is “Chinatown Precinct”, not “Asian Food and Nightlife Precinct”.",
   q:"That the Phase 1 Master Plan makes references to “Chinatown Precinct” rather than “Asian Food and Nightlife Precinct”."},
  {id:"ct6",card:"china",kind:"open",src:"S4",pg:"",
-  zh:"公共艺术、照明和标识要等之后的公共艺术总体规划。",en:"Public art, lighting and signage wait for a Public Art Master Plan.",
-  q:"…prepare a Public Art Master Plan to provide guidance for delivery of public art, lighting and signage within the Precinct…"},
+  zh:"总规获批后要编制公共艺术总体规划，用来指导片区里的公共艺术、照明和标识。",en:"A Public Art Master Plan, prepared after the plan is endorsed, will guide public art, lighting and signage in the precinct.",
+  q:"If the plan is endorsed post-exhibition, the next stage would be to prepare a Public Art Master Plan to provide guidance for delivery of public art, lighting and signage within the Precinct…"},
  {id:"ct7",card:"china",kind:"open",src:"S4",pg:"",
-  zh:"要和本地华人社团、商家和居民沟通，共同确定唐人街的做法。",en:"Council will work with local Chinese community groups, businesses and residents on the Chinatown precinct.",
+  zh:"Council 会听取本地华人社团、商家和居民的意见，来指导唐人街片区的做法。",en:"Council will work with local Chinese community groups, businesses and residents on the Chinatown precinct.",
   q:"Engagement with local Chinese community organisations, business owners, and residents to guide the proposed Chinatown precinct."},
  // 3 Traffic
  {id:"tr1",card:"traffic",kind:"planned",src:"S4",pg:"",
@@ -314,8 +314,8 @@ const CLAIMS = [
   zh:"车站和 Argyle St 公交换乘站留到第二期总规再看。",en:"The station and Argyle St bus interchange wait for the Phase 2 master plan.",
   q:"Detailed consideration of Paramatta Train Station and the Argyle Street bus interchange will occur in the Phase 2 Master Plan."},
  {id:"tr8",card:"traffic",kind:"open",src:"S2",pg:"p.49",
-  zh:"停车场还要做可行性研究；它是否在广场正下方，来源里没有说。",en:"The car park still needs feasibility work; no source says whether it sits under the square.",
-  q:"Subject to further feasibility and design, a new public car park is proposed on Council-owned land…"}
+  zh:"停车场仍取决于进一步的可行性研究和设计。示意图把停车场画在广场旁边，没有画在广场上；它的地下部分会不会延伸到广场下方，来源里没有说。",en:"The car park is still subject to feasibility and design. The indicative map draws it beside the square, not on it; no source says whether its basement extends under the square.",
+  q:"Subject to further feasibility and design, a new public car park is proposed on Council-owned land… (map caption) Indicative locations for Car Parking, Kiss-and-Ride and Bus Drop-Off"}
 ];
 
 const CARDS = [
@@ -729,8 +729,8 @@ function council(){
   } else if(S.ctab==="gaps"){
     const gaps=[
       [L("交通影响：还没有交通模型，FY27/28 才聘顾问","Traffic effects: no model yet; consultants in FY27/28"),"S4",""],
-      [L("广场面积：1,200 m² 还是 1,300 m²","Square size: 1,200 m² or 1,300 m²"),"S2","p.23"],
-      [L("广场下方是否有停车场、能否深土种树","Whether the car park sits under the square, and whether deep soil is possible"),"S2","p.49"],
+      [L("广场面积：1,200、1,300 还是 1,350 m²","Square size: 1,200, 1,300 or 1,350 m²"),"S2","p.51"],
+      [L("停车场的地下部分是否延伸到广场下方、能否深土种树","Whether the car park basement extends under the square, and whether deep soil is possible"),"S2","p.49"],
       [L("各项功能的面积比例","Area for each use"),null,""],
       [L("建设资金来源","Funding sources"),"S2","p.54"],
       [L("公示意见汇总（尚未公开）","Exhibition feedback summary (not yet published)"),"S3",""],
