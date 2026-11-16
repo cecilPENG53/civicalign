@@ -56,7 +56,7 @@ const BANNED = ["+43", "43 sec", "19% shade", "18,400", "n=142", "Verified Data 
 
 const outDir = path.join(root, "dist", "variants");
 fs.mkdirSync(outDir, { recursive: true });
-for (const name of ["a-studio", "b-scroll", "c-map", "index"]) {
+for (const name of ["a-studio", "b-scroll", "c-map", "index", "about"]) {
   if (!fs.existsSync(path.join(root, `variants/${name}.html`))) { console.log("skip " + name); continue; }
   let src = rd(`variants/${name}.html`);
   const needsMap = src.includes("/*__MAP__*/");
@@ -74,8 +74,10 @@ for (const name of ["a-studio", "b-scroll", "c-map", "index"]) {
   for (const b of BANNED) if (src.includes(b)) throw new Error(`${name}: banned string "${b}"`);
   if (/__(CORE|BASE_CSS|MAP)__/.test(src)) throw new Error(`${name}: unreplaced placeholder`);
   // fail the build if the page script does not parse (a stray quote once broke the whole page)
-  const js = src.slice(src.lastIndexOf("<script>") + 8, src.lastIndexOf("</script>"));
-  try { new Function(js); } catch (e) { throw new Error(`${name}: page script does not parse: ${e.message}`); }
+  if (src.includes("<script>")) { // about.html is static and has no script
+    const js = src.slice(src.lastIndexOf("<script>") + 8, src.lastIndexOf("</script>"));
+    try { new Function(js); } catch (e) { throw new Error(`${name}: page script does not parse: ${e.message}`); }
+  }
   fs.writeFileSync(path.join(outDir, name + ".html"), src);
   console.log(`wrote dist/variants/${name}.html`, (src.length / 1024).toFixed(0) + " KB");
 }
