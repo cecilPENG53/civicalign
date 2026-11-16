@@ -16,8 +16,8 @@ const themeBtn=()=>`<div class="tgl"><button id="themeBtn" aria-label="${L("切�
 const ASSUME=()=>`<span class="tag t-design">${L("假设","Assumption")}</span>`;
 const TRAFFIC_WAIT=()=>`<span class="tag t-gap">${L("等待 Council 交通研究","Awaits Council traffic study")}</span>`;
 function noticeHTML(){return L(
-  "<b>参赛原型。</b>Council 的事实都附来源和页码（点绿色标签看原文）。广场分配的系数和方案 0 的比例是团队假设，还没用文献核实。这里不收集、不发送任何个人信息。",
-  "<b>Competition prototype.</b> Every Council fact carries its source and page (tap a green tag for the original). The square's coefficients and the Scenario 0 split are team assumptions, not yet checked against literature. Nothing personal is collected or sent.");}
+  "<b>参赛原型。</b>Council 的事实都附来源和页码（点绿色标签看原文）。广场分配的系数和基准的比例是团队假设，还没用文献核实。这里不收集、不发送任何个人信息。",
+  "<b>Competition prototype.</b> Every Council fact carries its source and page (tap a green tag for the original). The square's coefficients and the baseline split are team assumptions, not yet checked against literature. Nothing personal is collected or sent.");}
 /* Acknowledgement of Country: a full-width navy band under the footer on every page.
    The team's own words; it does not speak for City of Parramatta.
    Fact: the Burramattagal and other Dharug people are the Traditional Owners of the land
@@ -38,7 +38,7 @@ function footHTML(){mountAck();return L(
   `Sources: S1 challenge brief; S2 draft master plan; S3 Participate Parramatta page; S4 Council report OCM26-56; S5 Smart City Strategy. Base map © OpenStreetMap contributors (ODbL), snapshot 10 Nov 2026. CivicAlign is a competition prototype and does not represent the City of Parramatta.`);}
 
 /* ---------- allocation controls ---------- */
-const PZ={base:{zh:"方案 0 · 总规原样",en:"Scenario 0 · plan as drawn",s:{zh:"假设：我们对总规的解读",en:"Assumption: our reading"}},
+const PZ={base:{zh:"基准 · 按总规图量出",en:"Baseline · measured from the plan",s:{zh:"假设：我们量图得出",en:"Assumption: our measurement"}},
           green:{zh:"更凉快、更绿",en:"Cooler and greener",s:{zh:"示例分法",en:"Example split"}},
           night:{zh:"活动和夜市优先",en:"Events and markets first",s:{zh:"示例分法",en:"Example split"}}};
 const presetKey=()=>Object.keys(PRESETS).find(k=>MODULES.every(m=>PRESETS[k].a[m.id]===S.a[m.id]))||null;
@@ -47,7 +47,7 @@ const pctP=v=>(100*v/TOTAL).toFixed(1)+"%";
 function groupCards(){return `<div class="gcards">${Object.keys(GROUPS).map(g=>`<div class="gcard" style="--gc:${GROUPS[g].c}">
   <div class="gtop"><span class="gic">${ICON[MODULES.find(m=>m.g===g).id]("#fff")}</span><div class="gname"><b>${T(GROUPS[g])}</b><small>${T(GDESC[g])}</small></div><span class="gval"><span id="gv_${g}">${pct(gsum(g))}%</span><small id="gm_${g}">${fmt(gsum(g))} m²</small></span></div>
   <input class="rg" type="range" min="0" max="${TOTAL}" step="10" value="${gsum(g)}" data-grp="${g}" id="g_${g}" style="--c:${GROUPS[g].c};--p:${pctP(gsum(g))}" aria-label="${esc(T(GROUPS[g]))}"></div>`).join("")}</div>`;}
-function moduleRows(){return `<details class="more"><summary>${L("细分到 10 类用途","Fine-tune all 10 uses")}</summary><div class="mods">${MODULES.map(m=>`<div class="mod"><label class="nm" for="m_${m.id}"><span class="mic">${ICON[m.id](GROUPS[m.g].c)}</span>${T(m)}<small>${L("角色","Role")} ${m.role} · ${L("战略行动","Action")} ${m.act} · ${L("方案 0","Scen. 0")} ${m.base} m²</small></label>
+function moduleRows(){return `<details class="more"><summary>${L("细分到 10 类用途","Fine-tune all 10 uses")}</summary><div class="mods">${MODULES.map(m=>`<div class="mod"><label class="nm" for="m_${m.id}"><span class="mic">${ICON[m.id](GROUPS[m.g].c)}</span>${T(m)}<small>${L("角色","Role")} ${m.role} · ${L("战略行动","Action")} ${m.act} · ${L("基准","Baseline")} ${m.base} m²</small></label>
   <input class="rg" type="range" id="m_${m.id}" data-mod="${m.id}" min="0" max="${TOTAL}" step="10" value="${S.a[m.id]}" style="--c:${GROUPS[m.g].c};--p:${pctP(S.a[m.id])}"><output id="o_${m.id}">${fmt(S.a[m.id])} m²</output></div>`).join("")}</div>
   <p class="small muted" style="margin:6px 0 0">${L("角色 D/P/A 和战略行动编号","Roles D/P/A and action numbers")} ${chip("S5","p.33")}</p></details>`;}
 function plantButtons(){return `<div class="pill" role="group" aria-label="${L("种树方式","Planting")}"><button data-plant="planter" aria-pressed="${S.plant==="planter"}">${L("抬高种植池","Raised planters")}</button><button data-plant="deep" aria-pressed="${S.plant==="deep"}">${L("深土种植","Deep soil")}</button></div>`;}
@@ -61,7 +61,7 @@ function allocBar(){return `<div class="abar">${Object.keys(GROUPS).map(g=>{cons
 
 /* ---------- computeV: compute() with proxy scores rescaled ----------
    compute() clamps safety, inclusion and culture at 100, so strong splits read "100–100". Here they become a
-   relative index against Scenario 0: index = 100·raw/(raw + raw₀), so Scenario 0 ≈ 50 and the scale never clamps. */
+   relative index against the baseline: index = 100·raw/(raw + raw₀), so the baseline ≈ 50 and the scale never clamps. */
 function proxyRaw(a,plant,year){const cr=CROWN[plant][year],sh=[0,1].map(i=>Math.min(TOTAL,a.canopy*cr[i]+a.rest*COEF.restShade[i])),sMid=(sh[0]+sh[1])/2;
   const f=w=>{let t=0;for(const k in w)t+=(k==="shade"?sMid:a[k])*w[k];return t;};return {safety:f(W.safety),incl:f(W.incl),culture:f(W.culture)};}
 function computeV(a,plant,year){const o=compute(a,plant,year),r=proxyRaw(a,plant,year),r0=proxyRaw(PRESETS.base.a,"planter",year);
@@ -74,7 +74,7 @@ function kpiData(id){
   const ym=(y[0]+y[1])/2, bm=(b[0]+b[1])/2, raw=(ym-bm)/Math.max(Math.abs(bm),1), rel=d.better==="low"?-raw:raw;
   return {y,b,raw,good:rel>0.005,bad:rel<-0.005,p:Math.round(raw*100)};
 }
-function deltaHTML(k){return `<div class="kd ${k.good?"delta-up":k.bad?"delta-down":"muted"}">${k.p>0?"▲":k.p<0?"▼":"="} ${fmt(Math.abs(k.p))}% ${L("对比方案 0","vs Scenario 0")}${k.good?L("，更好",", better"):k.bad?L("，更差",", worse"):""}</div>`;}
+function deltaHTML(k){return `<div class="kd ${k.good?"delta-up":k.bad?"delta-down":"muted"}">${k.p>0?"▲":k.p<0?"▼":"="} ${fmt(Math.abs(k.p))}% ${L("对比基准","vs baseline")}${k.good?L("，更好",", better"):k.bad?L("，更差",", worse"):""}</div>`;}
 const KPI_DEF=()=>[
   {id:"shade",c:GROUPS.green.c,ic:"canopy",label:L("遮荫面积","Shaded area"),f:v=>fmt(v),u:"m²",note:k=>L(`约占广场 ${pct((k.y[0]+k.y[1])/2)}%；树冠随年份长大`,`About ${pct((k.y[0]+k.y[1])/2)}% of the square; crowns grow over time`)},
   {id:"econ",c:GROUPS.active.c,ic:"events",label:L("活动与市集容量","Event and market capacity"),f:v=>fmt(v),u:L("人","people"),note:()=>L("同时能容纳的人数","People at one time")},
@@ -94,13 +94,13 @@ function resultsRows(){
     const raw=(ym-bm)/Math.max(Math.abs(bm),1); let rel=d.better==="low"?-raw:raw; rel=Math.max(-1,Math.min(1,rel));
     const w=S.pri.includes(d.id)?3:1; ws+=w; acc+=w*rel;
     const dec=d.id==="storm"?1:0, p=Math.round(raw*100), good=rel>0.005, bad=rel<-0.005;
-    return `<div class="res"><div class="dn ${S.pri.includes(d.id)?"pri":""}">${T(d)}<small>${d.type==="proxy"?L("相对指数，方案 0 ≈ 50","Index, Scenario 0 ≈ 50"):U(d)} · ${d.type==="proxy"?L("代理指标","Proxy score"):L("估算","Estimate")}${d.flag?` · ${TRAFFIC_WAIT()}`:""}</small></div>
+    return `<div class="res"><div class="dn ${S.pri.includes(d.id)?"pri":""}">${T(d)}<small>${d.type==="proxy"?L("相对指数，基准 ≈ 50","Index, baseline ≈ 50"):U(d)} · ${d.type==="proxy"?L("代理指标","Proxy score"):L("估算","Estimate")}${d.flag?` · ${TRAFFIC_WAIT()}`:""}</small></div>
       <div class="track" aria-hidden="true"><span class="rng r0" style="left:${100*b[0]/max}%;width:${Math.max(1,100*(b[1]-b[0])/max)}%"></span><span class="rng r1" style="left:${100*y[0]/max}%;width:${Math.max(1,100*(y[1]-y[0])/max)}%"></span></div>
-      <div class="vals"><span class="muted">${L("方案 0","Scen. 0")} ${fmt(b[0],dec)}–${fmt(b[1],dec)}</span><br><span class="y">${L("你的","Yours")} ${fmt(y[0],dec)}–${fmt(y[1],dec)}</span> <span class="${good?"delta-up":bad?"delta-down":"muted"}">${p>0?"▲":p<0?"▼":"="}${fmt(Math.abs(p))}%</span></div></div>`;
+      <div class="vals"><span class="muted">${L("基准","Baseline")} ${fmt(b[0],dec)}–${fmt(b[1],dec)}</span><br><span class="y">${L("你的","Yours")} ${fmt(y[0],dec)}–${fmt(y[1],dec)}</span> <span class="${good?"delta-up":bad?"delta-down":"muted"}">${p>0?"▲":p<0?"▼":"="}${fmt(Math.abs(p))}%</span></div></div>`;
   }).join("");
   return {rows,fit:Math.round(100*acc/ws)};
 }
-const resultsKey=()=>`<div class="keyrow"><span><i class="sw" style="background:var(--base)"></i>${L("方案 0：总规原样（假设）","Scenario 0: plan as drawn (assumption)")}</span><span><i class="sw" style="background:var(--accent)"></i>${L("你的方案","Your split")}</span><span>★ ${L("你的优先项（×3）","Your priority (×3)")}</span></div>`;
+const resultsKey=()=>`<div class="keyrow"><span><i class="sw" style="background:var(--base)"></i>${L("基准：按总规平面图量出（假设）","Baseline: measured from the plan drawing (assumption)")}</span><span><i class="sw" style="background:var(--accent)"></i>${L("你的方案","Your split")}</span><span>★ ${L("你的优先项（×3）","Your priority (×3)")}</span></div>`;
 
 /* ---------- plaza diagram: iconographic, compass-labelled, indicative only ---------- */
 function plazaSVG2(){
@@ -192,7 +192,7 @@ const PLAN_ITEMS=[
 // outlines traced from the same plan (x, y pairs, metres)
 const PLAN_GEO={
  bound:[-153.5,76.8,-130.1,85.4,-83.2,96.5,-64.2,88.7,-33.4,64,-16.9,54.6,5.3,85.4,9,83.8,34.5,64.8,58.8,46.7,86,25.3,104.9,3.1,127.1,-20.7,144.4,-45,158,-63.5,173.6,-98.1,182.3,-110,190.9,-131.4,107.8,-148.7,48.5,-152.8,16,-159,-6.6,-173.4,-23.9,-183.7,-34.2,-194.4,-44.5,-201.8,-104.1,-201.8,-104.5,-194.4,-105.4,-177.1,-95.9,-175.1,-99.2,-133.9,-104.5,-117,-107,-82.1,-155.2,-69.3,-147.3,-38,-145.7,-7.2,-160.9,-3.9,-149.8,40.2], // the plan crops the south edge; closed along Parkes St
- square:[-19.4,-40.1,19.7,-37.2,23,-67.3,-17.3,-71], // item 13; traced area about 1,220 m² (the plan text says 1,200 m², S2 p.23)
+ square:[-19.4,-40.1,19.7,-37.2,23,-67.3,-17.3,-71], // item 13; traced area about 1,220 m² (the plan text says 1,350 m², S2 p.23)
  b21:[[-50.2,-23.2,-22.2,-21.2,-18.1,-64.8,-45.3,-67.3],[-44.1,-73.8,23.8,-68.9,25.5,-116.6,-43.2,-118.7]],
  went:[23,9,30,-17,36,-67,37,-137], fitz:[17,18,-7,39,-30,59,-53,74,-77,82], val:[157,-116,124,-75,96,-38,58,-9,26,15],
  cyc3:[-109,87,-86,90,-65,89], cyc20:[24,19,58,-2,100,-44,124,-77,155,-114], church:[-106,90,-101,-77]};
@@ -224,7 +224,8 @@ function mapSVG2(o={}){
   g+=MAP.R.filter(x=>inView(x.p)).map(x=>`<polyline points="${pts(x.p)}" fill="none" stroke="var(--map-road-edge)" stroke-width="${x.w+2}" stroke-linecap="round" stroke-linejoin="round"/>`).join("");
   g+=MAP.R.filter(x=>inView(x.p)).map(x=>`<polyline points="${pts(x.p)}" fill="none" stroke="var(--map-road)" stroke-width="${x.w}" stroke-linecap="round" stroke-linejoin="round"/>`).join("");
   g+=MAP.RL.filter(inView).map(p=>`<polyline points="${pts(p)}" fill="none" stroke="var(--map-rail)" stroke-width="2" stroke-dasharray="6 3"/>`).join("");
-  g+=MAP.B.filter(b=>inView(b.p)).map(b=>{const cp=/Carpark/.test(b.n||"");return `<polygon points="${pts(b.p)}" fill="${cp?"var(--infer)":"var(--map-bld)"}" ${cp?'fill-opacity=".5" data-cp="1"':""}/>`;}).join("");
+  g+=MAP.B.filter(b=>inView(b.p)).map(b=>{const cp=!o.fade&&/Carpark/.test(b.n||""); // with o.fade the car park is drawn as plot 21 instead
+    return `<polygon points="${pts(b.p)}" fill="${cp?"var(--infer)":"var(--map-bld)"}" ${cp?'fill-opacity=".5" data-cp="1"':""}/>`;}).join("");
   if(o.fade) g=`<defs><clipPath id="mclip"><polygon points="${svgPts(PLAN_GEO.bound)}"/></clipPath><filter id="mblur" x="-10%" y="-10%" width="120%" height="120%"><feGaussianBlur stdDeviation="2.4"/></filter></defs><g filter="url(#mblur)" opacity=".45"><g id="mbase">${g}</g></g><use href="#mbase" clip-path="url(#mclip)"/>`;
   const on=k=>o.hl===k?1:0;
   // highlight layers (positions read off the OSM base map; indicative)
@@ -236,13 +237,19 @@ function mapSVG2(o={}){
   const arrowP=(a,c)=>{const p=cps(a),[x1,y1]=p[p.length-2],[x2,y2]=p[p.length-1],an=Math.atan2(y2-y1,x2-x1),hx=x2-11*Math.cos(an),hy=y2-11*Math.sin(an),px=6*Math.sin(an),py=-6*Math.cos(an);
     return `<polyline points="${p.slice(0,-1).map(q=>q.join(",")).join(" ")} ${hx},${hy}" stroke="${c}" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"/><polygon points="${x2},${y2} ${hx+px},${hy+py} ${hx-px},${hy-py}" fill="${c}"/>`;};
   g+=`<g class="hl" data-k="traffic" style="opacity:${on("traffic")}">${arrowP(PG.went,"#3f7cc0")}${arrowP(PG.fitz,"#3f7cc0")}${arrowP(PG.val,"#3f7cc0")}${[PG.cyc3,PG.cyc20].map(a=>`<polyline points="${svgPts(a)}" stroke="#4f9a5b" stroke-width="3" stroke-dasharray="4 4" fill="none"/>`).join("")}</g>`;
-  g+=`<g class="hl" data-k="council" style="opacity:${on("council")}">${PG.b21.map(a=>`<polygon points="${svgPts(a)}" fill="var(--infer)" fill-opacity=".18" stroke="var(--infer)" stroke-width="2" stroke-dasharray="6 4"/>`).join("")}</g>`;
+  g+=`<g class="hl" data-k="council" style="opacity:${on("council")}">${PG.b21.map(a=>`<polygon points="${svgPts(a)}" fill="var(--infer)" fill-opacity="${o.fade?.55:.18}" stroke="var(--infer)" stroke-width="2" ${o.fade?'stroke-linejoin="round"':'stroke-dasharray="6 4"'}/>`).join("")}${o.fade?PG.b21.map(a=>{let x=0,y=0;for(let i=0;i<a.length;i+=2){x+=a[i];y-=a[i+1];}x/=a.length/2;y/=a.length/2;return `<g transform="translate(${x.toFixed(1)} ${y.toFixed(1)})"><circle r="6.5" fill="var(--surface)" stroke="var(--fg)" stroke-width="1.2"/><text y="2.4" text-anchor="middle" font-size="6.4" font-weight="700" fill="var(--fg)">21</text></g>`;}).join(""):""}</g>`;
   // the square: tinted by the current allocation, west→east
   g+=`<g id="sqg">${sqInner(o)}</g>`;
   const lab=(t,x,y,anchor="middle",w=600,s=11,rot=0)=>`<text class="lab" x="${x}" y="${-y}" text-anchor="${anchor}" font-size="${s}" font-weight="${w}"${rot?` transform="rotate(${rot} ${x} ${-y})"`:""}>${esc(t)}</text>`;
   if(!o.noLabels){ // street names placed where Council's site plan (S2 p.7) prints them
-    g+=lab("Church St",-98,-140,"middle",600,10,90)+lab("Parkes St",10,-150)+lab("Wentworth St",42,-104,"start")+lab("Fitzwilliam St",-2,44,"middle",600,8,40)+lab("Valentine Ave",72,-12,"middle",600,9,43)
-      +lab("Aird St",-150,50,"start",500,8)+lab("Campbell St",-150,-63,"start",500,8)+lab("Rivoli Way",-68,-85,"start",500,7.5)+lab("Jubilee Park",85,-182,"middle",500)+(o.hots?"":lab("Woodhouse Sq",-1,-81,"middle",700,9));
+    // each name lies along its street: angles and positions are read off the OSM centrelines in data/precinct.json
+    g+=lab("Church St",-98,-140,"middle",600,10,90)+lab("Parkes St",6,-152.5,"middle",600,11,-18)+lab("Wentworth St",31,-110,"middle",600,11,83)+lab("Fitzwilliam St",-2,44,"middle",600,8,40)+lab("Valentine Ave",72,-12,"middle",600,9,43)
+      +lab("Aird St",-140.7,50,"middle",500,8,15)+lab("Campbell St",-133.7,-66.4,"middle",500,8,16)+lab("Jubilee Park",85,-182,"middle",500);
+    // Rivoli Way's new line and the square are not on the base map: they are the plan's, so they can be hidden until the plan is shown
+    const planLab=x=>x.replace('class="lab"','class="lab lab-plan"');
+    g+=o.fade?`<polyline class="lab-plan" points="-101,76 -46,72 25,68" fill="none" stroke="var(--map-road)" stroke-width="5" stroke-linecap="round"/><polyline class="lab-plan" points="-101,76 -46,72 25,68" fill="none" stroke="var(--fg)" stroke-width=".8" stroke-dasharray="3 3" opacity=".55"/>`+planLab(lab("Rivoli Way",-74,-71.4,"middle",500,7.5,-4))
+      :lab("Rivoli Way",-68,-85,"start",500,7.5);
+    if(!o.hots) g+=planLab(o.fade?lab("Woodhouse Sq",1.5,-56.5,"middle",700,6.6):lab("Woodhouse Sq",-1,-81,"middle",700,9)); // inside the square where Rivoli Way is drawn
     g+=lab(L("↑ 车站","↑ Station"),-45,112,"middle",500);
   }
   if(!o.noKey) g+=`<g class="pks">${planMarkers(o.hl)}</g>`;
@@ -279,7 +286,7 @@ const TIMELINE=()=>[
   ["2025-06",L("决议编制总规","Decides to prepare a master plan"),chip("S4","")],
   ["2025-08",L("研究在 Church St 设唐人街","Studies a Chinatown on Church St"),chip("S4","")],
   ["2025-07–11",L("比较大公园、会展中心、餐饮夜生活 + 广场，选了第三种","Compares a park, a convention centre, and dining and nightlife with a square; picks the third"),chip("S4","","sq6")],
-  [L("方案比选","Options test"),L("3,500 m² 大开放空间被淘汰；选带 1,200 m² 广场的方案 3","Drops a 3,500 m² open space; picks Scheme 3 with a 1,200 m² plaza"),chip("S2","p.23","sq7")],
+  [L("方案比选","Options test"),L("3,500 m² 大开放空间被淘汰；选带 1,350 m² 广场的方案 3","Drops a 3,500 m² open space; picks Scheme 3 with a 1,350 m² plaza"),chip("S2","p.23","sq7")],
   [L("位置比选","Location test"),L("地块内部两个位置被否决，广场放在临 Wentworth St","Rejects two inner-block sites; puts the plaza on Wentworth St"),chip("S2","p.23","sq8")],
   ["2026-04-28",L("一致同意公示","Votes unanimously to exhibit"),chip("S3","")],
   ["2026-05–06",L("公示，意见在审阅中","Exhibition; submissions under review"),chip("S3","")]];
@@ -342,9 +349,9 @@ function bindReview(render){document.addEventListener("change",e=>{const t=e.tar
 /* evidence gaps: one list, same pages as app/template.html council(); who can fill each gap and when */
 const GAPS=()=>[
   {t:L("交通影响：还没有交通模型","Traffic effects: no traffic model yet"),c:chip("S4","","tr6")+" "+chip("S2","p.54"),who:"D + A",when:L("FY27/28 聘顾问；与 TfNSW 一起做","Consultants FY27/28; with TfNSW"),res:L("标“等待 Council 交通研究”","“Awaits Council traffic study”")},
-  {t:L("广场面积：1,200、1,300 还是 1,350 m²","Square size: 1,200, 1,300 or 1,350 m²"),c:chip("S2","p.23","sq1")+" "+chip("S3","","sq9")+" "+chip("S2","p.51"),who:"D",when:L("最终版总规","Final master plan"),res:L("用 1,200 m²，并注明两处说法不同","1,200 m², with the difference noted")},
+  {t:L("广场面积：1,200、1,300 还是 1,350 m²","Square size: 1,200, 1,300 or 1,350 m²"),c:chip("S2","p.51","sq1")+" "+chip("S3","","sq9")+" "+chip("S2","p.51"),who:"D",when:L("最终版总规","Final master plan"),res:L("用设计导则的下限 1,350 m²，并注明说法不同","1,350 m², the design guideline minimum, with the difference noted")},
   {t:L("停车场的地下部分是否延伸到广场下方、能否深土种树","Whether the car park basement extends under the square, and whether deep soil is possible"),c:chip("S2","p.49","tr8")+" "+chip("S2","p.54"),who:"D",when:L("停车场可行性研究；来源未给时间","Car park feasibility work; no date in the sources"),res:L("深土种植标“待核实”","Deep soil marked “unconfirmed”")},
-  {t:L("各项功能的面积比例","Area for each use"),c:chip("S2","p.45","sq2")+` <span class="tag t-gap">${L("来源里没有面积","No areas in the sources")}</span>`,who:"D",when:L("广场设计阶段；来源未给时间","Square design stage; no date in the sources"),res:L("方案 0 标“我们的解读”","Scenario 0 labelled “our reading”")},
+  {t:L("各项功能的面积比例","Area for each use"),c:chip("S2","p.45","sq2")+` <span class="tag t-gap">${L("来源里没有面积","No areas in the sources")}</span>`,who:"D",when:L("广场设计阶段；来源未给时间","Square design stage; no date in the sources"),res:L("基准标“我们的量法”","Baseline labelled “our measurement”")},
   {t:L("建设资金来源","Funding sources"),c:chip("S2","p.54","sq10"),who:"D + A",when:L("来源未给时间","No date in the sources"),res:L("成本卡注明“资金来源未定”","Cost card says “funding not settled”")},
   {t:L("公示意见汇总（尚未公开）","Exhibition feedback summary (not yet published)"),c:chip("S3",""),who:"D",when:L("最终版总规","Final master plan"),res:L("不引用公示意见","No exhibition feedback shown")},
   {t:L("系数矩阵的文献出处","Literature for each coefficient"),c:`<span class="tag t-design">${L("我们的设计","Our design")}</span>`,who:L("本团队","This team"),when:L("提交后","After submission"),res:L("所有结果标“假设”","Every result labelled “assumption”")}];
@@ -365,11 +372,11 @@ function pEval(a){const a0=PRESETS.base.a;return PDEF().map(p=>{
   return {...p,parts,lvl:p.na?"na":fail?"fail":weak?"weak":"keep"};});}
 const LV=()=>({keep:L("保持","Kept"),weak:L("削弱","Weakened"),fail:L("不满足","Not met"),na:L("不评分","Not scored")});
 function pCheckList(){const sh=v=>Math.round(100*v/TOTAL), R=pEval(S.a), n=k=>R.filter(r=>r.lvl===k).length;
-  return `<p class="small muted">${L("检查对象：居民故事板的<b>当前分配</b>，对比方案 0（总规原样，我们的解读）。原则来自","Checked: the resident storyboard's <b>current split</b>, against Scenario 0 (plan as drawn, our reading). Principles from")} ${chip("S2","p.22")} <span class="tag t-design" style="white-space:normal">${L("门槛和“削弱”（比方案 0 少 10% 以上）是我们的假设","Thresholds and “weakened” (over 10% below Scenario 0) are our assumptions")}</span></p>
+  return `<p class="small muted">${L("检查对象：居民故事板的<b>当前分配</b>，对比基准（按总规平面图量出，我们的量法）。原则来自","Checked: the resident storyboard's <b>current split</b>, against the baseline (measured from the plan drawing, our reading). Principles from")} ${chip("S2","p.22")} <span class="tag t-design" style="white-space:normal">${L("门槛和“削弱”（比基准少 10% 以上）是我们的假设","Thresholds and “weakened” (over 10% below the baseline) are our assumptions")}</span></p>
   <div class="pcsum"><span class="lv lv-keep">${LV().keep} ${n("keep")}</span><span class="lv lv-weak">${LV().weak} ${n("weak")}</span><span class="lv lv-fail">${LV().fail} ${n("fail")}</span></div>
   <ul class="pcl">${R.map(r=>`<li><div class="pch"><b>${r.id}</b><span>${r.t}</span><span class="lv lv-${r.lvl}">${LV()[r.lvl]}</span></div>
-   ${r.na?`<div class="small muted">${L("本工具把总面积固定在 1,200 m²，所以这条恒满足，不打分。真正的风险在资金和停车场，见证据空白。","This tool fixes the total at 1,200 m², so this always holds and is not scored. The real risks are funding and the car park; see evidence gaps.")} ${chip("S2","p.54","sq10")} ${chip("S2","p.49","tr8")}</div>`
-     :r.parts.map(x=>{const d=sh(x.v)-sh(x.v0);return `<div class="pcrow small"><span>${x.lab}</span><span class="muted">${L("方案 0","Scen. 0")} ${sh(x.v0)}%</span><span>${L("当前","Now")} <b>${sh(x.v)}%</b></span><span class="${d>0?"delta-up":d<0?"delta-down":"muted"}">${d>0?"▲":d<0?"▼":"="}${Math.abs(d)}</span><span class="muted">${L("门槛","Min")} ≥${sh(x.min)}%</span></div>`;}).join("")}</li>`).join("")}</ul>
+   ${r.na?`<div class="small muted">${L("本工具把总面积固定在 1,350 m²，所以这条恒满足，不打分。真正的风险在资金和停车场，见证据空白。","This tool fixes the total at 1,350 m², so this always holds and is not scored. The real risks are funding and the car park; see evidence gaps.")} ${chip("S2","p.54","sq10")} ${chip("S2","p.49","tr8")}</div>`
+     :r.parts.map(x=>{const d=sh(x.v)-sh(x.v0);return `<div class="pcrow small"><span>${x.lab}</span><span class="muted">${L("基准","Baseline")} ${sh(x.v0)}%</span><span>${L("当前","Now")} <b>${sh(x.v)}%</b></span><span class="${d>0?"delta-up":d<0?"delta-down":"muted"}">${d>0?"▲":d<0?"▼":"="}${Math.abs(d)}</span><span class="muted">${L("门槛","Min")} ≥${sh(x.min)}%</span></div>`;}).join("")}</li>`).join("")}</ul>
   <p class="small muted">${L("系统只标出哪条被削弱，不替 Council 做决定。","The tool flags which principle is weakened; it does not decide for Council.")}</p>`;}
 
 /* privacy threshold: counted per group (role), never per person; groups under 10 show no number */
@@ -385,7 +392,7 @@ function subsPanel(){const {subs,by,ok}=subsGroups(), rn=id=>{const r=(typeof RO
 function decisionCard(){const cell=(k,h,b)=>`<div class="dcell"><div class="dk">${k}</div><b>${h}</b><div class="small">${b}</div></div>`;
   return `<section class="card dcard"><div class="sec-h"><h2 class="ch2">${L("这个工具服务的决策","The decision this tool serves")}</h2><span class="small muted">${L("赛题要求讲清决策、负责人、更新和行动","The brief asks for decision, owner, refresh and action")} ${chip("S1","p.13")}</span></div>
    <div class="dgrid">
-   ${cell(L("决策","Decision"),L("广场里面怎么分","How the square is shared"),`${L("Woodhouse Square（暂定名","Woodhouse Square (provisional name")} ${chip("S2","p.54","sq11")}${L("）这 1,200 m²","): how its 1,200 m²")} ${chip("S2","p.23","sq1")} ${L("在各类用途之间怎么分。总规没给各项面积。","is shared between uses. The plan gives no area for each use.")}`)}
+   ${cell(L("决策","Decision"),L("广场里面怎么分","How the square is shared"),`${L("Woodhouse Square（暂定名","Woodhouse Square (provisional name")} ${chip("S2","p.54","sq11")}${L("）这 1,350 m²","): how its 1,350 m²")} ${chip("S2","p.51","sq1")} ${L("在各类用途之间怎么分。总规没给各项面积。","is shared between uses. The plan gives no area for each use.")}`)}
    ${cell(L("负责人","Owner"),L("Council","Council"),`${L("总规是 Council 的文件","The master plan is Council's document")} ${chip("S4","")}${L("。工具内由哪个团队负责：",". Which team runs this tool:")} <span class="tag t-design">${L("待 Council 指定","For Council to name")}</span>`)}
    ${cell(L("何时更新","Refresh"),L("三个节点","Three milestones"),`${L("最终版总规提交 Council","Final master plan to Council")} ${chip("S3","")}${L("；","; ")}${L("交通研究顾问 FY27/28","traffic study consultants in FY27/28")} ${chip("S4","","tr6")}${L("；","; ")}${L("第二期 2027 年公示","Phase 2 exhibited in 2027")} ${chip("S3","")}${L("。",". ")}${L("每到一个节点，重跑证据核对和原则检查","At each one, re-run the evidence review and principle check")} <span class="tag t-design">${L("我们的设计","Our design")}</span>`)}
    ${cell(L("能促成的行动","Actions"),L("三项后续工作 + 倡导","Three follow-on pieces + advocacy"),`${L("修订 DCP 2023 Part 9；编制公共艺术总体规划；Council 用地可行性研究","Amend DCP 2023 Part 9; prepare a Public Art Master Plan; feasibility study for Council land")} ${chip("S2","p.54")} ${chip("S4","")}${L("。",". ")}${L("另有向州政府等争取的事，见下方 A 层。","Plus what Council must win from others; see tier A below.")}`)}

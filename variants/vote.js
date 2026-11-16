@@ -148,7 +148,7 @@ function duelC(){if(!S.duel)newDuel();const d=S.duel,done=d.i>=d.pairs.length;
   if(!done){const [a,b]=d.pairs[d.i];
     return head+`<div class="duel">${duelSide(a)}<span class="vs" aria-hidden="true">VS</span>${duelSide(b)}</div>
      <div class="pill" style="justify-content:center;margin-top:10px"><button data-duel="tie">${L("差不多","About the same")}</button><button data-duel="skip">${L("跳过","Skip")}</button></div>
-     <p class="small muted" style="margin:8px 0 0;text-align:center">${L(`第 ${d.i+1} / ${DROUNDS} 轮 · 1,200 m² 的总面积不变`,`Round ${d.i+1} of ${DROUNDS} · the total stays 1,200 m²`)} ${chip("S2","p.23","sq1")}</p>${lastRoundNote()}`;}
+     <p class="small muted" style="margin:8px 0 0;text-align:center">${L(`第 ${d.i+1} / ${DROUNDS} 轮 · 1,350 m² 的总面积不变`,`Round ${d.i+1} of ${DROUNDS} · the total stays 1,350 m²`)} ${chip("S2","p.51","sq1")}</p>${lastRoundNote()}`;}
   const r=duelRank(d.res),sr=V.sim?duelRank(duelsOf(simPool())).slice(0,3):[];
   return head+lastRoundNote()+`<p class="small" style="margin:4px 0 8px">${L("你的排序（按赢的比例）：","Your order (share of matchups won):")}</p>
    ${r.length?rankList(r):`<p class="small muted">${L("你都跳过了。","You skipped every round.")}</p>`}
