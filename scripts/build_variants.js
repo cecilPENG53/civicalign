@@ -4,6 +4,7 @@
 // Usage: node scripts/build_variants.js
 const fs = require("fs");
 const path = require("path");
+const cjkGuard = require("./cjk_guard");
 const root = path.join(__dirname, "..");
 const rd = p => fs.readFileSync(path.join(root, p), "utf8");
 
@@ -49,6 +50,9 @@ for (const rtl of ["ar", "fa"]) { // "next" arrows point the other way in right-
   const d = dict[rtl]; if (!d) continue;
   for (const k in d) d[k] = d[k].replace(/→/g, "←");
 }
+// no Chinese in the English keys or in the other languages' translations
+const tableBad = cjkGuard.checkTables(i18nDir);
+if (tableBad.length) throw new Error("Chinese text in a translation table:\n" + tableBad.join("\n"));
 const i18nJs = rd("variants/i18n.js").replace("/*__I18N__*/{}", () => JSON.stringify(dict));
 const shared = [i18nJs, rd("variants/shared.js"), rd("variants/iso.js"), rd("variants/vote.js"), rd("variants/council.js")].join(String.fromCharCode(10, 10));
 
@@ -77,6 +81,9 @@ for (const name of ["a-studio", "b-scroll", "c-map", "index", "about"]) {
   if (src.includes("<script>")) { // about.html is static and has no script
     const js = src.slice(src.lastIndexOf("<script>") + 8, src.lastIndexOf("</script>"));
     try { new Function(js); } catch (e) { throw new Error(`${name}: page script does not parse: ${e.message}`); }
+    // fail if Chinese text sits outside the Chinese side of L(zh,en) / {zh,en}: it would show in every language
+    const bad = cjkGuard.checkScript(js, name);
+    if (bad.length) throw new Error("Chinese text would show in the English interface (wrap it in L(zh,en)):\n" + bad.join("\n"));
   }
   fs.writeFileSync(path.join(outDir, name + ".html"), src);
   console.log(`wrote dist/variants/${name}.html`, (src.length / 1024).toFixed(0) + " KB");

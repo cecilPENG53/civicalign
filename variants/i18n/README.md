@@ -33,6 +33,8 @@ Every unreviewed language shows a banner under the header: "AI translation, not 
 4. To refresh Traditional Chinese, run `scripts/i18n_zh_hant.js` (it says how to install opencc-js).
 5. Rebuild.
 
+Chinese text belongs only on the Chinese side: the first argument of `L(zh,en)` or a `zh:` field. That includes Chinese punctuation (`。` `；` `：` `＋`) and units. Write a unit with words as `unit:{zh:"人",en:"people"}` and print it with `U(d)`. Never write a bilingual pair such as `"人 / people"`. Both build scripts run `scripts/cjk_guard.js` and fail if Chinese would show in the English interface, or if an English key or a non-Chinese translation contains Chinese. To check built pages by hand, run `node scripts/cjk_guard.js`.
+
 ## For reviewers
 
 Each `<code>.json` maps English to translation, one line per string. Some sentences are split around a source chip, for example "…so deep soil is" + "unconfirmed". Check those in the page, not only in the file.
