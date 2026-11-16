@@ -445,7 +445,7 @@ const decF=id=>id==="storm"?1:0;
 const valTxt=(id,v)=>id==="cost"?`$${fmt(v[0]/1000,2)}–${fmt(v[1]/1000,2)}M`:`${fmt(v[0],decF(id))}–${fmt(v[1],decF(id))}`;
 function kpiPicto(){return `<div class="kpis kp4">${["shade","econ","access","cost"].map(id=>{const d=DIMS.find(x=>x.id===id),k=kpiData(id),c=PK()[id].c;
   return `<div class="kpi kpic" style="--kc:${c}"><div class="kh"><b><span class="mic" style="margin:0">${ICON[PK()[id].ic](c)}</span>${T(d)}</b>${ASSUME()}</div>
-   ${picFor(id,"y")}<div class="kv">${valTxt(id,k.y)}<small> ${id==="cost"?"":d.unit}</small></div>${deltaHTML(k)}
+   ${picFor(id,"y")}<div class="kv">${valTxt(id,k.y)}<small> ${id==="cost"?"":U(d)}</small></div>${deltaHTML(k)}
    <div class="kn">${id==="access"?`${TRAFFIC_WAIT()} ${chip("S4","","tr6")}`:esc(PIC_UNIT[id](L))}</div></div>`;}).join("")}</div>`;}
 function resultsInner(){const r=resultsRows();
   const head=`<div class="sec-h"><div><div class="eyebrow">${L("第 3 章 · 9 项结果","Chapter 3 · All 9 results")}</div><h2>${L("和总规原样（方案 0）比，有什么不同？","How does it compare with the plan as drawn (Scenario 0)?")}</h2>

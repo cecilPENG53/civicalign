@@ -108,7 +108,7 @@ function obsCard(o){const on=S.seen.includes(o.id),sn=V.sim?cntIn(o.id,simPool()
     ${saysLine(o)}<div class="ob-f">${roleTag(o.role)} <span class="small muted">${esc(roleName(o.role))}</span>
      <span class="ob-mix">${sn?`${SIMTAG()} <span class="small">${sn}</span>`:""}${mn?` <span class="tag t-mine">${L(`你的 ${mn} 票`,mn===1?"your vote":`your ${mn} votes`)}</span>`:""}</span></div></article>`;}
 function composer(){const iss=VISSUES().find(x=>x[0]===V.issue);
-  return `<details class="vadd"${V.place||V.issue?" open":""}><summary>＋ ${L("加一条你遇到的问题（点选，不用打字）","Add something you've run into (tap, no typing)")}</summary>
+  return `<details class="vadd"${V.place||V.issue?" open":""}><summary>+ ${L("加一条你遇到的问题（点选，不用打字）","Add something you've run into (tap, no typing)")}</summary>
    <div class="lbl" style="margin-top:8px">1 · ${L("在哪里","Where")}</div><div class="pill">${VPLACES().map(([k,t])=>`<button data-vplace="${k}" aria-pressed="${V.place===k}">${esc(t)}</button>`).join("")}</div>
    <div class="lbl" style="margin-top:8px">2 · ${L("什么问题","What")}</div><div class="pill">${VISSUES().map(([k,t])=>`<button data-vissue="${k}" aria-pressed="${V.issue===k}">${esc(t)}</button>`).join("")}</div>
    ${iss?`<div class="vprev">${saysLine({says:iss[4]})}</div>`:""}
@@ -141,7 +141,7 @@ function lastRoundNote(){const d=S.duel;if(!V.sim||!d||!d.i)return "";const last
   if(rs.length<5) return `<p class="small muted vlast">${L("上一轮这一对的模拟数据太少，不显示比例。","Too few simulated answers for the last pair to show a split.")} ${SIMTAG()}</p>`;
   const pa=Math.round(100*rs.filter(r=>r.w===last.a).length/rs.length),pb=Math.round(100*rs.filter(r=>r.w===last.b).length/rs.length);
   const you=last.w===last.a||last.w===last.b?L(`你选了「${modName(last.w)}」。`,`You picked ${modName(last.w)}. `):"";
-  return `<p class="small vlast">${L("上一轮","Last round")}：${you}${L(`模拟受访者里 ${pa}% 选「${modName(last.a)}」，${pb}% 选「${modName(last.b)}」（n=${rs.length}）`,`${pa}% of simulated respondents picked ${modName(last.a)}, ${pb}% ${modName(last.b)} (n=${rs.length})`)} ${SIMTAG()}</p>`;}
+  return `<p class="small vlast">${L("上一轮","Last round")}${L("：",": ")}${you}${L(`模拟受访者里 ${pa}% 选「${modName(last.a)}」，${pb}% 选「${modName(last.b)}」（n=${rs.length}）`,`${pa}% of simulated respondents picked ${modName(last.a)}, ${pb}% ${modName(last.b)} (n=${rs.length})`)} ${SIMTAG()}</p>`;}
 function duelC(){if(!S.duel)newDuel();const d=S.duel,done=d.i>=d.pairs.length;
   const head=`<div class="vh"><div class="eyebrow">C · ${L("二选一","Pick one of two")}</div>
    <span class="dprog" aria-label="${L(`第 ${Math.min(d.i+1,DROUNDS)} / ${DROUNDS} 轮`,`Round ${Math.min(d.i+1,DROUNDS)} of ${DROUNDS}`)}">${d.pairs.map((_,k)=>`<i class="${k<d.i?"d":k===d.i?"c":""}"></i>`).join("")}</span></div><h3 class="vq">${L("如果广场多出 100 m²，你更想给哪一个？","If the square had 100 m² more, which use should get it?")}</h3>`;
@@ -163,7 +163,7 @@ function sendBar(){const n=S.seen.length,dn=S.duel?S.duel.res.filter(r=>r.w!=="s
 function freeText(){return `<details class="vfree"><summary>${L("还想补充？写几句（可选）","Anything else? Write a few words (optional)")}</summary>
    <label class="f" for="exp">${L("你现在在这一带的体验是什么？比如晚上走、等车、带孩子、做生意。","What is it like around here now? Walking at night, waiting for a bus, with kids, running a shop.")}</label><textarea id="exp">${esc(S.exp)}</textarea>
    <label class="f" for="wish" style="margin-top:8px">${L("这个广场怎样才对你有用？","What would make this square work for you?")}</label><textarea id="wish">${esc(S.wish)}</textarea>
-   <p class="small muted">${L("请不要写姓名、电话或住址。按“最少必要数据”原则，我们只问身份和可选的年龄段、邮编","Please leave out names, phone numbers and addresses. Under the minimum-data rule we only ask your role, and optionally age band and postcode")} ${chip("S5","p.30")}。</p></details>`;}
+   <p class="small muted">${L("请不要写姓名、电话或住址。按“最少必要数据”原则，我们只问身份和可选的年龄段、邮编","Please leave out names, phone numbers and addresses. Under the minimum-data rule we only ask your role, and optionally age band and postcode")} ${chip("S5","p.30")}${L("。",".")}</p></details>`;}
 function voteSection(){return `<div class="vgrid"><div class="card vcard" id="voteA">${voteA()}</div><div class="card vcard" id="duelC">${duelC()}</div></div>
   <div class="card vcard" style="margin-top:14px"><div id="sendBox">${sendBar()}</div>${freeText()}</div>`;}
 function voteRefresh(which){const m={voteA,duelC,sendBox:sendBar,tallyBox:tallyPanel};(which||Object.keys(m)).forEach(k=>{const e=document.getElementById(k);if(e)e.innerHTML=m[k]();});}
