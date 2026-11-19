@@ -112,3 +112,7 @@ button.cb-step:hover{border-color:var(--accent)}
 /* band at the end of the resident story */
 .cb-hand{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;border-left:4px solid var(--accent)}
 .cb-hand>div{flex:1 1 280px;min-width:0}
+/* resident feedback card spans the page: counts on the left, representativeness check on the right */
+.cb-two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px 28px;align-items:start}
+.cb-two>div>:first-child{margin-top:0}
+@media (max-width:820px){.cb-two{grid-template-columns:1fr}}

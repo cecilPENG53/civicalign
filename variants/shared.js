@@ -404,7 +404,7 @@ function statusStrip(){const R=pEval(S.a), chk=CLAIMS.filter(c=>c.src&&!isReject
   return `<nav class="sstrip" aria-label="${L("状态","Status")}">
    ${t("ledger",`${chk}/${CLAIMS.length}`,L("条目已核对","Claims checked"))}
    ${t("ledger",rej,L("已驳回，居民端已隐藏","Rejected, hidden from residents"),rej?"warn":"")}
-   ${t("#blk-gaps",GAPS().length,L("证据空白","Evidence gaps"))}
+   <button class="stile" data-cb="go" data-val="ledger#blk-gaps"><b>${GAPS().length}</b><span>${L("证据空白","Evidence gaps")}</span></button>
    ${t("#blk-pc",`${R.filter(r=>r.lvl==="keep").length} / ${R.filter(r=>r.lvl==="weak"||r.lvl==="fail").length}`,L("原则 保持 / 削弱或不满足","Principles kept / weakened or not met"),R.some(r=>r.lvl==="weak"||r.lvl==="fail")?"warn":"")}
    ${t("#blk-subs",g.ok.length,L("达到 10 人门槛的群体","Groups at the 10-person threshold"))}
   </nav>`;}

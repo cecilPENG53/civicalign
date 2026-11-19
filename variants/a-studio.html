@@ -715,8 +715,7 @@ function councilTab(){
    <div class="cgrid">
     <div class="card" id="blk-pc"><h2 class="ch2">${L("总规原则检查 P1–P6","Plan principles P1–P6")}</h2>${pCheckList()}</div>
     <div class="card" id="blk-dpa"><h2 class="ch2">${L("谁来做：D / P / A","Who delivers: D / P / A")}</h2><div id="dpaBox">${dpaCards(true)}</div><p class="small" style="margin:8px 0 0"><button class="cb-link" data-jump="cb-brief">${L("看倡导简报草稿","See the advocacy brief draft")} ↓</button></p></div>
-    <div class="card" id="blk-gaps"><h2 class="ch2">${L("证据空白","Evidence gaps")}</h2><p class="small muted">${L("这些数字在来源里找不到。原型不会用估算填上，而是列出来交给 Council，并写明谁能补、什么时候。","No source gives these figures. The prototype lists them for Council instead of filling them with estimates, with who can fill each and when.")}</p>${gapsList()}</div>
-    <div class="card" id="blk-subs"><h2 class="ch2">${L("居民意见 · 隐私门槛","Resident feedback · privacy threshold")}</h2>${cbFeedback()}</div>
+    <div class="card vwide" id="blk-subs"><h2 class="ch2">${L("居民意见 · 隐私门槛","Resident feedback · privacy threshold")}</h2>${cbFeedback()}</div>
     <div class="card vwide"><h2 class="ch2">${L("居民投票汇总","Resident votes")}</h2><div id="tallyBox">${tallyPanel()}</div></div>
     <div class="card vwide" id="cb-triage"><h2 class="ch2">${L("文字意见 · 每条一个去向","Written comments · one next step each")}</h2>${cbTriage()}</div>
     <div class="card vwide" id="cb-brief">${cbBrief()}</div>
@@ -729,6 +728,7 @@ function ledgerTab(){
    <section class="card"><h2 style="font-size:18px;margin-bottom:8px">${L("来源","Sources")}</h2><ul class="srcs">${Object.entries(SOURCES).map(([k,s])=>`<li><b class="src" style="cursor:default">${k}</b> ${esc(T(s))} ${s.url?`<a href="${s.url}" target="_blank" rel="noopener">${L("原文","Open")} ↗</a>`:`<span class="small muted">${L("团队持有","held by the team")}</span>`}</li>`).join("")}</ul></section>
    <section class="card" id="ledger"><div class="sec-h"><h2 class="ch2">${L("证据核对清单","Evidence ledger")} (${CLAIMS.length})</h2>${Object.keys(S.review).length?`<button class="btn" data-rv="reset">${L("重置演示核对","Reset demo review")}</button>`:""}</div>
     <p class="small rvnote">${L(`<b>人工问责点（演示）。</b>每条可以批准、修改或驳回；驳回的条目立刻从居民端消失。核对人记为“${REVIEWER()}”，<b>不是 Council 批准</b>。只保存在本浏览器。`,`<b>Human checkpoint (demo).</b> Approve, edit or reject each line; a rejected line disappears from the resident side at once. The reviewer is recorded as “${REVIEWER()}”; <b>this is not Council approval</b>. Saved in this browser only.`)}</p>${cbLedgerFilter()}${ledgerTable({review:true,only:cbOnly()})}</section>
+   <section class="card" id="blk-gaps"><h2 class="ch2">${L("证据空白","Evidence gaps")}</h2><p class="small muted">${L("这些数字在来源里找不到。原型不会用估算填上，而是列出来交给 Council，并写明谁能补、什么时候。","No source gives these figures. The prototype lists them for Council instead of filling them with estimates, with who can fill each and when.")}</p>${gapsList()}</section>
    <section class="card" id="cb-std"><h2 class="ch2">${L("证据标准自查","Evidence standard self-check")}</h2>${cbStandard()}</section>
    <section class="card"><div class="sec-h"><h2 style="font-size:18px">${L("模型系数","Model coefficients")}</h2>${ASSUME()}</div><div class="scroll">${coefTable()}</div></section></div>`;
 }

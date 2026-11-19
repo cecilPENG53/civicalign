@@ -39,7 +39,7 @@ function cbPipe(){const k=cbCounts();
    ${st(`data-jump="cb-std"`,2,L("AI 提取","AI extracts"),L("逐条提取，附页码和原文；没有引用的不收录","Each claim with page and quote; no quote, no entry"),`<span class="tag t-infer">${L("演示：团队人工完成","Demo: done by hand")}</span>`)}
    ${st(`data-jump="ledger"`,3,L("规划师核对","Planner reviews"),L("批准、修改或驳回，记下核对人和日期","Approve, edit or reject; reviewer and date are recorded"),`<span class="tag t-gap">${L("演示：核对人是团队成员","Demo: the reviewer is a team member")}</span>`)}
    ${st(`data-tab="res"`,4,L("居民端","Residents"),L("只显示没被驳回的条目","Only claims that were not rejected are shown"),`<span class="tag t-design">${L(`${k.ok+k.edit} 条显示 · ${k.rej} 条不显示`,`${k.ok+k.edit} shown · ${k.rej} hidden`)}</span>`)}
-   ${st(`data-cb="go" data-val="council#blk-gaps"`,5,L("证据空白清单","Evidence-gap list"),L("来源里没有的数字，列出来交给 Council","Figures no source gives are listed for Council"),`<span class="tag t-gap">${L(`${GAPS().length} 条`,`${GAPS().length} gaps`)}</span>`)}</div>`;}
+   ${st(`data-jump="blk-gaps"`,5,L("证据空白清单","Evidence-gap list"),L("来源里没有的数字，列出来交给 Council","Figures no source gives are listed for Council"),`<span class="tag t-gap">${L(`${GAPS().length} 条`,`${GAPS().length} gaps`)}</span>`)}</div>`;}
 function cbStandard(){const k=cbCounts(),tag=(c,t)=>`<span class="tag ${c}">${t}</span>`,done=tag("t-fact",L("已做","Done")),part=tag("t-infer",L("部分","Partly")),todo=tag("t-gap",L("还没做","Not yet"));
   const rows=[
    [L("来源和日期","Source and date"),L("5 份来源都列了发布方和日期，见上方“来源”","All five sources list publisher and date: see Sources above"),done],
@@ -96,7 +96,7 @@ function cbRep(subs,show){const known=subs.filter(s=>s.lang),zh=known.filter(s=>
    ${rows.map(r=>`<div class="cb-kv"><span>${r[0]}</span><span>${r[1]}</span><span>${r[2]}</span></div>`).join("")}</div>`;}
 function cbFeedback(){const subs=cbSubs(),n=subs.length,g=cbGroups(),pv=CB.preview,show=n>=CB_MIN||(pv&&n>0);
   const head=`<p class="small muted">${L(`同一群体达到 ${CB_MIN} 份才显示汇总，免得从汇总里认出个人。这一栏只算本浏览器里的演示提交（分法、态度、最在乎的维度），不含模拟票，也没有发送给任何人。`,`A group's summary shows only once it reaches ${CB_MIN}, so no one can be picked out. This card counts only demo submissions saved in this browser (splits, views, top concerns). It leaves out the simulated votes, and nothing is sent anywhere.`)}</p>
-   <div class="cb-thr"><b>${n}</b><span>${L("份演示提交","demo submission(s)")}</span></div>
+   <div class="cb-two"><div><div class="cb-thr"><b>${n}</b><span>${L("份演示提交","demo submission(s)")}</span></div>
    <ul class="cb-grps">${g.rows.map(x=>`<li><span>${T(x.r)}</span><span class="${x.n>=CB_MIN?"ok":"muted"}">${x.n>=CB_MIN?L(`≥ ${CB_MIN} · 可单独显示`,`≥ ${CB_MIN} · shown on its own`):L(`< ${CB_MIN} · 已隐藏`,`< ${CB_MIN} · hidden`)}</span></li>`).join("")}</ul>`;
   let body;
   if(!n) body=`<div class="cb-ghost"><b>${L("还没有演示提交。","No demo submissions yet.")}</b> ${L(`达到 ${CB_MIN} 份后，这里会显示：`,`Once there are ${CB_MIN}, this shows:`)}
@@ -106,7 +106,7 @@ function cbFeedback(){const subs=cbSubs(),n=subs.length,g=cbGroups(),pv=CB.previ
     ${show?`${n<CB_MIN?`<p class="small" style="margin-top:8px">${cbPrevTag()}</p>`:""}${cbSummary(subs)}
       ${g.rows.filter(x=>x.n>=CB_MIN).map(x=>`<div class="cb-blk"><h3>${T(x.r)} (${x.n})</h3>${CARDS.map(cd=>cbReactRow(subs.filter(s=>s.role===x.r.id),cd)).join("")}</div>`).join("")}`:""}
     <button class="btn cb-sm" id="clearSubs" style="margin-top:12px">${L("清除本浏览器的演示提交","Clear demo submissions in this browser")}</button>`;
-  return head+body+cbRep(subs,show);}
+  return head+body+`</div><div>${cbRep(subs,show)}</div></div>`;}
 
 /* ---------- written comments: one next step each ---------- */
 const cbRoutes=()=>store.get("cav_triage")||{};
