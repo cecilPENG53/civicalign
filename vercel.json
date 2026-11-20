@@ -6,6 +6,16 @@
   "outputDirectory": "dist/variants",
   "cleanUrls": true,
   "rewrites": [
-    { "source": "/", "destination": "/a-studio" }
+    {
+      "source": "/",
+      "destination": "/a-studio"
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/pitchPresentation",
+      "destination": "/pitch-presentation",
+      "permanent": true
+    }
   ]
 }
