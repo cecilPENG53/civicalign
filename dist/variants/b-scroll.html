@@ -432,7 +432,12 @@ const SOURCES = {
   S2:{zh:"Draft CBD South Parramatta Precinct Master Plan（第一期）",en:"Draft CBD South Parramatta Precinct Master Plan, Phase 1",url:"https://participate.cityofparramatta.nsw.gov.au/upload/parra/document/260421---Draft-CBD-South-Master-PlanUpdate_1778470189.pdf"},
   S3:{zh:"Participate Parramatta 项目页（2026-11-15 访问）",en:"Participate Parramatta project page (accessed 15 Nov 2026)",url:"https://participate.cityofparramatta.nsw.gov.au/cbd-south-master-plan"},
   S4:{zh:"Council 报告 OCM26-56（2026-04-28）",en:"Council report OCM26-56 (28 Apr 2026)",url:"https://docspublished.com.au/CityofParramatta/document/5bdbd20f-5ff3-43bc-97c4-1819402e9f6f"},
-  S5:{zh:"Smart City & Innovation Strategy 2024–2033",en:"Smart City & Innovation Strategy 2024–2033",url:"https://www.cityofparramatta.nsw.gov.au/files/assets/public/v/1/publications/smart-city-and-innovation-strategy.pdf"}
+  S5:{zh:"Smart City & Innovation Strategy 2024–2033",en:"Smart City & Innovation Strategy 2024–2033",url:"https://www.cityofparramatta.nsw.gov.au/files/assets/public/v/1/publications/smart-city-and-innovation-strategy.pdf"},
+  S9:{zh:"ABS 2021 人口普查 QuickStats：Parramatta 片区（SAL13167，2026-11-20 访问）",en:"ABS 2021 Census QuickStats: Parramatta suburb (SAL13167, accessed 20 Nov 2026)",url:"https://www.abs.gov.au/census/find-census-data/quickstats/2021/SAL13167"},
+  S12:{zh:"City of Parramatta 官网：Environmental monitoring（OATH 项目，2026-11-20 访问）",en:"City of Parramatta website: Environmental monitoring (OATH project, accessed 20 Nov 2026)",url:"https://www.cityofparramatta.nsw.gov.au/council/projects/smart-city/environmental-monitoring"},
+  S13:{zh:"City of Parramatta 官网：Data and Demographics（2026-11-20 访问）",en:"City of Parramatta website: Data and Demographics (accessed 20 Nov 2026)",url:"https://www.cityofparramatta.nsw.gov.au/council/about-us/data-and-demographics"},
+  S14:{zh:"Data.NSW：City of Parramatta Council 的数据集（Flood Data Portal，2026-11-20 访问）",en:"Data.NSW: City of Parramatta Council datasets (Flood Data Portal, accessed 20 Nov 2026)",url:"https://data.nsw.gov.au/data/organization/city-of-parramatta-council"},
+  S15:{zh:"City of Parramatta Data Visualisation（ArcGIS Hub，2026-11-20 访问；只确认了站点存在）",en:"City of Parramatta Data Visualisation (ArcGIS Hub, accessed 20 Nov 2026; only the site itself was checked)",url:"https://open-data-parracity.hub.arcgis.com"}
 };
 
 /* ---------- Claims: every one carries source, page and the original wording ---------- */
@@ -522,7 +527,26 @@ const CLAIMS = [
   q:"Detailed consideration of Paramatta Train Station and the Argyle Street bus interchange will occur in the Phase 2 Master Plan."},
  {id:"tr8",card:"traffic",kind:"open",src:"S2",pg:"p.49",
   zh:"停车场仍取决于进一步的可行性研究和设计。示意图把停车场画在广场旁边，没有画在广场上；它的地下部分会不会延伸到广场下方，来源里没有说。",en:"The car park is still subject to feasibility and design. The indicative map draws it beside the square, not on it; no source says whether its basement extends under the square.",
-  q:"Subject to further feasibility and design, a new public car park is proposed on Council-owned land… (map caption) Indicative locations for Car Parking, Kiss-and-Ride and Bus Drop-Off"}
+  q:"Subject to further feasibility and design, a new public car park is proposed on Council-owned land… (map caption) Indicative locations for Car Parking, Kiss-and-Ride and Bus Drop-Off"},
+ // Context and benchmarks (not part of the master plan): census profile, heat monitoring, Council data channels
+ {id:"cx1",card:"context",kind:"planned",src:"S9",pg:"",
+  zh:"Parramatta 片区 70.2% 的已入住私人住宅是租的（2021）。",en:"70.2% of occupied private dwellings in the suburb of Parramatta are rented (2021).",
+  q:"Tenure type, occupied private dwellings: Rented 8,251, 70.2%"},
+ {id:"cx2",card:"context",kind:"planned",src:"S9",pg:"",
+  zh:"Parramatta 片区的年龄中位数是 32 岁，共 30,211 人（2021）。",en:"The median age in the suburb of Parramatta is 32, among 30,211 people (2021).",
+  q:"People 30,211 · Median age 32"},
+ {id:"cx3",card:"context",kind:"planned",src:"S9",pg:"",
+  zh:"Parramatta 片区 31.3% 的人在 25–34 岁（2021；两个年龄段相加，是我们算的）。",en:"31.3% of people in the suburb of Parramatta are aged 25–34 (2021; two age bands added by us).",
+  q:"25-29 years 4,431, 14.7% · 30-34 years 5,026, 16.6%"},
+ {id:"cx4",card:"context",kind:"planned",src:"S12",pg:"",
+  zh:"2018–19 年夏天，Council 和西悉尼大学在全区装了 120 多个温度传感器；数据显示气温在全市范围内差异明显。",en:"In the summer of 2018–19 Council and Western Sydney University installed more than 120 temperature sensors across the LGA; the data showed that air temperature varies significantly across the City.",
+  q:"Over 120 temperature sensors were installed throughout the Parramatta Local Government Area over the summer of 2018-19 … the extent to which air temperature varies significantly across the City"},
+ {id:"cx5",card:"context",kind:"planned",src:"S13",pg:"",
+  zh:"Council 通过 Profile ID 提供全区和各片区的人口资料，并用 Our City My Life 调查衡量社会福祉。",en:"Council provides LGA and suburb demographics through Profile ID, and measures social wellbeing through its Our City My Life survey.",
+  q:"City of Parramatta Council provides access to online resources (via Profile ID) … Discover how people across the City of Parramatta are experiencing wellbeing, connection and quality of life through Council’s Our City My Life survey."},
+ {id:"cx6",card:"context",kind:"planned",src:"S14",pg:"",
+  zh:"Council 在 Data.NSW 上有 10 个洪水和雨水数据集，其中 TUFLOW 水力模型结果更新于 2026 年 7 月 9 日。",en:"Council lists 10 flood and stormwater datasets on Data.NSW, including TUFLOW hydraulic model results updated on 9 July 2026.",
+  q:"Showing results 1 - 10 of 10 results · July 9, 2026 · Hydraulic Model results: Hydraulic Model (TUFLOW) result files, including processed map outputs and selected time series data"}
 ];
 
 const CARDS = [
@@ -1190,6 +1214,7 @@ const GAPS=()=>[
   {t:L("各项功能的面积比例","Area for each use"),c:chip("S2","p.45","sq2")+` <span class="tag t-gap">${L("来源里没有面积","No areas in the sources")}</span>`,who:"D",when:L("广场设计阶段；来源未给时间","Square design stage; no date in the sources"),res:L("基准标“我们的量法”","Baseline labelled “our measurement”")},
   {t:L("建设资金来源","Funding sources"),c:chip("S2","p.54","sq10"),who:"D + A",when:L("来源未给时间","No date in the sources"),res:L("成本卡注明“资金来源未定”","Cost card says “funding not settled”")},
   {t:L("公示意见汇总（尚未公开）","Exhibition feedback summary (not yet published)"),c:chip("S3",""),who:"D",when:L("最终版总规","Final master plan"),res:L("不引用公示意见","No exhibition feedback shown")},
+  {t:L("热度的具体数字：WSU《Benchmarking Heat in Parramatta》全文还没读到","Heat figures: the full WSU report “Benchmarking Heat in Parramatta” has not been read"),c:chip("S12","","cx4")+` <span class="tag t-gap">${L("报告里的数字未核实","Figures in the report not verified")}</span>`,who:L("本团队","This team"),when:L("拿到报告全文后","Once the full report is in hand"),res:L("遮荫说明只引用 Council 官网的描述，不写温差和天数","The shade note quotes Council’s web page only, with no temperature gap or day counts")},
   {t:L("系数矩阵的文献出处","Literature for each coefficient"),c:`<span class="tag t-design">${L("我们的设计","Our design")}</span>`,who:L("本团队","This team"),when:L("提交后","After submission"),res:L("所有结果标“假设”","Every result labelled “assumption”")}];
 function gapsList(){return `<ul class="gaps">${GAPS().map(g=>`<li><div>${g.t} ${g.c}</div><div class="gmeta"><span><b>${L("谁能补","Who")}</b> ${g.who}</span><span><b>${L("何时","When")}</b> ${g.when}</span><span><b>${L("居民端","Residents")}</b> ${g.res}</span></div></li>`).join("")}</ul>`;}
 
@@ -1698,9 +1723,10 @@ function cbRep(subs,show){const known=subs.filter(s=>s.lang),zh=known.filter(s=>
     show&&known.length?L(`${zh} / ${known.length} 份用中文界面`,`${zh} of ${known.length} used the Chinese interface`):`<span class="muted">${L(`不足 ${CB_MIN} 份，不计算`,`Fewer than ${CB_MIN}: not worked out`)}</span>`],
    [`${L("华人背景占 22.3%，是 LGA 最大的文化群体","22.3% Chinese ancestry, the LGA's largest cultural group")} ${chip("S3","")}`,L("本原型不问文化背景","This prototype does not ask about cultural background"),no],
    [`${L("各身份（居民、商户、通勤者、访客）在人口里的占比","Share of each role (resident, business, commuter, visitor) in the population")} ${gap}`,L("我们收集了身份，但来源里没有对应的基准","We collect the role, but no source gives a matching benchmark"),no],
-   [`${L("年龄段、在家说的语言：ABS Census","Age bands and language at home: ABS Census")} <span class="tag t-infer">${L("来源待读","Source not read yet")}</span>`,L("读完 ABS 后再对比；这一版没有问年龄段","To compare once the ABS data is read; this version does not ask for an age band"),no]];
+   ...[["cx1",L("本原型不问租房还是自住","This prototype does not ask whether you rent or own")],["cx2",L("本原型不问年龄","This prototype does not ask your age")],["cx3",L("本原型不问年龄段","This prototype does not ask for an age band")]]
+     .filter(([id])=>!isRejected(id)).map(([id,why])=>{const x=cbClaim(id);return [`${claimTxt(x)} ${chip(x.src,x.pg,x.id)}`,why,no];})];
   return `<div class="cb-blk" id="cb-rep"><h3>${L("代表性检查","Representativeness check")}</h3>
-   <p class="small muted">${L("正式版对比 ABS Census 的人口结构。ABS 数据我们还没读，所以这里只用手上来源里的两个数字做基准，不写任何没有来源的人口数字。","The full version compares against ABS Census profiles. We have not read the ABS data yet, so only two figures from sources we hold serve as benchmarks, and no unsourced population figure is stated.")}</p>
+   <p class="small muted">${L("正式版对比 ABS Census 的人口结构。下面的基准来自总规、战略和 ABS 2021 人口普查（Parramatta 片区）。投票里没问的项目标“不能比较”，不写任何没有来源的人口数字。","The full version compares against ABS Census profiles. The benchmarks below come from the master plan, the strategy and the ABS 2021 Census for the suburb of Parramatta. Anything the vote does not ask is marked “cannot be compared”, and no unsourced population figure is stated.")}</p>
    <div class="cb-kv h"><span>${L("基准","Benchmark")}</span><span>${L("我们手上能比的","What we can set against it")}</span><span>${L("现在","Now")}</span></div>
    ${rows.map(r=>`<div class="cb-kv"><span>${r[0]}</span><span>${r[1]}</span><span>${r[2]}</span></div>`).join("")}</div>`;}
 function cbFeedback(){const subs=cbSubs(),n=subs.length,g=cbGroups(),pv=CB.preview,show=n>=CB_MIN||(pv&&n>0);

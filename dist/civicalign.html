@@ -225,7 +225,12 @@ const SOURCES = {
   S2:{zh:"Draft CBD South Parramatta Precinct Master Plan（第一期）",en:"Draft CBD South Parramatta Precinct Master Plan, Phase 1",url:"https://participate.cityofparramatta.nsw.gov.au/upload/parra/document/260421---Draft-CBD-South-Master-PlanUpdate_1778470189.pdf"},
   S3:{zh:"Participate Parramatta 项目页（2026-11-15 访问）",en:"Participate Parramatta project page (accessed 15 Nov 2026)",url:"https://participate.cityofparramatta.nsw.gov.au/cbd-south-master-plan"},
   S4:{zh:"Council 报告 OCM26-56（2026-04-28）",en:"Council report OCM26-56 (28 Apr 2026)",url:"https://docspublished.com.au/CityofParramatta/document/5bdbd20f-5ff3-43bc-97c4-1819402e9f6f"},
-  S5:{zh:"Smart City & Innovation Strategy 2024–2033",en:"Smart City & Innovation Strategy 2024–2033",url:"https://www.cityofparramatta.nsw.gov.au/files/assets/public/v/1/publications/smart-city-and-innovation-strategy.pdf"}
+  S5:{zh:"Smart City & Innovation Strategy 2024–2033",en:"Smart City & Innovation Strategy 2024–2033",url:"https://www.cityofparramatta.nsw.gov.au/files/assets/public/v/1/publications/smart-city-and-innovation-strategy.pdf"},
+  S9:{zh:"ABS 2021 人口普查 QuickStats：Parramatta 片区（SAL13167，2026-11-20 访问）",en:"ABS 2021 Census QuickStats: Parramatta suburb (SAL13167, accessed 20 Nov 2026)",url:"https://www.abs.gov.au/census/find-census-data/quickstats/2021/SAL13167"},
+  S12:{zh:"City of Parramatta 官网：Environmental monitoring（OATH 项目，2026-11-20 访问）",en:"City of Parramatta website: Environmental monitoring (OATH project, accessed 20 Nov 2026)",url:"https://www.cityofparramatta.nsw.gov.au/council/projects/smart-city/environmental-monitoring"},
+  S13:{zh:"City of Parramatta 官网：Data and Demographics（2026-11-20 访问）",en:"City of Parramatta website: Data and Demographics (accessed 20 Nov 2026)",url:"https://www.cityofparramatta.nsw.gov.au/council/about-us/data-and-demographics"},
+  S14:{zh:"Data.NSW：City of Parramatta Council 的数据集（Flood Data Portal，2026-11-20 访问）",en:"Data.NSW: City of Parramatta Council datasets (Flood Data Portal, accessed 20 Nov 2026)",url:"https://data.nsw.gov.au/data/organization/city-of-parramatta-council"},
+  S15:{zh:"City of Parramatta Data Visualisation（ArcGIS Hub，2026-11-20 访问；只确认了站点存在）",en:"City of Parramatta Data Visualisation (ArcGIS Hub, accessed 20 Nov 2026; only the site itself was checked)",url:"https://open-data-parracity.hub.arcgis.com"}
 };
 
 /* ---------- Claims: every one carries source, page and the original wording ---------- */
@@ -315,7 +320,26 @@ const CLAIMS = [
   q:"Detailed consideration of Paramatta Train Station and the Argyle Street bus interchange will occur in the Phase 2 Master Plan."},
  {id:"tr8",card:"traffic",kind:"open",src:"S2",pg:"p.49",
   zh:"停车场仍取决于进一步的可行性研究和设计。示意图把停车场画在广场旁边，没有画在广场上；它的地下部分会不会延伸到广场下方，来源里没有说。",en:"The car park is still subject to feasibility and design. The indicative map draws it beside the square, not on it; no source says whether its basement extends under the square.",
-  q:"Subject to further feasibility and design, a new public car park is proposed on Council-owned land… (map caption) Indicative locations for Car Parking, Kiss-and-Ride and Bus Drop-Off"}
+  q:"Subject to further feasibility and design, a new public car park is proposed on Council-owned land… (map caption) Indicative locations for Car Parking, Kiss-and-Ride and Bus Drop-Off"},
+ // Context and benchmarks (not part of the master plan): census profile, heat monitoring, Council data channels
+ {id:"cx1",card:"context",kind:"planned",src:"S9",pg:"",
+  zh:"Parramatta 片区 70.2% 的已入住私人住宅是租的（2021）。",en:"70.2% of occupied private dwellings in the suburb of Parramatta are rented (2021).",
+  q:"Tenure type, occupied private dwellings: Rented 8,251, 70.2%"},
+ {id:"cx2",card:"context",kind:"planned",src:"S9",pg:"",
+  zh:"Parramatta 片区的年龄中位数是 32 岁，共 30,211 人（2021）。",en:"The median age in the suburb of Parramatta is 32, among 30,211 people (2021).",
+  q:"People 30,211 · Median age 32"},
+ {id:"cx3",card:"context",kind:"planned",src:"S9",pg:"",
+  zh:"Parramatta 片区 31.3% 的人在 25–34 岁（2021；两个年龄段相加，是我们算的）。",en:"31.3% of people in the suburb of Parramatta are aged 25–34 (2021; two age bands added by us).",
+  q:"25-29 years 4,431, 14.7% · 30-34 years 5,026, 16.6%"},
+ {id:"cx4",card:"context",kind:"planned",src:"S12",pg:"",
+  zh:"2018–19 年夏天，Council 和西悉尼大学在全区装了 120 多个温度传感器；数据显示气温在全市范围内差异明显。",en:"In the summer of 2018–19 Council and Western Sydney University installed more than 120 temperature sensors across the LGA; the data showed that air temperature varies significantly across the City.",
+  q:"Over 120 temperature sensors were installed throughout the Parramatta Local Government Area over the summer of 2018-19 … the extent to which air temperature varies significantly across the City"},
+ {id:"cx5",card:"context",kind:"planned",src:"S13",pg:"",
+  zh:"Council 通过 Profile ID 提供全区和各片区的人口资料，并用 Our City My Life 调查衡量社会福祉。",en:"Council provides LGA and suburb demographics through Profile ID, and measures social wellbeing through its Our City My Life survey.",
+  q:"City of Parramatta Council provides access to online resources (via Profile ID) … Discover how people across the City of Parramatta are experiencing wellbeing, connection and quality of life through Council’s Our City My Life survey."},
+ {id:"cx6",card:"context",kind:"planned",src:"S14",pg:"",
+  zh:"Council 在 Data.NSW 上有 10 个洪水和雨水数据集，其中 TUFLOW 水力模型结果更新于 2026 年 7 月 9 日。",en:"Council lists 10 flood and stormwater datasets on Data.NSW, including TUFLOW hydraulic model results updated on 9 July 2026.",
+  q:"Showing results 1 - 10 of 10 results · July 9, 2026 · Hydraulic Model results: Hydraulic Model (TUFLOW) result files, including processed map outputs and selected time series data"}
 ];
 
 const CARDS = [
@@ -453,8 +477,8 @@ function chrome(){
   st.hidden = S.view!=="res";
   st.innerHTML=STEPS.map(s=>`<li><button data-step="${s.n}" ${S.step===s.n?'aria-current="step"':""}><span class="n">${s.n}</span><span><span class="part">${s.p}</span> ${T(s)}</span></button></li>`).join("");
   document.getElementById("foot").innerHTML=L(
-    `来源：S1 挑战简报；S2 总规草案；S3 Participate Parramatta 项目页；S4 Council 报告 OCM26-56；S5 智慧城市战略。底图 © OpenStreetMap contributors（ODbL），2026-11-10 快照。CivicAlign 是参赛原型，不代表 City of Parramatta。`,
-    `Sources: S1 challenge brief; S2 draft master plan; S3 Participate Parramatta page; S4 Council report OCM26-56; S5 Smart City Strategy. Base map © OpenStreetMap contributors (ODbL), snapshot 10 Nov 2026. CivicAlign is a competition prototype and does not represent the City of Parramatta.`);
+    `来源：S1 挑战简报；S2 总规草案；S3 Participate Parramatta 项目页；S4 Council 报告 OCM26-56；S5 智慧城市战略；S9、S12–S15 背景和基准数据（见证据台账）。底图 © OpenStreetMap contributors（ODbL），2026-11-10 快照。CivicAlign 是参赛原型，不代表 City of Parramatta。`,
+    `Sources: S1 challenge brief; S2 draft master plan; S3 Participate Parramatta page; S4 Council report OCM26-56; S5 Smart City Strategy; S9 and S12–S15 context and benchmark data (see the evidence ledger). Base map © OpenStreetMap contributors (ODbL), snapshot 10 Nov 2026. CivicAlign is a competition prototype and does not represent the City of Parramatta.`);
 }
 
 /* ---------- Screen 1 ---------- */

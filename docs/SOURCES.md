@@ -17,6 +17,11 @@
 | S3 | Participate Parramatta 项目页：Draft CBD South Parramatta Precinct Master Plan | City of Parramatta | 2026-11-15 访问 | https://participate.cityofparramatta.nsw.gov.au/cbd-south-master-plan | 三项主要交付内容、1,300 m² 的说法、时间线、常见问答、22.3% 华人背景 |
 | S4 | Council 报告 OCM26-56 Draft CBD South Parramatta Precinct Master Plan（2026 年 4 月 28 日 Ordinary Council Meeting，议程 12.3） | City of Parramatta | 2026-04-28 | https://docspublished.com.au/CityofParramatta/document/5bdbd20f-5ff3-43bc-97c4-1819402e9f6f | 决策经过、Councillor 简报、交通研究的时间、展期咨询方式 |
 | S5 | Smart City & Innovation Strategy 2024–2033 | City of Parramatta | 2024 | https://www.cityofparramatta.nsw.gov.au/files/assets/public/v/1/publications/smart-city-and-innovation-strategy.pdf（网站禁止脚本下载，需用浏览器手动下载） | 6 项优先事项、行动编号、指标、原则、最少必要数据、第 18 页六瓣图 |
+| S9 | ABS 2021 Census QuickStats：Parramatta 片区（SAL13167） | Australian Bureau of Statistics | 2026-11-20 访问 | https://www.abs.gov.au/census/find-census-data/quickstats/2021/SAL13167 | Council 后台代表性检查的三个基准（租房、年龄中位数、25–34 岁） |
+| S12 | Environmental monitoring（OATH 项目） | City of Parramatta | 2026-11-20 访问 | https://www.cityofparramatta.nsw.gov.au/council/projects/smart-city/environmental-monitoring | 遮荫优先项的背景说明 |
+| S13 | Data and Demographics | City of Parramatta | 2026-11-20 访问 | https://www.cityofparramatta.nsw.gov.au/council/about-us/data-and-demographics | About「下一步」：Profile ID、Our City My Life |
+| S14 | Data.NSW：City of Parramatta Council 数据集 | Data.NSW / Flood Data Portal | 2026-11-20 访问 | https://data.nsw.gov.au/data/organization/city-of-parramatta-council | About「下一步」：洪水和雨水模型（10 个数据集；许可证未逐个确认） |
+| S15 | City of Parramatta Data Visualisation（ArcGIS Hub） | City of Parramatta | 2026-11-20 访问 | https://open-data-parracity.hub.arcgis.com | About「下一步」：只确认了站点存在，数据集清单未核实 |
 
 ## 已知但还没读的来源
 
@@ -25,8 +30,7 @@
 | S6 | 总规中文摘要 | S3 页面 "Translations 中文翻译" 下的 "中文摘要" | 统一中文术语；作为中文界面措辞的依据 |
 | S7 | Preliminary Master Plan Framework（2025-12-08 Council 通过） | S4 里提到，链接在 docspublished | 了解早期方案：大公园 / 会展中心 / 餐饮夜生活 |
 | S8 | Parramatta DCP 2023 Part 9（City Centre） | Council 网站 | 深土区和步行净宽的数值 |
-| S9 | ABS Census 2021（Parramatta LGA / SA2） | abs.gov.au | 人口层、代表性检查 |
-| S10 | WSU Benchmarking Heat in Parramatta | Western Sydney University | 热舒适基线 |
+| S10 | WSU Benchmarking Heat in Parramatta（Pfautsch & Rouillard, 2019） | https://researchers.westernsydney.edu.au/en/publications/benchmarking-heat-in-parramatta-sydneys-central-river-city/ | 热舒适基线。全文 PDF 被网站的人机验证挡住，2026-11-20 未能读到；报告里的数字一律不引用，见证据空白 |
 | S11 | BOM Parramatta North 气候统计 | bom.gov.au | 气温基线 |
 | S12 | Transport for NSW Open Data Hub | opendata.transport.nsw.gov.au | 车站人流（数据集待选） |
 | S13 | City Economy Strategy 2026–2036 / Parramatta Retail Strategy | Council 网站 | 经济活力维度 |
