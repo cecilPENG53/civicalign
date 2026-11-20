@@ -1353,6 +1353,108 @@ svg {
 .honest li { margin: 10px 0 0 24px; font-size: 22px; line-height: 1.35; }
 
 /* ===========================================
+   SLIDE 7 · RESULTS + YOUR SAY (simulated)
+   Left: all 9 results vs baseline (bars are the site's own
+   left/width %). Right: the vote, submit, and who delivers.
+   =========================================== */
+.res-card { position: absolute; left: 96px; top: 236px; width: 840px; height: 760px; padding: 22px 24px; }
+.res-card h3, .say-card h3, .prin h3, .votes h3 { font-family: var(--font-display); font-weight: 700; font-size: 26px; }
+.legend { margin-top: 6px; display: flex; gap: 22px; font-size: 18px; color: var(--muted); }
+.legend i { display: inline-block; width: 14px; height: 14px; border-radius: 4px; margin-right: 6px; vertical-align: -1px; }
+.rrow { display: grid; grid-template-columns: 250px 272px 250px; gap: 20px; align-items: center; padding: 7px 0; border-bottom: 1px solid #e6ecf1; }
+.rl b { display: block; font-weight: 700; font-size: 20px; line-height: 1.15; }
+.rl span { display: block; font-size: 18px; line-height: 1.15; color: var(--muted); }
+.rl em { font-style: normal; color: #b04a3f; }
+.rb { position: relative; height: 28px; }
+.rb i { position: absolute; height: 9px; border-radius: 999px; transition: left 1.2s var(--ease), width 1.2s var(--ease); transition-delay: calc(var(--n) * 90ms); }
+.rb .r0 { top: 2px; background: #8e9bab; }
+.rb .r1 { top: 17px; background: var(--green); }
+.res-card.snap .rb i { transition: none; }
+.rv { font-family: var(--font-mono); font-size: 18px; line-height: 1.35; white-space: nowrap; }
+.rv span { display: block; color: var(--muted); }
+.rv .y { color: var(--green); }
+.rv em { font-style: normal; }
+.rv u { text-decoration: none; font-weight: 600; }
+.rv u.bad { color: var(--bad); } .rv u.good { color: var(--good); } .rv u.flat { color: var(--muted); }
+.res-foot { margin-top: 10px; font-size: 18px; color: var(--muted); }
+
+.say-card { position: absolute; left: 966px; top: 236px; width: 858px; height: 760px; padding: 22px 24px; }
+.persona-row { margin-top: 10px; display: flex; align-items: center; gap: 10px; font-size: 18px; }
+.persona-row > span { color: var(--muted); margin-right: 4px; }
+.persona-row b { font-weight: 600; padding: 5px 14px; border-radius: 999px; border: 1.5px solid var(--line); transition: background .35s, color .35s, border-color .35s; }
+.persona-row b.on { background: var(--green); border-color: var(--green); color: #fff; }
+.vgrid { margin-top: 14px; display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; }
+.vp { position: relative; height: 168px; border: 1.5px solid var(--line); border-radius: 16px; padding: 14px 10px 10px; text-align: center; background: #fff; transition: border-color .3s, box-shadow .3s, opacity .4s; }
+.vp .vi { width: 46px; height: 46px; margin: 0 auto; border-radius: 50%; background: #eef2f6; display: grid; place-items: center; }
+.vp .vi svg { width: 26px; height: 26px; }
+.vp p { margin-top: 8px; font-weight: 700; font-size: 18px; line-height: 1.2; }
+.vp .vn { position: absolute; right: 8px; top: 8px; min-width: 34px; padding: 0 6px; font-family: var(--font-mono); font-size: 18px; font-weight: 600; color: #8a5a12; border: 1.5px dashed #d9a54a; border-radius: 999px; background: #fff; }
+.vp.on { border-color: var(--green); box-shadow: 0 0 0 3px rgba(31,107,87,.25); }
+.vp.on .vn { color: #fff; background: var(--green); border: 1.5px solid var(--green); }
+.vp.off { opacity: .42; }
+.vp .vn.bump { animation: bump .45s var(--ease); }
+@keyframes bump { 40% { transform: scale(1.35); } }
+.picked { margin-top: 14px; display: flex; justify-content: space-between; align-items: center; gap: 16px; min-height: 50px; }
+.picked b { font-size: 22px; }
+.picked p { font-size: 18px; color: var(--muted); line-height: 1.3; }
+.picked p.saved { color: var(--green); font-weight: 600; }
+.submit { flex: none; font: 700 21px var(--font-body); color: #fff; background: var(--green); border-radius: 12px; padding: 10px 20px; transition: transform .15s, box-shadow .3s; }
+.submit.press { transform: scale(.94); box-shadow: 0 0 0 6px rgba(31,107,87,.25); }
+.dpa { margin-top: 14px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.dpa > div { background: #e9eef5; border-radius: 14px; padding: 12px 16px; height: 168px; }
+.dpa .t { font-family: var(--font-display); font-weight: 700; font-size: 20px; color: var(--green); }
+.dpa .w { font-size: 18px; }
+.dpa .m { font-family: var(--font-display); font-weight: 700; font-size: 34px; line-height: 1.15; }
+.dpa .s { font-size: 18px; line-height: 1.2; color: var(--muted); }
+.say-card .cursor { left: 90%; top: 92%; }
+
+/* ===========================================
+   SLIDE 9 · COUNCIL BACKEND (decision, checks, principles, votes)
+   =========================================== */
+.dec { position: absolute; left: 96px; right: 96px; top: 232px; display: grid; grid-template-columns: 1.25fr .8fr 1fr 1.35fr; gap: 14px; }
+.dec > div { background: #fff; border: 1px solid var(--line); border-left: 5px solid var(--green); border-radius: 14px; padding: 12px 18px; }
+.dec .kicker { font-size: 18px; }
+.dec b { display: block; margin-top: 2px; font-family: var(--font-display); font-weight: 700; font-size: 25px; }
+.stats { position: absolute; left: 96px; right: 96px; top: 338px; display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; }
+.stats > div { padding: 12px 18px; height: 104px; }
+.stats b { display: block; font-family: var(--font-display); font-weight: 700; font-size: 40px; line-height: 1.05; }
+.stats span { display: block; font-size: 18px; line-height: 1.2; color: var(--muted); }
+.stats .alert { transition: box-shadow .4s, border-color .4s; }
+.stats .alert.hot { border-color: var(--bad); box-shadow: 0 0 0 3px rgba(184,67,58,.18); }
+.stats .alert.hot b { color: var(--bad); }
+.prin { position: absolute; left: 96px; top: 458px; width: 900px; height: 540px; padding: 18px 24px; }
+.prin .hdr { display: flex; justify-content: space-between; align-items: baseline; }
+.sum { display: flex; gap: 8px; }
+.sum span { font-size: 18px; font-weight: 700; padding: 2px 10px; border-radius: 8px; }
+.sum i { font-style: normal; }
+.sum .k, .pill.k { background: #e2f1ea; color: var(--green); }
+.sum .w { background: #fbf0dc; color: #8a5a12; }
+.sum .x, .pill.x { background: #f8e1df; color: var(--bad); }
+.pill.n { background: #e9eef3; color: var(--muted); }
+.prow { padding: 7px 0; border-bottom: 1px solid #e6ecf1; }
+.prow .pt { display: flex; justify-content: space-between; align-items: center; gap: 12px; font-size: 20px; line-height: 1.2; }
+.pt strong { font-family: var(--font-display); margin-right: 8px; }
+.pill { flex: none; font-size: 18px; font-weight: 700; padding: 2px 10px; border-radius: 8px; transition: background .4s, color .4s; }
+.pill.flip { animation: flip .5s var(--ease); }
+@keyframes flip { 40% { transform: scale(1.25); } }
+.pm { display: grid; grid-template-columns: 1fr 130px 120px 60px 110px; gap: 8px; font-size: 18px; color: var(--muted); line-height: 1.3; }
+.pm .now { color: var(--ink); }
+.pm .now b { font-weight: 700; }
+.pm .d.bad { color: var(--bad); font-weight: 700; } .pm .d.good { color: var(--good); font-weight: 700; }
+.prin .p6 { margin-top: 8px; font-size: 18px; color: var(--muted); }
+.votes { position: absolute; left: 1020px; top: 458px; width: 804px; height: 540px; padding: 18px 24px; }
+.votes .sub { font-size: 18px; color: var(--muted); }
+.vrow { margin-top: 12px; }
+.vrow .vt { display: flex; justify-content: space-between; font-size: 20px; font-weight: 700; }
+.vrow .vt span { font-family: var(--font-mono); font-weight: 600; }
+.vrow .vt small { font-size: 18px; color: var(--muted); font-weight: 500; }
+.vbar { margin-top: 6px; height: 9px; border-radius: 999px; background: #e4e9ef; overflow: hidden; }
+.vbar i { display: block; height: 100%; width: var(--w); background: var(--c); border-radius: 999px; }
+.mk-live .slide.visible .vbar i { animation: grow 1.1s var(--ease) both; animation-delay: calc(.9s + var(--n) * .12s); }
+.vp-line { margin-top: 4px; font-size: 18px; color: var(--muted); }
+.vp-line b { color: var(--ink); }
+
+/* ===========================================
    SLIDE 8 · OUR ASK (closing)
    =========================================== */
 .asks { position: absolute; left: 96px; right: 96px; top: 252px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
@@ -1590,7 +1692,61 @@ Thank you for offering this opportunity to let us proudly present you the CivicA
 SAY: Here's how it works. I'll put more of the hundred points into markets and culture. Notice the other priorities rebalance automatically. Now I'll change the market frequency. The square illustration and impact ranges update, so we can discuss the cost of a choice as well as its benefit. The prototype shows nine dimensions, including shade, access, inclusion and cost; tapping a source opens the plan page.</aside>
 </section>
 
-<!-- =========================================== SLIDE 7 · LIVE DEMO: COUNCIL VIEW -->
+<!-- =========================================== SLIDE 7 · RESULTS + YOUR SAY
+     Resting state = markets at 50 points (same split as slide 6), three picks made. -->
+<section class="slide" data-demo="ressay">
+    <header class="hd">
+        <p class="kicker" data-enter="fade-up">Live demo · Results &amp; your say</p>
+        <h2 data-enter="rise" style="--enter-delay:.1s">See what a choice costs, then vote on what to fix first</h2>
+    </header>
+    <div class="card res-card" data-enter="fade-up" style="--enter-delay:.3s">
+        <h3>How does it compare with the baseline?</h3>
+        <p class="legend"><span><i style="background:#8e9bab"></i>Baseline: measured from the plan drawing (assumption)</span><span><i style="background:var(--green)"></i>Your split</span></p>
+        <div class="rrow"><div class="rl"><b>Shaded area</b><span>m² · Estimate</span></div><div class="rb" style="--n:0"><i class="r0" style="left:58.08%;width:32.83%"></i><i class="r1" style="left:33.98%;width:19.05%"></i></div><div class="rv"><span>Baseline 253–396</span><span class="y">Yours <em>148–231</em> <u class="bad">▼42%</u></span></div></div>
+        <div class="rrow"><div class="rl"><b>Stormwater held</b><span>m³ · Estimate</span></div><div class="rb" style="--n:1"><i class="r0" style="left:45.45%;width:45.45%"></i><i class="r1" style="left:24.89%;width:24.89%"></i></div><div class="rv"><span>Baseline 12.6–25.2</span><span class="y">Yours <em>6.9–13.8</em> <u class="bad">▼45%</u></span></div></div>
+        <div class="rrow"><div class="rl"><b>Event and trade capacity</b><span>people · Estimate</span></div><div class="rb" style="--n:2"><i class="r0" style="left:33.34%;width:33.34%"></i><i class="r1" style="left:45.45%;width:45.45%"></i></div><div class="rv"><span>Baseline 346–691</span><span class="y">Yours <em>471–942</em> <u class="good">▲36%</u></span></div></div>
+        <div class="rrow"><div class="rl"><b>Clear walking space</b><span>% · Estimate · <em>Awaits Council traffic study</em></span></div><div class="rb" style="--n:3"><i class="r0" style="left:77.27%;width:13.64%"></i><i class="r1" style="left:45.08%;width:7.95%"></i></div><div class="rv"><span>Baseline 15–18</span><span class="y">Yours <em>9–10</em> <u class="bad">▼42%</u></span></div></div>
+        <div class="rrow"><div class="rl"><b>Feeling safe</b><span>Index, baseline ≈ 50 · Proxy score</span></div><div class="rb" style="--n:4"><i class="r0" style="left:78.09%;width:12.82%"></i><i class="r1" style="left:75.90%;width:12.81%"></i></div><div class="rv"><span>Baseline 46–53</span><span class="y">Yours <em>45–52</em> <u class="bad">▼3%</u></span></div></div>
+        <div class="rrow"><div class="rl"><b>Inclusion</b><span>Index, baseline ≈ 50 · Proxy score</span></div><div class="rb" style="--n:5"><i class="r0" style="left:78.09%;width:12.82%"></i><i class="r1" style="left:54.86%;width:11.77%"></i></div><div class="rv"><span>Baseline 46–53</span><span class="y">Yours <em>32–39</em> <u class="bad">▼28%</u></span></div></div>
+        <div class="rrow"><div class="rl"><b>Culture and social life</b><span>Index, baseline ≈ 50 · Proxy score</span></div><div class="rb" style="--n:6"><i class="r0" style="left:69.37%;width:11.39%"></i><i class="r1" style="left:79.72%;width:11.19%"></i></div><div class="rv"><span>Baseline 46–53</span><span class="y">Yours <em>53–60</em> <u class="good">▲14%</u></span></div></div>
+        <div class="rrow"><div class="rl"><b>Cost</b><span>$k · Estimate</span></div><div class="rb" style="--n:7"><i class="r0" style="left:43.51%;width:47.40%"></i><i class="r1" style="left:39.27%;width:42.95%"></i></div><div class="rv"><span>Baseline 1,348–2,816</span><span class="y">Yours <em>1,217–2,547</em> <u class="good">▼10%</u></span></div></div>
+        <div class="rrow"><div class="rl"><b>Embodied carbon</b><span>t CO₂e · Estimate</span></div><div class="rb" style="--n:8"><i class="r0" style="left:45.94%;width:44.97%"></i><i class="r1" style="left:46.07%;width:44.21%"></i></div><div class="rv"><span>Baseline 109–215</span><span class="y">Yours <em>109–214</em> <u class="flat">=0%</u></span></div></div>
+        <p class="res-foot">Ranges, not forecasts. All coefficients are team assumptions.</p>
+    </div>
+    <div class="card say-card" data-enter="fade-up" style="--enter-delay:.5s">
+        <h3>Tap to tell Council what you think</h3>
+        <div class="persona-row"><span>Which best describes you?</span><b>Local resident</b><b>Business or worker</b><b class="on">Commuter</b><b>Visitor</b></div>
+        <div class="vgrid">
+            <div class="vp on" data-vp="canopy" data-n="34"><span class="vn">35</span><span class="vi"><svg viewBox="0 0 24 24" fill="#4f9a5b"><circle cx="12" cy="9" r="6.5"/><rect x="10.8" y="13" width="2.4" height="8" rx="1"/></svg></span><p>No shade in the afternoon</p></div>
+            <div class="vp off" data-vp="blue" data-n="28"><span class="vn">28</span><span class="vi"><svg viewBox="0 0 24 24" fill="#4f9a5b"><path d="M12 3c4 5 6.5 8.3 6.5 11.4a6.5 6.5 0 0 1-13 0C5.5 11.3 8 8 12 3z"/></svg></span><p>Puddles after heavy rain</p></div>
+            <div class="vp off" data-vp="events" data-n="28"><span class="vn">28</span><span class="vi"><svg viewBox="0 0 24 24" fill="none" stroke="#d38a2c" stroke-width="2.2" stroke-linejoin="round"><path d="M4 10l2-5h12l2 5zM5.5 10v9h13v-9M9 19v-5h6v5"/></svg></span><p>Want night markets and outdoor dining</p></div>
+            <div class="vp off" data-vp="culture" data-n="32"><span class="vn">32</span><span class="vi"><svg viewBox="0 0 24 24" fill="#d38a2c"><ellipse cx="12" cy="13" rx="5.5" ry="6.5"/><rect x="11" y="2" width="2" height="5"/><rect x="10" y="19" width="4" height="3" rx="1"/></svg></span><p>Want Chinatown's culture and art on show</p></div>
+            <div class="vp off" data-vp="rest" data-n="32"><span class="vn">32</span><span class="vi"><svg viewBox="0 0 24 24" fill="none" stroke="#d38a2c" stroke-width="2.4" stroke-linecap="round"><path d="M4 7h16M5 11h14M7 11v8M17 11v8"/></svg></span><p>Nowhere to sit and rest</p></div>
+            <div class="vp on" data-vp="walk" data-n="36"><span class="vn">37</span><span class="vi"><svg viewBox="0 0 24 24" fill="#3d7cc9"><ellipse cx="8.5" cy="14" rx="3" ry="4.5"/><ellipse cx="15.5" cy="8" rx="3" ry="4.5"/></svg></span><p>Hard going with a wheelchair or pram</p></div>
+            <div class="vp off" data-vp="bike" data-n="22"><span class="vn">22</span><span class="vi"><svg viewBox="0 0 24 24" fill="none" stroke="#3d7cc9" stroke-width="2" stroke-linejoin="round"><circle cx="6" cy="15" r="4"/><circle cx="18" cy="15" r="4"/><path d="M6 15l4-7h5l3 7M10 8l2 7h3"/></svg></span><p>Nowhere to park a bike</p></div>
+            <div class="vp off" data-vp="kerb" data-n="23"><span class="vn">23</span><span class="vi"><svg viewBox="0 0 24 24" fill="#3d7cc9"><path d="M5 11l2-5h10l2 5h1v6H4v-6z"/><circle cx="7.5" cy="17.5" r="2" fill="#fff" stroke="#3d7cc9" stroke-width="1.6"/><circle cx="16.5" cy="17.5" r="2" fill="#fff" stroke="#3d7cc9" stroke-width="1.6"/></svg></span><p>Drop-off cars block the footpath</p></div>
+            <div class="vp on" data-vp="smart" data-n="27"><span class="vn">28</span><span class="vi"><svg viewBox="0 0 24 24" fill="#8a5cc4"><path d="M7 4h10l-2.5 4h-5z"/><rect x="11" y="8" width="2" height="13" rx="1"/></svg></span><p>Feels dark at night</p></div>
+            <div class="vp off" data-vp="circ" data-n="26"><span class="vn">26</span><span class="vi"><svg viewBox="0 0 24 24" fill="none" stroke="#8a5cc4" stroke-width="2.2" stroke-linejoin="round"><path d="M12 4l8.5 15h-17z"/><circle cx="12" cy="14" r="1.6" fill="#8a5cc4"/></svg></span><p>Nowhere to recycle</p></div>
+        </div>
+        <div class="picked">
+            <div><b class="pk">You picked 3</b><p class="msg">In this demo your answers stay in your browser and are not sent anywhere.</p></div>
+            <span class="submit">Submit (demo)</span>
+        </div>
+        <div class="dpa">
+            <div><p class="t">D</p><p class="w">Council delivers</p><p class="m"><span class="a">360</span> m²</p><p class="s">Canopy, rain gardens, seating, walking, kerb, lighting</p></div>
+            <div><p class="t">D+P</p><p class="w">Council leads with partners</p><p class="m"><span class="a">920</span> m²</p><p class="s">Events and markets, bikes, recycling</p></div>
+            <div><p class="t">P</p><p class="w">Mainly partners</p><p class="m"><span class="a">70</span> m²</p><p class="s">Cultural expression: artists, Chinese community groups, First Nations groups</p></div>
+        </div>
+        <div class="cursor" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 2l16 9-7 2-3 7z" fill="#fff" stroke="#0f1b33" stroke-width="1.6" stroke-linejoin="round"/></svg></div>
+    </div>
+    <footer class="foot"><span>CivicAlign · Team 999</span><span>7</span></footer>
+    <aside class="notes">SHOW: Scroll to Results, then Your say.
+(Backup: this slide replays both with the prototype's own values.)
+
+SAY: Every one of the nine results is a range against the plan as drawn. With markets at fifty points, event and trade capacity goes up, but shade, stormwater, clear walking space and inclusion go down; the cost falls a little. Then residents tell Council what the square should fix first: pick a role, choose up to three, and submit. In this demo nothing is sent to Council. The split also changes who delivers: more of the square becomes events and markets that Council leads with partners.</aside>
+</section>
+
+<!-- =========================================== SLIDE 8 · LIVE DEMO: COUNCIL VIEW -->
 <section class="slide" data-demo="wheel">
     <header class="hd">
         <p class="kicker" data-enter="fade-up">Live demo · Council view</p>
@@ -1688,11 +1844,61 @@ SAY: Here's how it works. I'll put more of the hundred points into markets and c
             </ul>
         </div>
     </div>
-    <footer class="foot"><span>CivicAlign · Team 999</span><span>7</span></footer>
+    <footer class="foot"><span>CivicAlign · Team 999</span><span>8</span></footer>
     <aside class="notes">In the Council view, responses and votes are grouped by persona, and leading concerns are linked to Smart City Strategy themes. The numbers are illustrative team assumptions, not Council forecasts. One limitation to be clear about: this is a demo dashboard. Submissions are stored in this browser and are not transmitted to Council.</aside>
 </section>
 
-<!-- =========================================== SLIDE 8 · OUR ASK -->
+<!-- =========================================== SLIDE 9 · COUNCIL BACKEND
+     Resting state = principle check against the markets-50 split (P1, P3, P4 not met). -->
+<section class="slide" data-demo="backend">
+    <header class="hd">
+        <p class="kicker" data-enter="fade-up">Live demo · Council backend</p>
+        <h2 data-enter="rise" style="--enter-delay:.1s">Every split is checked against the plan's own principles</h2>
+    </header>
+    <div class="dec">
+        <div data-enter="fade-up" style="--enter-delay:.3s"><p class="kicker">Decision</p><b>How the square is shared</b></div>
+        <div data-enter="fade-up" style="--enter-delay:.38s"><p class="kicker">Owner</p><b>Council</b></div>
+        <div data-enter="fade-up" style="--enter-delay:.46s"><p class="kicker">Refresh</p><b>Three milestones</b></div>
+        <div data-enter="fade-up" style="--enter-delay:.54s"><p class="kicker">Actions</p><b>Three follow-on pieces + advocacy</b></div>
+    </div>
+    <div class="stats">
+        <div class="card" data-enter="pop" style="--enter-delay:.6s"><b>33/34</b><span>Claims checked</span></div>
+        <div class="card" data-enter="pop" style="--enter-delay:.68s"><b>0</b><span>Rejected, hidden from residents</span></div>
+        <div class="card" data-enter="pop" style="--enter-delay:.76s"><b data-count data-count-delay="900">8</b><span>Evidence gaps</span></div>
+        <div class="card alert hot" data-enter="pop" style="--enter-delay:.84s"><b class="kw">2 / 3</b><span>Principles kept / weakened or not met</span></div>
+        <div class="card" data-enter="pop" style="--enter-delay:.92s"><b>0</b><span>Groups at the 10-person threshold</span></div>
+    </div>
+    <div class="card prin" data-enter="fade-up" style="--enter-delay:1s">
+        <div class="hdr"><h3 class="ph">Plan principles P1–P6 <span class="tag">S2 p.22</span></h3><div class="sum"><span class="k">Kept <i>2</i></span><span class="w">Weakened 0</span><span class="x">Not met <i>3</i></span></div></div>
+        <div class="prow" data-p="1"><p class="pt"><span><strong>P1</strong>Connect renewal areas to the CBD and transport</span><span class="pill x">Not met</span></p>
+            <p class="pm" data-b="18" data-v="10" data-min="13"><span>Clear walking</span><span>Baseline 18%</span><span class="now">Now <b>10%</b></span><span class="d bad">▼8</span><span>Min ≥13%</span></p></div>
+        <div class="prow" data-p="2"><p class="pt"><span><strong>P2</strong>New spaces for community gathering</span><span class="pill k">Kept</span></p>
+            <p class="pm" data-b="56" data-v="72" data-min="36"><span>Events + rest</span><span>Baseline 56%</span><span class="now">Now <b>72%</b></span><span class="d good">▲16</span><span>Min ≥36%</span></p></div>
+        <div class="prow" data-p="3"><p class="pt"><span><strong>P3</strong>Better links between streets and public space</span><span class="pill x">Not met</span></p>
+            <p class="pm" data-b="19" data-v="11" data-min="18"><span>Street edge: walking + kerb + bikes</span><span>Baseline 19%</span><span class="now">Now <b>11%</b></span><span class="d bad">▼8</span><span>Min ≥18%</span></p></div>
+        <div class="prow" data-p="4"><p class="pt"><span><strong>P4</strong>Easier, safer, more comfortable walking and cycling</span><span class="pill x">Not met</span></p>
+            <p class="pm" data-b="18" data-v="10" data-min="13"><span>Clear walking</span><span>Baseline 18%</span><span class="now">Now <b>10%</b></span><span class="d bad">▼8</span><span>Min ≥13%</span></p>
+            <p class="pm" data-b="16" data-v="10" data-min="9"><span>Shade canopy</span><span>Baseline 16%</span><span class="now">Now <b>10%</b></span><span class="d bad">▼6</span><span>Min ≥9%</span></p></div>
+        <div class="prow" data-p="5"><p class="pt"><span><strong>P5</strong>Chinatown as a cultural destination</span><span class="pill k">Kept</span></p>
+            <p class="pm" data-b="3" data-v="5" data-min="3"><span>Culture</span><span>Baseline 3%</span><span class="now">Now <b>5%</b></span><span class="d good">▲2</span><span>Min ≥3%</span></p>
+            <p class="pm" data-b="48" data-v="67" data-min="15"><span>Events and markets</span><span>Baseline 48%</span><span class="now">Now <b>67%</b></span><span class="d good">▲19</span><span>Min ≥15%</span></p></div>
+        <p class="pt p6"><span><strong>P6</strong>Council land delivering public amenity: always holds here, so not scored</span><span class="pill n">Not scored</span></p>
+        <p class="p6">The tool flags which principle is weakened; it does not decide for Council.</p>
+    </div>
+    <div class="card votes" data-enter="fade-up" style="--enter-delay:1.1s">
+        <h3 class="ph">Resident votes <span class="tag warn">Simulated</span></h3>
+        <p class="sub">96 in all. Each person picks up to 3. Groups under 10 people are hidden.</p>
+        <div class="vrow"><p class="vt">Hard going with a wheelchair or pram <span>36<small>/96</small></span></p><div class="vbar"><i style="--w:37.5%;--c:var(--blue);--n:0"></i></div><p class="vp-line">Local resident <b>39%</b> · Business or worker <b>19%</b> · Commuter <b>50%</b> · Visitor under 10, hidden</p></div>
+        <div class="vrow"><p class="vt">No shade in the afternoon <span>34<small>/96</small></span></p><div class="vbar"><i style="--w:35.4%;--c:var(--leaf);--n:1"></i></div><p class="vp-line">Local resident <b>39%</b> · Business or worker <b>31%</b> · Commuter <b>29%</b> · Visitor under 10, hidden</p></div>
+        <div class="vrow"><p class="vt">Want Chinatown's culture and art on show <span>32<small>/96</small></span></p><div class="vbar"><i style="--w:33.3%;--c:var(--orange);--n:2"></i></div><p class="vp-line">Local resident <b>30%</b> · Business or worker <b>44%</b> · Commuter <b>18%</b> · Visitor under 10, hidden</p></div>
+        <div class="vrow"><p class="vt">Nowhere to sit and rest <span>32<small>/96</small></span></p><div class="vbar"><i style="--w:33.3%;--c:var(--orange);--n:3"></i></div><p class="vp-line">Local resident <b>41%</b> · Business or worker <b>25%</b> · Commuter <b>25%</b> · Visitor under 10, hidden</p></div>
+        <div class="vrow"><p class="vt">Puddles after heavy rain <span>28<small>/96</small></span></p><div class="vbar"><i style="--w:29.2%;--c:var(--leaf);--n:4"></i></div><p class="vp-line">Local resident <b>43%</b> · Business or worker <b>13%</b> · Commuter <b>18%</b> · Visitor under 10, hidden</p></div>
+    </div>
+    <footer class="foot"><span>CivicAlign · Team 999</span><span>9</span></footer>
+    <aside class="notes">In the backend, Council sees the decision this tool serves, its owner, when to refresh it and the follow-on actions. It also sees how many claims are checked and how many evidence gaps remain. Each resident split is checked against the plan's own principles: with markets at fifty points, P1, P3 and P4 are flagged as not met, because clear walking space and the street edge fall below the minimum. The tool flags which principle is weakened; it does not decide for Council. Resident votes are grouped by persona, and groups under ten people are hidden. The 96 votes are simulated.</aside>
+</section>
+
+<!-- =========================================== SLIDE 10 · OUR ASK -->
 <section class="slide dark">
     <header class="hd">
         <p class="kicker" data-enter="fade-up">Our ask</p>
@@ -1711,7 +1917,7 @@ SAY: Here's how it works. I'll put more of the hundred points into markets and c
         <div><p>Scan to try the prototype</p><a>civicalign.vvailabs.com</a></div>
     </div>
     <p class="thanks" data-enter="rise" style="--enter-delay:1.7s">Thank you</p>
-    <footer class="foot"><span>CivicAlign · Team 999</span><span>8</span></footer>
+    <footer class="foot"><span>CivicAlign · Team 999</span><span>10</span></footer>
     <aside class="notes">Could Council help us test CivicAlign in one facilitated design session with residents, access users, traders and staff? We'd also value an introduction to the project team, and guidance on sharing the confirmed square boundary, walking and access evidence, shade data, and any event or cost information that exists. We'll bring back a clearer storyboard and a short list of what still needs measuring. That gives Council a practical next step: a more informed conversation about the design, without pretending the prototype has already decided it. Thank you.</aside>
 </section>
 
@@ -2730,7 +2936,151 @@ window.deckEditor = new DeckEditor(window.presentation);
         rest(s) { s.querySelector('.detail').classList.remove('tour', 'out'); wheelShow(s, 'modal', null, true); },
     };
 
-    const DEMOS = { daynight, share, langs, split, wheel };
+    /* Count a number inside el from a to b (keeps the text around it) */
+    function tween(c, el, a, b, ms, fmt = (x) => String(Math.round(x))) {
+        const t0 = performance.now();
+        c.frame((now) => { const p = Math.min(1, (now - t0) / ms); el.textContent = fmt(a + (b - a) * (1 - Math.pow(1 - p, 3))); return p < 1; });
+    }
+    const withCommas = (x) => Math.round(x).toLocaleString('en-AU');
+
+    /* --- Slide 7: results move from baseline to the markets-50 split, then a resident votes --- */
+    const RES_BASE = [[58.08, 32.83], [45.45, 45.45], [45.45, 45.45], [77.27, 13.64], [78.09, 12.82], [78.09, 12.82], [78.09, 12.82], [43.51, 47.40], [45.94, 44.97]];
+    const DPA_BASE = [640, 670, 40];
+    function ressayInit(s) {
+        if (s._fin) return s._fin;
+        const pct = (v) => parseFloat(v);
+        s._fin = {
+            bars: [...s.querySelectorAll('.rb i')].map((i) => [pct(i.style.left), pct(i.style.width)]),
+            yours: [...s.querySelectorAll('.rv em')].map((e) => e.textContent),
+            deltas: [...s.querySelectorAll('.rv u')].map((u) => [u.textContent, u.className]),
+            votes: [...s.querySelectorAll('.vp')].map((v) => [v.querySelector('.vn').textContent, v.className]),
+            persona: [...s.querySelectorAll('.persona-row b')].findIndex((b) => b.classList.contains('on')),
+            pk: s.querySelector('.pk').textContent, msg: s.querySelector('.msg').textContent,
+            dpa: [...s.querySelectorAll('.dpa .a')].map((a) => a.textContent),
+        };
+        return s._fin;
+    }
+    function ressayFinal(s) {
+        const f = ressayInit(s);
+        s.querySelectorAll('.rb i').forEach((i, k) => { i.style.left = `${f.bars[k][0]}%`; i.style.width = `${f.bars[k][1]}%`; });
+        s.querySelectorAll('.rv em').forEach((e, k) => { e.textContent = f.yours[k]; });
+        s.querySelectorAll('.rv u').forEach((u, k) => { u.textContent = f.deltas[k][0]; u.className = f.deltas[k][1]; });
+        s.querySelectorAll('.vp').forEach((v, k) => { v.querySelector('.vn').textContent = f.votes[k][0]; v.className = f.votes[k][1]; });
+        s.querySelectorAll('.persona-row b').forEach((b, k) => b.classList.toggle('on', k === f.persona));
+        s.querySelector('.pk').textContent = f.pk; const m = s.querySelector('.msg'); m.textContent = f.msg; m.classList.remove('saved');
+        s.querySelectorAll('.dpa .a').forEach((a, k) => { a.textContent = f.dpa[k]; });
+        s.querySelector('.say-card .cursor').classList.remove('show', 'tap');
+        s.querySelector('.submit').classList.remove('press');
+    }
+    const ressay = {
+        run(s, c) {
+            const f = ressayInit(s);
+            const card = s.querySelector('.res-card'), say = s.querySelector('.say-card'), cur = say.querySelector('.cursor');
+            // start from the baseline: both bars on the baseline, "Yours" = baseline
+            card.classList.add('snap');
+            s.querySelectorAll('.rrow').forEach((row, k) => {
+                row.querySelectorAll('.rb i').forEach((i) => { i.style.left = `${RES_BASE[k][0]}%`; i.style.width = `${RES_BASE[k][1]}%`; });
+                row.querySelector('.rv em').textContent = row.querySelector('.rv span').textContent.replace('Baseline ', '');
+                const u = row.querySelector('.rv u'); u.textContent = '=0%'; u.className = 'flat';
+            });
+            void card.offsetWidth; card.classList.remove('snap');
+            s.querySelectorAll('.vp').forEach((v) => { v.className = 'vp'; v.querySelector('.vn').textContent = v.dataset.n; });
+            s.querySelectorAll('.persona-row b').forEach((b, k) => b.classList.toggle('on', k === 0));
+            s.querySelector('.pk').textContent = 'You picked 0';
+            s.querySelectorAll('.dpa .a').forEach((a, k) => { a.textContent = DPA_BASE[k]; });
+            // 1. results move to the markets-50 split
+            c.after(1000, () => {
+                s.querySelectorAll('.rb i').forEach((i, k) => { i.style.left = `${f.bars[k][0]}%`; i.style.width = `${f.bars[k][1]}%`; });
+                s.querySelectorAll('.rrow').forEach((row, k) => c.after(500 + k * 90, () => {
+                    row.querySelector('.rv em').textContent = f.yours[k];
+                    const u = row.querySelector('.rv u'); u.textContent = f.deltas[k][0]; u.className = f.deltas[k][1];
+                }));
+            });
+            c.after(1800, () => s.querySelectorAll('.dpa .a').forEach((a, k) => tween(c, a, DPA_BASE[k], +f.dpa[k], 1300)));
+            // 2. a commuter picks three things to fix, then submits
+            const point = (el) => { cur.style.left = `${el.offsetLeft + el.offsetWidth * 0.55}px`; cur.style.top = `${el.offsetTop + el.offsetHeight * 0.55}px`; };
+            const tap = () => { cur.classList.remove('tap'); void cur.offsetWidth; cur.classList.add('tap'); };
+            const persona = s.querySelectorAll('.persona-row b');
+            c.after(3400, () => { cur.style.left = '92%'; cur.style.top = '92%'; cur.classList.add('show'); });
+            c.after(3700, () => point(persona[2]));
+            c.after(4500, () => { tap(); persona.forEach((b, k) => b.classList.toggle('on', k === 2)); });
+            let picked = 0;
+            ['walk', 'canopy', 'smart'].forEach((key, k) => {
+                const vp = s.querySelector(`.vp[data-vp="${key}"]`);
+                c.after(4900 + k * 1200, () => point(vp));
+                c.after(5700 + k * 1200, () => {
+                    tap(); vp.classList.add('on'); picked += 1;
+                    const n = vp.querySelector('.vn'); n.textContent = +vp.dataset.n + 1; n.classList.remove('bump'); void n.offsetWidth; n.classList.add('bump');
+                    s.querySelector('.pk').textContent = `You picked ${picked}`;
+                    if (picked === 3) s.querySelectorAll('.vp:not(.on)').forEach((v) => v.classList.add('off'));
+                });
+            });
+            const sub = s.querySelector('.submit');
+            c.after(8600, () => point(sub));
+            c.after(9400, () => {
+                tap(); sub.classList.add('press');
+                s.querySelectorAll('.vp').forEach((v) => v.classList.remove('on', 'off'));
+                s.querySelector('.pk').textContent = 'You picked 0';
+                const m = s.querySelector('.msg'); m.textContent = 'Saved as demo submission 1 in this browser. Nothing was sent to Council.'; m.classList.add('saved');
+            });
+            c.after(9700, () => sub.classList.remove('press'));
+            c.after(10200, () => cur.classList.remove('show'));
+        },
+        rest(s) { ressayFinal(s); },
+    };
+
+    /* --- Slide 9: the principle check flips as the split moves from baseline to markets 50 --- */
+    function backendInit(s) {
+        if (s._fin) return s._fin;
+        s._fin = {
+            pm: [...s.querySelectorAll('.prin .pm')].map((p) => [p.querySelector('.now b').textContent, p.querySelector('.d').textContent, p.querySelector('.d').className]),
+            pills: [...s.querySelectorAll('.prin .prow .pill')].map((p) => [p.textContent, p.className]),
+            sum: s.querySelector('.prin .sum').innerHTML, kw: s.querySelector('.kw').textContent,
+        };
+        return s._fin;
+    }
+    function backendFinal(s) {
+        const f = backendInit(s);
+        s.querySelectorAll('.prin .pm').forEach((p, k) => { p.querySelector('.now b').textContent = f.pm[k][0]; const d = p.querySelector('.d'); d.textContent = f.pm[k][1]; d.className = f.pm[k][2]; });
+        s.querySelectorAll('.prin .prow .pill').forEach((p, k) => { p.textContent = f.pills[k][0]; p.className = f.pills[k][1]; });
+        s.querySelector('.prin .sum').innerHTML = f.sum; s.querySelector('.kw').textContent = f.kw; s.querySelector('.stats .alert').classList.add('hot');
+    }
+    const backend = {
+        run(s, c) {
+            const f = backendInit(s);
+            s.querySelectorAll('.prin .pm').forEach((p) => { p.querySelector('.now b').textContent = `${p.dataset.b}%`; const d = p.querySelector('.d'); d.textContent = '=0'; d.className = 'd'; });
+            s.querySelectorAll('.prin .prow .pill').forEach((p) => { p.textContent = 'Kept'; p.className = 'pill k'; });
+            const sum = s.querySelector('.prin .sum');
+            sum.innerHTML = '<span class="k">Kept <i>5</i></span><span class="w">Weakened 0</span><span class="x">Not met <i>0</i></span>';
+            s.querySelector('.kw').textContent = '5 / 0'; s.querySelector('.stats .alert').classList.remove('hot');
+            let kept = 5, miss = 0;
+            const rows = [...s.querySelectorAll('.prin .prow')];
+            let pmIndex = 0;
+            rows.forEach((row, r) => {
+                const pms = [...row.querySelectorAll('.pm')]; const first = pmIndex; pmIndex += pms.length;
+                c.after(2200 + r * 450, () => {
+                    pms.forEach((p, j) => {
+                        const fin = f.pm[first + j];
+                        tween(c, p.querySelector('.now b'), +p.dataset.b, +p.dataset.v, 900, (x) => `${Math.round(x)}%`);
+                        c.after(700, () => { const d = p.querySelector('.d'); d.textContent = fin[1]; d.className = fin[2]; });
+                    });
+                    c.after(950, () => {
+                        const pill = row.querySelector('.pill'); const [txt, cls] = f.pills[r];
+                        if (txt !== pill.textContent) {
+                            pill.textContent = txt; pill.className = `${cls} flip`;
+                            kept -= 1; miss += 1;
+                            sum.innerHTML = `<span class="k">Kept <i>${kept}</i></span><span class="w">Weakened 0</span><span class="x">Not met <i>${miss}</i></span>`;
+                            s.querySelector('.kw').textContent = `${kept} / ${miss}`;
+                            s.querySelector('.stats .alert').classList.add('hot');
+                        }
+                    });
+                });
+            });
+        },
+        rest(s) { backendFinal(s); },
+    };
+
+    const DEMOS = { daynight, share, langs, split, wheel, ressay, backend };
 
     function start(slide) {
         stop(slide);
