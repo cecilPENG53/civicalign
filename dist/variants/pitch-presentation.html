@@ -1114,10 +1114,6 @@ svg {
     background: var(--green); padding: 8px 16px; border-radius: 999px;
     box-shadow: 0 10px 24px -12px rgba(15,27,51,.6);
 }
-.sq-label::after { /* leader line to the square */
-    content: ''; position: absolute; left: 100%; top: 50%; width: 58px; height: 3px;
-    background: var(--green); transform-origin: 0 50%; transform: rotate(28deg);
-}
 .mk-live .slide.visible .sq-label { animation: mk-fade-up .7s var(--ease) 2s both; }
 
 /* ===========================================
@@ -1309,25 +1305,42 @@ svg {
 .wheel .cbw-w { transform-box: view-box; transform-origin: 50% 50%; }
 .mk-live .slide.visible .wheel .cbw-w { animation: wh-in .55s var(--ease) both; animation-delay: calc(.6s + var(--i) * .075s); }
 .mk-live .slide.visible .wheel .cbw-ring { transform-box: view-box; transform-origin: 50% 50%; animation: wh-hub .7s var(--ease) .3s both; }
+/* The selected segment: outline, slight pop-out, and its domain lit in the hub.
+   JS moves the .on class around the wheel (the "wheel tour"). */
+.wheel .cbw-f { transform-box: view-box; transform-origin: 50% 50%; transition: transform .5s var(--ease); }
+.wheel .cbw-w.on .cbw-f { stroke: #13202e !important; stroke-width: 4px !important; transform: scale(1.035); }
+.wheel .cbw-p { transition: fill .45s ease; }
+.wheel .cbw-pt.on .cbw-p { fill: #1f6b57 !important; }
 .mk-live .slide.visible .wheel .cbw-w.on .cbw-f { animation: wh-on 2.4s ease-in-out 2.4s infinite; }
 @keyframes wh-in { from { opacity: 0; transform: scale(.78) rotate(-10deg); } }
 @keyframes wh-hub { from { opacity: 0; transform: scale(.5); } }
-@keyframes wh-on { 50% { stroke: #0f1b33; stroke-width: 6px; filter: drop-shadow(0 0 10px rgba(31,107,87,.8)); } }
-.detail { position: absolute; left: 670px; top: 250px; width: 370px; padding: 22px 24px; }
+@keyframes wh-on { 50% { filter: drop-shadow(0 0 9px rgba(31,107,87,.85)); } }
+
+/* Detail card: fixed size so it never jumps while the tour changes it */
+.detail { position: absolute; left: 670px; top: 128px; width: 370px; height: 500px; padding: 22px 24px; }
 .detail .nav { display: flex; justify-content: space-between; align-items: center; font-size: 18px; color: var(--muted); }
 .detail .nav i { font-style: normal; width: 34px; height: 34px; border: 1px solid var(--line); border-radius: 8px; display: grid; place-items: center; color: var(--ink); }
-.detail h4 { text-align: center; font-family: var(--font-display); font-weight: 700; font-size: 24px; margin-top: 2px; }
-.detail .big { text-align: center; margin-top: 10px; font-family: var(--font-display); font-weight: 700; font-size: 64px; letter-spacing: -.02em; }
-.detail .big small { font-size: 20px; color: var(--muted); font-weight: 500; }
-.detail .modes { margin: 10px auto 0; height: 14px; width: 86%; border-radius: 999px; background: #dfe7ef; overflow: hidden; }
-.detail .modes i { display: block; height: 100%; width: 68%; background: var(--blue); border-radius: 999px; }
-.bars { margin-top: 20px; }
+.detail h4 { height: 62px; display: flex; align-items: center; justify-content: center; text-align: center; font-family: var(--font-display); font-weight: 700; font-size: 24px; line-height: 1.2; margin-top: 4px; }
+.detail .big { text-align: center; margin-top: 4px; font-family: var(--font-display); font-weight: 700; font-size: 64px; line-height: 1.05; letter-spacing: -.02em; }
+.detail .big small { font-size: 20px; color: var(--muted); font-weight: 500; letter-spacing: 0; }
+.picto { margin: 12px auto 0; width: 290px; display: grid; grid-template-columns: repeat(10, 1fr); gap: 8px 9px; }
+.picto i { display: block; height: 20px; border-radius: 999px; background: #d6dee7; transition: background .25s ease, transform .25s ease; transition-delay: calc(var(--k) * 35ms); }
+.picto i.f { background: var(--pc, var(--blue)); }
+.picto-k { margin-top: 8px; text-align: center; font-size: 18px; color: var(--muted); }
+.bars { margin-top: 10px; }
 .bars div { display: grid; grid-template-columns: 1fr 70px 34px; align-items: center; gap: 10px; font-size: 18px; margin-top: 10px; line-height: 1.2; }
 .bars s { display: block; height: 8px; border-radius: 999px; background: #e4e9ef; text-decoration: none; overflow: hidden; }
-.bars s i { display: block; height: 100%; width: var(--w); background: var(--blue); }
+.bars s i { display: block; height: 100%; width: var(--w); background: var(--bc, var(--blue)); transition: width .9s var(--ease); }
 .bars b { font-family: var(--font-mono); font-size: 18px; text-align: right; }
-.mk-live .slide.visible .detail .modes i, .mk-live .slide.visible .bars s i { animation: grow 1.2s var(--ease) 2s both; }
+.mk-live .slide.visible .bars s i { animation: grow 1.2s var(--ease) 2s both; }
+.detail.tour .bars s i { animation: none; }
 @keyframes grow { from { width: 0; } }
+.detail .novote { display: none; margin-top: 26px; border: 2px dashed var(--line); border-radius: 14px; padding: 26px 10px; text-align: center; font-size: 22px; color: var(--muted); }
+.detail.na .novote { display: block; }
+.detail.na .voted { display: none; }
+/* small fade as the card switches to the next feature */
+.detail .swap { transition: opacity .25s ease; }
+.detail.out .swap { opacity: .15; }
 .wheel-card .wfoot { position: absolute; left: 670px; width: 370px; bottom: 34px; font-size: 18px; line-height: 1.35; color: var(--muted); }
 .council-right { position: absolute; left: 1210px; top: 240px; width: 614px; }
 .nine { display: flex; align-items: center; gap: 28px; }
@@ -1578,7 +1591,7 @@ SAY: Here's how it works. I'll put more of the hundred points into markets and c
 </section>
 
 <!-- =========================================== SLIDE 7 · LIVE DEMO: COUNCIL VIEW -->
-<section class="slide">
+<section class="slide" data-demo="wheel">
     <header class="hd">
         <p class="kicker" data-enter="fade-up">Live demo · Council view</p>
         <h2 data-enter="rise" style="--enter-delay:.1s">Council sees concerns by persona and strategy theme</h2>
@@ -1614,7 +1627,7 @@ SAY: Here's how it works. I'll put more of the hundred points into markets and c
 <path class="cbw-f" d="M227.4 195.6A300 300 0 0 1 153.2 258.0L79.6 134.1A156 156 0 0 0 118.3 101.7Z" style="fill:rgb(112,160,147);stroke:rgb(255, 255, 255);stroke-width:1.5px"></path>
 <text transform="rotate(50) translate(228 0)" text-anchor="middle" style="fill:rgb(255, 255, 255);font-size:13px;font-weight:600"><tspan x="0" dy="-2.5" style="fill:rgb(255, 255, 255);font-size:13px;font-weight:600">Connected</tspan><tspan x="0" dy="14" style="fill:rgb(255, 255, 255);font-size:13px;font-weight:600">communities</tspan></text>
 <text class="cbw-n" text-anchor="middle" transform="translate(205.7 245.1)" dy="5" style="fill:rgb(19, 32, 46);font-size:13.5px;font-weight:700">59%</text></g><g class="cbw-w dk on" style="--i:9" data-cb="feat" data-val="modal" >
-<path class="cbw-f" d="M146.8 261.6A300 300 0 0 1 55.7 294.8L29.0 153.3A156 156 0 0 0 76.3 136.0Z" style="fill:rgb(94,148,134);stroke:rgb(19, 32, 46);stroke-width:4px"></path>
+<path class="cbw-f" d="M146.8 261.6A300 300 0 0 1 55.7 294.8L29.0 153.3A156 156 0 0 0 76.3 136.0Z" style="fill:rgb(94,148,134);stroke:rgb(255, 255, 255);stroke-width:1.5px"></path>
 <text transform="rotate(70) translate(228 0)" text-anchor="middle" style="fill:rgb(255, 255, 255);font-size:13px;font-weight:600"><tspan x="0" dy="-2.5" style="fill:rgb(255, 255, 255);font-size:13px;font-weight:600">Mixed-modal</tspan><tspan x="0" dy="14" style="fill:rgb(255, 255, 255);font-size:13px;font-weight:600">access</tspan></text>
 <text class="cbw-n" text-anchor="middle" transform="translate(109.4 300.7)" dy="5" style="fill:rgb(19, 32, 46);font-size:13.5px;font-weight:700">68%</text></g><g class="cbw-w dk" style="--i:10" data-cb="feat" data-val="pat" >
 <path class="cbw-f" d="M48.5 296.1A300 300 0 0 1 -48.5 296.1L-25.2 153.9A156 156 0 0 0 25.2 153.9Z" style="fill:rgb(121,166,154);stroke:rgb(255, 255, 255);stroke-width:1.5px"></path>
@@ -1640,18 +1653,23 @@ SAY: Here's how it works. I'll put more of the hundred points into markets and c
 </g><g class="cbw-w" style="--i:17" data-cb="feat" data-val="ent" >
 <path class="cbw-f" d="M-227.4 -195.6A300 300 0 0 1 -153.2 -258.0L-79.6 -134.1A156 156 0 0 0 -118.3 -101.7Z" style="fill:rgb(170,199,191);stroke:rgb(255, 255, 255);stroke-width:1.5px"></path>
 <text transform="rotate(410) translate(-228 0)" text-anchor="middle" style="fill:rgb(19, 32, 46);font-size:13px;font-weight:600"><tspan x="0" dy="-2.5" style="fill:rgb(19, 32, 46);font-size:13px;font-weight:600">Entrepreneurship</tspan><tspan x="0" dy="14" style="fill:rgb(19, 32, 46);font-size:13px;font-weight:600">&amp; innovation</tspan></text>
-<text class="cbw-n" text-anchor="middle" transform="translate(-205.7 -245.1)" dy="5" style="fill:rgb(19, 32, 46);font-size:13.5px;font-weight:700">29%</text></g><circle r="150" class="cbw-ring" style="fill:rgb(14, 28, 51)"></circle><g class="cbw-pt" transform="translate(0.0 -104.0)" ><circle r="42" class="cbw-p" style="fill:rgb(36, 58, 99)"></circle><text text-anchor="middle" style="fill:rgb(234, 240, 249);font-size:12px;font-weight:600"><tspan x="0" dy="-2" style="fill:rgb(234, 240, 249);font-size:12px;font-weight:600">Smart</tspan><tspan x="0" dy="14" style="fill:rgb(234, 240, 249);font-size:12px;font-weight:600">Governance</tspan></text></g><g class="cbw-pt" transform="translate(90.1 -52.0)" ><circle r="42" class="cbw-p" style="fill:rgb(36, 58, 99)"></circle><text text-anchor="middle" style="fill:rgb(234, 240, 249);font-size:12px;font-weight:600"><tspan x="0" dy="-2" style="fill:rgb(234, 240, 249);font-size:12px;font-weight:600">Smart</tspan><tspan x="0" dy="14" style="fill:rgb(234, 240, 249);font-size:12px;font-weight:600">Environment</tspan></text></g><g class="cbw-pt" transform="translate(90.1 52.0)" ><circle r="42" class="cbw-p" style="fill:rgb(36, 58, 99)"></circle><text text-anchor="middle" style="fill:rgb(234, 240, 249);font-size:12px;font-weight:600"><tspan x="0" dy="-2" style="fill:rgb(234, 240, 249);font-size:12px;font-weight:600">Smart</tspan><tspan x="0" dy="14" style="fill:rgb(234, 240, 249);font-size:12px;font-weight:600">Living</tspan></text></g><g class="cbw-pt" transform="translate(0.0 104.0)" ><circle r="42" class="cbw-p" style="fill:rgb(36, 58, 99)"></circle><text text-anchor="middle" style="fill:rgb(234, 240, 249);font-size:12px;font-weight:600"><tspan x="0" dy="-2" style="fill:rgb(234, 240, 249);font-size:12px;font-weight:600">Smart</tspan><tspan x="0" dy="14" style="fill:rgb(234, 240, 249);font-size:12px;font-weight:600">Mobility</tspan></text></g><g class="cbw-pt" transform="translate(-90.1 52.0)" ><circle r="42" class="cbw-p" style="fill:rgb(36, 58, 99)"></circle><text text-anchor="middle" style="fill:rgb(234, 240, 249);font-size:12px;font-weight:600"><tspan x="0" dy="-2" style="fill:rgb(234, 240, 249);font-size:12px;font-weight:600">Smart</tspan><tspan x="0" dy="14" style="fill:rgb(234, 240, 249);font-size:12px;font-weight:600">People</tspan></text></g><g class="cbw-pt" transform="translate(-90.1 -52.0)" ><circle r="42" class="cbw-p" style="fill:rgb(36, 58, 99)"></circle><text text-anchor="middle" style="fill:rgb(234, 240, 249);font-size:12px;font-weight:600"><tspan x="0" dy="-2" style="fill:rgb(234, 240, 249);font-size:12px;font-weight:600">Smart</tspan><tspan x="0" dy="14" style="fill:rgb(234, 240, 249);font-size:12px;font-weight:600">Economy</tspan></text></g>
+<text class="cbw-n" text-anchor="middle" transform="translate(-205.7 -245.1)" dy="5" style="fill:rgb(19, 32, 46);font-size:13.5px;font-weight:700">29%</text></g><circle r="150" class="cbw-ring" style="fill:rgb(14, 28, 51)"></circle><g class="cbw-pt" data-dom="Smart Governance" transform="translate(0.0 -104.0)" ><circle r="42" class="cbw-p" style="fill:rgb(36, 58, 99)"></circle><text text-anchor="middle" style="fill:rgb(234, 240, 249);font-size:12px;font-weight:600"><tspan x="0" dy="-2" style="fill:rgb(234, 240, 249);font-size:12px;font-weight:600">Smart</tspan><tspan x="0" dy="14" style="fill:rgb(234, 240, 249);font-size:12px;font-weight:600">Governance</tspan></text></g><g class="cbw-pt" data-dom="Smart Environment" transform="translate(90.1 -52.0)" ><circle r="42" class="cbw-p" style="fill:rgb(36, 58, 99)"></circle><text text-anchor="middle" style="fill:rgb(234, 240, 249);font-size:12px;font-weight:600"><tspan x="0" dy="-2" style="fill:rgb(234, 240, 249);font-size:12px;font-weight:600">Smart</tspan><tspan x="0" dy="14" style="fill:rgb(234, 240, 249);font-size:12px;font-weight:600">Environment</tspan></text></g><g class="cbw-pt" data-dom="Smart Living" transform="translate(90.1 52.0)" ><circle r="42" class="cbw-p" style="fill:rgb(36, 58, 99)"></circle><text text-anchor="middle" style="fill:rgb(234, 240, 249);font-size:12px;font-weight:600"><tspan x="0" dy="-2" style="fill:rgb(234, 240, 249);font-size:12px;font-weight:600">Smart</tspan><tspan x="0" dy="14" style="fill:rgb(234, 240, 249);font-size:12px;font-weight:600">Living</tspan></text></g><g class="cbw-pt on" data-dom="Smart Mobility" transform="translate(0.0 104.0)" ><circle r="42" class="cbw-p" style="fill:rgb(36, 58, 99)"></circle><text text-anchor="middle" style="fill:rgb(234, 240, 249);font-size:12px;font-weight:600"><tspan x="0" dy="-2" style="fill:rgb(234, 240, 249);font-size:12px;font-weight:600">Smart</tspan><tspan x="0" dy="14" style="fill:rgb(234, 240, 249);font-size:12px;font-weight:600">Mobility</tspan></text></g><g class="cbw-pt" data-dom="Smart People" transform="translate(-90.1 52.0)" ><circle r="42" class="cbw-p" style="fill:rgb(36, 58, 99)"></circle><text text-anchor="middle" style="fill:rgb(234, 240, 249);font-size:12px;font-weight:600"><tspan x="0" dy="-2" style="fill:rgb(234, 240, 249);font-size:12px;font-weight:600">Smart</tspan><tspan x="0" dy="14" style="fill:rgb(234, 240, 249);font-size:12px;font-weight:600">People</tspan></text></g><g class="cbw-pt" data-dom="Smart Economy" transform="translate(-90.1 -52.0)" ><circle r="42" class="cbw-p" style="fill:rgb(36, 58, 99)"></circle><text text-anchor="middle" style="fill:rgb(234, 240, 249);font-size:12px;font-weight:600"><tspan x="0" dy="-2" style="fill:rgb(234, 240, 249);font-size:12px;font-weight:600">Smart</tspan><tspan x="0" dy="14" style="fill:rgb(234, 240, 249);font-size:12px;font-weight:600">Economy</tspan></text></g>
 <circle r="56" class="cbw-c" style="fill:rgb(255, 255, 255)"></circle><text text-anchor="middle" class="cbw-hit" style="fill:rgb(19, 32, 46);font-size:17px;font-weight:700"><tspan x="0" dy="-2" style="fill:rgb(19, 32, 46);font-size:17px;font-weight:700">SMART</tspan><tspan x="0" dy="20" style="fill:rgb(19, 32, 46);font-size:17px;font-weight:700">CITY</tspan></text></svg></div>
+        <!-- Detail card. Resting state = Mixed-modal access; the wheel tour (JS) rewrites it -->
         <div class="card detail">
-            <div class="nav"><i>‹</i><span>Smart Mobility</span><i>›</i></div>
-            <h4>Mixed-modal access</h4>
-            <p class="big"><span data-count data-count-delay="1900">68%</span> <small>65 / 96</small></p>
-            <div class="modes"><i></i></div>
-            <div class="bars">
-                <div><span>Hard going with a wheelchair or pram</span><s style="--w:37%"><i></i></s><b>36</b></div>
-                <div><span>Nowhere to park a bike</span><s style="--w:23%"><i></i></s><b>22</b></div>
-                <div><span>Drop-off cars block the footpath</span><s style="--w:24%"><i></i></s><b>23</b></div>
+            <div class="nav"><i>‹</i><span class="dom swap">Smart Mobility</span><i>›</i></div>
+            <h4 class="feat swap">Mixed-modal access</h4>
+            <div class="voted">
+                <p class="big"><span class="pct" data-count data-count-delay="1900">68%</span> <small class="cnt">65 / 96</small></p>
+                <div class="picto" style="--pc:var(--blue)"><i class="f" style="--k:0"></i><i class="f" style="--k:1"></i><i class="f" style="--k:2"></i><i class="f" style="--k:3"></i><i class="f" style="--k:4"></i><i class="f" style="--k:5"></i><i class="f" style="--k:6"></i><i class="f" style="--k:7"></i><i class="f" style="--k:8"></i><i class="f" style="--k:9"></i><i class="f" style="--k:10"></i><i class="f" style="--k:11"></i><i class="f" style="--k:12"></i><i class="f" style="--k:13"></i><i style="--k:14"></i><i style="--k:15"></i><i style="--k:16"></i><i style="--k:17"></i><i style="--k:18"></i><i style="--k:19"></i></div>
+                <p class="picto-k">1 symbol = 5%</p>
+                <div class="bars swap">
+                    <div><span>Hard going with a wheelchair or pram</span><s style="--w:37%"><i></i></s><b>36</b></div>
+                    <div><span>Nowhere to park a bike</span><s style="--w:23%"><i></i></s><b>22</b></div>
+                    <div><span>Drop-off cars block the footpath</span><s style="--w:24%"><i></i></s><b>23</b></div>
+                </div>
             </div>
+            <p class="novote">No vote option points here</p>
         </div>
         <p class="wfoot">Which choice points at which feature is the team's reading.</p>
     </div>
@@ -2639,7 +2657,80 @@ window.deckEditor = new DeckEditor(window.presentation);
         },
     };
 
-    const DEMOS = { daynight, share, langs, split };
+    /* --- Slide 7: the highlight tours the strategy wheel clockwise ---
+       Per-feature values read from the Council backend on the live site.
+       [domain, feature, % or null (no vote option), votes /96, concerns] */
+    const C = { // concern -> [label, votes, colour]
+        dark: ['Feels dark at night', 27, 'var(--gold)'], shade: ['No shade in the afternoon', 34, 'var(--leaf)'],
+        rain: ['Puddles after heavy rain', 28, 'var(--green-2)'], market: ['Want night markets and outdoor dining', 28, 'var(--orange)'],
+        culture: ["Want Chinatown's culture and art on show", 32, 'var(--orange)'], sit: ['Nowhere to sit and rest', 32, 'var(--orange)'],
+        wheel: ['Hard going with a wheelchair or pram', 36, 'var(--blue)'], bike: ['Nowhere to park a bike', 22, 'var(--blue)'],
+        drop: ['Drop-off cars block the footpath', 23, 'var(--blue)'],
+    };
+    const FEAT = {
+        ict: ['Smart Governance', 'ICT & e-governance', 28, 27, ['dark']],
+        open: ['Smart Governance', 'Transparency & open data', null],
+        part: ['Smart Governance', 'Enabling community participation', null],
+        gbld: ['Smart Environment', 'Green buildings', null],
+        renew: ['Smart Environment', 'Renewable energy sources', 28, 27, ['dark']],
+        gplan: ['Smart Environment', 'Green urban planning', 53, 51, ['shade', 'rain']],
+        safe: ['Smart Living', 'Safe places', 52, 50, ['dark', 'market']],
+        vib: ['Smart Living', 'Culturally vibrant', 33, 32, ['culture']],
+        conn: ['Smart Living', 'Connected communities', 59, 57, ['market', 'sit']],
+        modal: ['Smart Mobility', 'Mixed-modal access', 68, 65, ['wheel', 'bike', 'drop']],
+        pat: ['Smart Mobility', 'Prioritise public & active transport', 54, 52, ['wheel', 'bike']],
+        dem: ['Smart Mobility', 'Demand management', 24, 23, ['drop']],
+        crea: ['Smart People', 'Embrace creativity', 33, 32, ['culture']],
+        incl: ['Smart People', 'Inclusive society', 64, 61, ['sit', 'wheel']],
+        edu: ['Smart People', '21st century education', null],
+        glob: ['Smart Economy', 'Local & global connectedness', 54, 52, ['market', 'culture']],
+        prod: ['Smart Economy', 'Productivity', null],
+        ent: ['Smart Economy', 'Entrepreneurship & innovation', 29, 28, ['market']],
+    };
+    const ORDER = Object.keys(FEAT); // clockwise from the top, as drawn
+    function wheelShow(s, key, c, instant) {
+        const [dom, name, pct, votes, cs] = FEAT[key];
+        const card = s.querySelector('.detail');
+        s.querySelectorAll('.wheel .cbw-w').forEach((g) => g.classList.toggle('on', g.dataset.val === key));
+        s.querySelectorAll('.wheel .cbw-pt').forEach((g) => g.classList.toggle('on', g.dataset.dom === dom));
+        const apply = () => {
+            card.querySelector('.dom').textContent = dom;
+            card.querySelector('.feat').textContent = name;
+            card.classList.toggle('na', pct === null);
+            if (pct !== null) {
+                card.querySelector('.cnt').textContent = `${votes} / 96`;
+                const col = C[cs[0]][2];
+                const pic = card.querySelector('.picto'); pic.style.setProperty('--pc', col);
+                const n = Math.round(pct / 5);
+                pic.querySelectorAll('i').forEach((d, i) => d.classList.toggle('f', i < n));
+                card.querySelector('.bars').innerHTML = cs.map((k) => `<div><span>${C[k][0]}</span><s style="--w:${instant ? Math.round(C[k][1] / 96 * 100) : 0}%;--bc:${C[k][2]}"><i></i></s><b>${C[k][1]}</b></div>`).join('');
+                const el = card.querySelector('.pct');
+                const from = parseInt(el.textContent, 10) || 0;
+                if (instant || !c) el.textContent = `${pct}%`;
+                else {
+                    const t0 = performance.now();
+                    c.frame((now) => { const p = Math.min(1, (now - t0) / 700); el.textContent = `${Math.round(from + (pct - from) * (1 - Math.pow(1 - p, 3)))}%`; return p < 1; });
+                    requestAnimationFrame(() => requestAnimationFrame(() => card.querySelectorAll('.bars s').forEach((b, i) => b.style.setProperty('--w', `${Math.round(C[cs[i]][1] / 96 * 100)}%`))));
+                }
+            }
+            card.classList.remove('out');
+        };
+        if (instant || !c) apply(); else { card.classList.add('out'); c.after(220, apply); }
+    }
+    const wheel = {
+        run(s, c) {
+            const card = s.querySelector('.detail');
+            let i = ORDER.indexOf('modal');
+            c.after(4200, () => {
+                card.classList.add('tour');
+                const next = () => { i = (i + 1) % ORDER.length; wheelShow(s, ORDER[i], c); };
+                next(); c.every(2400, next);
+            });
+        },
+        rest(s) { s.querySelector('.detail').classList.remove('tour', 'out'); wheelShow(s, 'modal', null, true); },
+    };
+
+    const DEMOS = { daynight, share, langs, split, wheel };
 
     function start(slide) {
         stop(slide);
