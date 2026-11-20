@@ -88,6 +88,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .p6-total{display:flex;justify-content:space-between;align-items:center;background:var(--chrome);color:var(--chrome-fg);border-radius:12px;padding:12px 16px;font-size:14px}
 .p6-total b{font:700 26px/1 var(--f-display)}
 .p6r{margin-top:12px}
+.p6note{margin:4px 0 0;font-weight:400}
 .p6r label{display:flex;justify-content:space-between;gap:10px;font-weight:700;font-size:14.5px}
 .p6r output{font-family:var(--f-mono);color:var(--accent)}
 .p6m{display:flex;justify-content:space-between;align-items:center;gap:10px;border-top:1px solid var(--line);margin-top:16px;padding-top:12px;font-weight:700;font-size:14.5px}
@@ -630,7 +631,7 @@ function setP6(id,v){
 }
 const p6Key=()=>Object.keys(P6_SETS).find(k=>P6.every(p=>P6_SETS[k][p.id]===S.p6[p.id]))||null;
 function p6Rows(){return P6.map(p=>`<div class="p6r"><label for="p6_${p.id}"><span>${T(p)}</span><output id="p6o_${p.id}">${S.p6[p.id]}</output></label>
-  <input class="rg" type="range" min="0" max="100" step="1" id="p6_${p.id}" data-p6="${p.id}" value="${S.p6[p.id]}" style="--c:${p.c};--p:${S.p6[p.id]}%"></div>`).join("");}
+  <input class="rg" type="range" min="0" max="100" step="1" id="p6_${p.id}" data-p6="${p.id}" value="${S.p6[p.id]}" style="--c:${p.c};--p:${S.p6[p.id]}%">${p.id==="shade"&&!isRejected("cx4")?`<p class="small muted p6note">${L("背景：Council 和西悉尼大学的测量显示，气温在全市范围内差异明显","Context: measurements by Council and Western Sydney University show air temperature varies significantly across the City")} ${chip("S12","","cx4")}</p>`:""}</div>`).join("");}
 function p6Presets(){const cur=p6Key();return `<div class="pzs" role="group" aria-label="${L("快速对比","Quick compare")}">${Object.keys(P6_SETS).map(k=>`<button class="pz pz-${k}" data-p6set="${k}" aria-pressed="${cur===k}">${T(PZ[k])}<small>${T(PZ[k].s)}</small></button>`).join("")}</div>`;}
 function p6Mix(){return MODULES.filter(m=>S.a[m.id]>0||m.base>0).map(m=>`<li><span>${T(m)}</span><span>${fmt(S.a[m.id])} m²</span></li>`).join("");}
 function p6Sync(active){

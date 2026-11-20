@@ -89,9 +89,10 @@ function cbRep(subs,show){const known=subs.filter(s=>s.lang),zh=known.filter(s=>
     show&&known.length?L(`${zh} / ${known.length} 份用中文界面`,`${zh} of ${known.length} used the Chinese interface`):`<span class="muted">${L(`不足 ${CB_MIN} 份，不计算`,`Fewer than ${CB_MIN}: not worked out`)}</span>`],
    [`${L("华人背景占 22.3%，是 LGA 最大的文化群体","22.3% Chinese ancestry, the LGA's largest cultural group")} ${chip("S3","")}`,L("本原型不问文化背景","This prototype does not ask about cultural background"),no],
    [`${L("各身份（居民、商户、通勤者、访客）在人口里的占比","Share of each role (resident, business, commuter, visitor) in the population")} ${gap}`,L("我们收集了身份，但来源里没有对应的基准","We collect the role, but no source gives a matching benchmark"),no],
-   [`${L("年龄段、在家说的语言：ABS Census","Age bands and language at home: ABS Census")} <span class="tag t-infer">${L("来源待读","Source not read yet")}</span>`,L("读完 ABS 后再对比；这一版没有问年龄段","To compare once the ABS data is read; this version does not ask for an age band"),no]];
+   ...[["cx1",L("本原型不问租房还是自住","This prototype does not ask whether you rent or own")],["cx2",L("本原型不问年龄","This prototype does not ask your age")],["cx3",L("本原型不问年龄段","This prototype does not ask for an age band")]]
+     .filter(([id])=>!isRejected(id)).map(([id,why])=>{const x=cbClaim(id);return [`${claimTxt(x)} ${chip(x.src,x.pg,x.id)}`,why,no];})];
   return `<div class="cb-blk" id="cb-rep"><h3>${L("代表性检查","Representativeness check")}</h3>
-   <p class="small muted">${L("正式版对比 ABS Census 的人口结构。ABS 数据我们还没读，所以这里只用手上来源里的两个数字做基准，不写任何没有来源的人口数字。","The full version compares against ABS Census profiles. We have not read the ABS data yet, so only two figures from sources we hold serve as benchmarks, and no unsourced population figure is stated.")}</p>
+   <p class="small muted">${L("正式版对比 ABS Census 的人口结构。下面的基准来自总规、战略和 ABS 2021 人口普查（Parramatta 片区）。投票里没问的项目标“不能比较”，不写任何没有来源的人口数字。","The full version compares against ABS Census profiles. The benchmarks below come from the master plan, the strategy and the ABS 2021 Census for the suburb of Parramatta. Anything the vote does not ask is marked “cannot be compared”, and no unsourced population figure is stated.")}</p>
    <div class="cb-kv h"><span>${L("基准","Benchmark")}</span><span>${L("我们手上能比的","What we can set against it")}</span><span>${L("现在","Now")}</span></div>
    ${rows.map(r=>`<div class="cb-kv"><span>${r[0]}</span><span>${r[1]}</span><span>${r[2]}</span></div>`).join("")}</div>`;}
 function cbFeedback(){const subs=cbSubs(),n=subs.length,g=cbGroups(),pv=CB.preview,show=n>=CB_MIN||(pv&&n>0);
