@@ -91,12 +91,6 @@ The backend also does three more things:
 
 The tool links to actions under the strategy's six priorities [S5 p.8–9]: 1.2.2, 2.1.1, 2.1.2, 2.1.4, 2.2.2, 3.1.2, 3.1.3, 4.1.2, 4.1.3, 4.2.1, 5.1.3, 6.1.1, 6.2.2 and 6.3.2.
 
-Several of the strategy's indicators have the baseline "TBC" [S5 p.39–63], and resident input can help set them:
-- satisfaction with climate adaptation;
-- views on public and active transport;
-- smart infrastructure in public domain projects;
-- satisfaction with wayfinding.
-
 ## 8. Evidence gaps and open questions
 
 - **No traffic model exists yet.** Traffic modelling comes after Phase 2, with consultant engagement planned for FY27/28 [S2 p.54][S4].

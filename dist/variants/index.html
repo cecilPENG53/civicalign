@@ -1537,7 +1537,7 @@ function tallyPanel(){const P=pool(),n=P.length,mine=mineAll().length;
    Builds on what shared.js already has: the review gate (rv, isRejected, claimTxt), the decision card,
    the status strip, the P1–P6 check (pEval) and the gap list (GAPS).
    Adds: a to-do list, a feedback summary with a per-group threshold, a representativeness check,
-   written-comment triage, an advocacy brief, strategy indicators, ledger filters, a five-step pipeline
+   written-comment triage, an advocacy brief, ledger filters, a five-step pipeline
    and an evidence-standard self-check.
    Everything is demo state saved in this browser. No figure comes from outside S1–S5: every count here is
    counted by the page or comes from demo submissions in this browser. The simulated votes (D1, vote.js)
@@ -1680,19 +1680,6 @@ function cbBrief(){const st=cbBriefState(),b=store.get("cav_brief"),btn=(v,t,p)=
    <p class="small muted">${L("正式版由 AI 起草，规划师批准后才能发出。演示版按模板把没被驳回的条目拼成草稿，页面没有调用 AI；每句事实都带来源。","In the full version AI drafts it and a planner must approve before it goes out. The demo fills a template with claims that were not rejected and calls no AI; every fact keeps its source.")}</p>
    ${st==="none"?`<div class="cb-ghost">${L(`草稿会包含：背景、${CB_ASKS().length} 条请求（每条配一条有来源的事实）、居民意见、还缺的证据。`,`The draft will hold: background, ${CB_ASKS().length} asks (each with a sourced fact), what residents said, and the evidence still missing.`)}</div><div class="cb-acts" style="margin-top:8px">${btn("make",L("生成草稿","Make the draft"),1)}</div>`
     :`${cbBriefDoc()}<div class="cb-acts">${st==="ok"?`<span class="small">${L("批准人：","Approved by: ")}${REVIEWER()} · ${cbWhen(b.at)}</span>${btn("make",L("撤回批准","Withdraw approval"))}`:`${btn("approve",(st==="stale"?L("重新批准","Approve again"):L("批准","Approve"))+" · "+REVIEWER(),1)}${btn("drop",L("丢弃草稿","Discard the draft"))}`}</div>`}`;}
-
-/* ---------- strategy indicators with "Baseline TBC" (S5) ---------- */
-function cbIndicators(){const subs=cbSubs(),n=subs.length,show=n>=CB_MIN||(CB.preview&&n>0),c=cbReact(subs,"traffic"),hot=subs.filter(s=>(s.pri||[]).some(p=>p==="shade"||p==="storm")).length;
-  const none=`<span class="tag t-gap">${L("还没有对应的问题","No matching question yet")}</span>`;
-  const rows=[
-   [L("社区对气候适应措施的满意度","Community satisfaction with climate adaptation measures"),"p.39",L("把“遮荫面积”或“雨水滞留”选为最在乎的份数。只说明在乎，不等于满意","Submissions that pick shaded area or stormwater as a top concern. This shows concern, not satisfaction"),show?L(`${hot} / ${n} 份`,`${hot} of ${n}`):cbHid()],
-   [L("居民对公共交通和主动出行是否够用的感受","Residents' sense of whether public and active transport is adequate"),"p.45",L("对“为行人改造交通”这张卡片的态度","Views on the card “Traffic changes for pedestrians”"),show?L(`支持 ${c.yes} · 不确定 ${c.unsure} · 有顾虑 ${c.no}`,`Support ${c.yes} · Not sure ${c.unsure} · Concerned ${c.no}`):cbHid()],
-   [L("包含智慧基础设施的公共领域项目占比","Share of public domain projects that include smart infrastructure"),"p.51",L("不靠居民输入。广场如果保留智慧照明与传感器，可以算作一个项目","Not from resident input. If the square keeps smart lighting and sensors it can count as one project"),`<span class="muted">${L("由 Council 统计","For Council to count")}</span>`],
-   [L("社区和访客对寻路的满意度","Community and visitor satisfaction with wayfinding"),"p.63",L("可以在提交前加一题","A question could be added before submitting"),none],
-   [L("社区对 Council 数字体验的满意度","Community satisfaction with Council's digital experience"),"p.63",L("可以在提交后加一题，问这个工具好不好用","A question could be added after submitting, asking how the tool worked for them"),none]];
-  return `<p class="small muted">${L("战略里这些指标的基线都写“待定”。居民的回答可以当基线的候选，但要带上样本量和代表性说明。这里只算本浏览器里的演示提交。","The strategy lists these indicators with the baseline still to be confirmed. Resident answers can be candidates for a baseline, but only with the sample size and a representativeness note. Only demo submissions in this browser are counted here.")} <span class="tag t-design">${L("对应关系是我们的设计","The mapping is our design")}</span>${show&&n<CB_MIN?" "+cbPrevTag():""}</p>
-   <div class="cb-kv h"><span>${L("战略指标（基线待定）","Strategy indicator (baseline TBC)")}</span><span>${L("可用的居民输入","Resident input that could feed it")}</span><span>${L("现在","Now")}</span></div>
-   ${rows.map(r=>`<div class="cb-kv"><span>${r[0]} ${chip("S5",r[1])}</span><span>${r[2]}</span><span>${r[3]}</span></div>`).join("")}`;}
 
 /* ---------- home board: the smart-city wheel, after Figure 1 of the strategy (S5 p.18) ----------
    One question: where do residents' votes land on the strategy's 18 features?
