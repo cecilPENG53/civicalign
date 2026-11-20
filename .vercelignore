@@ -1,4 +1,4 @@
-# Upload only the latest resident demo and the submission landing page (/about). Older prototypes and design
+# Upload only the latest resident demo, the submission landing page (/about) and the pitch deck (/pitchPresentation). Older prototypes and design
 # options stay in the repo but are not published.
 /*
 !/vercel.json
@@ -8,3 +8,5 @@
 /dist/variants/*
 !/dist/variants/a-studio.html
 !/dist/variants/about.html
+# Pitch deck for the Council presentation, served at /pitchPresentation
+!/dist/variants/pitchPresentation.html
