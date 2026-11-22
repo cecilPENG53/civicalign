@@ -68,7 +68,7 @@ function sendBar(){const n=S.pick.length,subs=subsAll();
 function freeText(){return `<details class="vfree"><summary>${L("还想补充？写几句（可选）","Anything else? Write a few words (optional)")}</summary>
    <label class="f" for="exp">${L("你现在在这一带的体验是什么？比如晚上走、等车、带孩子、做生意。","What is it like around here now? Walking at night, waiting for a bus, with kids, running a shop.")}</label><textarea id="exp">${esc(S.exp)}</textarea>
    <label class="f" for="wish" style="margin-top:8px">${L("这个广场怎样才对你有用？","What would make this square work for you?")}</label><textarea id="wish">${esc(S.wish)}</textarea>
-   <p class="small muted">${L("请不要写姓名、电话或住址。按“最少必要数据”原则，我们只问身份和可选的年龄段、邮编","Please leave out names, phone numbers and addresses. Under the minimum-data rule we only ask your role, and optionally age band and postcode")} ${chip("S5","p.30")}${L("。",".")}</p></details>`;}
+   <p class="small muted">${L("请不要写姓名、电话或住址。按“最少必要数据”原则，我们只问身份和可选的年龄段、邮编。你写的文字留在本浏览器里；演示里 Council 一方可以点按钮，把它发给 AI 服务做归类","Please leave out names, phone numbers and addresses. Under the minimum-data rule we only ask your role, and optionally age band and postcode. What you write stays in this browser; in the demo the Council side can press a button that sends it to an AI service to be grouped")} ${chip("S5","p.30")}${L("。",".")}</p></details>`;}
 function voteSection(){return `<div class="card vcard"><div id="votePick" style="display:grid;gap:10px">${votePick()}</div><div id="sendBox">${sendBar()}</div>${freeText()}</div>`;}
 function voteRefresh(which){const m={votePick,sendBox:sendBar,tallyBox:tallyPanel};(which||Object.keys(m)).forEach(k=>{const e=document.getElementById(k);if(e)e.innerHTML=m[k]();});}
 

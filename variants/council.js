@@ -116,7 +116,7 @@ function cbTexts(){const out=[];cbSubs().forEach(s=>{
   if(s.exp&&s.exp.trim())out.push({k:s.t+"e",q:L("现在在这一带的体验","What it is like here now"),txt:s.exp.trim()});
   if(s.wish&&s.wish.trim())out.push({k:s.t+"w",q:L("广场怎样才有用","What would make the square work"),txt:s.wish.trim()});});return out;}
 function cbTriage(){const xs=cbTexts(),rt=cbRoutes(),cnt=k=>xs.filter(x=>(rt[x.k]||"")===k).length;
-  const note=`<p class="small muted">${L("每条文字意见由规划师选一个去向。这里不显示身份等信息，免得从一条意见认出个人。正式版由 AI 建议主题，规划师确认；演示版不用 AI。","A planner picks one next step for each written comment. Role and other details are left out so a single comment cannot identify a person. In the full version AI suggests themes and a planner confirms; the demo uses no AI.")}</p>`;
+  const note=`<p class="small muted">${L("每条文字意见由规划师选一个去向。这里不显示身份等信息，免得从一条意见认出个人。上面的 AI 汇总只建议主题，去向仍由规划师在这里逐条决定。","A planner picks one next step for each written comment. Role and other details are left out so a single comment cannot identify a person. The AI summary above only suggests themes; the next step is still decided here, one comment at a time.")}</p>`;
   if(!xs.length) return note+`<div class="cb-ghost">${L("还没有文字意见。居民在故事板第 4 章“还想补充”里写的话会出现在这里。","No written comments yet. What residents write under “Anything else” in chapter 4 of the storyboard appears here.")}</div>`;
   return note+`<p class="small">${CB_ROUTES().map(([k,t])=>`${t} ${cnt(k)}`).join(" · ")}</p>
    <ul class="cb-tri">${xs.map(x=>`<li><div class="small muted">${x.q}</div><p>“${esc(x.txt)}”</p><label>${L("去向","Next step")} <select data-cbroute="${x.k}">${CB_ROUTES().map(([k,t])=>`<option value="${k}"${(rt[x.k]||"")===k?" selected":""}>${t}</option>`).join("")}</select></label></li>`).join("")}</ul>`;}

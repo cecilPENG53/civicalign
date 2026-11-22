@@ -54,7 +54,7 @@ for (const rtl of ["ar", "fa"]) { // "next" arrows point the other way in right-
 const tableBad = cjkGuard.checkTables(i18nDir);
 if (tableBad.length) throw new Error("Chinese text in a translation table:\n" + tableBad.join("\n"));
 const i18nJs = rd("variants/i18n.js").replace("/*__I18N__*/{}", () => JSON.stringify(dict));
-const shared = [i18nJs, rd("variants/shared.js"), rd("variants/iso.js"), rd("variants/vote.js"), rd("variants/council.js")].join(String.fromCharCode(10, 10));
+const shared = [i18nJs, rd("variants/shared.js"), rd("variants/iso.js"), rd("variants/vote.js"), rd("variants/council.js"), rd("variants/comments.js"), rd("variants/cm.js")].join(String.fromCharCode(10, 10));
 
 const BANNED = ["+43", "43 sec", "19% shade", "18,400", "n=142", "Verified Data Layers", "-0.0°C", "−0.0°C", "Monash", "parramatta-logo", "City of Parramatta logo"];
 
