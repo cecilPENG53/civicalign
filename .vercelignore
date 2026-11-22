@@ -10,3 +10,5 @@
 !/dist/variants/about.html
 # Pitch deck for the Council presentation, served at /pitch-presentation
 !/dist/variants/pitch-presentation.html
+# Serverless function behind the "Group real comments with AI" button in the Council backend
+!/api
